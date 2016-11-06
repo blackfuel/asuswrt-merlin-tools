@@ -1,7 +1,7 @@
 #!/bin/sh
-# the purpose of this program is to force the firmware build process into
+# the purpose of this script is to force the firmware build process into
 # retaining the original file timestamps by bind mounting the 
-# Linux 'cp' program and specifying the extra command arguments
+# Linux 'cp' program to specify the extra command arguments
 CMD=$(/usr/bin/basename $0)
 PROGRAM=cp
 EXTRA_ARGS="-pv"
