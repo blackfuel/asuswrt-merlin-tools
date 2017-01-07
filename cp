@@ -1,13 +1,15 @@
 #!/bin/sh
 # the purpose of this script is to force the firmware build process into
-# retaining the original file timestamps by bind mounting the 
-# Linux 'cp' program to specify the extra command arguments
+# preserving the original file timestamps by bind mounting the 
+# Linux 'install' program to specify the extra command arguments
 CMD=$(/usr/bin/basename $0)
 PROGRAM=cp
 EXTRA_ARGS="-pv"
 TOOLS="$HOME/blackfuel/asuswrt-merlin-tools"
 TOOLS_ORIGINAL="$TOOLS/original"
 TOOLS_ROOT="$TOOLS/root"
+CP_SYSTEM="/bin/cp"
+CP_COPY="$TOOLS_ROOT/cp"
 SELF="$TOOLS/${PROGRAM}"
 TARGET="$(which $PROGRAM)"
 TARGET_ORIGINAL="$TOOLS_ORIGINAL/$PROGRAM"
@@ -20,8 +22,24 @@ case $CMD in
     case $1 in
       "attach" )
         if [ $ATTACHED -eq 0 ]; then
-          mkdir -p $TOOLS_ORIGINAL
-          $TOOLS_ROOT/bin/cp -p $TARGET $TARGET_ORIGINAL
+
+           # make a cached copy of the 'cp' program, if it does not exist
+          if [ ! -x "$CP_COPY" ]; then
+            # check if the 'cp' program is already bind mounted
+            /bin/mount | /bin/grep -q $CP_SYSTEM
+            if [ $? -eq 0 ]; then
+              /bin/echo "The 'cp' program is already bind mounted.  It must be unmounted before proceeding so that a cached copy may be created."
+              exit 1
+            else
+              # make a cached copy of the 'cp' program
+	      /bin/mkdir -p $TOOLS_ROOT
+	      $CP_SYSTEM -pv $CP_SYSTEM $TOOLS_ROOT
+            fi
+          fi
+
+          # now we can make a cached copy of the target program
+          /bin/mkdir -p $TOOLS_ORIGINAL
+          $CP_COPY -pv $TARGET $TARGET_ORIGINAL
           sudo /bin/mount -o bind $SELF $TARGET
         else
           /bin/echo "Already attached."
@@ -31,7 +49,7 @@ case $CMD in
       "detach" )
         if [ $ATTACHED -eq 1 ]; then
           sudo /bin/umount $TARGET
-          rm -f $TARGET_ORIGINAL
+          /bin/rm -f $TARGET_ORIGINAL
         else
           /bin/echo "Not attached."
           exit 1
