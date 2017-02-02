@@ -1,4 +1,4 @@
-# Tips and tricks
+# Blackfuel's Tips and tricks
 
 ### HOWTO: Build the Blackfuel version of Asuswrt-Merlin firmware
 ```
@@ -14,6 +14,8 @@ patch -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-ARM-mods+apps+xtables
 ```
 
 ### HOWTO: Remove packages with text search/replace
+The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use an ed script to make our life easy.
+
 1. Create an ed script to automatically edit the file, "release/src-rt/target.mak".
 
   Script file: **~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch**
