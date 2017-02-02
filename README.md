@@ -1,4 +1,4 @@
-# Blackfuel's Tips and tricks
+# Blackfuel's tips and tricks
 
 ### HOWTO: Build the Blackfuel version of Asuswrt-Merlin firmware
 ```
