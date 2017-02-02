@@ -53,7 +53,7 @@ git remote add upstream https://github.com/RMerl/asuswrt-merlin
 git fetch upstream
 git checkout master
 git reset --hard upstream/master
-#(apply patch)
+# (apply patch)
 git status
 git add -A
 git status
