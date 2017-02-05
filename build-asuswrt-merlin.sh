@@ -1,4 +1,8 @@
-BUILD_VER="380.65_beta4"
+#!/bin/bash
+VERSION_CONF=$(cat ~/blackfuel/asuswrt-merlin/release/src-rt/version.conf)
+eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
+eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep EXTENDNO)
+BUILD_VER="$SERIALNO_$EXTENDNO"
 $HOME/blackfuel/asuswrt-merlin-tools/install attach
 $HOME/blackfuel/asuswrt-merlin-tools/cp attach
 chmod -R a+rwx /opt/brcm-arm/bin
