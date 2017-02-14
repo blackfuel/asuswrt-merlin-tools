@@ -13,6 +13,13 @@ cd ~/blackfuel/asuswrt-merlin
 patch -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-ARM-mods+apps+xtables-addons.patch
 ```
 
+### HOWTO: Delete files in one folder hierarchy that appear in another folder hierarchy
+This example cleans the asuswrt-merlin folder of the Xtables addons files.  It uses the `find` command to pipe the list of files to be deleted to `xargs`.  It the process, the root folder name is changed to the place where I want to delete the files.
+```
+cd ~/blackfuel
+find asuswrt-merlin-xtables-addons-1.47.1 -type f -name "*" -printf "$HOME/blackfuel/asuswrt-merlin/%P\0" | xargs -0 -I '{}' rm '{}'
+```
+
 ### HOWTO: Remove packages from Asuswrt-Merlin using scripted search/replace
 The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use an ed script to make our life easy.
 
