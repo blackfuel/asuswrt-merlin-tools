@@ -3,8 +3,9 @@
 
 #cd ~/asuswrt-merlin
 #ed -s < ~/asuswrt-merlin-380.65.patch
-#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-ARM-mods+apps+xtables-addons+nofiles.patch
-#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-ARM-mods+apps+xtables-addons.patch
+#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-ARM-mods+apps+xtables-addons+nofiles.patch
+#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-ARM-mods+apps+xtables-addons.patch
+#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-tor-nat-make-first.patch
 
 #---
 #cd $HOME/blackfuel

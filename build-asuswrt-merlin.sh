@@ -1,4 +1,11 @@
 #!/bin/bash
+make_clean() {
+  make clean
+  rm -f ${HOME}/asuswrt-merlin/release/src/router/rc/prebuild/*.o
+  rm -f ${HOME}/asuswrt-merlin/release/src/router/shared/prebuild/*.o
+  rm .config
+}
+
 VERSION_CONF=$(cat ~/blackfuel/asuswrt-merlin/release/src-rt/version.conf)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep EXTENDNO)
@@ -17,6 +24,7 @@ if [ "$(readlink tor)" != "$torlink" ]; then
   ln -sf $torlink tor
 fi
 cd ${BUILD_FOLDER}
+make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
@@ -39,10 +47,7 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make clean
-rm -f ${HOME}/asuswrt-merlin/release/src/router/rc/prebuild/*.o
-rm -f ${HOME}/asuswrt-merlin/release/src/router/shared/prebuild/*.o
-rm .config
+make_clean
 
 #---
 
@@ -56,6 +61,7 @@ if [ "$(readlink tor)" != "$torlink" ]; then
   ln -sf $torlink tor
 fi
 cd ${BUILD_FOLDER}
+make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
@@ -78,10 +84,7 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make clean
-rm -f ${HOME}/asuswrt-merlin/release/src/router/rc/prebuild/*.o
-rm -f ${HOME}/asuswrt-merlin/release/src/router/shared/prebuild/*.o
-rm .config
+make_clean
 
 #---
 
@@ -95,6 +98,7 @@ if [ "$(readlink tor)" != "$torlink" ]; then
   ln -sf $torlink tor
 fi
 cd ${BUILD_FOLDER}
+make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
@@ -117,14 +121,8 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make clean
-rm -f ${HOME}/asuswrt-merlin/release/src/router/rc/prebuild/*.o
-rm -f ${HOME}/asuswrt-merlin/release/src/router/shared/prebuild/*.o
-rm .config
+make_clean
 
 #---
 $HOME/blackfuel/asuswrt-merlin-tools/install detach
 $HOME/blackfuel/asuswrt-merlin-tools/cp detach
-
-
-
