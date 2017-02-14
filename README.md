@@ -13,7 +13,7 @@ cd ~/blackfuel/asuswrt-merlin
 patch -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-ARM-mods+apps+xtables-addons.patch
 ```
 
-### HOWTO: Remove packages with text search/replace
+### HOWTO: Remove packages from Asuswrt-Merlin using scripted search/replace
 The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use an ed script to make our life easy.
 
 1. Create an ed script to automatically edit the file, "release/src-rt/target.mak".
