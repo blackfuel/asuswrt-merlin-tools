@@ -67,3 +67,7 @@ git status
 git commit -m "Reset to upstream/master and apply the blackfuel mod"
 git push -f origin master
 ```
+
+
+#### Donations may be sent to my Bitcoin address: 1i5Tpno73gJdr1XdmoxT6CjVFGef5KkZM
+Any amount is appreciated.  This helps me share new material and pay the bills.  Thank you.
