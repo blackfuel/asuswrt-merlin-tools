@@ -6,7 +6,7 @@ make_clean() {
   rm .config
 }
 
-VERSION_CONF=$(cat ~/blackfuel/asuswrt-merlin/release/src-rt/version.conf)
+VERSION_CONF=$(cat $HOME/asuswrt-merlin/release/src-rt/version.conf)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep EXTENDNO)
 BUILD_VER="${SERIALNO}_${EXTENDNO}"
