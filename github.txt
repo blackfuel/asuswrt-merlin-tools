@@ -1,0 +1,208 @@
+
+---
+git clone https://github.com/blackfuel/asuswrt-merlin
+
+---
+# Reset to upstream/master and apply the blackfuel mod
+git clone https://github.com/blackfuel/asuswrt-merlin
+git remote add upstream https://github.com/RMerl/asuswrt-merlin
+git fetch upstream
+git checkout master
+git reset --hard upstream/master
+#(apply patch)
+git status
+git add -A
+git status
+git commit -m "Reset to upstream/master and apply the blackfuel mod"
+git push -f origin master
+
+---
+# git pull with backup
+cd asuswrt-merlin-blackfuel
+git pull
+cd ..
+rsync -a --del asuswrt-merlin-blackfuel/ asuswrt-merlin-backup
+
+---
+# merge with upstream branch
+git checkout master
+git fetch upstream
+git merge upstream/master
+git push -f origin master
+
+---
+# merge with upstream master and resolve merge conflicts
+git checkout master
+git fetch upstream
+git merge upstream/master
+#(resolve merge issues here)
+#git checkout --theirs release/src/router/rc/firewall.c
+#git checkout --theirs release/src-rt/target.mak
+#ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
+git status
+git add -u
+git commit -m "Sync with upstream master"
+git push -f origin master
+
+---
+# create and merge with upstream branch and resolve merge conflicts
+git checkout -b 7266
+git fetch upstream
+git merge upstream/7266
+#(resolve merge issues here)
+#git checkout --theirs release/src/router/rc/firewall.c
+#git checkout --theirs release/src-rt/target.mak
+#ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
+git status
+git add -u
+git commit -m "Sync with upstream 7266"
+git push -f origin 7266
+
+---
+# create pull request for a single commit
+git checkout -b upstream upstream/master
+git cherry-pick 891f13f93c4d2356863833fec9075806fe9daa69
+git push origin upstream
+#(now create the pull request)
+
+---
+# merge pull request with upstream master
+git checkout upstream
+git merge upstream/master
+git push origin upstream
+
+---
+# restore original merlin README.md
+git remote add upstream https://github.com/RMerl/asuswrt-merlin
+git fetch upstream
+git checkout ae512273ad9d10b56d1dcb7028cb5a06348a8a1f -- README.md
+git add README-blackfuel.md
+git status
+git commit -m "restore original merlin README.md"
+git status
+git push
+
+---
+# resolving merge conflicts by adding, removing and reverting to upstream version of file
+
+git status
+git commit -m "Sync with upstream 380.63"
+git push
+
+---
+# delete branch both locally and remotely
+git checkout master
+git push origin --delete 380.64_1
+git branch -D 380.64_1
+
+---
+# merge with upstream and ignore conflict for a specific file
+
+git remote add upstream https://github.com/RMerl/asuswrt-merlin
+git fetch upstream
+git checkout master        # OR, git checkout -b 380.64_1
+git merge upstream/master  # OR, git merge upstream/380.64_1
+#
+# **conflict**
+#
+git mergetool
+# OR
+git reset --hard
+git config merge.renameLimit 999999
+# OR
+git reset --hard
+echo target.mak merge=ours > release/src-rt/.gitattributes
+echo README.md merge=ours > .gitattributes
+git config merge.ours.driver true
+git merge upstream/master
+# OR
+#git rebase upstream/master
+# OR
+git add release/src/router/tor/.gitignore
+git rm release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/netfilter_ipv4/ip_set.h
+git rm release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/netfilter_ipv4/ip_set.h
+git rm release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/netfilter_ipv4/ip_set.h
+git checkout upstream/master -- release/src/router/ipset/kernel/include/linux/netfilter_ipv4/ip_set.h
+git add release/src/router/ipset/kernel/include/linux/netfilter_ipv4/ip_set.h
+git checkout upstream/master -- release/src-rt/linux/linux-2.6/include/linux/netfilter_ipv4/ip_set.h
+git add release/src-rt/linux/linux-2.6/include/linux/netfilter_ipv4/ip_set.h
+git add -u
+git commit -m "Sync with upstream 380.63_2"
+git push -f origin master
+
+---
+# merge with upstream and ignore conflict for a specific folder
+
+git remote add upstream https://github.com/RMerl/asuswrt-merlin
+git fetch upstream
+git checkout master
+git merge --no-commit --no-ff upstream/master
+git reset -- release/src/router/tor
+git add -u
+git commit -m "Sync with upstream 380.62_1"
+git push -f origin master   # OR, git push -f origin 380.64_1
+
+---
+
+# apply patch and commit changes
+patch --dry-run -p2 -i ../blackfuel-380.61-ARM-mods+apps.patch
+patch -p2 -i ../blackfuel-380.61-ARM-mods+apps.patch
+git add release/src-rt-6.x.4708/toolchains/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/timepps.h
+git add release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a
+git add release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
+git add release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c
+git add release/src-rt-6.x.4708/linux/linux-2.6.36/net/ipv4/netfilter/Kconfig
+git add release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a
+git add release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
+git add release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
+git add release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/ipv4/netfilter/Kconfig
+git add release/src-rt/Makefile
+git add release/src-rt/target.mak
+git add release/src/router/Makefile
+git add release/src/router/rc/Makefile
+git add release/src/router/rc/openvpn.c
+git add release/src/router/rc/services.c
+git add release/src/router/rc/wan.c
+git add release/src/router/rc/rc.h
+git add release/src/router/shared/misc.c
+git add README-blackfuel.md
+git status
+git commit -m "380.61 blackfuel merge"
+git status
+git push
+
+# revert to previous commit
+git reset --hard HEAD~
+git push -f
+
+# move to tip of current branch
+git reset --hard ORIG_HEAD
+
+---
+
+echo "# asuswrt-merlin-jffs" >> README.md
+git init
+git add README.md
+git commit -m "initial files"
+git remote add origin https://github.com/blackfuel/asuswrt-merlin-jffs.git
+git push -u origin master
+
+---
+git stash save --keep-index
+git rm --cached "Two-Factor_Pre-Boot_Authentication_for_Asus_Routers.pdf"
+
+git add "Two-Factor_Pre-Boot_Authentication_for_Asus_Routers.jpg"
+git status
+git commit -m "replaced PDF with JPG"
+git commit -m "little change"
+git push
+
+---
+# upgraded to TOR v0.2.8.9
+git rm -r release/src/router/tor
+## add new TOR folder
+git add release/src/router/tor/*
+git commit -m "Upgraded to TOR v0.2.8.9"
+git status
+git push
+---

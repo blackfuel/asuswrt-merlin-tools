@@ -1,5 +1,5 @@
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-02-24 20:12:15.307321909 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-02-28 10:54:01.871461446 -0500
 @@ -416,7 +416,7 @@
  CONFIG_INET=y
  CONFIG_IP_MULTICAST=y
@@ -170,7 +170,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1626,7 +1669,7 @@
+@@ -1626,11 +1669,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -179,7 +179,12 @@
  CONFIG_SQUASHFS=y
  # CONFIG_SQUASHFS_XATTR is not set
  # CONFIG_SQUASHFS_LZO is not set
-@@ -1823,7 +1866,7 @@
+ CONFIG_SQUASHFS_XZ=y
++CONFIG_SQUASHFS_4K_DEVBLK_SIZE=y
+ CONFIG_SQUASHFS_EMBEDDED=y
+ CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
+ # CONFIG_VXFS_FS is not set
+@@ -1823,7 +1867,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -188,7 +193,7 @@
  
  #
  # Hash modes
-@@ -1840,41 +1883,42 @@
+@@ -1840,41 +1884,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -254,7 +259,7 @@
  
  #
  # Random Number Generation
-@@ -1882,6 +1926,7 @@
+@@ -1882,6 +1927,7 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -263,7 +268,7 @@
  
  #
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-02-12 21:44:27.319769613 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-02-25 10:34:23.943905016 -0500
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -288,7 +293,7 @@
  	}
  
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-02-12 21:44:27.323771613 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-02-25 10:34:23.943905016 -0500
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -1665,7 +1670,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +MODULE_LICENSE("GPL");
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig	2017-02-12 21:44:27.323771613 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig	2017-02-25 10:34:23.947906989 -0500
 @@ -590,6 +590,203 @@
  
  	  To compile it as a module, choose M here.  If unsure, say N.
@@ -2223,7 +2228,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  endmenu
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile	2017-02-12 21:44:27.327773613 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile	2017-02-25 10:34:23.947906989 -0500
 @@ -40,6 +40,7 @@
  
  # generic X tables 
@@ -6731,8 +6736,66 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +};
 +
 +#endif /* _LINUX_NETFILTER_XT_TARPIT_H */
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-28 10:40:15.681643107 -0500
+@@ -66,6 +66,28 @@
+ 
+ 	  If unsure, say N.
+ 
++config SQUASHFS_4K_DEVBLK_SIZE
++	bool "Use 4K device block size?"
++	depends on SQUASHFS
++	help
++	  By default Squashfs sets the dev block size (sb_min_blocksize)
++	  to 1K or the smallest block size supported by the block device
++	  (if larger).  This, because blocks are packed together and
++	  unaligned in Squashfs, should reduce latency.
++
++	  This, however, gives poor performance on MTD NAND devices where
++	  the optimal I/O size is 4K (even though the devices can support
++	  smaller block sizes).
++
++	  Using a 4K device block size may also improve overall I/O
++	  performance for some file access patterns (e.g. sequential
++	  accesses of files in filesystem order) on all media.
++
++	  Setting this option will force Squashfs to use a 4K device block
++	  size by default.
++
++	  If unsure, say N.
++
+ config SQUASHFS_EMBEDDED
+ 	bool "Additional option for memory-constrained systems"
+ 	depends on SQUASHFS
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-28 10:43:25.949650881 -0500
+@@ -37,6 +37,13 @@
+ #define SQUASHFS_FILE_SIZE		131072
+ #define SQUASHFS_FILE_LOG		17
+ 
++/* default size of block device I/O */
++#ifdef CONFIG_SQUASHFS_4K_DEVBLK_SIZE
++#define SQUASHFS_DEVBLK_SIZE 4096
++#else
++#define SQUASHFS_DEVBLK_SIZE 1024
++#endif
++
+ #define SQUASHFS_FILE_MAX_SIZE		1048576
+ #define SQUASHFS_FILE_MAX_LOG		20
+ 
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-28 10:43:54.113651908 -0500
+@@ -102,7 +102,7 @@
+ 		goto failure;
+ 	}
+ 
+-	msblk->devblksize = sb_min_blocksize(sb, BLOCK_SIZE);
++	msblk->devblksize = sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE);
+ 	msblk->devblksize_log2 = ffz(~msblk->devblksize);
+ 
+ 	mutex_init(&msblk->read_data_mutex);
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-02-24 20:12:15.295315909 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-02-28 11:08:14.536030661 -0500
 @@ -500,7 +500,7 @@
  CONFIG_NETFILTER_NETLINK_LOG=y
  CONFIG_NF_CONNTRACK=y
@@ -6894,7 +6957,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1656,7 +1700,7 @@
+@@ -1656,11 +1700,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -6903,7 +6966,12 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  CONFIG_SQUASHFS=y
  # CONFIG_SQUASHFS_XATTR is not set
  # CONFIG_SQUASHFS_LZO is not set
-@@ -1853,7 +1897,7 @@
+ CONFIG_SQUASHFS_XZ=y
++CONFIG_SQUASHFS_4K_DEVBLK_SIZE=y
+ CONFIG_SQUASHFS_EMBEDDED=y
+ CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
+ # CONFIG_VXFS_FS is not set
+@@ -1853,7 +1898,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -6912,7 +6980,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
  # Hash modes
-@@ -1870,41 +1914,42 @@
+@@ -1870,41 +1915,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -6978,7 +7046,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
  # Random Number Generation
-@@ -1912,6 +1957,7 @@
+@@ -1912,6 +1958,7 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -6987,7 +7055,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-02-12 21:44:27.327773613 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-02-25 10:34:23.955910956 -0500
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -7012,7 +7080,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  	}
  
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-02-12 21:44:27.327773613 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-02-25 10:34:23.955910956 -0500
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -8389,7 +8457,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +MODULE_LICENSE("GPL");
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-02-12 21:44:27.335777613 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-02-25 10:34:23.959912960 -0500
 @@ -589,7 +589,204 @@
  	  packets, for use with security subsystems.
  
@@ -8948,7 +9016,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  endmenu
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-02-12 21:44:27.335777613 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-02-25 10:34:23.959912960 -0500
 @@ -40,6 +40,7 @@
  
  # generic X tables 
@@ -13456,8 +13524,66 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +};
 +
 +#endif /* _LINUX_NETFILTER_XT_TARPIT_H */
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-28 11:21:59.669562146 -0500
+@@ -66,6 +66,28 @@
+ 
+ 	  If unsure, say N.
+ 
++config SQUASHFS_4K_DEVBLK_SIZE
++	bool "Use 4K device block size?"
++	depends on SQUASHFS
++	help
++	  By default Squashfs sets the dev block size (sb_min_blocksize)
++	  to 1K or the smallest block size supported by the block device
++	  (if larger).  This, because blocks are packed together and
++	  unaligned in Squashfs, should reduce latency.
++
++	  This, however, gives poor performance on MTD NAND devices where
++	  the optimal I/O size is 4K (even though the devices can support
++	  smaller block sizes).
++
++	  Using a 4K device block size may also improve overall I/O
++	  performance for some file access patterns (e.g. sequential
++	  accesses of files in filesystem order) on all media.
++
++	  Setting this option will force Squashfs to use a 4K device block
++	  size by default.
++
++	  If unsure, say N.
++
+ config SQUASHFS_EMBEDDED
+ 	bool "Additional option for memory-constrained systems"
+ 	depends on SQUASHFS
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-28 11:24:35.443416843 -0500
+@@ -37,6 +37,13 @@
+ #define SQUASHFS_FILE_SIZE		131072
+ #define SQUASHFS_FILE_LOG		17
+ 
++/* default size of block device I/O */
++#ifdef CONFIG_SQUASHFS_4K_DEVBLK_SIZE
++#define SQUASHFS_DEVBLK_SIZE 4096
++#else
++#define SQUASHFS_DEVBLK_SIZE 1024
++#endif
++
+ #define SQUASHFS_FILE_MAX_SIZE		1048576
+ #define SQUASHFS_FILE_MAX_LOG		20
+ 
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-28 11:25:22.622996280 -0500
+@@ -102,7 +102,7 @@
+ 		goto failure;
+ 	}
+ 
+-	msblk->devblksize = sb_min_blocksize(sb, BLOCK_SIZE);
++	msblk->devblksize = sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE);
+ 	msblk->devblksize_log2 = ffz(~msblk->devblksize);
+ 
+ 	mutex_init(&msblk->read_data_mutex);
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-02-24 20:12:15.251293910 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-02-28 11:09:09.727614887 -0500
 @@ -497,7 +497,7 @@
  CONFIG_NETFILTER_NETLINK_LOG=y
  CONFIG_NF_CONNTRACK=y
@@ -13618,7 +13744,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1649,7 +1693,7 @@
+@@ -1649,11 +1693,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -13627,7 +13753,12 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  CONFIG_SQUASHFS=y
  # CONFIG_SQUASHFS_XATTR is not set
  # CONFIG_SQUASHFS_LZO is not set
-@@ -1846,7 +1890,7 @@
+ CONFIG_SQUASHFS_XZ=y
++CONFIG_SQUASHFS_4K_DEVBLK_SIZE=y
+ CONFIG_SQUASHFS_EMBEDDED=y
+ CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
+ # CONFIG_VXFS_FS is not set
+@@ -1846,7 +1891,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -13636,7 +13767,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
  # Hash modes
-@@ -1863,41 +1907,42 @@
+@@ -1863,41 +1908,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -13700,7 +13831,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
  # Random Number Generation
-@@ -1905,6 +1950,7 @@
+@@ -1905,6 +1951,7 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -13709,7 +13840,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-02-12 21:44:27.339779614 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-02-25 10:34:23.967916968 -0500
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -13734,7 +13865,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  	}
  
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-02-12 21:44:27.339779614 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-02-25 10:34:23.971918968 -0500
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -15111,7 +15242,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +MODULE_LICENSE("GPL");
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-02-12 21:44:27.343781614 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-02-25 10:34:23.971918968 -0500
 @@ -589,6 +589,203 @@
  
  	  To compile it as a module, choose M here.  If unsure, say N.
@@ -15669,7 +15800,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  endmenu
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-02-12 21:44:27.343781614 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-02-25 10:34:23.975920967 -0500
 @@ -40,6 +40,7 @@
  
  # generic X tables 
@@ -20177,6 +20308,64 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +};
 +
 +#endif /* _LINUX_NETFILTER_XT_TARPIT_H */
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-28 11:26:31.945642925 -0500
+@@ -66,6 +66,28 @@
+ 
+ 	  If unsure, say N.
+ 
++config SQUASHFS_4K_DEVBLK_SIZE
++	bool "Use 4K device block size?"
++	depends on SQUASHFS
++	help
++	  By default Squashfs sets the dev block size (sb_min_blocksize)
++	  to 1K or the smallest block size supported by the block device
++	  (if larger).  This, because blocks are packed together and
++	  unaligned in Squashfs, should reduce latency.
++
++	  This, however, gives poor performance on MTD NAND devices where
++	  the optimal I/O size is 4K (even though the devices can support
++	  smaller block sizes).
++
++	  Using a 4K device block size may also improve overall I/O
++	  performance for some file access patterns (e.g. sequential
++	  accesses of files in filesystem order) on all media.
++
++	  Setting this option will force Squashfs to use a 4K device block
++	  size by default.
++
++	  If unsure, say N.
++
+ config SQUASHFS_EMBEDDED
+ 	bool "Additional option for memory-constrained systems"
+ 	depends on SQUASHFS
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-28 11:27:04.049688399 -0500
+@@ -37,6 +37,13 @@
+ #define SQUASHFS_FILE_SIZE		131072
+ #define SQUASHFS_FILE_LOG		17
+ 
++/* default size of block device I/O */
++#ifdef CONFIG_SQUASHFS_4K_DEVBLK_SIZE
++#define SQUASHFS_DEVBLK_SIZE 4096
++#else
++#define SQUASHFS_DEVBLK_SIZE 1024
++#endif
++
+ #define SQUASHFS_FILE_MAX_SIZE		1048576
+ #define SQUASHFS_FILE_MAX_LOG		20
+ 
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-28 11:27:29.162239449 -0500
+@@ -102,7 +102,7 @@
+ 		goto failure;
+ 	}
+ 
+-	msblk->devblksize = sb_min_blocksize(sb, BLOCK_SIZE);
++	msblk->devblksize = sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE);
+ 	msblk->devblksize_log2 = ffz(~msblk->devblksize);
+ 
+ 	mutex_init(&msblk->read_data_mutex);
 diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha1-original/release/src/router/iptables-1.4.x/extensions/compat_user.h ./asuswrt-merlin-380.66-alpha1/release/src/router/iptables-1.4.x/extensions/compat_user.h
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/iptables-1.4.x/extensions/compat_user.h	1969-12-31 19:00:00.000000000 -0500
 +++ ./asuswrt-merlin-380.66-alpha1/release/src/router/iptables-1.4.x/extensions/compat_user.h	2012-10-15 15:29:22.000000000 -0400
@@ -23021,7 +23210,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
 +
 +#endif /* _LINUX_NETFILTER_XT_TARPIT_H */
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt/Makefile	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt/Makefile	2017-02-24 20:12:15.235285906 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt/Makefile	2017-02-25 10:34:23.987926967 -0500
 @@ -2290,17 +2290,6 @@
  			sed -i "/CONFIG_USB_WDM/d" $(1); \
  			echo "# CONFIG_USB_WDM is not set" >>$(1); \
@@ -23072,7 +23261,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  		sed -i "/CONFIG_USB_DEBUG/d" $(1); \
  		echo "CONFIG_USB_DEBUG=y" >>$(1); \
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt/target.mak	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt/target.mak	2017-02-24 20:13:30.765035102 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt/target.mak	2017-02-25 10:34:23.987926967 -0500
 @@ -1,91 +1,91 @@
  # Broadcom MIPS platform
  export RT-N66U := IPV6SUPP=y HTTPS=y MIPS32=r2 BCM57=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=y \
@@ -23215,7 +23404,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  export RT-AC88U := $(RT-AC88U_BASE)
  export RT-AC88U += BUILD_NAME="RT-AC88U" RGMII_BRCM5301X=y SWITCH2="RTL8365MB" BCM_MMC=n BCM_7114=y NOWLALL=n \
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/Makefile	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src/router/Makefile	2017-02-24 20:12:15.219277908 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src/router/Makefile	2017-02-25 10:34:23.991928967 -0500
 @@ -1103,6 +1103,7 @@
  endif
  
@@ -23280,7 +23469,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  tor-clean:
  	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/rc/Makefile	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/Makefile	2017-02-24 20:12:15.195265907 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/Makefile	2017-02-25 10:34:23.991928967 -0500
 @@ -700,10 +700,10 @@
  ate-broadcom.o:
  	@-cp -f ./prebuild/ate-broadcom.o .
@@ -23316,7 +23505,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  %.o: %.c
  	@echo " [rc] CC $@"
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/rc/firewall.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/firewall.c	2017-02-24 20:34:57.654066773 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/firewall.c	2017-02-25 10:34:23.991928967 -0500
 @@ -195,43 +195,6 @@
  	return (r & af);
  }
@@ -23524,7 +23713,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  					fprintf(fp, "-I FORWARD -i %s -s %s -j DROP\n", lan_if, addr_new);
  				}
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/rc/openvpn.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/openvpn.c	2017-02-24 20:12:15.123229905 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/openvpn.c	2017-02-25 10:34:23.995930966 -0500
 @@ -1473,11 +1473,11 @@
  		fprintf(fp, "#!/bin/sh\n");
  		sprintf(&buffer[0], "vpn_server%d_proto", serverNum);
@@ -23543,7 +23732,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  		sprintf(&buffer[0], "vpn_server%d_port", serverNum);
  		fprintf(fp, "--dport %d -j ACCEPT\n", nvram_get_int(&buffer[0]));
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/rc/services.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/services.c	2017-02-24 20:12:15.115225899 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/services.c	2017-02-25 10:34:23.995930966 -0500
 @@ -3475,8 +3475,8 @@
  	if (pids("ntpclient"))
  		killall_tk("ntpclient");
@@ -23556,7 +23745,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  	return 0;
  }
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/rc/wan.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/wan.c	2017-02-24 20:12:15.087211901 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src/router/rc/wan.c	2017-02-25 10:34:23.999932966 -0500
 @@ -3338,8 +3338,16 @@
  #endif
  
@@ -23577,7 +23766,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  
  	/* Report stats */
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/shared/misc.c	2017-02-24 13:54:22.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src/router/shared/misc.c	2017-02-24 20:12:15.071203900 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src/router/shared/misc.c	2017-02-25 10:34:24.003934966 -0500
 @@ -2068,7 +2068,7 @@
  }
  #endif
@@ -23597,7 +23786,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  /*
  	transfer timestamp into date
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/shared/notify_rc.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src/router/shared/notify_rc.c	2017-02-03 00:12:55.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src/router/shared/notify_rc.c	2017-02-25 18:35:34.459419340 -0500
 @@ -0,0 +1,164 @@
 +/*
 + * This program is free software; you can redistribute it and/or
@@ -23645,7 +23834,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
 +
 +int notify_rc(const char *event_name)
 +{
-+	return notify_rc_internal(event_name, FALSE, 30);
++	return notify_rc_internal(event_name, FALSE, 15);
 +}
 +
 +int notify_rc_after_wait(const char *event_name)
@@ -23764,7 +23953,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
 +
 +
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/toolchains/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/timepps.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/toolchains/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/timepps.h	2017-02-12 21:44:27.367793615 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/toolchains/hndtools-arm-linux-2.6.36-uclibc-4.5.3/arm-brcm-linux-uclibcgnueabi/sysroot/usr/include/timepps.h	2017-02-25 10:34:24.003934966 -0500
 @@ -0,0 +1,198 @@
 +/*
 + * timepps.h -- PPS API main header

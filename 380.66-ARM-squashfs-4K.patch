@@ -1,0 +1,204 @@
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-02-28 10:54:01.871461446 -0500
+@@ -1631,6 +1631,7 @@
+ # CONFIG_SQUASHFS_XATTR is not set
+ # CONFIG_SQUASHFS_LZO is not set
+ CONFIG_SQUASHFS_XZ=y
++CONFIG_SQUASHFS_4K_DEVBLK_SIZE=y
+ CONFIG_SQUASHFS_EMBEDDED=y
+ CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
+ # CONFIG_VXFS_FS is not set
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-28 10:40:15.681643107 -0500
+@@ -66,6 +66,28 @@
+ 
+ 	  If unsure, say N.
+ 
++config SQUASHFS_4K_DEVBLK_SIZE
++	bool "Use 4K device block size?"
++	depends on SQUASHFS
++	help
++	  By default Squashfs sets the dev block size (sb_min_blocksize)
++	  to 1K or the smallest block size supported by the block device
++	  (if larger).  This, because blocks are packed together and
++	  unaligned in Squashfs, should reduce latency.
++
++	  This, however, gives poor performance on MTD NAND devices where
++	  the optimal I/O size is 4K (even though the devices can support
++	  smaller block sizes).
++
++	  Using a 4K device block size may also improve overall I/O
++	  performance for some file access patterns (e.g. sequential
++	  accesses of files in filesystem order) on all media.
++
++	  Setting this option will force Squashfs to use a 4K device block
++	  size by default.
++
++	  If unsure, say N.
++
+ config SQUASHFS_EMBEDDED
+ 	bool "Additional option for memory-constrained systems"
+ 	depends on SQUASHFS
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-28 10:43:25.949650881 -0500
+@@ -37,6 +37,13 @@
+ #define SQUASHFS_FILE_SIZE		131072
+ #define SQUASHFS_FILE_LOG		17
+ 
++/* default size of block device I/O */
++#ifdef CONFIG_SQUASHFS_4K_DEVBLK_SIZE
++#define SQUASHFS_DEVBLK_SIZE 4096
++#else
++#define SQUASHFS_DEVBLK_SIZE 1024
++#endif
++
+ #define SQUASHFS_FILE_MAX_SIZE		1048576
+ #define SQUASHFS_FILE_MAX_LOG		20
+ 
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-28 10:43:54.113651908 -0500
+@@ -102,7 +102,7 @@
+ 		goto failure;
+ 	}
+ 
+-	msblk->devblksize = sb_min_blocksize(sb, BLOCK_SIZE);
++	msblk->devblksize = sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE);
+ 	msblk->devblksize_log2 = ffz(~msblk->devblksize);
+ 
+ 	mutex_init(&msblk->read_data_mutex);
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-02-28 11:08:14.536030661 -0500
+@@ -1661,6 +1661,7 @@
+ # CONFIG_SQUASHFS_XATTR is not set
+ # CONFIG_SQUASHFS_LZO is not set
+ CONFIG_SQUASHFS_XZ=y
++CONFIG_SQUASHFS_4K_DEVBLK_SIZE=y
+ CONFIG_SQUASHFS_EMBEDDED=y
+ CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
+ # CONFIG_VXFS_FS is not set
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-28 11:21:59.669562146 -0500
+@@ -66,6 +66,28 @@
+ 
+ 	  If unsure, say N.
+ 
++config SQUASHFS_4K_DEVBLK_SIZE
++	bool "Use 4K device block size?"
++	depends on SQUASHFS
++	help
++	  By default Squashfs sets the dev block size (sb_min_blocksize)
++	  to 1K or the smallest block size supported by the block device
++	  (if larger).  This, because blocks are packed together and
++	  unaligned in Squashfs, should reduce latency.
++
++	  This, however, gives poor performance on MTD NAND devices where
++	  the optimal I/O size is 4K (even though the devices can support
++	  smaller block sizes).
++
++	  Using a 4K device block size may also improve overall I/O
++	  performance for some file access patterns (e.g. sequential
++	  accesses of files in filesystem order) on all media.
++
++	  Setting this option will force Squashfs to use a 4K device block
++	  size by default.
++
++	  If unsure, say N.
++
+ config SQUASHFS_EMBEDDED
+ 	bool "Additional option for memory-constrained systems"
+ 	depends on SQUASHFS
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-28 11:24:35.443416843 -0500
+@@ -37,6 +37,13 @@
+ #define SQUASHFS_FILE_SIZE		131072
+ #define SQUASHFS_FILE_LOG		17
+ 
++/* default size of block device I/O */
++#ifdef CONFIG_SQUASHFS_4K_DEVBLK_SIZE
++#define SQUASHFS_DEVBLK_SIZE 4096
++#else
++#define SQUASHFS_DEVBLK_SIZE 1024
++#endif
++
+ #define SQUASHFS_FILE_MAX_SIZE		1048576
+ #define SQUASHFS_FILE_MAX_LOG		20
+ 
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-28 11:25:22.622996280 -0500
+@@ -102,7 +102,7 @@
+ 		goto failure;
+ 	}
+ 
+-	msblk->devblksize = sb_min_blocksize(sb, BLOCK_SIZE);
++	msblk->devblksize = sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE);
+ 	msblk->devblksize_log2 = ffz(~msblk->devblksize);
+ 
+ 	mutex_init(&msblk->read_data_mutex);
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-02-28 11:09:09.727614887 -0500
+@@ -1654,6 +1654,7 @@
+ # CONFIG_SQUASHFS_XATTR is not set
+ # CONFIG_SQUASHFS_LZO is not set
+ CONFIG_SQUASHFS_XZ=y
++CONFIG_SQUASHFS_4K_DEVBLK_SIZE=y
+ CONFIG_SQUASHFS_EMBEDDED=y
+ CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
+ # CONFIG_VXFS_FS is not set
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-02-28 11:26:31.945642925 -0500
+@@ -66,6 +66,28 @@
+ 
+ 	  If unsure, say N.
+ 
++config SQUASHFS_4K_DEVBLK_SIZE
++	bool "Use 4K device block size?"
++	depends on SQUASHFS
++	help
++	  By default Squashfs sets the dev block size (sb_min_blocksize)
++	  to 1K or the smallest block size supported by the block device
++	  (if larger).  This, because blocks are packed together and
++	  unaligned in Squashfs, should reduce latency.
++
++	  This, however, gives poor performance on MTD NAND devices where
++	  the optimal I/O size is 4K (even though the devices can support
++	  smaller block sizes).
++
++	  Using a 4K device block size may also improve overall I/O
++	  performance for some file access patterns (e.g. sequential
++	  accesses of files in filesystem order) on all media.
++
++	  Setting this option will force Squashfs to use a 4K device block
++	  size by default.
++
++	  If unsure, say N.
++
+ config SQUASHFS_EMBEDDED
+ 	bool "Additional option for memory-constrained systems"
+ 	depends on SQUASHFS
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-02-28 11:27:04.049688399 -0500
+@@ -37,6 +37,13 @@
+ #define SQUASHFS_FILE_SIZE		131072
+ #define SQUASHFS_FILE_LOG		17
+ 
++/* default size of block device I/O */
++#ifdef CONFIG_SQUASHFS_4K_DEVBLK_SIZE
++#define SQUASHFS_DEVBLK_SIZE 4096
++#else
++#define SQUASHFS_DEVBLK_SIZE 1024
++#endif
++
+ #define SQUASHFS_FILE_MAX_SIZE		1048576
+ #define SQUASHFS_FILE_MAX_LOG		20
+ 
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-24 13:54:22.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-02-28 11:27:29.162239449 -0500
+@@ -102,7 +102,7 @@
+ 		goto failure;
+ 	}
+ 
+-	msblk->devblksize = sb_min_blocksize(sb, BLOCK_SIZE);
++	msblk->devblksize = sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE);
+ 	msblk->devblksize_log2 = ffz(~msblk->devblksize);
+ 
+ 	mutex_init(&msblk->read_data_mutex);
