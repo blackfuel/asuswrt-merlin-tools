@@ -5,6 +5,7 @@
 #ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
 #patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.66-alpha1-ARM-mods+apps+xtables-addons.patch
 #patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.66-ARM-squashfs-4K.patch
+#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.66-alpha1_ARM_dm-crypt+skcipher.patch
 
 #---
 #cd $HOME/blackfuel
@@ -25,9 +26,23 @@ for KERNEL_FOLDER in "src-rt-6.x.4708" "src-rt-7.14.114.x/src" "src-rt-7.x.main/
   diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c >> merlin-diff.patch
   diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/usb/serial/generic.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/usb/serial/generic.c >> merlin-diff.patch
   diff -u -B -N -r -x *.rej -x *.orig -x .directory ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/net/netfilter ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/net/netfilter >> merlin-diff.patch
+
+  # squashFS 4K
   diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/fs/squashfs/Kconfig ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/fs/squashfs/Kconfig >> merlin-diff.patch
   diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h >> merlin-diff.patch
   diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/fs/squashfs/super.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/fs/squashfs/super.c >> merlin-diff.patch
+
+  # kernel support for veracrypt
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/Makefile ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/Makefile >> merlin-diff.patch
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/Kconfig ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/Kconfig >> merlin-diff.patch
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/af_alg.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/af_alg.c >> merlin-diff.patch
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/algif_hash.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/algif_hash.c >> merlin-diff.patch
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/algif_skcipher.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/crypto/algif_skcipher.c >> merlin-diff.patch
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/net/core/sock.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/net/core/sock.c >> merlin-diff.patch 
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/include/crypto/if_alg.h ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/include/crypto/if_alg.h >> merlin-diff.patch
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/include/crypto/scatterwalk.h ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/include/crypto/scatterwalk.h >> merlin-diff.patch
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/include/linux/if_alg.h ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/include/linux/if_alg.h >> merlin-diff.patch
+  diff -u -B -N -r ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/include/linux/socket.h ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/include/linux/socket.h >> merlin-diff.patch
 done
 
 diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man -x *.rej -x *.orig -x .directory ./${MERLIN_TARGET}-original/release/src/router/iptables-1.4.x/extensions ./${MERLIN_TARGET}/release/src/router/iptables-1.4.x/extensions >> merlin-diff.patch

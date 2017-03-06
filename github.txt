@@ -68,6 +68,7 @@ git push origin upstream
 ---
 # merge pull request with upstream master
 git checkout upstream
+git fetch upstream
 git merge upstream/master
 git push origin upstream
 
@@ -180,6 +181,18 @@ git reset --hard ORIG_HEAD
 
 ---
 
+# add support for RT-AC88U
+git add release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a
+git add release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
+git add release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
+git add release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/ipv4/netfilter/Kconfig
+git add release/src/router/Makefile
+git commit -m "fixes to support RT-AC88U"
+git status
+git push
+
+---
+
 echo "# asuswrt-merlin-jffs" >> README.md
 git init
 git add README.md
@@ -197,6 +210,16 @@ git commit -m "replaced PDF with JPG"
 git commit -m "little change"
 git push
 
+---
+# increase max. elements in ipset from 65K to 1 million
+git add release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/netfilter_ipv4/ip_set.h
+git add release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/netfilter_ipv4/ip_set.h
+git add release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/netfilter_ipv4/ip_set.h
+git add release/src-rt/linux/linux-2.6/include/linux/netfilter_ipv4/ip_set.h
+git add release/src/router/ipset/kernel/include/linux/netfilter_ipv4/ip_set.h
+git commit -m "increase max. elements in ipset from 65K to 1 million"
+git status
+git push
 ---
 # upgraded to TOR v0.2.8.9
 git rm -r release/src/router/tor
