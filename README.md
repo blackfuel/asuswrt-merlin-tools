@@ -71,7 +71,7 @@ git merge upstream/master
 git push origin torfirewall
 ```
 
-### HOWTO: Reset to upstream/master and apply the Blackfuel mod
+### HOWTO: Reset to upstream/master and re-apply the full Blackfuel patch
 ```
 git clone https://github.com/blackfuel/asuswrt-merlin
 git remote add upstream https://github.com/RMerl/asuswrt-merlin
