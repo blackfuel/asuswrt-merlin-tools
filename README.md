@@ -52,19 +52,24 @@ The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use 
   cd ~/blackfuel/asuswrt-merlin
   ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
   ```
+
 ### HOWTO: create pull request for a single commit (ex: torfirewall)
+```
 git remote add upstream https://github.com/RMerl/asuswrt-merlin
 git fetch upstream
 git checkout -b torfirewall upstream/master
 git cherry-pick 5ea0eb689debdd5267d63f3954294b6b30c72694
 git push origin torfirewall
 #(now create the pull request)
+```
 
 ### HOWTO: merge pull request with upstream master (ex: torfirewall)
+```
 git checkout torfirewall
 git fetch upstream
 git merge upstream/master
 git push origin torfirewall
+```
 
 ### HOWTO: Reset to upstream/master and apply the Blackfuel mod
 ```
