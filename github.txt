@@ -24,7 +24,7 @@ cd ..
 rsync -a --del asuswrt-merlin-blackfuel/ asuswrt-merlin-backup
 
 ---
-# merge with upstream branch
+# merge with upstream master
 git checkout master
 git fetch upstream
 git merge upstream/master
@@ -63,6 +63,13 @@ git push -f origin 7266
 git checkout -b upstream upstream/master
 git cherry-pick 891f13f93c4d2356863833fec9075806fe9daa69
 git push origin upstream
+#(now create the pull request)
+
+---
+# create pull request for a single commit
+git checkout -b torfirewall upstream/master
+git cherry-pick 5ea0eb689debdd5267d63f3954294b6b30c72694
+git push origin torfirewall
 #(now create the pull request)
 
 ---

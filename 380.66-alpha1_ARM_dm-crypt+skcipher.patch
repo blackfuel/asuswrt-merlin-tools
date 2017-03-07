@@ -1,5 +1,5 @@
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-05 21:47:16.029199038 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-05 22:16:04.352621085 -0500
 @@ -1025,7 +1025,28 @@
  # CONFIG_SCSI_DH is not set
  # CONFIG_SCSI_OSD_INITIATOR is not set
@@ -123,8 +123,8 @@
  # Library routines
  #
  CONFIG_BITREVERSE=y
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-03-05 22:16:04.352621085 -0500
 @@ -85,6 +85,9 @@
  obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
  obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
@@ -135,8 +135,8 @@
  
  #
  # generic algorithms and the async_tx api
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-03-05 22:16:04.352621085 -0500
 @@ -842,6 +842,27 @@
  	  ANSI X9.31 A.2.4. Note that this option must be enabled if
  	  CRYPTO_FIPS is selected
@@ -166,7 +166,7 @@
  
  endif	# if CRYPTO
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c	2017-03-05 22:16:04.352621085 -0500
 @@ -0,0 +1,483 @@
 +/*
 + * af_alg: User-space algorithm interface
@@ -652,7 +652,7 @@
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_NETPROTO(AF_ALG);
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-05 22:16:04.352621085 -0500
 @@ -0,0 +1,319 @@
 +/*
 + * algif_hash: User-space interface for hash algorithms
@@ -974,7 +974,7 @@
 +module_exit(algif_hash_exit);
 +MODULE_LICENSE("GPL");
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-05 22:16:04.352621085 -0500
 @@ -0,0 +1,632 @@
 +/*
 + * algif_skcipher: User-space interface for skcipher algorithms
@@ -1608,8 +1608,8 @@
 +module_init(algif_skcipher_init);
 +module_exit(algif_skcipher_exit);
 +MODULE_LICENSE("GPL");
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-03-05 22:16:04.356623185 -0500
 @@ -157,7 +157,7 @@
    "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
    "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
@@ -1638,7 +1638,7 @@
  };
  
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,92 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -1732,8 +1732,8 @@
 +}
 +
 +#endif	/* _CRYPTO_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-05 22:16:04.380635734 -0500
 @@ -68,6 +68,21 @@
  	return (++sg)->length ? sg : (void *)sg_page(sg);
  }
@@ -1757,7 +1757,7 @@
  						struct scatter_walk *walk_out)
  {
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,40 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -1799,8 +1799,8 @@
 +#define ALG_OP_ENCRYPT			1
 +
 +#endif	/* _LINUX_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-03-05 22:16:04.380635734 -0500
 @@ -193,7 +193,8 @@
  #define AF_PHONET	35	/* Phonet sockets		*/
  #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
@@ -1827,8 +1827,8 @@
  
  /* IPX options */
  #define IPX_TYPE	1
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-05 21:51:38.780519662 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-05 22:16:04.380635734 -0500
 @@ -1052,7 +1052,28 @@
  # CONFIG_SATA_INIC162X is not set
  # CONFIG_SATA_SIL24 is not set
@@ -1952,8 +1952,8 @@
  # Library routines
  #
  CONFIG_BITREVERSE=y
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-03-05 22:16:04.380635734 -0500
 @@ -85,6 +85,9 @@
  obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
  obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
@@ -1964,8 +1964,8 @@
  
  #
  # generic algorithms and the async_tx api
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-05 22:16:04.380635734 -0500
 @@ -842,6 +842,27 @@
  	  ANSI X9.31 A.2.4. Note that this option must be enabled if
  	  CRYPTO_FIPS is selected
@@ -1995,7 +1995,7 @@
  
  endif	# if CRYPTO
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,483 @@
 +/*
 + * af_alg: User-space algorithm interface
@@ -2481,7 +2481,7 @@
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_NETPROTO(AF_ALG);
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,319 @@
 +/*
 + * algif_hash: User-space interface for hash algorithms
@@ -2803,7 +2803,7 @@
 +module_exit(algif_hash_exit);
 +MODULE_LICENSE("GPL");
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,632 @@
 +/*
 + * algif_skcipher: User-space interface for skcipher algorithms
@@ -3437,8 +3437,8 @@
 +module_init(algif_skcipher_init);
 +module_exit(algif_skcipher_exit);
 +MODULE_LICENSE("GPL");
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-03-05 22:16:04.380635734 -0500
 @@ -157,7 +157,7 @@
    "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
    "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
@@ -3467,7 +3467,7 @@
  };
  
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,92 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -3561,8 +3561,8 @@
 +}
 +
 +#endif	/* _CRYPTO_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-05 22:16:04.380635734 -0500
 @@ -68,6 +68,21 @@
  	return (++sg)->length ? sg : (void *)sg_page(sg);
  }
@@ -3586,7 +3586,7 @@
  						struct scatter_walk *walk_out)
  {
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,40 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -3628,8 +3628,8 @@
 +#define ALG_OP_ENCRYPT			1
 +
 +#endif	/* _LINUX_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-05 22:16:04.380635734 -0500
 @@ -193,7 +193,8 @@
  #define AF_PHONET	35	/* Phonet sockets		*/
  #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
@@ -3656,8 +3656,8 @@
  
  /* IPX options */
  #define IPX_TYPE	1
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-05 21:54:07.859027619 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-05 22:16:04.380635734 -0500
 @@ -1048,7 +1048,28 @@
  # CONFIG_SATA_INIC162X is not set
  # CONFIG_SATA_SIL24 is not set
@@ -3786,8 +3786,8 @@
  # Library routines
  #
  CONFIG_BITREVERSE=y
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-03-05 22:16:04.380635734 -0500
 @@ -85,6 +85,9 @@
  obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
  obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
@@ -3798,8 +3798,8 @@
  
  #
  # generic algorithms and the async_tx api
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-05 22:16:04.380635734 -0500
 @@ -842,6 +842,27 @@
  	  ANSI X9.31 A.2.4. Note that this option must be enabled if
  	  CRYPTO_FIPS is selected
@@ -3829,7 +3829,7 @@
  
  endif	# if CRYPTO
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,483 @@
 +/*
 + * af_alg: User-space algorithm interface
@@ -4315,7 +4315,7 @@
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_NETPROTO(AF_ALG);
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,319 @@
 +/*
 + * algif_hash: User-space interface for hash algorithms
@@ -4637,7 +4637,7 @@
 +module_exit(algif_hash_exit);
 +MODULE_LICENSE("GPL");
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,632 @@
 +/*
 + * algif_skcipher: User-space interface for skcipher algorithms
@@ -5271,8 +5271,8 @@
 +module_init(algif_skcipher_init);
 +module_exit(algif_skcipher_exit);
 +MODULE_LICENSE("GPL");
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-03-05 22:16:04.380635734 -0500
 @@ -157,7 +157,7 @@
    "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
    "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
@@ -5301,7 +5301,7 @@
  };
  
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,92 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -5395,8 +5395,8 @@
 +}
 +
 +#endif	/* _CRYPTO_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-05 22:16:04.380635734 -0500
 @@ -68,6 +68,21 @@
  	return (++sg)->length ? sg : (void *)sg_page(sg);
  }
@@ -5420,7 +5420,7 @@
  						struct scatter_walk *walk_out)
  {
 --- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-05 16:18:25.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-05 22:16:04.380635734 -0500
 @@ -0,0 +1,40 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -5462,8 +5462,8 @@
 +#define ALG_OP_ENCRYPT			1
 +
 +#endif	/* _LINUX_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-02-28 02:20:16.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-05 16:18:25.000000000 -0500
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-05 22:16:04.380635734 -0500
 @@ -193,7 +193,8 @@
  #define AF_PHONET	35	/* Phonet sockets		*/
  #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
@@ -5490,3 +5490,14 @@
  
  /* IPX options */
  #define IPX_TYPE	1
+--- ./asuswrt-merlin-380.66-alpha1-original/release/src/router/Makefile	2017-03-01 17:40:59.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha1/release/src/router/Makefile	2017-03-06 00:31:03.206973448 -0500
+@@ -1190,7 +1190,7 @@
+ 	$(if $(RTCONFIG_PPTP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pptp.*o $(PLATFORMDIR)/extras/ || true
+ 	$(if $(RTCONFIG_L2TP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pppol2tp.*o $(PLATFORMDIR)/extras/ || true
+ 	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/net/ppp_deflate.*o  $(PLATFORMDIR)/extras/ || true
+-	$(if $(RTCONFIG_IPSEC),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/crypto/* $(PLATFORMDIR)/extras/ || true
++	@cp -f $(TARGETDIR)/lib/modules/*/kernel/crypto/* $(PLATFORMDIR)/extras/ || true
+ 	[ ! -f $(TARGETDIR)/lib/modules/*/kernel/crypto/* ] && rm -rf $(TARGETDIR)/lib/modules/*/kernel/crypto || true
+ 
+ 	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
