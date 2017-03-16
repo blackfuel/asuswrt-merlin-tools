@@ -3,7 +3,6 @@
 ### HOWTO: Build the Blackfuel version of Asuswrt-Merlin firmware
 ```
 cd ~/blackfuel/asuswrt-merlin-tools
-vi build-asuswrt-merlin.sh  # update BUILD_VER to match firmware
 ./build-asuswrt-merlin.sh
 ```
 
