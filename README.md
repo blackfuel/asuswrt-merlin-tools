@@ -3,7 +3,6 @@
 ### HOWTO: Build the Blackfuel version of Asuswrt-Merlin firmware
 ```
 cd ~/blackfuel/asuswrt-merlin-tools
-vi build-asuswrt-merlin.sh  # update BUILD_VER to match firmware
 ./build-asuswrt-merlin.sh
 ```
 
@@ -14,7 +13,7 @@ patch -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-ARM-mods+apps+xtables
 ```
 
 ### HOWTO: Delete files in one folder hierarchy that appear in another folder hierarchy
-This example cleans the asuswrt-merlin folder of the Xtables addons files.  It uses the `find` command to pipe the list of files to be deleted to `xargs`.  It the process, the root folder name is changed to the place where I want to delete the files.
+This example cleans the asuswrt-merlin folder of the Xtables addons files.  It uses the `find` command to pipe the list of files to be deleted to `xargs`.  In the process, the root folder name is changed to the place where I want to delete the files.
 ```
 cd ~/blackfuel
 find asuswrt-merlin-xtables-addons-1.47.1 -type f -name "*" -printf "$HOME/blackfuel/asuswrt-merlin/%P\0" | xargs -0 -I '{}' rm '{}'
@@ -53,7 +52,25 @@ The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use 
   ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
   ```
 
-### HOWTO: Reset to upstream/master and apply the Blackfuel mod
+### HOWTO: create pull request for a single commit (ex: torfirewall)
+```
+git remote add upstream https://github.com/RMerl/asuswrt-merlin
+git fetch upstream
+git checkout -b torfirewall upstream/master
+git cherry-pick 5ea0eb689debdd5267d63f3954294b6b30c72694
+git push origin torfirewall
+#(now create the pull request)
+```
+
+### HOWTO: merge pull request with upstream master (ex: torfirewall)
+```
+git checkout torfirewall
+git fetch upstream
+git merge upstream/master
+git push origin torfirewall
+```
+
+### HOWTO: Reset to upstream/master and re-apply the full Blackfuel patch
 ```
 git clone https://github.com/blackfuel/asuswrt-merlin
 git remote add upstream https://github.com/RMerl/asuswrt-merlin
