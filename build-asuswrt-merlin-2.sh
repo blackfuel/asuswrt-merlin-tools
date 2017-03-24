@@ -6,6 +6,15 @@ make_clean() {
   rm .config
 }
 
+update_package() {
+  local name="$1"
+  local mypackage="../../../../asuswrt-merlin-${name}/"
+  if [ "$(readlink ${name})" != "${mypackage}" ]; then
+    [ -e ${name} ] && mv -f ${name} ${name}-asus
+    ln -sf ${mypackage} ${name}
+  fi
+}
+
 VERSION_CONF=$(cat $HOME/asuswrt-merlin/release/src-rt/version.conf)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep EXTENDNO)
@@ -18,11 +27,8 @@ BUILD_MODEL="RT-AC68U"
 BUILD_MODEL_2="rt-ac68u"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-6.x.4708"
 cd ${HOME}/asuswrt-merlin/release/src/router
-torlink="../../../../asuswrt-merlin-tor/"
-if [ "$(readlink tor)" != "$torlink" ]; then
-  [ -e tor ] && mv -f tor tor-asus
-  ln -sf $torlink tor
-fi
+update_package tor
+update_package nettle
 cd ${BUILD_FOLDER}
 make_clean
 make ${BUILD_MODEL_2}

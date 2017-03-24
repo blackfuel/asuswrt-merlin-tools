@@ -1,0 +1,249 @@
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-06 01:50:24.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-06 22:58:10.323702949 -0500
+@@ -1240,7 +1277,10 @@
+ #
+ # PPS support
+ #
+-# CONFIG_PPS is not set
++CONFIG_PPS=m
++# CONFIG_PPS_DEBUG is not set
++CONFIG_PPS_CLIENT_KTIMER=m
++CONFIG_PPS_CLIENT_LDISC=m
+ # CONFIG_W1 is not set
+ # CONFIG_POWER_SUPPLY is not set
+ # CONFIG_HWMON is not set
+@@ -1427,13 +1467,13 @@
+ # CONFIG_USB_SERIAL_AIRCABLE is not set
+ # CONFIG_USB_SERIAL_ARK3116 is not set
+ # CONFIG_USB_SERIAL_BELKIN is not set
+-# CONFIG_USB_SERIAL_CH341 is not set
++CONFIG_USB_SERIAL_CH341=m
+ # CONFIG_USB_SERIAL_WHITEHEAT is not set
+ # CONFIG_USB_SERIAL_DIGI_ACCELEPORT is not set
+-# CONFIG_USB_SERIAL_CP210X is not set
++CONFIG_USB_SERIAL_CP210X=m
+ # CONFIG_USB_SERIAL_CYPRESS_M8 is not set
+ # CONFIG_USB_SERIAL_EMPEG is not set
+-# CONFIG_USB_SERIAL_FTDI_SIO is not set
++CONFIG_USB_SERIAL_FTDI_SIO=m
+ # CONFIG_USB_SERIAL_FUNSOFT is not set
+ # CONFIG_USB_SERIAL_VISOR is not set
+ # CONFIG_USB_SERIAL_IPAQ is not set
+@@ -1452,7 +1492,7 @@
+ # CONFIG_USB_SERIAL_MOS7840 is not set
+ # CONFIG_USB_SERIAL_MOTOROLA is not set
+ # CONFIG_USB_SERIAL_NAVMAN is not set
+-# CONFIG_USB_SERIAL_PL2303 is not set
++CONFIG_USB_SERIAL_PL2303=m
+ # CONFIG_USB_SERIAL_OTI6858 is not set
+ # CONFIG_USB_SERIAL_QCAUX is not set
+ # CONFIG_USB_SERIAL_QUALCOMM is not set
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 01:50:24.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 22:58:10.367724953 -0500
+@@ -1868,8 +1868,20 @@
+ 	   are only processed once.  */
+ 	status = packet[0] & FTDI_STATUS_B0_MASK;
+ 	if (status != priv->prev_status) {
+-		priv->diff_status |= status ^ priv->prev_status;
+-		wake_up_interruptible(&priv->delta_msr_wait);
++                char diff_status = status ^ priv->prev_status;
++                priv->diff_status |= diff_status;
++        
++                if (diff_status & FTDI_RS0_RLSD) {
++                        struct tty_struct *tty;
++ 
++                        tty = tty_port_tty_get(&port->port);
++                        if (tty)
++                                usb_serial_handle_dcd_change(port, tty,
++                                                status & FTDI_RS0_RLSD);
++                        tty_kref_put(tty);
++                }
++
++                wake_up_interruptible(&priv->delta_msr_wait);
+ 		priv->prev_status = status;
+ 	}
+ 
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 01:50:24.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 22:58:10.379730957 -0500
+@@ -491,6 +491,15 @@
+ 	struct tty_port *port = &usb_port->port;
+ 
+ 	dbg("%s - port %d, status %d", __func__, usb_port->number, status);
++        if (tty) {
++               struct tty_ldisc *ld = tty_ldisc_ref(tty);
++
++               if (ld) {
++                       if (ld->ops->dcd_change)
++                               ld->ops->dcd_change(tty, status, NULL);
++                       tty_ldisc_deref(ld);
++               }
++        }
+ 
+ 	if (status)
+ 		wake_up_interruptible(&port->open_wait);
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-06 01:50:24.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-06 22:58:10.611846965 -0500
+@@ -1269,7 +1307,10 @@
+ #
+ # PPS support
+ #
+-# CONFIG_PPS is not set
++CONFIG_PPS=m
++# CONFIG_PPS_DEBUG is not set
++CONFIG_PPS_CLIENT_KTIMER=m
++CONFIG_PPS_CLIENT_LDISC=m
+ # CONFIG_W1 is not set
+ # CONFIG_POWER_SUPPLY is not set
+ # CONFIG_HWMON is not set
+@@ -1456,13 +1497,13 @@
+ # CONFIG_USB_SERIAL_AIRCABLE is not set
+ # CONFIG_USB_SERIAL_ARK3116 is not set
+ # CONFIG_USB_SERIAL_BELKIN is not set
+-# CONFIG_USB_SERIAL_CH341 is not set
++CONFIG_USB_SERIAL_CH341=m
+ # CONFIG_USB_SERIAL_WHITEHEAT is not set
+ # CONFIG_USB_SERIAL_DIGI_ACCELEPORT is not set
+-# CONFIG_USB_SERIAL_CP210X is not set
++CONFIG_USB_SERIAL_CP210X=m
+ # CONFIG_USB_SERIAL_CYPRESS_M8 is not set
+ # CONFIG_USB_SERIAL_EMPEG is not set
+-# CONFIG_USB_SERIAL_FTDI_SIO is not set
++CONFIG_USB_SERIAL_FTDI_SIO=m
+ # CONFIG_USB_SERIAL_FUNSOFT is not set
+ # CONFIG_USB_SERIAL_VISOR is not set
+ # CONFIG_USB_SERIAL_IPAQ is not set
+@@ -1481,7 +1522,7 @@
+ # CONFIG_USB_SERIAL_MOS7840 is not set
+ # CONFIG_USB_SERIAL_MOTOROLA is not set
+ # CONFIG_USB_SERIAL_NAVMAN is not set
+-# CONFIG_USB_SERIAL_PL2303 is not set
++CONFIG_USB_SERIAL_PL2303=m
+ # CONFIG_USB_SERIAL_OTI6858 is not set
+ # CONFIG_USB_SERIAL_QCAUX is not set
+ # CONFIG_USB_SERIAL_QUALCOMM is not set
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 01:50:24.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 22:58:10.667874968 -0500
+@@ -1868,8 +1868,20 @@
+ 	   are only processed once.  */
+ 	status = packet[0] & FTDI_STATUS_B0_MASK;
+ 	if (status != priv->prev_status) {
+-		priv->diff_status |= status ^ priv->prev_status;
+-		wake_up_interruptible(&priv->delta_msr_wait);
++                char diff_status = status ^ priv->prev_status;
++                priv->diff_status |= diff_status;
++        
++                if (diff_status & FTDI_RS0_RLSD) {
++                        struct tty_struct *tty;
++ 
++                        tty = tty_port_tty_get(&port->port);
++                        if (tty)
++                                usb_serial_handle_dcd_change(port, tty,
++                                                status & FTDI_RS0_RLSD);
++                        tty_kref_put(tty);
++                }
++
++                wake_up_interruptible(&priv->delta_msr_wait);
+ 		priv->prev_status = status;
+ 	}
+ 
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 01:50:24.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 22:58:10.691886970 -0500
+@@ -491,6 +491,15 @@
+ 	struct tty_port *port = &usb_port->port;
+ 
+ 	dbg("%s - port %d, status %d", __func__, usb_port->number, status);
++        if (tty) {
++               struct tty_ldisc *ld = tty_ldisc_ref(tty);
++
++               if (ld) {
++                       if (ld->ops->dcd_change)
++                               ld->ops->dcd_change(tty, status, NULL);
++                       tty_ldisc_deref(ld);
++               }
++        }
+ 
+ 	if (status)
+ 		wake_up_interruptible(&port->open_wait);
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-06 01:50:24.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-06 22:58:10.803942973 -0500
+@@ -1321,7 +1359,10 @@
+ #
+ # PPS support
+ #
+-# CONFIG_PPS is not set
++CONFIG_PPS=m
++# CONFIG_PPS_DEBUG is not set
++CONFIG_PPS_CLIENT_KTIMER=m
++CONFIG_PPS_CLIENT_LDISC=m
+ # CONFIG_W1 is not set
+ # CONFIG_POWER_SUPPLY is not set
+ # CONFIG_HWMON is not set
+@@ -1449,13 +1490,13 @@
+ # CONFIG_USB_SERIAL_AIRCABLE is not set
+ # CONFIG_USB_SERIAL_ARK3116 is not set
+ # CONFIG_USB_SERIAL_BELKIN is not set
+-# CONFIG_USB_SERIAL_CH341 is not set
++CONFIG_USB_SERIAL_CH341=m
+ # CONFIG_USB_SERIAL_WHITEHEAT is not set
+ # CONFIG_USB_SERIAL_DIGI_ACCELEPORT is not set
+-# CONFIG_USB_SERIAL_CP210X is not set
++CONFIG_USB_SERIAL_CP210X=m
+ # CONFIG_USB_SERIAL_CYPRESS_M8 is not set
+ # CONFIG_USB_SERIAL_EMPEG is not set
+-# CONFIG_USB_SERIAL_FTDI_SIO is not set
++CONFIG_USB_SERIAL_FTDI_SIO=m
+ # CONFIG_USB_SERIAL_FUNSOFT is not set
+ # CONFIG_USB_SERIAL_VISOR is not set
+ # CONFIG_USB_SERIAL_IPAQ is not set
+@@ -1474,7 +1515,7 @@
+ # CONFIG_USB_SERIAL_MOS7840 is not set
+ # CONFIG_USB_SERIAL_MOTOROLA is not set
+ # CONFIG_USB_SERIAL_NAVMAN is not set
+-# CONFIG_USB_SERIAL_PL2303 is not set
++CONFIG_USB_SERIAL_PL2303=m
+ # CONFIG_USB_SERIAL_OTI6858 is not set
+ # CONFIG_USB_SERIAL_QCAUX is not set
+ # CONFIG_USB_SERIAL_QUALCOMM is not set
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 01:50:24.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 22:58:10.835958976 -0500
+@@ -1868,8 +1868,20 @@
+ 	   are only processed once.  */
+ 	status = packet[0] & FTDI_STATUS_B0_MASK;
+ 	if (status != priv->prev_status) {
+-		priv->diff_status |= status ^ priv->prev_status;
+-		wake_up_interruptible(&priv->delta_msr_wait);
++                char diff_status = status ^ priv->prev_status;
++                priv->diff_status |= diff_status;
++        
++                if (diff_status & FTDI_RS0_RLSD) {
++                        struct tty_struct *tty;
++ 
++                        tty = tty_port_tty_get(&port->port);
++                        if (tty)
++                                usb_serial_handle_dcd_change(port, tty,
++                                                status & FTDI_RS0_RLSD);
++                        tty_kref_put(tty);
++                }
++
++                wake_up_interruptible(&priv->delta_msr_wait);
+ 		priv->prev_status = status;
+ 	}
+ 
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 01:50:24.000000000 -0500
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 22:58:10.847964975 -0500
+@@ -491,6 +491,15 @@
+ 	struct tty_port *port = &usb_port->port;
+ 
+ 	dbg("%s - port %d, status %d", __func__, usb_port->number, status);
++        if (tty) {
++               struct tty_ldisc *ld = tty_ldisc_ref(tty);
++
++               if (ld) {
++                       if (ld->ops->dcd_change)
++                               ld->ops->dcd_change(tty, status, NULL);
++                       tty_ldisc_deref(ld);
++               }
++        }
+ 
+ 	if (status)
+ 		wake_up_interruptible(&port->open_wait);
