@@ -43,7 +43,7 @@ case $CMD in
           sudo /bin/mount -o bind $SELF $TARGET
         else
           /bin/echo "Already attached."
-          exit 1
+          exit 0
         fi
         ;;
       "detach" )
@@ -52,7 +52,7 @@ case $CMD in
           /bin/rm -f $TARGET_ORIGINAL
         else
           /bin/echo "Not attached."
-          exit 1
+          exit 0
         fi
         ;;
       * )

@@ -4,8 +4,8 @@ set -x
 
 [ -z "$REBUILD_ALL" ] && REBUILD_ALL=0
 
-#REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="kernel" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
 REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="nettle" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
+#REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="kernel" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
 #REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="openssl" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
 #REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="gcrypt" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
 REBUILD_ALL=$REBUILD_ALL ~/blackfuel/ntp-arm-asuswrt/ntp.sh

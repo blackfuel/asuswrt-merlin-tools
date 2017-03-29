@@ -15,6 +15,9 @@ update_package() {
   fi
 }
 
+set -e
+set -x
+
 VERSION_CONF=$(cat $HOME/asuswrt-merlin/release/src-rt/version.conf)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep EXTENDNO)
