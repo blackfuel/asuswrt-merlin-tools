@@ -1,5 +1,5 @@
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-25 12:23:18.574830090 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-28 21:18:05.547865918 -0400
 @@ -416,7 +416,7 @@
  CONFIG_INET=y
  CONFIG_IP_MULTICAST=y
@@ -277,8 +277,8 @@
  # Library routines
  #
  CONFIG_BITREVERSE=y
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-25 12:23:18.578832191 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-28 21:18:05.547865918 -0400
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -302,8 +302,8 @@
  		priv->prev_status = status;
  	}
  
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-25 12:23:18.578832191 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-28 21:18:05.547865918 -0400
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -1679,8 +1679,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +MODULE_AUTHOR("Jan Engelhardt <jengelh@medozas.de>");
 +MODULE_LICENSE("GPL");
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-25 12:23:18.578832191 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-28 21:18:05.551867900 -0400
 @@ -590,6 +590,203 @@
  
  	  To compile it as a module, choose M here.  If unsure, say N.
@@ -2237,8 +2237,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  endmenu
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-25 12:23:18.594840609 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-28 21:18:05.551867900 -0400
 @@ -40,6 +40,7 @@
  
  # generic X tables 
@@ -6746,8 +6746,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +};
 +
 +#endif /* _LINUX_NETFILTER_XT_TARPIT_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-25 12:23:18.598842576 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-28 21:18:05.559871869 -0400
 @@ -66,6 +66,28 @@
  
  	  If unsure, say N.
@@ -6777,8 +6777,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  config SQUASHFS_EMBEDDED
  	bool "Additional option for memory-constrained systems"
  	depends on SQUASHFS
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-25 12:23:18.598842576 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-28 21:18:05.559871869 -0400
 @@ -37,6 +37,13 @@
  #define SQUASHFS_FILE_SIZE		131072
  #define SQUASHFS_FILE_LOG		17
@@ -6793,8 +6793,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  #define SQUASHFS_FILE_MAX_SIZE		1048576
  #define SQUASHFS_FILE_MAX_LOG		20
  
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-25 12:23:18.598842576 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-28 21:18:05.559871869 -0400
 @@ -102,7 +102,7 @@
  		goto failure;
  	}
@@ -6804,8 +6804,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  	msblk->devblksize_log2 = ffz(~msblk->devblksize);
  
  	mutex_init(&msblk->read_data_mutex);
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-03-25 12:23:18.598842576 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-03-28 21:18:05.559871869 -0400
 @@ -85,6 +85,9 @@
  obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
  obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
@@ -6816,8 +6816,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
  # generic algorithms and the async_tx api
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-03-25 12:23:18.598842576 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-03-28 21:18:05.563873868 -0400
 @@ -842,6 +842,27 @@
  	  ANSI X9.31 A.2.4. Note that this option must be enabled if
  	  CRYPTO_FIPS is selected
@@ -6847,7 +6847,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  endif	# if CRYPTO
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c	2017-03-25 12:23:18.598842576 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c	2017-03-28 21:18:05.563873868 -0400
 @@ -0,0 +1,483 @@
 +/*
 + * af_alg: User-space algorithm interface
@@ -7333,7 +7333,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_NETPROTO(AF_ALG);
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-25 12:23:18.598842576 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-28 21:18:05.563873868 -0400
 @@ -0,0 +1,319 @@
 +/*
 + * algif_hash: User-space interface for hash algorithms
@@ -7655,7 +7655,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +module_exit(algif_hash_exit);
 +MODULE_LICENSE("GPL");
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-25 12:23:18.598842576 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-28 21:18:05.563873868 -0400
 @@ -0,0 +1,632 @@
 +/*
 + * algif_skcipher: User-space interface for skcipher algorithms
@@ -8289,8 +8289,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +module_init(algif_skcipher_init);
 +module_exit(algif_skcipher_exit);
 +MODULE_LICENSE("GPL");
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-03-25 12:23:18.598842576 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-03-28 21:18:05.563873868 -0400
 @@ -157,7 +157,7 @@
    "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
    "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
@@ -8319,7 +8319,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  };
  
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-25 12:23:18.598842576 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-28 21:18:05.563873868 -0400
 @@ -0,0 +1,92 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -8413,8 +8413,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +}
 +
 +#endif	/* _CRYPTO_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-25 12:23:18.598842576 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-28 21:18:05.563873868 -0400
 @@ -68,6 +68,21 @@
  	return (++sg)->length ? sg : (void *)sg_page(sg);
  }
@@ -8438,7 +8438,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  						struct scatter_walk *walk_out)
  {
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-25 12:23:18.598842576 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-28 21:18:05.567875882 -0400
 @@ -0,0 +1,40 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -8480,8 +8480,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +#define ALG_OP_ENCRYPT			1
 +
 +#endif	/* _LINUX_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-03-25 12:23:18.598842576 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-03-28 21:18:05.567875882 -0400
 @@ -193,7 +193,8 @@
  #define AF_PHONET	35	/* Phonet sockets		*/
  #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
@@ -8508,8 +8508,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  /* IPX options */
  #define IPX_TYPE	1
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-25 12:23:18.598842576 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-28 21:18:05.567875882 -0400
 @@ -500,7 +500,7 @@
  CONFIG_NETFILTER_NETLINK_LOG=y
  CONFIG_NF_CONNTRACK=y
@@ -8778,8 +8778,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  # Library routines
  #
  CONFIG_BITREVERSE=y
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-25 12:23:18.606846519 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-28 21:18:05.567875882 -0400
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -8803,8 +8803,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  		priv->prev_status = status;
  	}
  
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-25 12:23:18.606846519 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-28 21:18:05.567875882 -0400
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -10180,8 +10180,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +MODULE_AUTHOR("Jan Engelhardt <jengelh@medozas.de>");
 +MODULE_LICENSE("GPL");
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-25 12:23:18.606846519 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-28 21:18:05.571877891 -0400
 @@ -589,7 +589,204 @@
  	  packets, for use with security subsystems.
  
@@ -10739,8 +10739,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  endmenu
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-25 12:23:18.614850511 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-28 21:18:05.571877891 -0400
 @@ -40,6 +40,7 @@
  
  # generic X tables 
@@ -15248,8 +15248,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +};
 +
 +#endif /* _LINUX_NETFILTER_XT_TARPIT_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-25 12:23:18.618852521 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-28 21:18:05.579881894 -0400
 @@ -66,6 +66,28 @@
  
  	  If unsure, say N.
@@ -15279,8 +15279,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  config SQUASHFS_EMBEDDED
  	bool "Additional option for memory-constrained systems"
  	depends on SQUASHFS
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-25 12:23:18.618852521 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-28 21:18:05.579881894 -0400
 @@ -37,6 +37,13 @@
  #define SQUASHFS_FILE_SIZE		131072
  #define SQUASHFS_FILE_LOG		17
@@ -15295,8 +15295,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  #define SQUASHFS_FILE_MAX_SIZE		1048576
  #define SQUASHFS_FILE_MAX_LOG		20
  
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-25 12:23:18.618852521 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-28 21:18:05.579881894 -0400
 @@ -102,7 +102,7 @@
  		goto failure;
  	}
@@ -15306,8 +15306,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  	msblk->devblksize_log2 = ffz(~msblk->devblksize);
  
  	mutex_init(&msblk->read_data_mutex);
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-03-25 12:23:18.618852521 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-03-28 21:18:05.579881894 -0400
 @@ -85,6 +85,9 @@
  obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
  obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
@@ -15318,8 +15318,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
  # generic algorithms and the async_tx api
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-25 12:23:18.618852521 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-28 21:18:05.583883890 -0400
 @@ -842,6 +842,27 @@
  	  ANSI X9.31 A.2.4. Note that this option must be enabled if
  	  CRYPTO_FIPS is selected
@@ -15349,7 +15349,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  endif	# if CRYPTO
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c	2017-03-25 12:23:18.618852521 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c	2017-03-28 21:18:05.583883890 -0400
 @@ -0,0 +1,483 @@
 +/*
 + * af_alg: User-space algorithm interface
@@ -15835,7 +15835,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_NETPROTO(AF_ALG);
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-25 12:23:18.618852521 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-28 21:18:05.583883890 -0400
 @@ -0,0 +1,319 @@
 +/*
 + * algif_hash: User-space interface for hash algorithms
@@ -16157,7 +16157,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +module_exit(algif_hash_exit);
 +MODULE_LICENSE("GPL");
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-25 12:23:18.618852521 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-28 21:18:05.583883890 -0400
 @@ -0,0 +1,632 @@
 +/*
 + * algif_skcipher: User-space interface for skcipher algorithms
@@ -16791,8 +16791,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +module_init(algif_skcipher_init);
 +module_exit(algif_skcipher_exit);
 +MODULE_LICENSE("GPL");
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-03-25 12:23:18.622854525 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-03-28 21:18:05.583883890 -0400
 @@ -157,7 +157,7 @@
    "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
    "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
@@ -16821,7 +16821,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  };
  
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-25 12:23:18.622854525 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-28 21:18:05.583883890 -0400
 @@ -0,0 +1,92 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -16915,8 +16915,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +}
 +
 +#endif	/* _CRYPTO_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-25 12:23:18.622854525 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-28 21:18:05.583883890 -0400
 @@ -68,6 +68,21 @@
  	return (++sg)->length ? sg : (void *)sg_page(sg);
  }
@@ -16940,7 +16940,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  						struct scatter_walk *walk_out)
  {
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-25 12:23:18.622854525 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-28 21:18:05.583883890 -0400
 @@ -0,0 +1,40 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -16982,8 +16982,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +#define ALG_OP_ENCRYPT			1
 +
 +#endif	/* _LINUX_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-25 12:23:18.622854525 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-28 21:18:05.583883890 -0400
 @@ -193,7 +193,8 @@
  #define AF_PHONET	35	/* Phonet sockets		*/
  #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
@@ -17010,8 +17010,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  /* IPX options */
  #define IPX_TYPE	1
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-25 12:23:18.622854525 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-28 21:18:05.587885888 -0400
 @@ -497,7 +497,7 @@
  CONFIG_NETFILTER_NETLINK_LOG=y
  CONFIG_NF_CONNTRACK=y
@@ -17277,8 +17277,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  # Library routines
  #
  CONFIG_BITREVERSE=y
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-25 12:23:18.622854525 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-28 21:18:05.587885888 -0400
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -17302,8 +17302,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  		priv->prev_status = status;
  	}
  
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-25 12:23:18.622854525 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-28 21:18:05.587885888 -0400
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -18679,8 +18679,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +MODULE_AUTHOR("Jan Engelhardt <jengelh@medozas.de>");
 +MODULE_LICENSE("GPL");
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-25 12:23:18.626856527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-03-28 21:18:05.591887886 -0400
 @@ -589,6 +589,203 @@
  
  	  To compile it as a module, choose M here.  If unsure, say N.
@@ -19237,8 +19237,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  endmenu
 diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-25 12:23:18.630858527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-03-28 21:18:05.591887886 -0400
 @@ -40,6 +40,7 @@
  
  # generic X tables 
@@ -23746,8 +23746,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +};
 +
 +#endif /* _LINUX_NETFILTER_XT_TARPIT_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-25 12:23:18.630858527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-03-28 21:18:05.599891886 -0400
 @@ -66,6 +66,28 @@
  
  	  If unsure, say N.
@@ -23777,8 +23777,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  config SQUASHFS_EMBEDDED
  	bool "Additional option for memory-constrained systems"
  	depends on SQUASHFS
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-25 12:23:18.630858527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-03-28 21:18:05.599891886 -0400
 @@ -37,6 +37,13 @@
  #define SQUASHFS_FILE_SIZE		131072
  #define SQUASHFS_FILE_LOG		17
@@ -23793,8 +23793,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  #define SQUASHFS_FILE_MAX_SIZE		1048576
  #define SQUASHFS_FILE_MAX_LOG		20
  
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-25 12:23:18.630858527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-03-28 21:18:05.599891886 -0400
 @@ -102,7 +102,7 @@
  		goto failure;
  	}
@@ -23804,8 +23804,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  	msblk->devblksize_log2 = ffz(~msblk->devblksize);
  
  	mutex_init(&msblk->read_data_mutex);
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-03-25 12:23:18.630858527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-03-28 21:18:05.603893887 -0400
 @@ -85,6 +85,9 @@
  obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
  obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
@@ -23816,8 +23816,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  #
  # generic algorithms and the async_tx api
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-25 12:23:18.630858527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-03-28 21:18:05.603893887 -0400
 @@ -842,6 +842,27 @@
  	  ANSI X9.31 A.2.4. Note that this option must be enabled if
  	  CRYPTO_FIPS is selected
@@ -23847,7 +23847,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  
  endif	# if CRYPTO
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c	2017-03-25 12:23:18.630858527 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c	2017-03-28 21:18:05.603893887 -0400
 @@ -0,0 +1,483 @@
 +/*
 + * af_alg: User-space algorithm interface
@@ -24333,7 +24333,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_NETPROTO(AF_ALG);
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-25 12:23:18.630858527 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-03-28 21:18:05.603893887 -0400
 @@ -0,0 +1,319 @@
 +/*
 + * algif_hash: User-space interface for hash algorithms
@@ -24655,7 +24655,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +module_exit(algif_hash_exit);
 +MODULE_LICENSE("GPL");
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-25 12:23:18.630858527 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-03-28 21:18:05.603893887 -0400
 @@ -0,0 +1,632 @@
 +/*
 + * algif_skcipher: User-space interface for skcipher algorithms
@@ -25289,8 +25289,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +module_init(algif_skcipher_init);
 +module_exit(algif_skcipher_exit);
 +MODULE_LICENSE("GPL");
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-03-25 12:23:18.638862526 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-03-28 21:18:05.603893887 -0400
 @@ -157,7 +157,7 @@
    "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
    "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
@@ -25319,7 +25319,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  };
  
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-25 12:23:18.638862526 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-03-28 21:18:05.607895888 -0400
 @@ -0,0 +1,92 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -25413,8 +25413,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +}
 +
 +#endif	/* _CRYPTO_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-25 12:23:18.638862526 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-03-28 21:18:05.607895888 -0400
 @@ -68,6 +68,21 @@
  	return (++sg)->length ? sg : (void *)sg_page(sg);
  }
@@ -25438,7 +25438,7 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
  						struct scatter_walk *walk_out)
  {
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-25 12:23:18.638862526 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-03-28 21:18:05.607895888 -0400
 @@ -0,0 +1,40 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -25480,8 +25480,8 @@ diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-380.66-al
 +#define ALG_OP_ENCRYPT			1
 +
 +#endif	/* _LINUX_IF_ALG_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-25 12:23:18.638862526 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-03-28 21:18:05.607895888 -0400
 @@ -193,7 +193,8 @@
  #define AF_PHONET	35	/* Phonet sockets		*/
  #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
@@ -28351,8 +28351,8 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
 +};
 +
 +#endif /* _LINUX_NETFILTER_XT_TARPIT_H */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt/Makefile	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt/Makefile	2017-03-25 12:23:18.638862526 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt/Makefile	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt/Makefile	2017-03-28 21:18:05.615899888 -0400
 @@ -2290,17 +2290,6 @@
  			sed -i "/CONFIG_USB_WDM/d" $(1); \
  			echo "# CONFIG_USB_WDM is not set" >>$(1); \
@@ -28402,8 +28402,8 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  	if [ "$(USB_DEBUG)" = "y" ]; then \
  		sed -i "/CONFIG_USB_DEBUG/d" $(1); \
  		echo "CONFIG_USB_DEBUG=y" >>$(1); \
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt/target.mak	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt/target.mak	2017-03-25 12:23:18.638862526 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt/target.mak	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src-rt/target.mak	2017-03-28 21:18:05.615899888 -0400
 @@ -1,91 +1,91 @@
  # Broadcom MIPS platform
  export RT-N66U := IPV6SUPP=y HTTPS=y MIPS32=r2 BCM57=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=y \
@@ -28545,8 +28545,19 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  
  export RT-AC88U := $(RT-AC88U_BASE)
  export RT-AC88U += BUILD_NAME="RT-AC88U" RGMII_BRCM5301X=y SWITCH2="RTL8365MB" BCM_MMC=n BCM_7114=y NOWLALL=n \
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/Makefile	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/Makefile	2017-03-25 12:23:18.638862526 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/config_base	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/config_base	2017-03-30 21:30:28.000034255 -0400
+@@ -110,7 +110,7 @@
+ CONFIG_FEATURE_EDITING_MAX_LEN=1024
+ # CONFIG_FEATURE_EDITING_VI is not set
+ CONFIG_FEATURE_EDITING_HISTORY=50
+-CONFIG_FEATURE_EDITING_SAVEHISTORY=y
++# CONFIG_FEATURE_EDITING_SAVEHISTORY is not set
+ # CONFIG_FEATURE_EDITING_SAVE_ON_EXIT is not set
+ CONFIG_FEATURE_REVERSE_SEARCH=y
+ CONFIG_FEATURE_TAB_COMPLETION=y
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/Makefile	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/Makefile	2017-03-28 21:18:05.615899888 -0400
 @@ -1103,6 +1103,7 @@
  endif
  
@@ -28610,8 +28621,8 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  
  tor-clean:
  	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/rc/Makefile	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/rc/Makefile	2017-03-25 12:23:18.654870527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/rc/Makefile	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/rc/Makefile	2017-03-28 21:18:05.619901888 -0400
 @@ -700,10 +700,10 @@
  ate-broadcom.o:
  	@-cp -f ./prebuild/ate-broadcom.o .
@@ -28646,8 +28657,8 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  
  %.o: %.c
  	@echo " [rc] CC $@"
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/rc/openvpn.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/rc/openvpn.c	2017-03-25 12:23:18.666876527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/rc/openvpn.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/rc/openvpn.c	2017-03-28 21:18:05.619901888 -0400
 @@ -1477,11 +1477,11 @@
  		fprintf(fp, "#!/bin/sh\n");
  		sprintf(&buffer[0], "vpn_server%d_proto", serverNum);
@@ -28665,8 +28676,8 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  		fprintf(fp, "iptables -I INPUT -p %s ", strtok(&buffer[0], "-"));
  		sprintf(&buffer[0], "vpn_server%d_port", serverNum);
  		fprintf(fp, "--dport %d -j ACCEPT\n", nvram_get_int(&buffer[0]));
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/rc/services.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/rc/services.c	2017-03-25 12:23:18.670878527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/rc/services.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/rc/services.c	2017-03-28 21:18:05.623903888 -0400
 @@ -3475,8 +3475,8 @@
  	if (pids("ntpclient"))
  		killall_tk("ntpclient");
@@ -28678,8 +28689,8 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  
  	return 0;
  }
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/rc/wan.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/rc/wan.c	2017-03-25 12:23:18.670878527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/rc/wan.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/rc/wan.c	2017-03-28 21:18:05.623903888 -0400
 @@ -3338,8 +3338,16 @@
  #endif
  
@@ -28699,8 +28710,8 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  #endif
  
  	/* Report stats */
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/shared/misc.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/shared/misc.c	2017-03-25 12:23:18.670878527 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/shared/misc.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/shared/misc.c	2017-03-28 21:18:05.623903888 -0400
 @@ -2068,7 +2068,7 @@
  }
  #endif
@@ -28720,7 +28731,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  /*
  	transfer timestamp into date
 --- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/shared/notify_rc.c	1969-12-31 19:00:00.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/shared/notify_rc.c	2017-03-25 12:23:18.670878527 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/shared/notify_rc.c	2017-03-28 21:18:05.627905889 -0400
 @@ -0,0 +1,164 @@
 +/*
 + * This program is free software; you can redistribute it and/or
@@ -28886,8 +28897,19 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
 +}
 +
 +
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/include/libbb.h	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/include/libbb.h	2017-03-27 09:16:58.242903339 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/config_base	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/config_base	2017-03-30 21:30:28.000034255 -0400
+@@ -110,7 +110,7 @@
+ CONFIG_FEATURE_EDITING_MAX_LEN=1024
+ # CONFIG_FEATURE_EDITING_VI is not set
+ CONFIG_FEATURE_EDITING_HISTORY=50
+-CONFIG_FEATURE_EDITING_SAVEHISTORY=y
++# CONFIG_FEATURE_EDITING_SAVEHISTORY is not set
+ # CONFIG_FEATURE_EDITING_SAVE_ON_EXIT is not set
+ CONFIG_FEATURE_REVERSE_SEARCH=y
+ CONFIG_FEATURE_TAB_COMPLETION=y
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/include/libbb.h	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/include/libbb.h	2017-03-28 21:18:05.627905889 -0400
 @@ -1567,6 +1567,7 @@
   */
  int read_line_input(line_input_t *st, const char *prompt, char *command, int maxsize, int timeout) FAST_FUNC;
@@ -28896,8 +28918,8 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  # if ENABLE_FEATURE_EDITING_SAVE_ON_EXIT
  void save_history(line_input_t *st);
  # endif
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/libbb/lineedit.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/libbb/lineedit.c	2017-03-27 09:17:01.120341462 -0400
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/libbb/lineedit.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/libbb/lineedit.c	2017-03-30 17:31:28.481492330 -0400
 @@ -1341,6 +1341,41 @@
  		printf("%4d %s\n", i, st->history[i]);
  }
@@ -28907,7 +28929,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
 +// memory without the compiler optimizing it away
 +static unsigned char secure_memory_wipe_ctr = 0;
 +static void secure_memory_wipe(void *ptr, size_t len)
-+	{
++{
 +	unsigned char *p = ptr;
 +	size_t loop = len, ctr = secure_memory_wipe_ctr;
 +	while(loop--)
@@ -28940,25 +28962,22 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
  # if ENABLE_FEATURE_EDITING_SAVEHISTORY
  /* We try to ensure that concurrent additions to the history
   * do not overwrite each other.
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/shell/ash.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/shell/ash.c	2017-03-27 09:14:24.690159144 -0400
-@@ -12611,6 +12611,13 @@
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/shell/ash.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/shell/ash.c	2017-03-30 17:32:13.656070160 -0400
+@@ -12611,6 +12611,10 @@
  static int FAST_FUNC
  historycmd(int argc UNUSED_PARAM, char **argv UNUSED_PARAM)
  {
 +	if (nextopt("c") != '\0') {
-+# if ENABLE_FEATURE_EDITING_SAVEHISTORY
-+		remove(line_input_state->hist_file);
-+# endif
 +		clear_history(line_input_state);
 +		return EXIT_SUCCESS;
 +	}
  	show_history(line_input_state);
  	return EXIT_SUCCESS;
  }
---- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/shell/hush.c	2017-03-22 17:36:35.000000000 -0400
-+++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/shell/hush.c	2017-03-27 09:16:56.201883253 -0400
-@@ -8715,6 +8715,18 @@
+--- ./asuswrt-merlin-380.66-alpha2-original/release/src/router/busybox/shell/hush.c	2017-03-27 23:57:11.000000000 -0400
++++ ./asuswrt-merlin-380.66-alpha2/release/src/router/busybox/shell/hush.c	2017-03-30 17:32:32.033254892 -0400
+@@ -8715,6 +8715,15 @@
  #if MAX_HISTORY && ENABLE_FEATURE_EDITING
  static int FAST_FUNC builtin_history(char **argv UNUSED_PARAM)
  {
@@ -28968,9 +28987,6 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
 +	if (opts == (unsigned)-1)
 +		return EXIT_FAILURE;
 +	if (opts & 1) {
-+# if ENABLE_FEATURE_EDITING_SAVEHISTORY
-+		remove(G.line_input_state->hist_file);
-+# endif
 +		clear_history(G.line_input_state);
 +		return EXIT_SUCCESS;
 +	}

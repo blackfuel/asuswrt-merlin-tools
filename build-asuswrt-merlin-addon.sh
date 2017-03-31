@@ -10,6 +10,7 @@ REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="nettle" ~/blackfuel/cryptsetup-arm-asus
 #REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="gcrypt" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
 REBUILD_ALL=$REBUILD_ALL ~/blackfuel/ntp-arm-asuswrt/ntp.sh
 REBUILD_ALL=$REBUILD_ALL ~/blackfuel/dnscrypt-arm-asuswrt/dnscrypt.sh
+REBUILD_ALL=$REBUILD_ALL ~/blackfuel/wipe-arm-asuswrt/wipe.sh
 
 # update the staging area
 rsync -avh --existing --delete-after $HOME/blackfuel/asuswrt-merlin-addon/asuswrt/* $HOME/blackfuel/asuswrt-merlin-addon/staging
