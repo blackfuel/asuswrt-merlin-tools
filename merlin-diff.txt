@@ -3,20 +3,22 @@
 
 #cd ~/asuswrt-merlin
 #ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
-#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.66-alpha2-ARM-mods+apps+xtables-addons.patch
+#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.66-alpha3-ARM-mods+apps+xtables-addons.patch
 #patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.66-ARM-squashfs-4K.patch
 
 #---
 #cd $HOME/blackfuel
 #diff -u -B -N -r -x *.rej -x *.orig -x .directory ./asuswrt-merlin/release/src/router/tor ./asuswrt-merlin-tor-diff/release/src/router/tor > $HOME/merlin-tor-diff.patch
 #---
-#diff -u -B -N a/sntp/harden/linux b/sntp/harden/linux
+#diff -u -B -N a/sntp/harden/linux b/sntp/harden/linux > ~/merlin-diff.patch
+#diff -u -B -N a/ntpd/ntpd.c b/ntpd/ntpd.c > ~/merlin-diff.patch
+#diff -u -B -N a/auto/types/sizeof b/auto/types/sizeof > ~/entware-diff.patch
 
 
 
 
 #---
-MERLIN_TARGET="asuswrt-merlin-380.66-alpha2"
+MERLIN_TARGET="asuswrt-merlin-380.66-alpha3"
 cd
 cd ${MERLIN_TARGET}/release/src-rt-6.x.4708
 make clean
@@ -51,7 +53,6 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt/Makefile ./${MERLIN_TARGET}/release/src-rt/Makefile >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt/target.mak ./${MERLIN_TARGET}/release/src-rt/target.mak >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/config_base ./${MERLIN_TARGET}/release/src/router/config_base >> merlin-diff.patch
-diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/config_base ./${MERLIN_TARGET}/release/src/router/busybox/config_base >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/Makefile ./${MERLIN_TARGET}/release/src/router/Makefile >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/rc/Makefile ./${MERLIN_TARGET}/release/src/router/rc/Makefile >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/rc/firewall.c ./${MERLIN_TARGET}/release/src/router/rc/firewall.c >> merlin-diff.patch
