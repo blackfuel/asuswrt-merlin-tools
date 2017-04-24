@@ -1,0 +1,13 @@
+#--- Loopback for virtual video devices
+MERLIN_TARGET="asuswrt-merlin-380.66-alpha3"
+cd
+rm merlin-diff.patch
+diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/Makefile ./${MERLIN_TARGET}/release/src/router/Makefile >> merlin-diff.patch
+for KERNEL_FOLDER in "src-rt-6.x.4708" "src-rt-7.14.114.x/src" "src-rt-7.x.main/src"; do
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/config_base.6a ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/config_base.6a >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/media/video/Kconfig ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/media/video/Kconfig >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/media/video/Makefile ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/media/video/Makefile >> merlin-diff.patch
+#  diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/media/video/v4l2loopback.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/media/video/v4l2loopback.c >> merlin-diff.patch
+#  diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/media/video/v4l2loopback_formats.h ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/media/video/v4l2loopback_formats.h >> merlin-diff.patch
+done
+

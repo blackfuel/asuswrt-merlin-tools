@@ -3,22 +3,16 @@
 
 #cd ~/asuswrt-merlin
 #ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
-#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.66-alpha3-ARM-mods+apps+xtables-addons.patch
+#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.66-beta1-ARM-mods+apps+xtables-addons.patch
 #patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.66-ARM-squashfs-4K.patch
+#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-uvc-enable.patch
 
 #---
 #cd $HOME/blackfuel
 #diff -u -B -N -r -x *.rej -x *.orig -x .directory ./asuswrt-merlin/release/src/router/tor ./asuswrt-merlin-tor-diff/release/src/router/tor > $HOME/merlin-tor-diff.patch
-#---
-#diff -u -B -N a/sntp/harden/linux b/sntp/harden/linux > ~/merlin-diff.patch
-#diff -u -B -N a/ntpd/ntpd.c b/ntpd/ntpd.c > ~/merlin-diff.patch
-#diff -u -B -N a/auto/types/sizeof b/auto/types/sizeof > ~/entware-diff.patch
-
-
-
 
 #---
-MERLIN_TARGET="asuswrt-merlin-380.66-alpha3"
+MERLIN_TARGET="asuswrt-merlin-380.66-beta1"
 cd
 cd ${MERLIN_TARGET}/release/src-rt-6.x.4708
 make clean
@@ -68,3 +62,5 @@ diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/include/lib
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/libbb/lineedit.c ./${MERLIN_TARGET}/release/src/router/busybox/libbb/lineedit.c >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/shell/ash.c ./${MERLIN_TARGET}/release/src/router/busybox/shell/ash.c >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/shell/hush.c ./${MERLIN_TARGET}/release/src/router/busybox/shell/hush.c >> merlin-diff.patch
+
+

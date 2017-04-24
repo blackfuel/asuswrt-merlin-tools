@@ -3,7 +3,7 @@ make_clean() {
   make clean
   rm -f ${HOME}/asuswrt-merlin/release/src/router/rc/prebuild/*.o
   rm -f ${HOME}/asuswrt-merlin/release/src/router/shared/prebuild/*.o
-  rm .config
+  rm -f .config
 }
 
 update_package() {
