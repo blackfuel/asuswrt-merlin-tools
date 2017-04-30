@@ -4,13 +4,13 @@ set -x
 
 [ -z "$REBUILD_ALL" ] && REBUILD_ALL=0
 
-REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="nettle" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
-#REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="kernel" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
-#REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="openssl" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
-#REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="gcrypt" ~/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
-REBUILD_ALL=$REBUILD_ALL ~/blackfuel/ntp-arm-asuswrt/ntp.sh
-REBUILD_ALL=$REBUILD_ALL ~/blackfuel/dnscrypt-arm-asuswrt/dnscrypt.sh
-REBUILD_ALL=$REBUILD_ALL ~/blackfuel/wipe-arm-asuswrt/wipe.sh
+REBUILD_ALL=$REBUILD_ALL CRYPTO_BACKEND="nettle" $HOME/blackfuel/cryptsetup-arm-asuswrt/cryptsetup.sh
+REBUILD_ALL=$REBUILD_ALL $HOME/blackfuel/ntp-arm-asuswrt/ntp.sh
+REBUILD_ALL=$REBUILD_ALL $HOME/blackfuel/dnscrypt-arm-asuswrt/dnscrypt.sh
+REBUILD_ALL=$REBUILD_ALL $HOME/blackfuel/wipe-arm-asuswrt/wipe.sh
+REBUILD_ALL=$REBUILD_ALL $HOME/blackfuel/haveged-arm-asuswrt/haveged.sh
+REBUILD_ALL=$REBUILD_ALL $HOME/blackfuel/rngtools-arm-asuswrt/rngtools.sh
+REBUILD_ALL=$REBUILD_ALL $HOME/blackfuel/dieharder-arm-asuswrt/dieharder.sh
 
 # update the staging area
 rsync -avh --existing --delete-after $HOME/blackfuel/asuswrt-merlin-addon/asuswrt/* $HOME/blackfuel/asuswrt-merlin-addon/staging

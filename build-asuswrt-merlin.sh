@@ -18,6 +18,14 @@ update_package() {
 set -e
 set -x
 
+[ ! -d /opt ] && sudo mkdir -p /opt
+[ ! -h /opt/brcm ] && sudo ln -sf $HOME/asuswrt-merlin/tools/brcm /opt/brcm
+[ ! -h /opt/brcm-arm ] && sudo ln -sf $HOME/asuswrt-merlin/release/src-rt-6.x.4708/toolchains/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /opt/brcm-arm
+[ ! -d /projects/hnd/tools/linux ] && sudo mkdir -p /projects/hnd/tools/linux
+[ ! -h /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3 ] && sudo ln -sf /opt/brcm-arm /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3
+echo $PATH | grep -qF /opt/brcm-arm || export PATH=$PATH:/opt/brcm-arm/bin:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin:/opt/brcm/hndtools-mipsel-linux/bin:/opt/brcm/hndtools-mipsel-uclibc/bin
+# sudo apt-get install makedepends libltdl-dev automake1.11
+
 VERSION_CONF=$(cat $HOME/asuswrt-merlin/release/src-rt/version.conf)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep EXTENDNO)
@@ -25,6 +33,7 @@ BUILD_VER="${SERIALNO}_${EXTENDNO}"
 $HOME/blackfuel/asuswrt-merlin-tools/install attach
 $HOME/blackfuel/asuswrt-merlin-tools/cp attach
 chmod -R a+rwx /opt/brcm-arm/bin
+
 #---
 BUILD_MODEL="RT-AC68U"
 BUILD_MODEL_2="rt-ac68u"
@@ -56,7 +65,7 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 
 #---
 
@@ -90,7 +99,7 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 
 #---
 
@@ -124,7 +133,7 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 
 #---
 
@@ -158,7 +167,7 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 
 #---
 
@@ -192,7 +201,7 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 
 #---
 
@@ -226,7 +235,7 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 
 #---
 
@@ -260,7 +269,7 @@ mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 
 #---
 $HOME/blackfuel/asuswrt-merlin-tools/install detach
