@@ -24,7 +24,7 @@ set -x
 [ ! -d /projects/hnd/tools/linux ] && sudo mkdir -p /projects/hnd/tools/linux
 [ ! -h /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3 ] && sudo ln -sf /opt/brcm-arm /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3
 echo $PATH | grep -qF /opt/brcm-arm || export PATH=$PATH:/opt/brcm-arm/bin:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin:/opt/brcm/hndtools-mipsel-linux/bin:/opt/brcm/hndtools-mipsel-uclibc/bin
-# sudo apt-get install makedepends libltdl-dev automake1.11
+# sudo apt-get install xutils-dev libltdl-dev automake1.11
 
 VERSION_CONF=$(cat $HOME/asuswrt-merlin/release/src-rt/version.conf)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
@@ -42,7 +42,7 @@ update_package tor
 update_package nettle
 cd ${BUILD_FOLDER}
 make_clean
-make ${BUILD_MODEL_2}
+make ${BUILD_MODEL_2} CONFIG_DEBUG_SECTION_MISMATCH=y
 
 #################################################
 # 
@@ -72,88 +72,8 @@ mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
 
-#################################################
-# 
-exit 1
-# 
-#################################################
-
-make_clean
-
-#---
-
-BUILD_MODEL="RT-AC56U"
-BUILD_MODEL_2="rt-ac56u"
-BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-6.x.4708"
-cd ${HOME}/asuswrt-merlin/release/src/router
-torlink="../../../../asuswrt-merlin-tor/"
-if [ "$(readlink tor)" != "$torlink" ]; then
-  [ -e tor ] && mv -f tor tor-asus
-  ln -sf $torlink tor
-fi
-cd ${BUILD_FOLDER}
-make_clean
-make ${BUILD_MODEL_2}
-pushd .
-cd image
-[ -d "${BUILD_MODEL}" ] && rm -rf "${BUILD_MODEL}"
-mkdir -p ${BUILD_MODEL}/router
-mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
-cp -p ../.config ${BUILD_MODEL}
-cp -p ../router/config_${BUILD_MODEL_2} ${BUILD_MODEL}/router
-cp -p ../linux/linux-2.6.36/config_${BUILD_MODEL_2} ${BUILD_MODEL}/linux/linux-2.6.36
-cp -p ../linux/linux-2.6.36/Module.symvers ${BUILD_MODEL}/linux/linux-2.6.36
-pushd .
-cd ${PWD%%/release*}/release/src/router
-tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
-tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
-popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
-sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
-mv *.trx ${BUILD_MODEL}
-mv *.zip ${BUILD_MODEL}
-mv sha256sum.txt ${BUILD_MODEL}
-cd ${BUILD_FOLDER}
-make_clean
-
-#---
-
-BUILD_MODEL="RT-AC88U"
-BUILD_MODEL_2="rt-ac88u"
-BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-7.14.114.x/src"
-cd ${HOME}/asuswrt-merlin/release/src/router
-torlink="../../../../asuswrt-merlin-tor/"
-if [ "$(readlink tor)" != "$torlink" ]; then
-  [ -e tor ] && mv -f tor tor-asus
-  ln -sf $torlink tor
-fi
-cd ${BUILD_FOLDER}
-make_clean
-make ${BUILD_MODEL_2}
-pushd .
-cd image
-[ -d "${BUILD_MODEL}" ] && rm -rf "${BUILD_MODEL}"
-mkdir -p ${BUILD_MODEL}/router
-mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
-cp -p ../.config ${BUILD_MODEL}
-cp -p ../router/config_${BUILD_MODEL_2} ${BUILD_MODEL}/router
-cp -p ../linux/linux-2.6.36/config_${BUILD_MODEL_2} ${BUILD_MODEL}/linux/linux-2.6.36
-cp -p ../linux/linux-2.6.36/Module.symvers ${BUILD_MODEL}/linux/linux-2.6.36
-pushd .
-cd ${PWD%%/release*}/release/src/router
-tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
-tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
-popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
-sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
-mv *.trx ${BUILD_MODEL}
-mv *.zip ${BUILD_MODEL}
-mv sha256sum.txt ${BUILD_MODEL}
-cd ${BUILD_FOLDER}
-make_clean
 
 #---
 $HOME/blackfuel/asuswrt-merlin-tools/install detach
 $HOME/blackfuel/asuswrt-merlin-tools/cp detach
+

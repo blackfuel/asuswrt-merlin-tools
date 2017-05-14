@@ -1,6 +1,0 @@
-#---
-#diff -u -B -N a/sntp/harden/linux b/sntp/harden/linux > ~/merlin-diff.patch
-#diff -u -B -N a/ntpd/ntpd.c b/ntpd/ntpd.c > ~/merlin-diff.patch
-#diff -u -B -N a/auto/types/sizeof b/auto/types/sizeof > ~/entware-diff.patch
-#diff -u -B -N .config.old .config > ~/config_base.6a-diff.patch
-

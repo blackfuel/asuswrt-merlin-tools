@@ -1,0 +1,27 @@
+#---
+#diff -u -B -N a/sntp/harden/linux b/sntp/harden/linux > ~/merlin-diff.patch
+#diff -u -B -N a/ntpd/ntpd.c b/ntpd/ntpd.c > ~/merlin-diff.patch
+#diff -u -B -N a/auto/types/sizeof b/auto/types/sizeof > ~/entware-diff.patch
+#diff -u -B -N .config.old .config > ~/config_base.6a-diff.patch
+
+diff -u -B -N a/libdm/libdm-string.c b/libdm/libdm-string.c > ~/merlin-diff.patch
+
+#---
+#patch --dry-run -p2 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43.patch
+
+MERLIN_TARGET="asuswrt-merlin-380.66-beta2"
+cd
+for KERNEL_FOLDER in "src-rt-6.x.4708" "src-rt-7.14.114.x/src" "src-rt-7.x.main/src"; do
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/$KERNEL_FOLDER/linux/linux-2.6.36/include/linux/random.h ./${MERLIN_TARGET}/release/$KERNEL_FOLDER/linux/linux-2.6.36/include/linux/random.h >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/$KERNEL_FOLDER/linux/linux-2.6.36/drivers/char/random.c ./${MERLIN_TARGET}/release/$KERNEL_FOLDER/linux/linux-2.6.36/drivers/char/random.c >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/$KERNEL_FOLDER/linux/linux-2.6.36/lib/random32.c ./${MERLIN_TARGET}/release/$KERNEL_FOLDER/linux/linux-2.6.36/lib/random32.c >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/$KERNEL_FOLDER/linux/linux-2.6.36/include/trace/events/random.h ./${MERLIN_TARGET}/release/$KERNEL_FOLDER/linux/linux-2.6.36/include/trace/events/random.h >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/$KERNEL_FOLDER/linux/linux-2.6.36/kernel/irq/handle.c ./${MERLIN_TARGET}/release/$KERNEL_FOLDER/linux/linux-2.6.36/kernel/irq/handle.c >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/$KERNEL_FOLDER/linux/linux-2.6.36/kernel/irq/manage.c ./${MERLIN_TARGET}/release/$KERNEL_FOLDER/linux/linux-2.6.36/kernel/irq/manage.c >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/$KERNEL_FOLDER/linux/linux-2.6.36/kernel/posix-cpu-timers.c ./${MERLIN_TARGET}/release/$KERNEL_FOLDER/linux/linux-2.6.36/kernel/posix-cpu-timers.c >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/$KERNEL_FOLDER/linux/linux-2.6.36/drivers/usb/core/hub.c ./${MERLIN_TARGET}/release/$KERNEL_FOLDER/linux/linux-2.6.36/drivers/usb/core/hub.c >> merlin-diff.patch
+  diff -u -B -N ./${MERLIN_TARGET}-original/release/$KERNEL_FOLDER/linux/linux-2.6.36/net/core/dev.c ./${MERLIN_TARGET}/release/$KERNEL_FOLDER/linux/linux-2.6.36/net/core/dev.c >> merlin-diff.patch
+done
+
+#---
+
