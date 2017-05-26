@@ -35,9 +35,11 @@ $HOME/blackfuel/asuswrt-merlin-tools/cp attach
 chmod -R a+rwx /opt/brcm-arm/bin
 
 #---
+
 BUILD_MODEL="RT-AC68U"
 BUILD_MODEL_2="rt-ac68u"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-6.x.4708"
+if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
@@ -66,12 +68,14 @@ mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
 #make_clean
+fi
 
 #---
 
 BUILD_MODEL="RT-AC56U"
 BUILD_MODEL_2="rt-ac56u"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-6.x.4708"
+if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
@@ -100,12 +104,14 @@ mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
 #make_clean
+fi
 
 #---
 
 BUILD_MODEL="RT-AC88U"
 BUILD_MODEL_2="rt-ac88u"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-7.14.114.x/src"
+if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
@@ -134,12 +140,14 @@ mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
 #make_clean
+fi
 
 #---
 
 BUILD_MODEL="RT-AC3100"
 BUILD_MODEL_2="rt-ac3100"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-7.14.114.x/src"
+if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
@@ -168,12 +176,14 @@ mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
 #make_clean
+fi
 
 #---
 
 BUILD_MODEL="RT-AC5300"
 BUILD_MODEL_2="rt-ac5300"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-7.14.114.x/src"
+if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
@@ -202,12 +212,14 @@ mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
 #make_clean
+fi
 
 #---
 
 BUILD_MODEL="RT-AC87U"
 BUILD_MODEL_2="rt-ac87u"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-6.x.4708"
+if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
@@ -236,12 +248,14 @@ mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
 #make_clean
+fi
 
 #---
 
 BUILD_MODEL="RT-AC3200"
 BUILD_MODEL_2="rt-ac3200"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-7.x.main/src"
+if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
@@ -270,7 +284,48 @@ mv *.zip ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 cd ${BUILD_FOLDER}
 #make_clean
+fi
+
+#---
+
+# move all releases to new folder
+
+SANDBOX="/mnt/hgfs/sandbox"
+
+if [ -d "$SANDBOX" ]; then
+  DST="$SANDBOX/__blackfuel_release_new"
+  rm -rf $DST
+  mkdir -p $DST
+
+  for KERNEL_FOLDER in "src-rt-6.x.4708" "src-rt-7.14.114.x/src" "src-rt-7.x.main/src"; do
+    SRC="$HOME/asuswrt-merlin/release/$KERNEL_FOLDER/image"
+    mv -v $SRC/RT-* $DST
+  done
+
+  for HASH_FILE in $DST/RT-*/sha256sum.txt; do
+    cat "$HASH_FILE" >>"$DST/sha256sums.txt"
+  done
+fi
+
+#---
+
+# create release notes
+
+NOTES="$DST/blackfuel-release.txt"
+echo "=============================================================================================" >>"$NOTES"
+echo "$BUILD_VER" >>"$NOTES"
+echo "Asuswrt-Merlin $BUILD_VER (Blackfuel)" >>"$NOTES"
+echo >>"$NOTES"
+echo "__SHA256 signatures__" >>"$NOTES"
+echo "\`\`\`" >>"$NOTES"
+cat "$DST/sha256sums.txt" >>"$NOTES"
+echo "\`\`\`" >>"$NOTES"
+echo >>"$NOTES"
+echo "__Included in this release__" >>"$NOTES"
+echo "\`Tor 0.3.0.7, NTP 4.2.8p10, DNSCrypt 1.9.5, Cryptsetup 1.7.5\`" >>"$NOTES"
+echo >>"$NOTES"
 
 #---
 $HOME/blackfuel/asuswrt-merlin-tools/install detach
 $HOME/blackfuel/asuswrt-merlin-tools/cp detach
+

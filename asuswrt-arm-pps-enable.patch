@@ -1,5 +1,5 @@
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-06 01:50:24.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-03-06 22:58:10.323702949 -0500
+--- a/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a
++++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a
 @@ -1240,7 +1277,10 @@
  #
  # PPS support
@@ -38,8 +38,8 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 01:50:24.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 22:58:10.367724953 -0500
+--- a/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
++++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -63,8 +63,8 @@
  		priv->prev_status = status;
  	}
  
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 01:50:24.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 22:58:10.379730957 -0500
+--- a/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c
++++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -81,8 +81,8 @@
  
  	if (status)
  		wake_up_interruptible(&port->open_wait);
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-06 01:50:24.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-03-06 22:58:10.611846965 -0500
+--- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a
++++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a
 @@ -1269,7 +1307,10 @@
  #
  # PPS support
@@ -121,8 +121,8 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 01:50:24.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 22:58:10.667874968 -0500
+--- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
++++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -146,8 +146,8 @@
  		priv->prev_status = status;
  	}
  
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 01:50:24.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 22:58:10.691886970 -0500
+--- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
++++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -164,8 +164,8 @@
  
  	if (status)
  		wake_up_interruptible(&port->open_wait);
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-06 01:50:24.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-03-06 22:58:10.803942973 -0500
+--- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a
++++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a
 @@ -1321,7 +1359,10 @@
  #
  # PPS support
@@ -204,8 +204,8 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 01:50:24.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-03-06 22:58:10.835958976 -0500
+--- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
++++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -229,8 +229,8 @@
  		priv->prev_status = status;
  	}
  
---- ./asuswrt-merlin-380.66-alpha2-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 01:50:24.000000000 -0500
-+++ ./asuswrt-merlin-380.66-alpha2/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-03-06 22:58:10.847964975 -0500
+--- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
++++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  

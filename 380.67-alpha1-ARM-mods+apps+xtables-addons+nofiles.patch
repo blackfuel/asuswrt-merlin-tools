@@ -8026,43 +8026,7 @@
  #define IPX_TYPE	1
 --- a/release/src-rt/Makefile
 +++ b/release/src-rt/Makefile
-@@ -2305,17 +2305,6 @@
- 			sed -i "/CONFIG_USB_WDM/d" $(1); \
- 			echo "# CONFIG_USB_WDM is not set" >>$(1); \
- 		fi; \
--	else \
--		sed -i "/CONFIG_USB_SERIAL/d" $(1); \
--		echo "# CONFIG_USB_SERIAL is not set" >>$(1); \
--		sed -i "/CONFIG_USB_ACM/d" $(1); \
--		echo "# CONFIG_USB_ACM is not set" >>$(1); \
--		sed -i "/CONFIG_USB_USBNET/d" $(1); \
--		echo "# CONFIG_USB_USBNET is not set" >>$(1); \
--		sed -i "/CONFIG_USB_IPHETH/d" $(1); \
--		echo "# CONFIG_USB_IPHETH is not set" >>$(1); \
--		sed -i "/CONFIG_USB_WDM/d" $(1); \
--		echo "# CONFIG_USB_WDM is not set" >>$(1); \
- 	fi; \
- 	if [ "$(ARMCPUSMP)" = "up" ]; then \
- 		sed -i "/CONFIG_GENERIC_CLOCKEVENTS_BROADCAST/d" $(1); \
-@@ -2342,11 +2331,17 @@
- 		if [ "$(BCMWL6A)" = "y" ]; then \
- 			sed -i "/CONFIG_IP_ADVANCED_ROUTER/d" $(1); \
- 			echo "CONFIG_IP_ADVANCED_ROUTER=y" >>$(1); \
-+			sed -i "/CONFIG_ASK_IP_FIB_HASH/d" $(1); \
- 			echo "CONFIG_ASK_IP_FIB_HASH=y" >>$(1); \
-+			sed -i "/CONFIG_IP_FIB_TRIE/d" $(1); \
- 			echo "# CONFIG_IP_FIB_TRIE is not set" >>$(1); \
-+			sed -i "/CONFIG_IP_MULTIPLE_TABLES/d" $(1); \
- 			echo "CONFIG_IP_MULTIPLE_TABLES=y" >>$(1); \
-+			sed -i "/CONFIG_IP_ROUTE_MULTIPATH/d" $(1); \
- 			echo "CONFIG_IP_ROUTE_MULTIPATH=y" >>$(1); \
-+			sed -i "/CONFIG_IP_ROUTE_VERBOSE/d" $(1); \
- 			echo "# CONFIG_IP_ROUTE_VERBOSE is not set" >>$(1); \
-+			sed -i "/CONFIG_IP_MROUTE_MULTIPLE_TABLES/d" $(1); \
- 			echo "CONFIG_IP_MROUTE_MULTIPLE_TABLES=y" >>$(1); \
- 		fi ; \
- 		if [ "$(CONFIG_BCMWL5)" != "y" ]; then \
-@@ -2550,12 +2545,6 @@
+@@ -2556,12 +2556,6 @@
  	else \
  		echo "CONFIG_LINUX_MTD=$(LINUX_MTD)" >>$(1); \
  	fi; \
@@ -8080,31 +8044,29 @@
 @@ -1,91 +1,91 @@
  # Broadcom MIPS platform
  export RT-N66U := IPV6SUPP=y HTTPS=y MIPS32=r2 BCM57=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=y \
--                  MEDIASRV=y MODEM=y MODEMPIN=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y CLOUDSYNC=y \
-+                  MEDIASRV=n MODEM=y MODEMPIN=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n CLOUDSYNC=n \
+-                  MEDIASRV=y MODEM=y MODEMPIN=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y SMARTSYNCBASE=y \
++                  MEDIASRV=n MODEM=y MODEMPIN=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n SMARTSYNCBASE=n \
                    USB="USB" GRO=n APP="nolocaldm" BUILD_NAME="RT-N66U" DNSMQ=y LFP=y NVRAM_64K=y NFS=y STAINFO=y \
                    RTN66U=y BECEEM=y ODMPID=y OPENVPN=y OPTIMIZE_XBOX=y JFFS2=y SSH=y DISK_MONITOR=y BCMWL6=y \
--                  USER_LOW_RSSI=y  TIMEMACHINE=n MDNS=n VPNC=y JFFS2LOG=n DROPBOXCLIENT=y FTPCLIENT=y SAMBACLIENT=y \
--                  PROXYSTA=y AUTODICT=y CFE_NVRAM_CHK=y DUMP_OOPS_MSG=y DEBUGFS=n SWEBDAVCLIENT=y SNMPD=y ROG=y \
+                   USER_LOW_RSSI=y  TIMEMACHINE=n MDNS=n VPNC=y JFFS2LOG=n JFFS2USERICON=y \
+-                  PROXYSTA=y AUTODICT=y CFE_NVRAM_CHK=y DUMP_OOPS_MSG=y DEBUGFS=n SNMPD=y ROG=y \
 -                  TFAT=n HFS="none" NTFS="paragon" IPSECMOD=y REPEATER=y DUALWAN=y YANDEXDNS=n DNSFILTER=y SAMBA36=y \
 -                  CLOUDCHECK=y NATNL=y REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=y \
-+                  USER_LOW_RSSI=y  TIMEMACHINE=n MDNS=n VPNC=y JFFS2LOG=n DROPBOXCLIENT=n FTPCLIENT=y SAMBACLIENT=y \
-+                  PROXYSTA=y AUTODICT=y CFE_NVRAM_CHK=y DUMP_OOPS_MSG=y DEBUGFS=n SWEBDAVCLIENT=n SNMPD=n ROG=y \
++                  PROXYSTA=y AUTODICT=y CFE_NVRAM_CHK=y DUMP_OOPS_MSG=y DEBUGFS=n SNMPD=n ROG=y \
 +                  TFAT=n HFS="none" NTFS="paragon" IPSECMOD=y REPEATER=y DUALWAN=n YANDEXDNS=n DNSFILTER=n SAMBA36=y \
 +                  CLOUDCHECK=n NATNL=y REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=n \
                    TOR=y UPNPIGD2=n DNSSEC=y NANO=y
  
  export RT-AC66U := IPV6SUPP=y HTTPS=y MIPS32=r2 BCM57=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=y STAINFO=y \
--                   MEDIASRV=y MODEM=y MODEMPIN=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y CLOUDSYNC=y \
-+                   MEDIASRV=n MODEM=y MODEMPIN=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n CLOUDSYNC=n \
+-                   MEDIASRV=y MODEM=y MODEMPIN=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y SMARTSYNCBASE=y \
++                   MEDIASRV=n MODEM=y MODEMPIN=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n SMARTSYNCBASE=n \
                     USB="USB" GRO=n APP="nolocaldm" BUILD_NAME="RT-AC66U" DNSMQ=y LFP=y NVRAM_64K=y ROG=y \
                     RTAC66U=y BCMWL6=y BCMNAND=y PROXYSTA=y BECEEM=y ODMPID=y OPENVPN=y JFFS2=y AUTODICT=y \
 -                   SSH=y BOOTLZMA=y DUAL_TRX=n DISK_MONITOR=y OPTIMIZE_XBOX=y NFS=y USER_LOW_RSSI=y SNMPD=y \
--                   TIMEMACHINE=n MDNS=n VPNC=y JFFS2LOG=y DUMP_OOPS_MSG=y DEBUGFS=n DROPBOXCLIENT=y TEMPROOTFS=y \
--                   FTPCLIENT=y SAMBACLIENT=y SWEBDAVCLIENT=y TOR=y UPNPIGD2=n STAINFO=y CLOUDCHECK=y NATNL=y \
 +                   SSH=y BOOTLZMA=y DUAL_TRX=n DISK_MONITOR=y OPTIMIZE_XBOX=y NFS=y USER_LOW_RSSI=y SNMPD=n \
-+                   TIMEMACHINE=n MDNS=n VPNC=y JFFS2LOG=y DUMP_OOPS_MSG=y DEBUGFS=n DROPBOXCLIENT=n TEMPROOTFS=y \
-+                   FTPCLIENT=y SAMBACLIENT=y SWEBDAVCLIENT=n TOR=y UPNPIGD2=n STAINFO=y CLOUDCHECK=n NATNL=y \
+                    TIMEMACHINE=n MDNS=n VPNC=y JFFS2LOG=y DUMP_OOPS_MSG=y DEBUGFS=n TEMPROOTFS=y \
+-                   TOR=y UPNPIGD2=n STAINFO=y CLOUDCHECK=y NATNL=y EMAIL=y \
++                   TOR=y UPNPIGD2=n STAINFO=y CLOUDCHECK=n NATNL=y EMAIL=n \
                     REBOOT_SCHEDULE=y TFAT=n HFS="none" NTFS="paragon" MULTICASTIPTV=y QUAGGA=y JFFS2USERICON=y \
 -                   LAN50=y ATCOVER=y GETREALIP=y \
 -                   IPSECMOD=y REPEATER=y DUALWAN=y YANDEXDNS=n DNSFILTER=y SAMBA36=y DNSSEC=y NANO=y
@@ -8114,21 +8076,20 @@
  # Broadcom ARM platform
  export RT-AC68U_BASE := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y \
 -                        SAMBA3=y MEDIASRV=y MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
--                        WEBDAV=y CLOUDSYNC=y USB="USB" GRO=y APP="nolocaldm" PROXYSTA=y FTPCLIENT=y SAMBACLIENT=y \
+-                        WEBDAV=y SMARTSYNCBASE=y USB="USB" GRO=y APP="nolocaldm" PROXYSTA=y JFFS2USERICON=y \
 +                        SAMBA3=y MEDIASRV=n MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
-+                        WEBDAV=n CLOUDSYNC=n USB="USB" GRO=y APP="nolocaldm" PROXYSTA=y FTPCLIENT=y SAMBACLIENT=y \
++                        WEBDAV=n SMARTSYNCBASE=n USB="USB" GRO=y APP="nolocaldm" PROXYSTA=y JFFS2USERICON=y \
                          DNSMQ=y SHP=y NVRAM_64K=y RTAC68U=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y \
 -                        BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=y \
--                        BCMSMP=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y USER_LOW_RSSI=y DROPBOXCLIENT=y \
++                        BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=n \
+                         BCMSMP=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y USER_LOW_RSSI=y \
 -                        TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=y HSPOT=y \
--                        DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SWEBDAVCLIENT=y SNMPD=y TOR=y \
+-                        DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=y TOR=y \
 -                        MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
 -                        BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y NATNL=y REBOOT_SCHEDULE=y \
 -                        TFAT=y HFS="tuxera" NTFS="tuxera" IPSECMOD=n REPEATER=y DUALWAN=y DNSFILTER=y SAMBA36=y UPNPIGD2=n \
-+                        BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=n \
-+                        BCMSMP=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y USER_LOW_RSSI=y DROPBOXCLIENT=n \
-+                        TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n HSPOT=y \
-+                        DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SWEBDAVCLIENT=n SNMPD=n TOR=y \
++                        TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n HSPOT=n \
++                        DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
 +                        MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=n \
 +                        BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n NATNL=y REBOOT_SCHEDULE=y \
 +                        TFAT=y HFS="tuxera" NTFS="tuxera" IPSECMOD=n REPEATER=y DUALWAN=n DNSFILTER=n SAMBA36=y UPNPIGD2=n \
@@ -8139,84 +8100,83 @@
  
  export RT-AC56U := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y ROMCCODE=y \
 -                   SAMBA3=y MEDIASRV=y MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
--                   WEBDAV=y CLOUDSYNC=y USB="USB" GRO=y APP="nolocaldm" BUILD_NAME="RT-AC56U" PROXYSTA=y BCM_RECVFILE=y \
+-                   WEBDAV=y SMARTSYNCBASE=y USB="USB" GRO=y APP="nolocaldm" BUILD_NAME="RT-AC56U" PROXYSTA=y BCM_RECVFILE=y \
 +                   SAMBA3=y MEDIASRV=n MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
-+                   WEBDAV=n CLOUDSYNC=n USB="USB" GRO=y APP="nolocaldm" BUILD_NAME="RT-AC56U" PROXYSTA=y BCM_RECVFILE=y \
++                   WEBDAV=n SMARTSYNCBASE=n USB="USB" GRO=y APP="nolocaldm" BUILD_NAME="RT-AC56U" PROXYSTA=y BCM_RECVFILE=y \
                     DNSMQ=y SHP=y NVRAM_64K=y RTAC56U=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y \
--                   BTN_WIFITOG=y TURBO=y BCM4352_5G=y LANWAN_LED=y OPTIMIZE_XBOX=y ODMPID=y BCMSMP=y DROPBOXCLIENT=y \
+                    BTN_WIFITOG=y TURBO=y BCM4352_5G=y LANWAN_LED=y OPTIMIZE_XBOX=y ODMPID=y BCMSMP=y \
 -                   LED_ALL=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y LINUX_MTD="64" USER_LOW_RSSI=y ROG=y EMAIL=y \
 -                   TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y XHCIMODE=y LAN50=y ATCOVER=y GETREALIP=y \
--                   TEMPROOTFS=y FTPCLIENT=y SAMBACLIENT=y SWEBDAVCLIENT=y SNMPD=y DEBUGFS=y BWDPI=y TOR=y \
+-                   TEMPROOTFS=y SNMPD=y DEBUGFS=y BWDPI=y TOR=y \
 -                   BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y DUMP_OOPS_MSG=y REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y \
 -                   TFAT=y HFS="tuxera" NTFS="tuxera" IPSECMOD=n REPEATER=y DUALWAN=y DNSFILTER=y SAMBA36=y UPNPIGD2=n \
-+                   BTN_WIFITOG=y TURBO=y BCM4352_5G=y LANWAN_LED=y OPTIMIZE_XBOX=y ODMPID=y BCMSMP=y DROPBOXCLIENT=n \
 +                   LED_ALL=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y LINUX_MTD="64" USER_LOW_RSSI=y ROG=y EMAIL=n \
 +                   TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y XHCIMODE=y LAN50=y ATCOVER=y GETREALIP=n \
-+                   TEMPROOTFS=y FTPCLIENT=y SAMBACLIENT=y SWEBDAVCLIENT=n SNMPD=n DEBUGFS=y BWDPI=n TOR=y \
++                   TEMPROOTFS=y SNMPD=n DEBUGFS=y BWDPI=n TOR=y \
 +                   BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n DUMP_OOPS_MSG=y REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y \
 +                   TFAT=y HFS="tuxera" NTFS="tuxera" IPSECMOD=n REPEATER=y DUALWAN=n DNSFILTER=n SAMBA36=y UPNPIGD2=n \
                     DNSSEC=y NANO=y
  
  export RT-AC87U := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y WPS_DUALBAND=y ROG=y \
 -                   SAMBA3=y MEDIASRV=y MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
--                   WEBDAV=y CLOUDSYNC=y USB="USB" GRO=y APP="nolocaldm" BUILD_NAME="RT-AC87U" PROXYSTA=y \
+-                   WEBDAV=y SMARTSYNCBASE=y USB="USB" GRO=y APP="nolocaldm" BUILD_NAME="RT-AC87U" PROXYSTA=y \
 +                   SAMBA3=y MEDIASRV=n MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
-+                   WEBDAV=n CLOUDSYNC=n USB="USB" GRO=y APP="nolocaldm" BUILD_NAME="RT-AC87U" PROXYSTA=y \
++                   WEBDAV=n SMARTSYNCBASE=n USB="USB" GRO=y APP="nolocaldm" BUILD_NAME="RT-AC87U" PROXYSTA=y \
                     DNSMQ=y SHP=y NVRAM_64K=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y JFFS2=y BCM_RECVFILE=y \
                     BTN_WIFITOG=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y LED2_BTN=y DUMP_OOPS_MSG=y \
--                   BCMSMP=y XHCI=y DUALWAN=y REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y EMAIL=y DROPBOXCLIENT=y \
+-                   BCMSMP=y XHCI=y DUALWAN=y REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y EMAIL=y \
 -                   MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y RGMII_BCM_FA=y XHCIMODE=y DISABLE_REPEATER_UI=y \
 -                   QTN=y TFTP=y LINUX_MTD="64" RGMII_BRCM5301X=y BWDPI=y RTAC87U=y EXT_LED_WPS=y DEBUGFS=y \
 -                   BCM5301X_TRAFFIC_MONITOR=n NATNL=y JFFS2USERICON=y CLOUDCHECK=y LACP=n HW_DUALWAN=y \
--                   SWEBDAVCLIENT=y FTPCLIENT=y SAMBACLIENT=y TEMPROOTFS=y JFFS2ND_BACKUP=y SNMPD=y TOR=y REBOOT_SCHEDULE=y \
+-                   TEMPROOTFS=y JFFS2ND_BACKUP=y SNMPD=y TOR=y REBOOT_SCHEDULE=y \
 -                   MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=y NANO=y \
 -                   TFAT=y HFS="tuxera" NTFS="tuxera" NFS=y SSH=y IPSECMOD=n DNSFILTER=y SAMBA36=y UPNPIGD2=n DNSSEC=y
-+                   BCMSMP=y XHCI=y DUALWAN=n REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n EMAIL=n DROPBOXCLIENT=n \
++                   BCMSMP=y XHCI=y DUALWAN=n REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n EMAIL=n \
 +                   MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y RGMII_BCM_FA=y XHCIMODE=y DISABLE_REPEATER_UI=y \
 +                   QTN=y TFTP=y LINUX_MTD="64" RGMII_BRCM5301X=y BWDPI=n RTAC87U=y EXT_LED_WPS=y DEBUGFS=y \
 +                   BCM5301X_TRAFFIC_MONITOR=n NATNL=y JFFS2USERICON=y CLOUDCHECK=n LACP=n HW_DUALWAN=n \
-+                   SWEBDAVCLIENT=n FTPCLIENT=y SAMBACLIENT=y TEMPROOTFS=y JFFS2ND_BACKUP=y SNMPD=n TOR=y REBOOT_SCHEDULE=y \
++                   TEMPROOTFS=y JFFS2ND_BACKUP=y SNMPD=n TOR=y REBOOT_SCHEDULE=y \
 +                   MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=n NANO=y \
 +                   TFAT=y HFS="tuxera" NTFS="tuxera" NFS=y SSH=y IPSECMOD=n DNSFILTER=n SAMBA36=y UPNPIGD2=n DNSSEC=y
  
 -export RT-AC3200 := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=y MEDIASRV=y \
--                    MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y CLOUDSYNC=y SWEBDAVCLIENT=y \
+-                    MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y SMARTSYNCBASE=y \
 +export RT-AC3200 := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=y MEDIASRV=n \
-+                    MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n CLOUDSYNC=n SWEBDAVCLIENT=n \
++                    MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n SMARTSYNCBASE=n \
                      USB="USB" GRO=y APP="nolocaldm" BUILD_NAME="RT-AC3200" PROXYSTA=y DNSMQ=y SHP=y NVRAM_64K=y STAINFO=y \
                      RTAC3200=y BCMWL6=y BCMWL6A=y BCM7=y TUNEK="n" BCM5301X=y DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y \
--                    ODMPID=y LED_BTN=y BCMSMP=y DUALWAN=y REPEATER=y USER_LOW_RSSI=y OPENVPN=y \
+-                    ODMPID=y LED_BTN=y BCMSMP=y DUALWAN=y REPEATER=y USER_LOW_RSSI=y OPENVPN=y DPSTA=y \
 -                    TIMEMACHINE=y MDNS=y TFAT=y NTFS="tuxera" HFS="tuxera" VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y \
 -                    XHCI=y BWDPI=y DUMP_OOPS_MSG=y DHDAP=y GMAC3=y HSPOT=n LINUX_MTD="64" DEBUGFS=y NVSIZE="64" \
--                    TEMPROOTFS=y SSH=y DROPBOXCLIENT=y FTPCLIENT=y SAMBACLIENT=y NOWL=y EMAIL=y BCM_RECVFILE=y REBOOT_SCHEDULE=y \
+-                    TEMPROOTFS=y SSH=y NOWL=y EMAIL=y BCM_RECVFILE=y REBOOT_SCHEDULE=y JFFS2USERICON=y \
 -                    BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y NATNL=y DISABLE_REPEATER_UI=y \
 -                    MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=y NANO=y \
 -                    NFS=y IPSECMOD=n DNSFILTER=y SAMBA36=y SNMPD=y TOR=y UPNPIGD2=n DNSSEC=y
-+                    ODMPID=y LED_BTN=y BCMSMP=y DUALWAN=n REPEATER=y USER_LOW_RSSI=y OPENVPN=y \
++                    ODMPID=y LED_BTN=y BCMSMP=y DUALWAN=n REPEATER=y USER_LOW_RSSI=y OPENVPN=y DPSTA=y \
 +                    TIMEMACHINE=n MDNS=n TFAT=y NTFS="tuxera" HFS="tuxera" VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y \
 +                    XHCI=y BWDPI=n DUMP_OOPS_MSG=y DHDAP=y GMAC3=y HSPOT=n LINUX_MTD="64" DEBUGFS=y NVSIZE="64" \
-+                    TEMPROOTFS=y SSH=y DROPBOXCLIENT=n FTPCLIENT=y SAMBACLIENT=y NOWL=y EMAIL=n BCM_RECVFILE=y REBOOT_SCHEDULE=y \
++                    TEMPROOTFS=y SSH=y NOWL=y EMAIL=n BCM_RECVFILE=y REBOOT_SCHEDULE=y JFFS2USERICON=y \
 +                    BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n NATNL=y DISABLE_REPEATER_UI=y \
 +                    MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=n NANO=y \
 +                    NFS=y IPSECMOD=n DNSFILTER=n SAMBA36=y SNMPD=n TOR=y UPNPIGD2=n DNSSEC=y
  
  
 -export RT-AC88U_BASE := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=y MEDIASRV=y \
--                        MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y CLOUDSYNC=y SWEBDAVCLIENT=y \
+-                        MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y SMARTSYNCBASE=y \
 +export RT-AC88U_BASE := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=y MEDIASRV=n \
-+                        MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n CLOUDSYNC=n SWEBDAVCLIENT=n \
++                        MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n SMARTSYNCBASE=n \
                          USB="USB" GRO=y APP="nolocaldm" DNSMQ=y SHP=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y JFFS2USERICON=y \
-                         DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y LED_BTN=y ODMPID=y BCMSMP=y XHCI=y FTPCLIENT=y \
+                         DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y LED_BTN=y ODMPID=y BCMSMP=y XHCI=y \
 -                        DUALWAN=y REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y \
 +                        DUALWAN=n REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y \
-                         REBOOT_SCHEDULE=y FORCE_AUTO_UPGRADE=n FAKEID=n MULTICASTIPTV=y QUAGGA=y SAMBACLIENT=y \
+                         REBOOT_SCHEDULE=y FORCE_AUTO_UPGRADE=n FAKEID=n MULTICASTIPTV=y QUAGGA=y \
 -                        JFFS2LOG=y BWDPI=y DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
--                        DROPBOXCLIENT=y EMAIL=y ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
+-                        EMAIL=y ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
 -                        BCM_RECVFILE=y TFAT=y NTFS="tuxera" HFS="tuxera" CFEZ=y NATNL=y ERPTEST=n CLOUDCHECK=y \
 -                        ASPMD=n BCMEVENT=n WLCLMLOAD=n BCM_MUMIMO=y LAN50=y ATCOVER=y GETREALIP=y \
 -                        NFS=y IPSECMOD=n DNSFILTER=y SAMBA36=y SNMPD=y TOR=y UPNPIGD2=n DNSSEC=y NANO=y
 +                        JFFS2LOG=y BWDPI=n DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
-+                        DROPBOXCLIENT=n EMAIL=n ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
++                        EMAIL=n ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
 +                        BCM_RECVFILE=y TFAT=y NTFS="tuxera" HFS="tuxera" CFEZ=y NATNL=y ERPTEST=n CLOUDCHECK=n \
 +                        ASPMD=n BCMEVENT=n WLCLMLOAD=n BCM_MUMIMO=y LAN50=y ATCOVER=y GETREALIP=n \
 +                        NFS=y IPSECMOD=n DNSFILTER=n SAMBA36=y SNMPD=n TOR=y UPNPIGD2=n DNSSEC=y NANO=y
@@ -8225,7 +8185,7 @@
  export RT-AC88U += BUILD_NAME="RT-AC88U" RGMII_BRCM5301X=y SWITCH2="RTL8365MB" BCM_MMC=n BCM_7114=y NOWLALL=n \
 --- a/release/src/router/config_base
 +++ b/release/src/router/config_base
-@@ -298,7 +298,7 @@
+@@ -300,7 +300,7 @@
  # RTCONFIG_MULTICAST_IPTV is not set
  # RTCONFIG_DYN_MODEM is not set
  # RTCONFIG_NOTIFICATION_CENTER is not set
@@ -8284,7 +8244,7 @@
  	[ ! -f $(TARGETDIR)/lib/modules/*/kernel/crypto/* ] && rm -rf $(TARGETDIR)/lib/modules/*/kernel/crypto || true
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
-@@ -2833,6 +2832,14 @@
+@@ -2828,6 +2827,14 @@
  tor-install: tor
  	install -D tor/src/or/tor $(INSTALLDIR)/tor/usr/sbin/Tor
  	$(STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor
@@ -8301,21 +8261,6 @@
  	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
 --- a/release/src/router/rc/Makefile
 +++ b/release/src/router/rc/Makefile
-@@ -704,10 +704,10 @@
- ate-broadcom.o:
- 	@-cp -f ./prebuild/ate-broadcom.o .
- endif
--ifneq ($(wildcard ./prebuild/ate.o),)
--ate.o:
--	@-cp -f ./prebuild/ate.o .
--endif
-+#ifneq ($(wildcard ./prebuild/ate.o),)
-+#ate.o:
-+#	@-cp -f ./prebuild/ate.o .
-+#endif
- ifeq ($(BUILD_NAME), RT-AC68U)
- ifneq ($(wildcard ./prebuild/cfe.o),)
- cfe.o:
 @@ -750,12 +750,12 @@
  endif
  endif
@@ -8337,7 +8282,7 @@
  	@echo " [rc] CC $@"
 --- a/release/src/router/rc/openvpn.c
 +++ b/release/src/router/rc/openvpn.c
-@@ -1481,11 +1481,11 @@
+@@ -1491,11 +1491,11 @@
  		fprintf(fp, "#!/bin/sh\n");
  		sprintf(&buffer[0], "vpn_server%d_proto", serverNum);
  		strncpy(&buffer[0], nvram_safe_get(&buffer[0]), BUF_SIZE);
@@ -8356,7 +8301,7 @@
  		fprintf(fp, "--dport %d -j ACCEPT\n", nvram_get_int(&buffer[0]));
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -3475,8 +3475,8 @@
+@@ -3485,8 +3485,8 @@
  	if (pids("ntpclient"))
  		killall_tk("ntpclient");
  
@@ -8369,7 +8314,7 @@
  }
 --- a/release/src/router/rc/wan.c
 +++ b/release/src/router/rc/wan.c
-@@ -3338,8 +3338,16 @@
+@@ -3345,8 +3345,16 @@
  #endif
  
  #if LINUX_KERNEL_VERSION >= KERNEL_VERSION(2,6,36)
@@ -8588,7 +8533,7 @@
  CONFIG_FEATURE_TAB_COMPLETION=y
 --- a/release/src/router/busybox/include/libbb.h
 +++ b/release/src/router/busybox/include/libbb.h
-@@ -1567,6 +1567,7 @@
+@@ -1569,6 +1569,7 @@
   */
  int read_line_input(line_input_t *st, const char *prompt, char *command, int maxsize, int timeout) FAST_FUNC;
  void show_history(const line_input_t *st) FAST_FUNC;

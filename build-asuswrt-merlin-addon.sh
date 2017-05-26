@@ -13,11 +13,7 @@ REBUILD_ALL=$REBUILD_ALL $HOME/blackfuel/rngtools-arm-asuswrt/rngtools.sh
 REBUILD_ALL=$REBUILD_ALL $HOME/blackfuel/dieharder-arm-asuswrt/dieharder.sh
 REBUILD_ALL=$REBUILD_ALL $HOME/blackfuel/rtlentropy-arm-asuswrt/rtlentropy.sh
 
-# update the staging area
-rsync -avh --existing --delete-after $HOME/blackfuel/asuswrt-merlin-addon/asuswrt/* $HOME/blackfuel/asuswrt-merlin-addon/staging
-cp -a $HOME/blackfuel/asuswrt-merlin-addon/staging/native/sbin $HOME/blackfuel/asuswrt-merlin-addon/staging
-
-# strip binaries
+# strip the binaries
 strip_file() {
   for PATHNAME in $@; do
     if [ ! -h "$PATHNAME" ] && [ -f "$PATHNAME" ]; then
@@ -37,11 +33,16 @@ strip_file() {
 }
 
 set +x
-strip_file "$HOME/blackfuel/asuswrt-merlin-addon/staging/bin/*" \
-           "$HOME/blackfuel/asuswrt-merlin-addon/staging/sbin/*" \
-           "$HOME/blackfuel/asuswrt-merlin-addon/staging/lib/*" \
-           "$HOME/blackfuel/asuswrt-merlin-addon/staging/usr/bin/*" \
-           "$HOME/blackfuel/asuswrt-merlin-addon/staging/usr/sbin/*" \
-           "$HOME/blackfuel/asuswrt-merlin-addon/staging/usr/lib/*"
+strip_file "$HOME/blackfuel/asuswrt-merlin-addon/asuswrt/bin/*" \
+           "$HOME/blackfuel/asuswrt-merlin-addon/asuswrt/sbin/*" \
+           "$HOME/blackfuel/asuswrt-merlin-addon/asuswrt/lib/*" \
+           "$HOME/blackfuel/asuswrt-merlin-addon/asuswrt/usr/bin/*" \
+           "$HOME/blackfuel/asuswrt-merlin-addon/asuswrt/usr/sbin/*" \
+           "$HOME/blackfuel/asuswrt-merlin-addon/asuswrt/usr/lib/*"
+set -x
+
+# update the staging area
+rsync -avh --existing --delete-after $HOME/blackfuel/asuswrt-merlin-addon/asuswrt/* $HOME/blackfuel/asuswrt-merlin-addon/staging
+cp -a $HOME/blackfuel/asuswrt-merlin-addon/staging/native/sbin $HOME/blackfuel/asuswrt-merlin-addon/staging
 
 
