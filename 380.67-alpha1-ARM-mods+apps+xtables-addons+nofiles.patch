@@ -8261,6 +8261,19 @@
  	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
 --- a/release/src/router/rc/Makefile
 +++ b/release/src/router/rc/Makefile
+@@ -704,10 +704,12 @@
+ ate-broadcom.o:
+ 	@-cp -f ./prebuild/ate-broadcom.o .
+ endif
++ifeq ($(BUILD_NAME), RT-AC5300)
+ ifneq ($(wildcard ./prebuild/ate.o),)
+ ate.o:
+ 	@-cp -f ./prebuild/ate.o .
+ endif
++endif
+ ifeq ($(BUILD_NAME), RT-AC68U)
+ ifneq ($(wildcard ./prebuild/cfe.o),)
+ cfe.o:
 @@ -750,12 +750,12 @@
  endif
  endif
