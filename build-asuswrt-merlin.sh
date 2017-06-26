@@ -30,6 +30,7 @@ VERSION_CONF=$(cat $HOME/asuswrt-merlin/release/src-rt/version.conf)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
 eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep EXTENDNO)
 BUILD_VER="${SERIALNO}_${EXTENDNO}"
+BUILD_VER2="${SERIALNO}-${EXTENDNO}"
 $HOME/blackfuel/asuswrt-merlin-tools/install attach
 $HOME/blackfuel/asuswrt-merlin-tools/cp attach
 chmod -R a+rwx /opt/brcm-arm/bin
@@ -313,8 +314,8 @@ fi
 
 NOTES="$DST/blackfuel-release.txt"
 echo "=============================================================================================" >>"$NOTES"
-echo "$BUILD_VER" >>"$NOTES"
-echo "Asuswrt-Merlin $BUILD_VER (Blackfuel)" >>"$NOTES"
+echo "$BUILD_VER2" >>"$NOTES"
+echo "Asuswrt-Merlin $BUILD_VER2 (Blackfuel)" >>"$NOTES"
 echo >>"$NOTES"
 echo "__SHA256 signatures__" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
@@ -322,7 +323,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.0.7, NTP 4.2.8p10, DNSCrypt 1.9.5, Cryptsetup 1.7.5\`" >>"$NOTES"
+echo "\`Tor 0.3.0.8, NTP 4.2.8p10, DNSCrypt 1.9.5, Cryptsetup 1.7.5\`" >>"$NOTES"
 echo >>"$NOTES"
 
 #---
