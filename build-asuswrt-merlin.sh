@@ -323,7 +323,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.0.8, NTP 4.2.8p10, DNSCrypt 1.9.5, Cryptsetup 1.7.5\`" >>"$NOTES"
+echo "\`Tor 0.3.0.9, NTP 4.2.8p10, DNSCrypt 1.9.5, Cryptsetup 1.7.5\`" >>"$NOTES"
 echo >>"$NOTES"
 
 #---
