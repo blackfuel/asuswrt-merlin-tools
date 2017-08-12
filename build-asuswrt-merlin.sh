@@ -4,6 +4,7 @@ make_clean() {
   rm -f ${HOME}/asuswrt-merlin/release/src/router/rc/prebuild/*.o
   rm -f ${HOME}/asuswrt-merlin/release/src/router/shared/prebuild/*.o
   rm -f .config
+  rm -rf image/${BUILD_MODEL}
 }
 
 update_package() {
@@ -49,7 +50,6 @@ make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
-[ -d "${BUILD_MODEL}" ] && rm -rf "${BUILD_MODEL}"
 mkdir -p ${BUILD_MODEL}/router
 mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
 cp -p ../.config ${BUILD_MODEL}
@@ -85,7 +85,6 @@ make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
-[ -d "${BUILD_MODEL}" ] && rm -rf "${BUILD_MODEL}"
 mkdir -p ${BUILD_MODEL}/router
 mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
 cp -p ../.config ${BUILD_MODEL}
@@ -121,7 +120,6 @@ make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
-[ -d "${BUILD_MODEL}" ] && rm -rf "${BUILD_MODEL}"
 mkdir -p ${BUILD_MODEL}/router
 mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
 cp -p ../.config ${BUILD_MODEL}
@@ -157,7 +155,6 @@ make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
-[ -d "${BUILD_MODEL}" ] && rm -rf "${BUILD_MODEL}"
 mkdir -p ${BUILD_MODEL}/router
 mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
 cp -p ../.config ${BUILD_MODEL}
@@ -193,7 +190,6 @@ make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
-[ -d "${BUILD_MODEL}" ] && rm -rf "${BUILD_MODEL}"
 mkdir -p ${BUILD_MODEL}/router
 mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
 cp -p ../.config ${BUILD_MODEL}
@@ -229,7 +225,6 @@ make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
-[ -d "${BUILD_MODEL}" ] && rm -rf "${BUILD_MODEL}"
 mkdir -p ${BUILD_MODEL}/router
 mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
 cp -p ../.config ${BUILD_MODEL}
@@ -265,7 +260,6 @@ make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
-[ -d "${BUILD_MODEL}" ] && rm -rf "${BUILD_MODEL}"
 mkdir -p ${BUILD_MODEL}/router
 mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
 cp -p ../.config ${BUILD_MODEL}
@@ -323,7 +317,8 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.0.9, NTP 4.2.8p10, DNSCrypt 1.9.5, Cryptsetup 1.7.5\`" >>"$NOTES"
+echo "\`Tor 0.3.0.10, NTP 4.2.8p10, DNSCrypt 1.9.5, Cryptsetup 1.7.5, Whois 5.2.16\`" >>"$NOTES"
+echo "- busybox: stty, base64, sha512sum, sha256sum, sha3sum, sha1sum, uudecode, uuencode, whoami" >>"$NOTES"
 echo >>"$NOTES"
 
 #---

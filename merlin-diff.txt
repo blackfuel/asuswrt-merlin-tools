@@ -2,8 +2,8 @@
 #diff -u -r -B -X ./excludes.txt ./${MERLIN_TARGET}-original/ ./${MERLIN_TARGET}/ | grep -v "Only in ./${MERLIN_TARGET}" > merlin-diff.patch
 
 #cd ~/asuswrt-merlin
-#ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
-#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.67-beta1-ARM-mods+apps+xtables-addons.patch
+#ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
+#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.68-alpha2-ARM-mods+apps+xtables-addons.patch
 #patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43.patch
 #patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.66-ARM-squashfs-4K.patch
 #patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-uvc-enable.patch
