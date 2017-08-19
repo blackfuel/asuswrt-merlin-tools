@@ -62,6 +62,6 @@ diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/shell/ash.c
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/shell/hush.c ./${MERLIN_TARGET}/release/src/router/busybox/shell/hush.c >> merlin-diff.patch
 
 # strip file times, root folder names and diff comments
-#sed -r -i 's/^(---) ([^\/ ]*\/){2}(release\/[^ \t]*).*/\1 a\/\3/g;s/^(\+\+\+) ([^\/ ]*\/){2}(release\/[^ \t]*).*/\1 b\/\3/g;s/^diff .*//g' merlin-diff.patch
+sed -r -i 's/^(---) ([^\/ ]*\/){2}(release\/[^ \t]*).*/\1 a\/\3/g;s/^(\+\+\+) ([^\/ ]*\/){2}(release\/[^ \t]*).*/\1 b\/\3/g;s/^diff .*//g' merlin-diff.patch
 
 
