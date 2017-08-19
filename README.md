@@ -24,7 +24,7 @@ The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use 
 
 1. Create an ed script to automatically edit the file, "release/src-rt/target.mak".
 
-  Script file: **~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch**
+  Script file: **~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch**
   ```
   e ./release/src-rt/target.mak
   H
@@ -40,7 +40,11 @@ The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use 
   g/SWEBDAVCLIENT=y/s//SWEBDAVCLIENT=n/g
   g/SNMPD=y/s//SNMPD=n/g
   g/CLOUDCHECK=y/s//CLOUDCHECK=n/g
+  g/DUALWAN=y/s//DUALWAN=n/g
   g/DNSFILTER=y/s//DNSFILTER=n/g
+  g/HW_DUALWAN=y/s//HW_DUALWAN=n/g
+  g/HSPOT=y/s//HSPOT=n/g
+  g/SMARTSYNCBASE=y/s//SMARTSYNCBASE=n/g
   ,w
   ```
 
