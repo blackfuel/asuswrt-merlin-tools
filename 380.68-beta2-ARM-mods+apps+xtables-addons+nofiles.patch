@@ -1,5 +1,5 @@
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a	2017-08-19 17:17:27.490626605 -0400
 @@ -416,7 +416,7 @@
  CONFIG_INET=y
  CONFIG_IP_MULTICAST=y
@@ -18,20 +18,9 @@
  # CONFIG_NF_CT_PROTO_DCCP is not set
  CONFIG_NF_CT_PROTO_GRE=m
  # CONFIG_NF_CT_PROTO_SCTP is not set
-@@ -502,7 +502,7 @@
- CONFIG_NF_CONNTRACK_SIP=m
- CONFIG_NF_CONNTRACK_TFTP=y
- # CONFIG_NF_CT_NETLINK is not set
--# CONFIG_NETFILTER_TPROXY is not set
-+CONFIG_NETFILTER_TPROXY=m
- CONFIG_NETFILTER_XTABLES=y
- 
- #
-@@ -529,16 +529,25 @@
- CONFIG_NETFILTER_XT_TARGET_NOTRACK=y
+@@ -530,15 +530,23 @@
  # CONFIG_NETFILTER_XT_TARGET_RATEEST is not set
  # CONFIG_NETFILTER_XT_TARGET_TEE is not set
-+CONFIG_NETFILTER_XT_TARGET_TPROXY=m
  # CONFIG_NETFILTER_XT_TARGET_TRACE is not set
 +# CONFIG_NETFILTER_XT_TARGET_ACCOUNT is not set
 +CONFIG_NETFILTER_XT_TARGET_CHAOS=m
@@ -50,23 +39,20 @@
  #
  # CONFIG_NETFILTER_XT_MATCH_CLUSTER is not set
 -# CONFIG_NETFILTER_XT_MATCH_COMMENT is not set
-+CONFIG_NETFILTER_XT_MATCH_COMMENT=m
++# CONFIG_NETFILTER_XT_MATCH_COMMENT is not
  CONFIG_NETFILTER_XT_MATCH_CONNBYTES=y
  CONFIG_NETFILTER_XT_MATCH_CONNLIMIT=y
  CONFIG_NETFILTER_XT_MATCH_CONNMARK=y
-@@ -565,9 +574,9 @@
- # CONFIG_NETFILTER_XT_MATCH_REALM is not set
- CONFIG_NETFILTER_XT_MATCH_RECENT=y
+@@ -567,7 +575,7 @@
  # CONFIG_NETFILTER_XT_MATCH_SCTP is not set
--# CONFIG_NETFILTER_XT_MATCH_SOCKET is not set
-+CONFIG_NETFILTER_XT_MATCH_SOCKET=m
+ # CONFIG_NETFILTER_XT_MATCH_SOCKET is not set
  CONFIG_NETFILTER_XT_MATCH_STATE=y
 -# CONFIG_NETFILTER_XT_MATCH_STATISTIC is not set
 +CONFIG_NETFILTER_XT_MATCH_STATISTIC=m
  CONFIG_NETFILTER_XT_MATCH_STRING=y
  CONFIG_NETFILTER_XT_MATCH_TCPMSS=y
  CONFIG_NETFILTER_XT_MATCH_TIME=y
-@@ -575,6 +584,13 @@
+@@ -575,6 +583,13 @@
  CONFIG_NETFILTER_XT_MATCH_WEBSTR=y
  CONFIG_NETFILTER_XT_MATCH_CONDITION=m
  CONFIG_NETFILTER_XT_MATCH_GEOIP=m
@@ -80,7 +66,7 @@
  CONFIG_IP_SET=m
  CONFIG_IP_SET_MAX=256
  CONFIG_IP_SET_BITMAP_IP=m
-@@ -1032,7 +1048,28 @@
+@@ -1032,7 +1047,28 @@
  # CONFIG_SCSI_DH is not set
  # CONFIG_SCSI_OSD_INITIATOR is not set
  # CONFIG_ATA is not set
@@ -110,7 +96,7 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1247,7 +1284,10 @@
+@@ -1247,7 +1283,10 @@
  #
  # PPS support
  #
@@ -122,7 +108,7 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1280,14 +1320,14 @@
+@@ -1280,14 +1319,14 @@
  # CONFIG_SOUND is not set
  CONFIG_HID_SUPPORT=y
  CONFIG_HID=m
@@ -139,7 +125,7 @@
  
  #
  # USB HID Boot Protocol drivers
-@@ -1434,13 +1474,13 @@
+@@ -1434,13 +1473,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -156,7 +142,7 @@
  # CONFIG_USB_SERIAL_FUNSOFT is not set
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1459,7 +1499,7 @@
+@@ -1459,7 +1498,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MOTOROLA is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -165,7 +151,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1584,8 +1624,11 @@
+@@ -1584,8 +1623,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -179,7 +165,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1633,11 +1676,12 @@
+@@ -1633,11 +1675,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -193,7 +179,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
  # CONFIG_VXFS_FS is not set
-@@ -1830,7 +1874,7 @@
+@@ -1830,7 +1873,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -202,7 +188,7 @@
  
  #
  # Hash modes
-@@ -1847,41 +1891,42 @@
+@@ -1847,41 +1890,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -268,7 +254,7 @@
  
  #
  # Random Number Generation
-@@ -1889,9 +1934,17 @@
+@@ -1889,9 +1933,17 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -286,8 +272,8 @@
  # Library routines
  #
  CONFIG_BITREVERSE=y
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-08-19 17:09:30.400497963 -0400
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -311,8 +297,8 @@
  		priv->prev_status = status;
  	}
  
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-08-19 17:09:30.400497963 -0400
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -329,9 +315,9 @@
  
  	if (status)
  		wake_up_interruptible(&port->open_wait);
-
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig
+diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Kconfig	2017-08-19 17:09:30.404512908 -0400
 @@ -590,6 +590,203 @@
  
  	  To compile it as a module, choose M here.  If unsure, say N.
@@ -887,9 +873,9 @@
  endif # NETFILTER_XTABLES
  
  endmenu
-
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile
+diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/net/netfilter/Makefile	2017-08-19 17:09:30.404512908 -0400
 @@ -40,6 +40,7 @@
  
  # generic X tables 
@@ -927,8 +913,8 @@
  
  # ipset
  obj-$(CONFIG_IP_SET) += ipset/
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-08-19 17:09:30.408527853 -0400
 @@ -66,6 +66,28 @@
  
  	  If unsure, say N.
@@ -958,8 +944,8 @@
  config SQUASHFS_EMBEDDED
  	bool "Additional option for memory-constrained systems"
  	depends on SQUASHFS
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-08-19 17:09:30.408527853 -0400
 @@ -37,6 +37,13 @@
  #define SQUASHFS_FILE_SIZE		131072
  #define SQUASHFS_FILE_LOG		17
@@ -974,8 +960,8 @@
  #define SQUASHFS_FILE_MAX_SIZE		1048576
  #define SQUASHFS_FILE_MAX_LOG		20
  
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/fs/squashfs/super.c	2017-08-19 17:09:30.412542798 -0400
 @@ -102,7 +102,7 @@
  		goto failure;
  	}
@@ -985,8 +971,8 @@
  	msblk->devblksize_log2 = ffz(~msblk->devblksize);
  
  	mutex_init(&msblk->read_data_mutex);
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Makefile	2017-08-19 17:09:30.412542798 -0400
 @@ -85,6 +85,9 @@
  obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
  obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
@@ -997,8 +983,8 @@
  
  #
  # generic algorithms and the async_tx api
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/Kconfig	2017-08-19 17:09:30.412542798 -0400
 @@ -842,6 +842,27 @@
  	  ANSI X9.31 A.2.4. Note that this option must be enabled if
  	  CRYPTO_FIPS is selected
@@ -1027,8 +1013,8 @@
  source "drivers/crypto/Kconfig"
  
  endif	# if CRYPTO
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/af_alg.c	2017-08-19 17:09:30.412542798 -0400
 @@ -0,0 +1,483 @@
 +/*
 + * af_alg: User-space algorithm interface
@@ -1513,8 +1499,8 @@
 +module_exit(af_alg_exit);
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_NETPROTO(AF_ALG);
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_hash.c	2017-08-19 17:09:30.412542798 -0400
 @@ -0,0 +1,319 @@
 +/*
 + * algif_hash: User-space interface for hash algorithms
@@ -1835,8 +1821,8 @@
 +module_init(algif_hash_init);
 +module_exit(algif_hash_exit);
 +MODULE_LICENSE("GPL");
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-08-19 17:09:30.416557743 -0400
 @@ -0,0 +1,632 @@
 +/*
 + * algif_skcipher: User-space interface for skcipher algorithms
@@ -2470,8 +2456,8 @@
 +module_init(algif_skcipher_init);
 +module_exit(algif_skcipher_exit);
 +MODULE_LICENSE("GPL");
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/net/core/sock.c	2017-08-19 17:09:30.416557743 -0400
 @@ -157,7 +157,7 @@
    "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
    "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
@@ -2499,8 +2485,8 @@
    "clock-AF_MAX"
  };
  
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/if_alg.h	2017-08-19 17:09:30.416557743 -0400
 @@ -0,0 +1,92 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -2594,8 +2580,8 @@
 +}
 +
 +#endif	/* _CRYPTO_IF_ALG_H */
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-08-19 17:09:30.416557743 -0400
 @@ -68,6 +68,21 @@
  	return (++sg)->length ? sg : (void *)sg_page(sg);
  }
@@ -2618,8 +2604,8 @@
  static inline unsigned long scatterwalk_samebuf(struct scatter_walk *walk_in,
  						struct scatter_walk *walk_out)
  {
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/if_alg.h	2017-08-19 17:09:30.416557743 -0400
 @@ -0,0 +1,40 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -2661,8 +2647,8 @@
 +#define ALG_OP_ENCRYPT			1
 +
 +#endif	/* _LINUX_IF_ALG_H */
---- a/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h
-+++ b/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h
+--- ./asuswrt-merlin-original/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-6.x.4708/linux/linux-2.6.36/include/linux/socket.h	2017-08-19 17:09:30.416557743 -0400
 @@ -193,7 +193,8 @@
  #define AF_PHONET	35	/* Phonet sockets		*/
  #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
@@ -2689,8 +2675,8 @@
  
  /* IPX options */
  #define IPX_TYPE	1
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a	2017-08-19 17:20:10.825600227 -0400
 @@ -500,7 +500,7 @@
  CONFIG_NETFILTER_NETLINK_LOG=y
  CONFIG_NF_CONNTRACK=y
@@ -2700,20 +2686,9 @@
  # CONFIG_NF_CT_PROTO_DCCP is not set
  CONFIG_NF_CT_PROTO_GRE=m
  # CONFIG_NF_CT_PROTO_SCTP is not set
-@@ -516,7 +516,7 @@
- CONFIG_NF_CONNTRACK_SIP=m
- CONFIG_NF_CONNTRACK_TFTP=y
- CONFIG_NF_CT_NETLINK=y
--# CONFIG_NETFILTER_TPROXY is not set
-+CONFIG_NETFILTER_TPROXY=m
- CONFIG_NETFILTER_XTABLES=y
- 
- #
-@@ -543,15 +543,25 @@
- CONFIG_NETFILTER_XT_TARGET_NOTRACK=y
+@@ -544,8 +544,17 @@
  # CONFIG_NETFILTER_XT_TARGET_RATEEST is not set
  # CONFIG_NETFILTER_XT_TARGET_TEE is not set
-+CONFIG_NETFILTER_XT_TARGET_TPROXY=m
  # CONFIG_NETFILTER_XT_TARGET_TRACE is not set
 +# CONFIG_NETFILTER_XT_TARGET_ACCOUNT is not set
 +CONFIG_NETFILTER_XT_TARGET_CHAOS=m
@@ -2729,26 +2704,16 @@
  
  #
  # Xtables matches
- #
- # CONFIG_NETFILTER_XT_MATCH_CLUSTER is not set
--# CONFIG_NETFILTER_XT_MATCH_COMMENT is not set
-+CONFIG_NETFILTER_XT_MATCH_COMMENT=m
- CONFIG_NETFILTER_XT_MATCH_CONNBYTES=y
- CONFIG_NETFILTER_XT_MATCH_CONNLIMIT=y
- CONFIG_NETFILTER_XT_MATCH_CONNMARK=y
-@@ -578,9 +588,9 @@
- # CONFIG_NETFILTER_XT_MATCH_REALM is not set
- CONFIG_NETFILTER_XT_MATCH_RECENT=y
+@@ -580,7 +589,7 @@
  # CONFIG_NETFILTER_XT_MATCH_SCTP is not set
--# CONFIG_NETFILTER_XT_MATCH_SOCKET is not set
-+CONFIG_NETFILTER_XT_MATCH_SOCKET=m
+ # CONFIG_NETFILTER_XT_MATCH_SOCKET is not set
  CONFIG_NETFILTER_XT_MATCH_STATE=y
 -# CONFIG_NETFILTER_XT_MATCH_STATISTIC is not set
 +CONFIG_NETFILTER_XT_MATCH_STATISTIC=m
  CONFIG_NETFILTER_XT_MATCH_STRING=y
  CONFIG_NETFILTER_XT_MATCH_TCPMSS=y
  CONFIG_NETFILTER_XT_MATCH_TIME=y
-@@ -588,6 +598,13 @@
+@@ -588,6 +597,13 @@
  CONFIG_NETFILTER_XT_MATCH_WEBSTR=y
  CONFIG_NETFILTER_XT_MATCH_CONDITION=m
  CONFIG_NETFILTER_XT_MATCH_GEOIP=m
@@ -2762,7 +2727,7 @@
  CONFIG_IP_SET=m
  CONFIG_IP_SET_MAX=256
  CONFIG_IP_SET_BITMAP_IP=m
-@@ -1059,7 +1076,28 @@
+@@ -1059,7 +1075,28 @@
  # CONFIG_SATA_INIC162X is not set
  # CONFIG_SATA_SIL24 is not set
  # CONFIG_ATA_SFF is not set
@@ -2792,7 +2757,7 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1276,7 +1314,10 @@
+@@ -1276,7 +1313,10 @@
  #
  # PPS support
  #
@@ -2804,7 +2769,7 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1309,14 +1350,14 @@
+@@ -1309,14 +1349,14 @@
  # CONFIG_SOUND is not set
  CONFIG_HID_SUPPORT=y
  CONFIG_HID=m
@@ -2821,7 +2786,7 @@
  
  #
  # USB HID Boot Protocol drivers
-@@ -1463,13 +1504,13 @@
+@@ -1463,13 +1503,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -2838,7 +2803,7 @@
  # CONFIG_USB_SERIAL_FUNSOFT is not set
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1488,7 +1529,7 @@
+@@ -1488,7 +1528,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MOTOROLA is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -2847,7 +2812,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1613,8 +1654,11 @@
+@@ -1613,8 +1653,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -2861,7 +2826,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1663,11 +1707,12 @@
+@@ -1663,11 +1706,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -2875,7 +2840,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
  # CONFIG_VXFS_FS is not set
-@@ -1860,7 +1905,7 @@
+@@ -1860,7 +1904,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -2884,7 +2849,7 @@
  
  #
  # Hash modes
-@@ -1877,41 +1922,42 @@
+@@ -1877,41 +1921,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -2950,7 +2915,7 @@
  
  #
  # Random Number Generation
-@@ -1919,9 +1965,17 @@
+@@ -1919,9 +1964,17 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -2968,8 +2933,8 @@
  # Library routines
  #
  CONFIG_BITREVERSE=y
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-08-19 17:09:30.420572688 -0400
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -2993,8 +2958,8 @@
  		priv->prev_status = status;
  	}
  
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-08-19 17:09:30.420572688 -0400
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -3011,9 +2976,9 @@
  
  	if (status)
  		wake_up_interruptible(&port->open_wait);
-
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig
+diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-08-19 17:09:30.424587633 -0400
 @@ -589,7 +589,204 @@
  	  packets, for use with security subsystems.
  
@@ -3570,9 +3535,9 @@
  endif # NETFILTER_XTABLES
  
  endmenu
-
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile
+diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-08-19 17:09:30.424587633 -0400
 @@ -40,6 +40,7 @@
  
  # generic X tables 
@@ -3610,8 +3575,8 @@
  
  # ipset
  obj-$(CONFIG_IP_SET) += ipset/
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-08-19 17:09:30.432617523 -0400
 @@ -66,6 +66,28 @@
  
  	  If unsure, say N.
@@ -3641,8 +3606,8 @@
  config SQUASHFS_EMBEDDED
  	bool "Additional option for memory-constrained systems"
  	depends on SQUASHFS
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-08-19 17:09:30.432617523 -0400
 @@ -37,6 +37,13 @@
  #define SQUASHFS_FILE_SIZE		131072
  #define SQUASHFS_FILE_LOG		17
@@ -3657,8 +3622,8 @@
  #define SQUASHFS_FILE_MAX_SIZE		1048576
  #define SQUASHFS_FILE_MAX_LOG		20
  
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-08-19 17:09:30.436632469 -0400
 @@ -102,7 +102,7 @@
  		goto failure;
  	}
@@ -3668,8 +3633,8 @@
  	msblk->devblksize_log2 = ffz(~msblk->devblksize);
  
  	mutex_init(&msblk->read_data_mutex);
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Makefile	2017-08-19 17:09:30.436632469 -0400
 @@ -85,6 +85,9 @@
  obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
  obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
@@ -3680,8 +3645,8 @@
  
  #
  # generic algorithms and the async_tx api
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/Kconfig	2017-08-19 17:09:30.436632469 -0400
 @@ -842,6 +842,27 @@
  	  ANSI X9.31 A.2.4. Note that this option must be enabled if
  	  CRYPTO_FIPS is selected
@@ -3710,8 +3675,8 @@
  source "drivers/crypto/Kconfig"
  
  endif	# if CRYPTO
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/af_alg.c	2017-08-19 17:09:30.436632469 -0400
 @@ -0,0 +1,483 @@
 +/*
 + * af_alg: User-space algorithm interface
@@ -4196,8 +4161,8 @@
 +module_exit(af_alg_exit);
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_NETPROTO(AF_ALG);
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-08-19 17:09:30.436632469 -0400
 @@ -0,0 +1,319 @@
 +/*
 + * algif_hash: User-space interface for hash algorithms
@@ -4518,8 +4483,8 @@
 +module_init(algif_hash_init);
 +module_exit(algif_hash_exit);
 +MODULE_LICENSE("GPL");
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-08-19 17:09:30.436632469 -0400
 @@ -0,0 +1,632 @@
 +/*
 + * algif_skcipher: User-space interface for skcipher algorithms
@@ -5153,8 +5118,8 @@
 +module_init(algif_skcipher_init);
 +module_exit(algif_skcipher_exit);
 +MODULE_LICENSE("GPL");
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/net/core/sock.c	2017-08-19 17:09:30.440647414 -0400
 @@ -157,7 +157,7 @@
    "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
    "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
@@ -5182,8 +5147,8 @@
    "clock-AF_MAX"
  };
  
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-08-19 17:09:30.440647414 -0400
 @@ -0,0 +1,92 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -5277,8 +5242,8 @@
 +}
 +
 +#endif	/* _CRYPTO_IF_ALG_H */
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-08-19 17:09:30.440647414 -0400
 @@ -68,6 +68,21 @@
  	return (++sg)->length ? sg : (void *)sg_page(sg);
  }
@@ -5301,8 +5266,8 @@
  static inline unsigned long scatterwalk_samebuf(struct scatter_walk *walk_in,
  						struct scatter_walk *walk_out)
  {
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-08-19 17:09:30.440647414 -0400
 @@ -0,0 +1,40 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -5344,8 +5309,8 @@
 +#define ALG_OP_ENCRYPT			1
 +
 +#endif	/* _LINUX_IF_ALG_H */
---- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h
-+++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h
+--- ./asuswrt-merlin-original/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/include/linux/socket.h	2017-08-19 17:09:30.440647414 -0400
 @@ -193,7 +193,8 @@
  #define AF_PHONET	35	/* Phonet sockets		*/
  #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
@@ -5372,8 +5337,8 @@
  
  /* IPX options */
  #define IPX_TYPE	1
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a	2017-08-19 17:23:33.843738763 -0400
 @@ -497,7 +497,7 @@
  CONFIG_NETFILTER_NETLINK_LOG=y
  CONFIG_NF_CONNTRACK=y
@@ -5383,20 +5348,9 @@
  # CONFIG_NF_CT_PROTO_DCCP is not set
  CONFIG_NF_CT_PROTO_GRE=y
  # CONFIG_NF_CT_PROTO_SCTP is not set
-@@ -513,7 +513,7 @@
- CONFIG_NF_CONNTRACK_SIP=m
- CONFIG_NF_CONNTRACK_TFTP=y
- CONFIG_NF_CT_NETLINK=y
--# CONFIG_NETFILTER_TPROXY is not set
-+CONFIG_NETFILTER_TPROXY=m
- CONFIG_NETFILTER_XTABLES=y
- 
- #
-@@ -540,16 +540,25 @@
- CONFIG_NETFILTER_XT_TARGET_NOTRACK=y
+@@ -541,9 +541,17 @@
  # CONFIG_NETFILTER_XT_TARGET_RATEEST is not set
  # CONFIG_NETFILTER_XT_TARGET_TEE is not set
-+CONFIG_NETFILTER_XT_TARGET_TPROXY=m
  # CONFIG_NETFILTER_XT_TARGET_TRACE is not set
 +# CONFIG_NETFILTER_XT_TARGET_ACCOUNT is not set
 +CONFIG_NETFILTER_XT_TARGET_CHAOS=m
@@ -5412,25 +5366,16 @@
  
  #
  # Xtables matches
- #
- # CONFIG_NETFILTER_XT_MATCH_CLUSTER is not set
--# CONFIG_NETFILTER_XT_MATCH_COMMENT is not set
-+CONFIG_NETFILTER_XT_MATCH_COMMENT=m
- CONFIG_NETFILTER_XT_MATCH_CONNBYTES=y
- CONFIG_NETFILTER_XT_MATCH_CONNLIMIT=y
- CONFIG_NETFILTER_XT_MATCH_CONNMARK=y
-@@ -576,8 +585,9 @@
- # CONFIG_NETFILTER_XT_MATCH_REALM is not set
+@@ -577,7 +585,7 @@
  CONFIG_NETFILTER_XT_MATCH_RECENT=y
  # CONFIG_NETFILTER_XT_MATCH_SCTP is not set
-+CONFIG_NETFILTER_XT_MATCH_SOCKET=m
  CONFIG_NETFILTER_XT_MATCH_STATE=y
 -# CONFIG_NETFILTER_XT_MATCH_STATISTIC is not set
 +CONFIG_NETFILTER_XT_MATCH_STATISTIC=m
  CONFIG_NETFILTER_XT_MATCH_STRING=y
  CONFIG_NETFILTER_XT_MATCH_TCPMSS=y
  CONFIG_NETFILTER_XT_MATCH_TIME=y
-@@ -585,6 +595,13 @@
+@@ -585,6 +593,13 @@
  CONFIG_NETFILTER_XT_MATCH_WEBSTR=y
  CONFIG_NETFILTER_XT_MATCH_CONDITION=m
  CONFIG_NETFILTER_XT_MATCH_GEOIP=m
@@ -5444,7 +5389,7 @@
  CONFIG_IP_SET=m
  CONFIG_IP_SET_MAX=256
  CONFIG_IP_SET_BITMAP_IP=m
-@@ -1055,7 +1072,28 @@
+@@ -1055,7 +1070,28 @@
  # CONFIG_SATA_INIC162X is not set
  # CONFIG_SATA_SIL24 is not set
  # CONFIG_ATA_SFF is not set
@@ -5474,7 +5419,7 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1217,14 +1255,14 @@
+@@ -1217,14 +1253,14 @@
  # CONFIG_INPUT_MISC is not set
  CONFIG_HID_SUPPORT=y
  CONFIG_HID=m
@@ -5491,7 +5436,7 @@
  
  #
  # USB HID Boot Protocol drivers
-@@ -1328,7 +1366,10 @@
+@@ -1328,7 +1364,10 @@
  #
  # PPS support
  #
@@ -5503,7 +5448,7 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1456,13 +1497,13 @@
+@@ -1456,13 +1495,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -5520,7 +5465,7 @@
  # CONFIG_USB_SERIAL_FUNSOFT is not set
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1481,7 +1522,7 @@
+@@ -1481,7 +1520,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MOTOROLA is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -5529,7 +5474,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1606,8 +1647,11 @@
+@@ -1606,8 +1645,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -5543,7 +5488,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1656,11 +1700,12 @@
+@@ -1656,11 +1698,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -5557,7 +5502,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
  # CONFIG_VXFS_FS is not set
-@@ -1853,7 +1898,7 @@
+@@ -1853,7 +1896,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -5566,7 +5511,7 @@
  
  #
  # Hash modes
-@@ -1870,41 +1915,42 @@
+@@ -1870,41 +1913,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -5630,7 +5575,7 @@
  
  #
  # Random Number Generation
-@@ -1912,9 +1958,17 @@
+@@ -1912,9 +1956,17 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -5648,8 +5593,8 @@
  # Library routines
  #
  CONFIG_BITREVERSE=y
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c	2017-08-19 17:09:30.444662359 -0400
 @@ -1868,8 +1868,20 @@
  	   are only processed once.  */
  	status = packet[0] & FTDI_STATUS_B0_MASK;
@@ -5673,8 +5618,8 @@
  		priv->prev_status = status;
  	}
  
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c	2017-08-19 17:09:30.444662359 -0400
 @@ -491,6 +491,15 @@
  	struct tty_port *port = &usb_port->port;
  
@@ -5691,9 +5636,9 @@
  
  	if (status)
  		wake_up_interruptible(&port->open_wait);
-
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig
+diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig	2017-08-19 17:09:30.448677304 -0400
 @@ -589,6 +589,203 @@
  
  	  To compile it as a module, choose M here.  If unsure, say N.
@@ -6249,9 +6194,9 @@
  endif # NETFILTER_XTABLES
  
  endmenu
-
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile
+diff -u -B -N -r -x '*.rej' -x '*.orig' -x .directory ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile	2017-08-19 17:09:30.452692249 -0400
 @@ -40,6 +40,7 @@
  
  # generic X tables 
@@ -6289,8 +6234,8 @@
  
  # ipset
  obj-$(CONFIG_IP_SET) += ipset/
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig	2017-08-19 17:09:30.456707194 -0400
 @@ -66,6 +66,28 @@
  
  	  If unsure, say N.
@@ -6320,8 +6265,8 @@
  config SQUASHFS_EMBEDDED
  	bool "Additional option for memory-constrained systems"
  	depends on SQUASHFS
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h	2017-08-19 17:09:30.456707194 -0400
 @@ -37,6 +37,13 @@
  #define SQUASHFS_FILE_SIZE		131072
  #define SQUASHFS_FILE_LOG		17
@@ -6336,8 +6281,8 @@
  #define SQUASHFS_FILE_MAX_SIZE		1048576
  #define SQUASHFS_FILE_MAX_LOG		20
  
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c	2017-08-19 17:09:30.460722139 -0400
 @@ -102,7 +102,7 @@
  		goto failure;
  	}
@@ -6347,8 +6292,8 @@
  	msblk->devblksize_log2 = ffz(~msblk->devblksize);
  
  	mutex_init(&msblk->read_data_mutex);
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile	2017-08-19 17:09:30.460722139 -0400
 @@ -85,6 +85,9 @@
  obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
  obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
@@ -6359,8 +6304,8 @@
  
  #
  # generic algorithms and the async_tx api
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig	2017-08-19 17:09:30.460722139 -0400
 @@ -842,6 +842,27 @@
  	  ANSI X9.31 A.2.4. Note that this option must be enabled if
  	  CRYPTO_FIPS is selected
@@ -6389,8 +6334,8 @@
  source "drivers/crypto/Kconfig"
  
  endif	# if CRYPTO
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c	2017-08-19 17:09:30.464737084 -0400
 @@ -0,0 +1,483 @@
 +/*
 + * af_alg: User-space algorithm interface
@@ -6875,8 +6820,8 @@
 +module_exit(af_alg_exit);
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_NETPROTO(AF_ALG);
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c	2017-08-19 17:09:30.464737084 -0400
 @@ -0,0 +1,319 @@
 +/*
 + * algif_hash: User-space interface for hash algorithms
@@ -7197,8 +7142,8 @@
 +module_init(algif_hash_init);
 +module_exit(algif_hash_exit);
 +MODULE_LICENSE("GPL");
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c	2017-08-19 17:09:30.464737084 -0400
 @@ -0,0 +1,632 @@
 +/*
 + * algif_skcipher: User-space interface for skcipher algorithms
@@ -7832,8 +7777,8 @@
 +module_init(algif_skcipher_init);
 +module_exit(algif_skcipher_exit);
 +MODULE_LICENSE("GPL");
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c	2017-08-19 17:09:30.464737084 -0400
 @@ -157,7 +157,7 @@
    "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
    "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
@@ -7861,8 +7806,8 @@
    "clock-AF_MAX"
  };
  
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h	2017-08-19 17:09:30.464737084 -0400
 @@ -0,0 +1,92 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -7956,8 +7901,8 @@
 +}
 +
 +#endif	/* _CRYPTO_IF_ALG_H */
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h	2017-08-19 17:09:30.464737084 -0400
 @@ -68,6 +68,21 @@
  	return (++sg)->length ? sg : (void *)sg_page(sg);
  }
@@ -7980,8 +7925,8 @@
  static inline unsigned long scatterwalk_samebuf(struct scatter_walk *walk_in,
  						struct scatter_walk *walk_out)
  {
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h	2017-08-19 17:09:30.468752030 -0400
 @@ -0,0 +1,40 @@
 +/*
 + * if_alg: User-space algorithm interface
@@ -8023,8 +7968,8 @@
 +#define ALG_OP_ENCRYPT			1
 +
 +#endif	/* _LINUX_IF_ALG_H */
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h
+--- ./asuswrt-merlin-original/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h	2017-08-19 17:09:30.468752030 -0400
 @@ -193,7 +193,8 @@
  #define AF_PHONET	35	/* Phonet sockets		*/
  #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
@@ -8051,8 +7996,8 @@
  
  /* IPX options */
  #define IPX_TYPE	1
---- a/release/src-rt/Makefile
-+++ b/release/src-rt/Makefile
+--- ./asuswrt-merlin-original/release/src-rt/Makefile	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt/Makefile	2017-08-19 17:09:30.472766975 -0400
 @@ -2551,12 +2551,6 @@
  	else \
  		echo "CONFIG_LINUX_MTD=$(LINUX_MTD)" >>$(1); \
@@ -8066,8 +8011,8 @@
  	if [ "$(USB_DEBUG)" = "y" ]; then \
  		sed -i "/CONFIG_USB_DEBUG/d" $(1); \
  		echo "CONFIG_USB_DEBUG=y" >>$(1); \
---- a/release/src-rt/target.mak
-+++ b/release/src-rt/target.mak
+--- ./asuswrt-merlin-original/release/src-rt/target.mak	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src-rt/target.mak	2017-08-19 17:09:30.476781920 -0400
 @@ -1,98 +1,98 @@
  # Broadcom MIPS platform
  export RT-N66U := IPV6SUPP=y HTTPS=y MIPS32=r2 BCM57=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=3.6.x \
@@ -8219,8 +8164,8 @@
  
  export RT-AC88U := $(RT-AC88U_BASE)
  export RT-AC88U += BUILD_NAME="RT-AC88U" RGMII_BRCM5301X=y SWITCH2="RTL8365MB" BCM_MMC=n BCM_7114=y NOWLALL=n \
---- a/release/src/router/config_base
-+++ b/release/src/router/config_base
+--- ./asuswrt-merlin-original/release/src/router/config_base	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/config_base	2017-08-19 17:09:30.476781920 -0400
 @@ -298,7 +298,7 @@
  # RTCONFIG_MULTICAST_IPTV is not set
  # RTCONFIG_DYN_MODEM is not set
@@ -8230,8 +8175,8 @@
  RTCONFIG_6RELAYD=y
  # RTCONFIG_BCMASPMD is not set
  # RTCONFIG_WLCLMLOAD is not set
---- a/release/src/router/Makefile
-+++ b/release/src/router/Makefile
+--- ./asuswrt-merlin-original/release/src/router/Makefile	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/Makefile	2017-08-19 17:09:30.480796865 -0400
 @@ -1107,6 +1107,7 @@
  endif
  
@@ -8295,8 +8240,8 @@
  
  tor-clean:
  	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
---- a/release/src/router/rc/Makefile
-+++ b/release/src/router/rc/Makefile
+--- ./asuswrt-merlin-original/release/src/router/rc/Makefile	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/rc/Makefile	2017-08-19 17:09:30.480796865 -0400
 @@ -708,10 +708,12 @@
  ate-broadcom.o:
  	@-cp -f ./prebuild/ate-broadcom.o .
@@ -8329,8 +8274,8 @@
  
  %.o: %.c
  	@echo " [rc] CC $@"
---- a/release/src/router/rc/openvpn.c
-+++ b/release/src/router/rc/openvpn.c
+--- ./asuswrt-merlin-original/release/src/router/rc/openvpn.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/rc/openvpn.c	2017-08-19 17:09:30.484811810 -0400
 @@ -1488,11 +1488,11 @@
  		fprintf(fp, "#!/bin/sh\n");
  		sprintf(&buffer[0], "vpn_server%d_proto", serverNum);
@@ -8348,19 +8293,8 @@
  		fprintf(fp, "iptables -I INPUT -p %s ", strtok(&buffer[0], "-"));
  		sprintf(&buffer[0], "vpn_server%d_port", serverNum);
  		fprintf(fp, "--dport %d -j ACCEPT\n", nvram_get_int(&buffer[0]));
---- a/release/src/router/rc/services.c
-+++ b/release/src/router/rc/services.c
-@@ -3464,8 +3464,8 @@
- 	if (pids("ntpclient"))
- 		killall_tk("ntpclient");
- 
--	if (!pids("ntp"))
--		_eval(ntp_argv, NULL, 0, &pid);
-+//	if (!pids("ntp"))
-+//		_eval(ntp_argv, NULL, 0, &pid);
- 
- 	return 0;
- }
+--- ./asuswrt-merlin-original/release/src/router/rc/services.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/rc/services.c	2017-08-19 17:11:50.308769160 -0400
 @@ -9900,12 +9900,11 @@
  	remove("/tmp/torlog");
  
@@ -8421,8 +8355,8 @@
  	_eval(Tor_argv, NULL, 0, &pid);
  }
  #endif
---- a/release/src/router/rc/wan.c
-+++ b/release/src/router/rc/wan.c
+--- ./asuswrt-merlin-original/release/src/router/rc/wan.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/rc/wan.c	2017-08-19 17:09:30.488826755 -0400
 @@ -3345,8 +3345,16 @@
  #endif
  
@@ -8442,8 +8376,8 @@
  #endif
  
  	/* Report stats */
---- a/release/src/router/shared/misc.c
-+++ b/release/src/router/shared/misc.c
+--- ./asuswrt-merlin-original/release/src/router/shared/misc.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/shared/misc.c	2017-08-19 17:09:30.488826755 -0400
 @@ -2009,7 +2009,7 @@
  }
  #endif
@@ -8462,8 +8396,8 @@
  
  /*
  	transfer timestamp into date
---- a/release/src/router/shared/notify_rc.c
-+++ b/release/src/router/shared/notify_rc.c
+--- ./asuswrt-merlin-original/release/src/router/shared/notify_rc.c	1969-12-31 19:00:00.000000000 -0500
++++ ./asuswrt-merlin/release/src/router/shared/notify_rc.c	2017-08-19 17:09:30.488826755 -0400
 @@ -0,0 +1,164 @@
 +/*
 + * This program is free software; you can redistribute it and/or
@@ -8629,8 +8563,8 @@
 +}
 +
 +
---- a/release/src/router/busybox/config_base
-+++ b/release/src/router/busybox/config_base
+--- ./asuswrt-merlin-original/release/src/router/busybox/config_base	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/busybox/config_base	2017-08-19 17:09:30.488826755 -0400
 @@ -110,7 +110,7 @@
  CONFIG_FEATURE_EDITING_MAX_LEN=1024
  # CONFIG_FEATURE_EDITING_VI is not set
@@ -8690,8 +8624,8 @@
  # CONFIG_YES is not set
  
  #
---- a/release/src/router/busybox/include/libbb.h
-+++ b/release/src/router/busybox/include/libbb.h
+--- ./asuswrt-merlin-original/release/src/router/busybox/include/libbb.h	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/busybox/include/libbb.h	2017-08-19 17:09:30.488826755 -0400
 @@ -1566,6 +1566,7 @@
   */
  int read_line_input(line_input_t *st, const char *prompt, char *command, int maxsize, int timeout) FAST_FUNC;
@@ -8700,8 +8634,8 @@
  # if ENABLE_FEATURE_EDITING_SAVE_ON_EXIT
  void save_history(line_input_t *st);
  # endif
---- a/release/src/router/busybox/libbb/lineedit.c
-+++ b/release/src/router/busybox/libbb/lineedit.c
+--- ./asuswrt-merlin-original/release/src/router/busybox/libbb/lineedit.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/busybox/libbb/lineedit.c	2017-08-19 17:09:30.488826755 -0400
 @@ -1341,6 +1341,41 @@
  		printf("%4d %s\n", i, st->history[i]);
  }
@@ -8744,8 +8678,8 @@
  # if ENABLE_FEATURE_EDITING_SAVEHISTORY
  /* We try to ensure that concurrent additions to the history
   * do not overwrite each other.
---- a/release/src/router/busybox/shell/ash.c
-+++ b/release/src/router/busybox/shell/ash.c
+--- ./asuswrt-merlin-original/release/src/router/busybox/shell/ash.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/busybox/shell/ash.c	2017-08-19 17:09:30.492841700 -0400
 @@ -12611,6 +12611,10 @@
  static int FAST_FUNC
  historycmd(int argc UNUSED_PARAM, char **argv UNUSED_PARAM)
@@ -8757,8 +8691,8 @@
  	show_history(line_input_state);
  	return EXIT_SUCCESS;
  }
---- a/release/src/router/busybox/shell/hush.c
-+++ b/release/src/router/busybox/shell/hush.c
+--- ./asuswrt-merlin-original/release/src/router/busybox/shell/hush.c	2017-08-17 15:40:53.000000000 -0400
++++ ./asuswrt-merlin/release/src/router/busybox/shell/hush.c	2017-08-19 17:09:30.496856645 -0400
 @@ -8715,6 +8715,15 @@
  #if MAX_HISTORY && ENABLE_FEATURE_EDITING
  static int FAST_FUNC builtin_history(char **argv UNUSED_PARAM)

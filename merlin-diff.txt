@@ -3,7 +3,7 @@
 
 #cd ~/asuswrt-merlin
 #ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
-#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.68-alpha2-ARM-mods+apps+xtables-addons.patch
+#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.68-beta2-ARM-mods+apps+xtables-addons.patch
 #patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43.patch
 #patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.66-ARM-squashfs-4K.patch
 #patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-uvc-enable.patch

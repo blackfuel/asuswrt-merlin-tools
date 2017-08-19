@@ -45,6 +45,7 @@ if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
+update_package curl
 cd ${BUILD_FOLDER}
 make_clean
 make ${BUILD_MODEL_2}
@@ -80,6 +81,7 @@ if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
+update_package curl
 cd ${BUILD_FOLDER}
 make_clean
 make ${BUILD_MODEL_2}
@@ -115,6 +117,7 @@ if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
+update_package curl
 cd ${BUILD_FOLDER}
 make_clean
 make ${BUILD_MODEL_2}
@@ -150,6 +153,7 @@ if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
+update_package curl
 cd ${BUILD_FOLDER}
 make_clean
 make ${BUILD_MODEL_2}
@@ -185,6 +189,7 @@ if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
+update_package curl
 cd ${BUILD_FOLDER}
 make_clean
 make ${BUILD_MODEL_2}
@@ -220,6 +225,7 @@ if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
+update_package curl
 cd ${BUILD_FOLDER}
 make_clean
 make ${BUILD_MODEL_2}
@@ -255,6 +261,7 @@ if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 update_package tor
 update_package nettle
+update_package curl
 cd ${BUILD_FOLDER}
 make_clean
 make ${BUILD_MODEL_2}
@@ -317,8 +324,9 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.0.10, NTP 4.2.8p10, DNSCrypt 1.9.5, Cryptsetup 1.7.5, Whois 5.2.16\`" >>"$NOTES"
+echo "\`Tor 0.3.0.10, NTP 4.2.8p10, DNSCrypt 1.9.5, Curl 7.55.1, Cryptsetup 1.7.5, Whois 5.2.16\`" >>"$NOTES"
 echo "- busybox: stty, base64, sha512sum, sha256sum, sha3sum, sha1sum, uudecode, uuencode, whoami" >>"$NOTES"
+echo "- Tor: database backup and restore" >>"$NOTES"
 echo >>"$NOTES"
 
 #---
