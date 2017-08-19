@@ -1,25 +1,25 @@
 # Blackfuel's tips and tricks
 
-### HOWTO: Build the Blackfuel version of Asuswrt-Merlin firmware
+### Build the Blackfuel version of Asuswrt-Merlin firmware
 ```
 cd ~/blackfuel/asuswrt-merlin-tools
 ./build-asuswrt-merlin.sh
 ```
 
-### HOWTO: Patch the original source code
+### Patch the original source code
 ```
 cd ~/blackfuel/asuswrt-merlin
 patch -p2 -i ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-ARM-mods+apps+xtables-addons.patch
 ```
 
-### HOWTO: Delete files in one folder hierarchy that appear in another folder hierarchy
+### Delete files in one folder hierarchy that appear in another folder hierarchy
 This example cleans the asuswrt-merlin folder of the Xtables addons files.  It uses the `find` command to pipe the list of files to be deleted to `xargs`.  In the process, the root folder name is changed to the place where I want to delete the files.
 ```
 cd ~/blackfuel
 find asuswrt-merlin-xtables-addons-1.47.1 -type f -name "*" -printf "$HOME/blackfuel/asuswrt-merlin/%P\0" | xargs -0 -I '{}' rm '{}'
 ```
 
-### HOWTO: Remove packages from Asuswrt-Merlin using scripted search/replace
+### Remove packages from Asuswrt-Merlin using scripted search/replace
 The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use an ed script to make our life easy.
 
 1. Create an ed script to automatically edit the file, "release/src-rt/target.mak".
@@ -40,9 +40,7 @@ The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use 
   g/SWEBDAVCLIENT=y/s//SWEBDAVCLIENT=n/g
   g/SNMPD=y/s//SNMPD=n/g
   g/CLOUDCHECK=y/s//CLOUDCHECK=n/g
-  g/DUALWAN=y/s//DUALWAN=n/g
   g/DNSFILTER=y/s//DNSFILTER=n/g
-  g/HW_DUALWAN=y/s//HW_DUALWAN=n/g
   ,w
   ```
 
@@ -52,7 +50,7 @@ The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use 
   ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
   ```
 
-### HOWTO: create pull request for a single commit (ex: torfirewall)
+### Create pull request for a single commit (ex: torfirewall)
 ```
 git remote add upstream https://github.com/RMerl/asuswrt-merlin
 git fetch upstream
@@ -62,7 +60,7 @@ git push origin torfirewall
 #(now create the pull request)
 ```
 
-### HOWTO: merge pull request with upstream master (ex: torfirewall)
+### Merge pull request with upstream master (ex: torfirewall)
 ```
 git checkout torfirewall
 git fetch upstream
@@ -70,7 +68,24 @@ git merge upstream/master
 git push origin torfirewall
 ```
 
-### HOWTO: Reset to upstream/master and re-apply the full Blackfuel patch
+### Merge with upstream master
+```
+git checkout master
+git fetch upstream
+git merge upstream/master
+#git commit -m "Sync with upstream master"
+git push -f origin master
+```
+
+### Merge up to specific commit in upstream master
+```
+git checkout master
+git fetch upstream
+git merge 1d97633eb81cecbfd0b69c4f4439e774bf1cc0a3
+git push -f origin master
+```
+
+### Reset to upstream/master and re-apply the full Blackfuel patch
 ```
 git clone https://github.com/blackfuel/asuswrt-merlin
 git remote add upstream https://github.com/RMerl/asuswrt-merlin
@@ -85,7 +100,7 @@ git commit -m "Reset to upstream/master and apply the blackfuel mod"
 git push -f origin master
 ```
 
-### HOWTO: Convert a man page to HTML for displaying on Github
+### Convert a man page to HTML for displaying on Github
 ```
 cd /share/man/man1
 cat wipe.1 | groff -mandoc -Thtml
