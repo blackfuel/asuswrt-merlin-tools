@@ -119,7 +119,7 @@ git tag 382.11816
 git push origin --tags
 ```
 
-# Upload Asus GPL source code to Github (update existing repo)
+### Upload Asus GPL source code to Github (update existing repo)
 ```
 cd $HOME/blackfuel
 tar xvf /mnt/hgfs/sandbox/GPL_RT_AC86U_300438215098.tar
