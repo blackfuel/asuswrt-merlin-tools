@@ -104,7 +104,7 @@ git commit -m "Reset to upstream/master and apply the blackfuel mod"
 git push -f origin master
 ```
 
-### Upload Asus GPL source code to Github (first commit)
+### Upload Asus GPL source code to Github (first commit, slow)
 ```
 cd $HOME/blackfuel
 tar xzvf /mnt/hgfs/sandbox/GPL_RT-AC86U_300438211816.tgz
