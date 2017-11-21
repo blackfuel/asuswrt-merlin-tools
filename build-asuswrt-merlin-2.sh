@@ -38,9 +38,6 @@ BUILD_MODEL="RT-AC68U"
 BUILD_MODEL_2="rt-ac68u"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/src-rt-6.x.4708"
 cd ${HOME}/asuswrt-merlin/release/src/router
-update_package tor
-update_package nettle
-update_package curl
 cd ${BUILD_FOLDER}
 make_clean
 make ${BUILD_MODEL_2} CONFIG_DEBUG_SECTION_MISMATCH=y
