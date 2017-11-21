@@ -104,6 +104,36 @@ git commit -m "Reset to upstream/master and apply the blackfuel mod"
 git push -f origin master
 ```
 
+### Upload Asus GPL source code to Github (first commit, slow)
+```
+cd $HOME/blackfuel
+tar xzvf /mnt/hgfs/sandbox/GPL_RT-AC86U_300438211816.tgz
+mv asuswrt asuswrt-rt-ac86u
+cd asuswrt-rt-ac86u
+git init
+git remote add origin https://github.com/blackfuel/asuswrt-rt-ac86u.git
+git add -A
+git commit -m "Asus GPL 3.0.0.4 382.11816 (RT-AC86U) first commit"
+git push -u origin master
+git tag 382.11816
+git push origin --tags
+```
+
+### Upload Asus GPL source code to Github (update existing repo)
+```
+cd $HOME/blackfuel
+tar xvf /mnt/hgfs/sandbox/GPL_RT_AC86U_300438215098.tar
+rm -rf asuswrt-rt-ac86u/*   # clear out everything except the .git directory
+cd asuswrt-rt-ac86u
+mv ../asuswrt/* .
+rmdir ../asuswrt
+git add -A
+git commit -m "update GPL 382.15098"
+git push -u origin master
+git tag 382.15098
+git push origin --tags
+```
+
 ### Convert a man page to HTML for displaying on Github
 ```
 cd /share/man/man1
