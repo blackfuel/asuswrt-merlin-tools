@@ -10131,7 +10131,7 @@
 +		--sysconfdir=/usr/local/etc/apcupsd \
 +		--with-cgi-bin=/usr/local/etc/apcupsd \
 +		--datarootdir=/usr/share \
-+		--with-distname=asuswrt \
++		--with-distname=unknown \
 +		--with-upstype=usb \
 +		--with-upscable=usb \
 +		--without-serial-dev \

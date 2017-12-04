@@ -3,12 +3,13 @@
 
 #cd ~/asuswrt-merlin
 #ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
-#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.69_alpha1-ARM-mods+apps+xtables-addons+nofiles.patch
+#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.69_alpha1_a-ARM-mods+apps+xtables-addons+nofiles.patch
 #patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43.patch
 
 #---
 #cd $HOME/blackfuel
-#diff -u -B -N -r -x *.rej -x *.orig -x .directory ./asuswrt-merlin/release/src/router/tor ./asuswrt-merlin-tor-diff/release/src/router/tor > $HOME/merlin-tor-diff.patch
+diff -u -B -N -r -x *.rej -x *.orig -x .directory a/Makefile b/Makefile > $HOME/merlin-diff.patch
+diff -u -B -N -r -x *.rej -x *.orig -x .directory a/powstatd.c b/powstatd.c >> $HOME/merlin-diff.patch
 
 #---
 # strip file times, root folder names and diff comments

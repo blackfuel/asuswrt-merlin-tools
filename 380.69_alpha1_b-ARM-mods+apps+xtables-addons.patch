@@ -28504,7 +28504,7 @@
  # RTCONFIG_WLCLMLOAD is not set
 --- a/release/src/router/Makefile
 +++ b/release/src/router/Makefile
-@@ -394,6 +394,131 @@
+@@ -394,6 +394,136 @@
  obj-y += iproute2
  endif
  
@@ -28527,6 +28527,11 @@
 +obj-y += bzip2
 +obj-y += jpeg
 +obj-y += zlib
++endif
++
++RTCONFIG_POWSTATD=y
++ifeq ($(RTCONFIG_POWSTATD),y)
++obj-y += powstatd
 +endif
 +
 +RTCONFIG_TRANSMISSION=openssl
@@ -28636,7 +28641,7 @@
  obj-$(RTCONFIG_BWDPI) += sqlite
  obj-$(RTCONFIG_BWDPI) += bwdpi
  obj-$(RTCONFIG_BWDPI) += bwdpi_sqlite
-@@ -807,6 +932,8 @@
+@@ -807,6 +937,8 @@
  obj-y += openssl
  obj-y += zlib
  obj-y += libevent-2.0.21
@@ -28645,7 +28650,7 @@
  obj-y += tor
  endif
  
-@@ -1107,6 +1234,7 @@
+@@ -1107,6 +1239,7 @@
  endif
  
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}.sh
@@ -28653,7 +28658,7 @@
  	@echo ---
  
  ifeq ($(RTCONFIG_QCA),y)
-@@ -1156,7 +1284,7 @@
+@@ -1156,7 +1289,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/bluetooth $(PLATFORMDIR)/extras/bluetooth/drivers/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/net/bluetooth $(PLATFORMDIR)/extras/bluetooth/net/ || true
  
@@ -28662,7 +28667,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1171,9 +1299,9 @@
+@@ -1171,9 +1304,9 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
@@ -28674,7 +28679,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/audio.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ov51*.*o $(PLATFORMDIR)/extras/ || true
-@@ -1186,15 +1314,13 @@
+@@ -1186,15 +1319,13 @@
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/drivers/sound || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/sound/* $(PLATFORMDIR)/extras/ || true
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/sound || true
@@ -28693,7 +28698,7 @@
  	[ ! -f $(TARGETDIR)/lib/modules/*/kernel/crypto/* ] && rm -rf $(TARGETDIR)/lib/modules/*/kernel/crypto || true
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
-@@ -1351,6 +1477,54 @@
+@@ -1351,6 +1482,55 @@
  	rm -rf $(PLATFORMDIR)/extras
  	rm -rf kernel_header
  
@@ -28742,13 +28747,14 @@
 +		rm -rf "$(TOP)/libtiff"; \
 +		rm -rf "$(TOP)/freetype"; \
 +		rm -rf "$(TOP)/bzip2"; \
++		rm -rf "$(TOP)/powstatd"; \
 +		true; \
 +	fi
 +
  distclean: clean
  ifneq ($(INSIDE_MAK),1)
  	$(MAKE) -C $(SRCBASE) $@ INSIDE_MAK=1
-@@ -1446,20 +1620,6 @@
+@@ -1446,20 +1626,6 @@
  busybox-config:
  	$(MAKE) -C busybox menuconfig
  
@@ -28769,7 +28775,7 @@
  6relayd: 6relayd/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -1473,25 +1633,50 @@
+@@ -1473,25 +1639,50 @@
  6relayd-clean:
  	-@$(MAKE) -C 6relayd clean
  
@@ -28825,7 +28831,7 @@
  	install -D e2fsprogs/e2fsck/e2fsck $(INSTALLDIR)/e2fsprogs/usr/sbin/e2fsck
  	install -D e2fsprogs/misc/mke2fs $(INSTALLDIR)/e2fsprogs/usr/sbin/mke2fs
  	install -D e2fsprogs/misc/tune2fs $(INSTALLDIR)/e2fsprogs/usr/sbin/tune2fs
-@@ -1553,11 +1738,17 @@
+@@ -1553,11 +1744,17 @@
  	@$(MAKE) -C www install INSTALLDIR=$(INSTALLDIR)/www TOMATO_EXPERIMENTAL=$(TOMATO_EXPERIMENTAL)
  
  ifeq ($(RTCONFIG_OPENVPN),y)
@@ -28843,7 +28849,7 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -1827,22 +2018,29 @@
+@@ -1827,22 +2024,29 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -28881,7 +28887,7 @@
  	@touch nettle/stamp-h1
  
  nettle: nettle/stamp-h1
-@@ -2006,14 +2204,14 @@
+@@ -2006,14 +2210,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -28899,7 +28905,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -2168,7 +2366,8 @@
+@@ -2168,7 +2372,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -28909,7 +28915,7 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -2298,44 +2497,44 @@
+@@ -2298,44 +2503,44 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -28992,7 +28998,7 @@
  
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
-@@ -2828,20 +3027,1961 @@
+@@ -2828,20 +3033,1988 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -30458,7 +30464,7 @@
 +		--sysconfdir=/usr/local/etc/apcupsd \
 +		--with-cgi-bin=/usr/local/etc/apcupsd \
 +		--datarootdir=/usr/share \
-+		--with-distname=asuswrt \
++		--with-distname=unknown \
 +		--with-upstype=usb \
 +		--with-upscable=usb \
 +		--without-serial-dev \
@@ -30766,6 +30772,31 @@
 +	chmod u+w $(INSTALLDIR)/bzip2/usr/lib/*
 +	$(STRIP) $(INSTALLDIR)/bzip2/usr/lib/*
 +
++### powstatd
++
++powstatd: powstatd-unpack
++	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
++
++powstatd-stage:
++	@echo powstatd
++	@[ ! -d powstatd ] || [ -f "$(STAGEDIR)/usr/sbin/powstatd" ] || ( cd powstatd ; \
++		$(MAKE) $(PARALLEL_BUILD) \
++		DESTDIR="$(STAGEDIR)/usr/sbin" \
++		PFSCR="$(STAGEDIR)/usr/sbin/powerfail" \
++		MANDIR="$(STAGEDIR)/usr/share/man/man8" \
++		CFGDIR="/usr/local/etc" \
++		CC="arm-brcm-linux-uclibcgnueabi-gcc" \
++		CFLGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" )
++
++powstatd-clean:
++	-@$(MAKE) -C powstatd clean
++
++powstatd-install:
++	install -D powstatd $(INSTALLDIR)/powstatd/usr/sbin/
++	$(STRIP) $(INSTALLDIR)/powstatd/usr/sbin/powstatd
++	install -D debian/powerfail $(INSTALLDIR)/powstatd/usr/sbin/
++	install -D debian/powstatd.conf $(INSTALLDIR)/powstatd/usr/local/etc/powstatd/
++
 +
 +### package download and patches
 +
@@ -30780,9 +30811,9 @@
 +		elif [ "$$PACKAGE_DIR" = "tor" ]; then \
 +			URL="https://www.torproject.org/dist/tor-0.3.1.8.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "nettle" ]; then \
-+			URL="https://ftp.gnu.org/gnu/nettle/nettle-3.3.tar.gz"; \
++			URL="https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "curl" ]; then \
-+			URL="https://github.com/curl/curl/releases/download/curl-7_56_1/curl-7.56.1.tar.xz"; \
++			URL="https://github.com/curl/curl/releases/download/curl-7_57_0/curl-7.57.0.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "findutils" ]; then \
 +			URL="https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "whois" ]; then \
@@ -30858,6 +30889,8 @@
 +			URL="https://sourceforge.net/projects/freetype/files/freetype2/2.8.1/freetype-2.8.1.tar.bz2"; \
 +		elif [ "$$PACKAGE_DIR" = "bzip2" ]; then \
 +			URL="http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz"; \
++		elif [ "$$PACKAGE_DIR" = "powstatd" ]; then \
++			URL="http://deb.debian.org/debian/pool/main/p/powstatd/powstatd_1.5.1.orig.tar.gz"; \
 +		else \
 +			URL="/$$PACKAGE_DIR-MISSING-URL"; \
 +		fi; \
@@ -30958,7 +30991,7 @@
  
  tor-clean:
  	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
-@@ -3053,24 +5193,24 @@
+@@ -3053,24 +5226,24 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -31001,7 +31034,7 @@
  
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
-@@ -3978,23 +6118,34 @@
+@@ -3978,23 +6151,34 @@
  curl: curl/Makefile
  	@$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
@@ -31050,7 +31083,7 @@
  #ifeq ($(RTCONFIG_SPEEDTEST),y)
  	# for speedtest
  	install -D curl/src/.libs/curl $(INSTALLDIR)/curl/usr/sbin/curl
-@@ -4410,21 +6561,29 @@
+@@ -4410,21 +6594,29 @@
  	$(STRIP) $(INSTALLDIR)/ipset/usr/sbin/ipset
  
  ncurses/Makefile:
@@ -31093,7 +31126,7 @@
  
  ncurses-clean:
  	-@$(MAKE) -C ncurses distclean
-@@ -4449,7 +6608,7 @@
+@@ -4449,7 +6641,7 @@
  nano/Makefile:
  	cd nano && \
  	autoreconf -i -f && $(CONFIGURE) --prefix=$(INSTALLDIR)/nano/usr \
@@ -31102,7 +31135,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses/misc" PKG_CONFIG_PATH="$(TOP)/ncurses/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes,ac_cv_lib_ncursesw_get_wch=no) \
-@@ -4892,29 +7051,29 @@
+@@ -4892,29 +7084,29 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -31155,6 +31188,15 @@
  
  wget/Makefile.in: wget/Makefile.am
  	cd wget && autoreconf -fi
+@@ -4928,7 +7120,7 @@
+ 		CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -I$(TOP)/openssl/include -I$(TOP)/zlib" \
+ 		LDFLAGS="$(EXTRALDFLAGS) -Wl,--gc-sections -L$(TOP)/openssl -lssl -lcrypto -L$(TOP)/zlib -lz"
+ 
+-wget: openssl zlib wget/Makefile
++wget: openssl zlib wget-unpack wget/Makefile
+ 	$(MAKE) -C $@
+ 
+ wget-clean:
 --- a/release/src/router/rc/Makefile
 +++ b/release/src/router/rc/Makefile
 @@ -708,10 +708,12 @@

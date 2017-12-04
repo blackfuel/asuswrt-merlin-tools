@@ -30,7 +30,7 @@ chmod -R a+rwx /opt/brcm-arm/bin
 SANDBOX="/mnt/hgfs/sandbox"
 if [ -d "$SANDBOX" ]; then
   DST="$SANDBOX/__blackfuel_release_new"
-  rm -rf $DST
+#######################  rm -rf $DST
   mkdir -p $DST
 else
   exit 1  
@@ -42,7 +42,7 @@ BUILD_MODEL="RT-AC68U"
 BUILD_MODEL_2="rt-ac68u"
 SDK_FOLDER="src-rt-6.x.4708"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/$SDK_FOLDER"
-if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 cd ${BUILD_FOLDER}
 make_clean
@@ -78,7 +78,7 @@ BUILD_MODEL="RT-AC56U"
 BUILD_MODEL_2="rt-ac56u"
 SDK_FOLDER="src-rt-6.x.4708"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/$SDK_FOLDER"
-if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 cd ${BUILD_FOLDER}
 make_clean
@@ -114,7 +114,7 @@ BUILD_MODEL="RT-AC88U"
 BUILD_MODEL_2="rt-ac88u"
 SDK_FOLDER="src-rt-7.14.114.x/src"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/$SDK_FOLDER"
-if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 cd ${BUILD_FOLDER}
 make_clean
@@ -150,7 +150,7 @@ BUILD_MODEL="RT-AC3100"
 BUILD_MODEL_2="rt-ac3100"
 SDK_FOLDER="src-rt-7.14.114.x/src"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/$SDK_FOLDER"
-if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 cd ${BUILD_FOLDER}
 make_clean
@@ -186,7 +186,7 @@ BUILD_MODEL="RT-AC5300"
 BUILD_MODEL_2="rt-ac5300"
 SDK_FOLDER="src-rt-7.14.114.x/src"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/$SDK_FOLDER"
-if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 cd ${BUILD_FOLDER}
 make_clean
@@ -222,7 +222,7 @@ BUILD_MODEL="RT-AC87U"
 BUILD_MODEL_2="rt-ac87u"
 SDK_FOLDER="src-rt-6.x.4708"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/$SDK_FOLDER"
-if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 cd ${BUILD_FOLDER}
 make_clean
@@ -258,7 +258,7 @@ BUILD_MODEL="RT-AC3200"
 BUILD_MODEL_2="rt-ac3200"
 SDK_FOLDER="src-rt-7.x.main/src"
 BUILD_FOLDER="${HOME}/asuswrt-merlin/release/$SDK_FOLDER"
-if [ ! -d "$BUILD_FOLDER/image/$BUILD_MODEL" ]; then
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin/release/src/router
 cd ${BUILD_FOLDER}
 make_clean
@@ -303,7 +303,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.1.8, NTP 4.2.8p10, DNSCrypt 1.9.5, Curl 7.56.1, Wget 1.19.2, Cryptsetup 1.7.5, Wipe 2.3.1, Whois 5.2.18, Findutils 4.6.0, Apcupsd 3.14.14, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1\`" >>"$NOTES"
+echo "\`Tor 0.3.1.9, NTP 4.2.8p10, DNSCrypt 1.9.5, Curl 7.57.0, Wget 1.19.2, Cryptsetup 1.7.5, Wipe 2.3.1, Whois 5.2.18, Findutils 4.6.0, Apcupsd 3.14.14, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1\`" >>"$NOTES"
 echo >>"$NOTES"
 
 #---
