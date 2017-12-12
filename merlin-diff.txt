@@ -3,8 +3,13 @@
 
 #cd ~/asuswrt-merlin
 #ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
-#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.69_alpha1_a-ARM-mods+apps+xtables-addons+nofiles.patch
+#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.69-ARM-mods+apps+xtables-addons+nofiles.patch
 #patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43.patch
+
+#cd ~/asuswrt-merlin.382
+#ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
+#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/382.2_alpha1-ARM-mods+apps+xtables-addons+nofiles.patch
+#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43_382.patch
 
 #---
 #cd $HOME/blackfuel
