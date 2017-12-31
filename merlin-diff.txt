@@ -1,20 +1,32 @@
 #MERLIN_TARGET="asuswrt-merlin-380.63_2"
 #diff -u -r -B -X ./excludes.txt ./${MERLIN_TARGET}-original/ ./${MERLIN_TARGET}/ | grep -v "Only in ./${MERLIN_TARGET}" > merlin-diff.patch
 
-#cd ~/asuswrt-merlin
-#ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
-#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.69-ARM-mods+apps+xtables-addons+nofiles.patch
-#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43.patch
+# cd ~/asuswrt-merlin
+# ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
+# patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.69_1-ARM-mods+apps+xtables-addons+nofiles.patch
+# patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43.patch
 
-#cd ~/asuswrt-merlin.382
-#ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
-#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/382.2_alpha1-ARM-mods+apps+xtables-addons+nofiles.patch
-#patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43_382.patch
+### cd ~/asuswrt-merlin.382
+### ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
+### patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/382.2_alpha1-ARM-mods+apps+xtables-addons+nofiles.patch
+### patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43_382.patch
 
 #---
 #cd $HOME/blackfuel
 diff -u -B -N -r -x *.rej -x *.orig -x .directory a/Makefile b/Makefile > $HOME/merlin-diff.patch
 diff -u -B -N -r -x *.rej -x *.orig -x .directory a/powstatd.c b/powstatd.c >> $HOME/merlin-diff.patch
+
+#---
+diff -u -B -N -r -x *.rej -x *.orig -x .directory util-linux-a/sys-utils/fallocate.c util-linux/sys-utils/fallocate.c >$HOME/diff.patch
+diff -u -B -N -r -x *.rej -x *.orig -x .directory util-linux-a/sys-utils/posix_fallocate.h util-linux/sys-utils/posix_fallocate.h >>$HOME/diff.patch
+
+diff -u -B -N -r -x *.rej -x *.orig -x .directory cryptsetup-gcrypt-a/lib/luks2/luks2.h cryptsetup-gcrypt/lib/luks2/luks2.h >$HOME/diff-luks2.patch
+diff -u -B -N -r -x *.rej -x *.orig -x .directory cryptsetup-gcrypt-a/src/cryptsetup.c cryptsetup-gcrypt/src/cryptsetup.c >$HOME/diff-posix_fallocate.patch
+diff -u -B -N -r -x *.rej -x *.orig -x .directory cryptsetup-gcrypt-a/lib/utils_device.c cryptsetup-gcrypt/lib/utils_device.c >>$HOME/diff-posix_fallocate.patch
+diff -u -B -N -r -x *.rej -x *.orig -x .directory cryptsetup-gcrypt-a/lib/posix_fallocate.h cryptsetup-gcrypt/lib/posix_fallocate.h >>$HOME/diff-posix_fallocate.patch
+
+diff -u -B -N -r -x *.rej -x *.orig -x .directory transmission-a/libtransmission/file-posix.c transmission-openssl/libtransmission/file-posix.c >$HOME/diff.patch
+diff -u -B -N -r -x *.rej -x *.orig -x .directory transmission-a/libtransmission/posix_fallocate.h transmission-openssl/libtransmission/posix_fallocate.h >>$HOME/diff.patch
 
 #---
 # strip file times, root folder names and diff comments

@@ -10563,7 +10563,7 @@
 +		elif [ "$$PACKAGE_DIR" = "whois" ]; then \
 +			URL="http://ftp.debian.org/debian/pool/main/w/whois/whois_5.2.18.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "libsodium" ]; then \
-+			URL="https://download.libsodium.org/libsodium/releases/libsodium-1.0.15.tar.gz"; \
++			URL="https://download.libsodium.org/libsodium/releases/libsodium-1.0.16.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "dnscrypt" ]; then \
 +			URL="https://download.dnscrypt.org/dnscrypt-proxy/dnscrypt-proxy-1.9.5.tar.bz2"; \
 +		elif [ "$$PACKAGE_DIR" = "haveged" ]; then \
