@@ -2677,7 +2677,7 @@
  #define IPX_TYPE	1
 --- a/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a
 +++ b/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a
-@@ -500,7 +500,7 @@
+@@ -501,7 +501,7 @@
  CONFIG_NETFILTER_NETLINK_LOG=y
  CONFIG_NF_CONNTRACK=y
  CONFIG_NF_CONNTRACK_MARK=y
@@ -2686,7 +2686,7 @@
  # CONFIG_NF_CT_PROTO_DCCP is not set
  CONFIG_NF_CT_PROTO_GRE=m
  # CONFIG_NF_CT_PROTO_SCTP is not set
-@@ -544,8 +544,17 @@
+@@ -545,8 +545,17 @@
  # CONFIG_NETFILTER_XT_TARGET_RATEEST is not set
  # CONFIG_NETFILTER_XT_TARGET_TEE is not set
  # CONFIG_NETFILTER_XT_TARGET_TRACE is not set
@@ -2704,7 +2704,7 @@
  
  #
  # Xtables matches
-@@ -580,7 +589,7 @@
+@@ -581,7 +590,7 @@
  # CONFIG_NETFILTER_XT_MATCH_SCTP is not set
  # CONFIG_NETFILTER_XT_MATCH_SOCKET is not set
  CONFIG_NETFILTER_XT_MATCH_STATE=y
@@ -2713,7 +2713,7 @@
  CONFIG_NETFILTER_XT_MATCH_STRING=y
  CONFIG_NETFILTER_XT_MATCH_TCPMSS=y
  CONFIG_NETFILTER_XT_MATCH_TIME=y
-@@ -588,6 +597,13 @@
+@@ -589,6 +598,13 @@
  CONFIG_NETFILTER_XT_MATCH_WEBSTR=y
  CONFIG_NETFILTER_XT_MATCH_CONDITION=m
  CONFIG_NETFILTER_XT_MATCH_GEOIP=m
@@ -2727,7 +2727,7 @@
  CONFIG_IP_SET=m
  CONFIG_IP_SET_MAX=256
  CONFIG_IP_SET_BITMAP_IP=m
-@@ -1059,7 +1075,28 @@
+@@ -1060,7 +1076,28 @@
  # CONFIG_SATA_INIC162X is not set
  # CONFIG_SATA_SIL24 is not set
  # CONFIG_ATA_SFF is not set
@@ -2757,7 +2757,7 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1276,7 +1313,10 @@
+@@ -1277,7 +1314,10 @@
  #
  # PPS support
  #
@@ -2769,7 +2769,7 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1309,14 +1349,14 @@
+@@ -1310,14 +1350,14 @@
  # CONFIG_SOUND is not set
  CONFIG_HID_SUPPORT=y
  CONFIG_HID=m
@@ -2786,7 +2786,7 @@
  
  #
  # USB HID Boot Protocol drivers
-@@ -1463,13 +1503,13 @@
+@@ -1464,13 +1504,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -2803,7 +2803,7 @@
  # CONFIG_USB_SERIAL_FUNSOFT is not set
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1488,7 +1528,7 @@
+@@ -1489,7 +1529,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MOTOROLA is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -2812,7 +2812,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1613,8 +1653,11 @@
+@@ -1614,8 +1654,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -2826,7 +2826,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1663,11 +1706,12 @@
+@@ -1664,11 +1707,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -2840,7 +2840,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
  # CONFIG_VXFS_FS is not set
-@@ -1860,7 +1904,7 @@
+@@ -1861,7 +1905,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -2849,7 +2849,7 @@
  
  #
  # Hash modes
-@@ -1877,41 +1921,42 @@
+@@ -1878,41 +1922,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -2915,7 +2915,7 @@
  
  #
  # Random Number Generation
-@@ -1919,9 +1964,17 @@
+@@ -1920,9 +1965,17 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -5337,2848 +5337,116 @@
  
  /* IPX options */
  #define IPX_TYPE	1
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a
-@@ -497,7 +497,7 @@
- CONFIG_NETFILTER_NETLINK_LOG=y
- CONFIG_NF_CONNTRACK=y
- CONFIG_NF_CONNTRACK_MARK=y
--# CONFIG_NF_CONNTRACK_EVENTS is not set
-+CONFIG_NF_CONNTRACK_EVENTS=y
- # CONFIG_NF_CT_PROTO_DCCP is not set
- CONFIG_NF_CT_PROTO_GRE=y
- # CONFIG_NF_CT_PROTO_SCTP is not set
-@@ -541,9 +541,17 @@
- # CONFIG_NETFILTER_XT_TARGET_RATEEST is not set
- # CONFIG_NETFILTER_XT_TARGET_TEE is not set
- # CONFIG_NETFILTER_XT_TARGET_TRACE is not set
-+# CONFIG_NETFILTER_XT_TARGET_ACCOUNT is not set
-+CONFIG_NETFILTER_XT_TARGET_CHAOS=m
-+CONFIG_NETFILTER_XT_TARGET_DELUDE=m
-+# CONFIG_NETFILTER_XT_TARGET_ECHO is not set
-+CONFIG_NETFILTER_XT_TARGET_RAWNAT=m
-+CONFIG_NETFILTER_XT_TARGET_STEAL=m
-+CONFIG_NETFILTER_XT_TARGET_TARPIT=m
- CONFIG_NETFILTER_XT_TARGET_TCPMSS=y
- # CONFIG_NETFILTER_XT_TARGET_TCPOPTSTRIP is not set
- # CONFIG_NETFILTER_XT_MATCH_LAYER7 is not set
-+# CONFIG_NETFILTER_XT_MATCH_LAYER7_DEBUG is not set
- 
- #
- # Xtables matches
-@@ -577,7 +585,7 @@
- CONFIG_NETFILTER_XT_MATCH_RECENT=y
- # CONFIG_NETFILTER_XT_MATCH_SCTP is not set
- CONFIG_NETFILTER_XT_MATCH_STATE=y
--# CONFIG_NETFILTER_XT_MATCH_STATISTIC is not set
-+CONFIG_NETFILTER_XT_MATCH_STATISTIC=m
- CONFIG_NETFILTER_XT_MATCH_STRING=y
- CONFIG_NETFILTER_XT_MATCH_TCPMSS=y
- CONFIG_NETFILTER_XT_MATCH_TIME=y
-@@ -585,6 +593,13 @@
- CONFIG_NETFILTER_XT_MATCH_WEBSTR=y
- CONFIG_NETFILTER_XT_MATCH_CONDITION=m
- CONFIG_NETFILTER_XT_MATCH_GEOIP=m
-+CONFIG_NETFILTER_XT_MATCH_FUZZY=m
-+CONFIG_NETFILTER_XT_MATCH_IFACE=m
-+CONFIG_NETFILTER_XT_MATCH_IPV4OPTIONS=m
-+CONFIG_NETFILTER_XT_MATCH_LSCAN=m
-+CONFIG_NETFILTER_XT_MATCH_PKNOCK=m
-+CONFIG_NETFILTER_XT_MATCH_PSD=m
-+CONFIG_NETFILTER_XT_MATCH_QUOTA2=m
- CONFIG_IP_SET=m
- CONFIG_IP_SET_MAX=256
- CONFIG_IP_SET_BITMAP_IP=m
-@@ -1055,7 +1070,28 @@
- # CONFIG_SATA_INIC162X is not set
- # CONFIG_SATA_SIL24 is not set
- # CONFIG_ATA_SFF is not set
--# CONFIG_MD is not set
-+CONFIG_MD=y
-+# CONFIG_BLK_DEV_MD is not set
-+# CONFIG_MD_LINEAR is not set
-+# CONFIG_MD_RAID0 is not set
-+# CONFIG_MD_RAID1 is not set
-+# CONFIG_MD_RAID10 is not set
-+# CONFIG_MD_RAID456 is not set
-+# CONFIG_MULTICORE_RAID456 is not set
-+# CONFIG_MD_MULTIPATH is not set
-+# CONFIG_MD_FAULTY is not set
-+CONFIG_BLK_DEV_DM=m
-+# CONFIG_DM_DEBUG is not set
-+CONFIG_DM_CRYPT=m
-+# CONFIG_DM_SNAPSHOT is not set
-+# CONFIG_DM_MIRROR is not set
-+# CONFIG_DM_LOG_USERSPACE is not set
-+# CONFIG_DM_ZERO is not set
-+# CONFIG_DM_MULTIPATH is not set
-+# CONFIG_DM_MULTIPATH_QL is not set
-+# CONFIG_DM_MULTIPATH_ST is not set
-+# CONFIG_DM_DELAY is not set
-+# CONFIG_DM_UEVENT is not set
- # CONFIG_FUSION is not set
- 
- #
-@@ -1217,14 +1253,14 @@
- # CONFIG_INPUT_MISC is not set
- CONFIG_HID_SUPPORT=y
- CONFIG_HID=m
--# CONFIG_HIDRAW is not set
-+CONFIG_HIDRAW=y
- 
- #
- # USB Input Devices
- #
- CONFIG_USB_HID=m
- # CONFIG_HID_PID is not set
--# CONFIG_USB_HIDDEV is not set
-+CONFIG_USB_HIDDEV=y
- 
- #
- # USB HID Boot Protocol drivers
-@@ -1328,7 +1364,10 @@
- #
- # PPS support
- #
--# CONFIG_PPS is not set
-+CONFIG_PPS=m
-+# CONFIG_PPS_DEBUG is not set
-+CONFIG_PPS_CLIENT_KTIMER=m
-+CONFIG_PPS_CLIENT_LDISC=m
- # CONFIG_W1 is not set
- # CONFIG_POWER_SUPPLY is not set
- # CONFIG_HWMON is not set
-@@ -1456,13 +1495,13 @@
- # CONFIG_USB_SERIAL_AIRCABLE is not set
- # CONFIG_USB_SERIAL_ARK3116 is not set
- # CONFIG_USB_SERIAL_BELKIN is not set
--# CONFIG_USB_SERIAL_CH341 is not set
-+CONFIG_USB_SERIAL_CH341=m
- # CONFIG_USB_SERIAL_WHITEHEAT is not set
- # CONFIG_USB_SERIAL_DIGI_ACCELEPORT is not set
--# CONFIG_USB_SERIAL_CP210X is not set
-+CONFIG_USB_SERIAL_CP210X=m
- # CONFIG_USB_SERIAL_CYPRESS_M8 is not set
- # CONFIG_USB_SERIAL_EMPEG is not set
--# CONFIG_USB_SERIAL_FTDI_SIO is not set
-+CONFIG_USB_SERIAL_FTDI_SIO=m
- # CONFIG_USB_SERIAL_FUNSOFT is not set
- # CONFIG_USB_SERIAL_VISOR is not set
- # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1481,7 +1520,7 @@
- # CONFIG_USB_SERIAL_MOS7840 is not set
- # CONFIG_USB_SERIAL_MOTOROLA is not set
- # CONFIG_USB_SERIAL_NAVMAN is not set
--# CONFIG_USB_SERIAL_PL2303 is not set
-+CONFIG_USB_SERIAL_PL2303=m
- # CONFIG_USB_SERIAL_OTI6858 is not set
- # CONFIG_USB_SERIAL_QCAUX is not set
- # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1606,8 +1645,11 @@
- #
- # CD-ROM/DVD Filesystems
- #
--# CONFIG_ISO9660_FS is not set
--# CONFIG_UDF_FS is not set
-+CONFIG_ISO9660_FS=m
-+CONFIG_JOLIET=y
-+CONFIG_ZISOFS=y
-+CONFIG_UDF_FS=m
-+CONFIG_UDF_NLS=y
- 
- #
- # DOS/FAT/NT Filesystems
-@@ -1656,11 +1698,12 @@
- # CONFIG_JFFS2_CMODE_SIZE is not set
- # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
- # CONFIG_LOGFS is not set
--# CONFIG_CRAMFS is not set
-+CONFIG_CRAMFS=m
- CONFIG_SQUASHFS=y
- # CONFIG_SQUASHFS_XATTR is not set
- # CONFIG_SQUASHFS_LZO is not set
- CONFIG_SQUASHFS_XZ=y
-+CONFIG_SQUASHFS_4K_DEVBLK_SIZE=y
- CONFIG_SQUASHFS_EMBEDDED=y
- CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
- # CONFIG_VXFS_FS is not set
-@@ -1853,7 +1896,7 @@
- CONFIG_CRYPTO_ECB=y
- # CONFIG_CRYPTO_LRW is not set
- # CONFIG_CRYPTO_PCBC is not set
--# CONFIG_CRYPTO_XTS is not set
-+CONFIG_CRYPTO_XTS=m
- 
- #
- # Hash modes
-@@ -1870,41 +1913,42 @@
- # CONFIG_CRYPTO_MD4 is not set
- CONFIG_CRYPTO_MD5=y
- # CONFIG_CRYPTO_MICHAEL_MIC is not set
--# CONFIG_CRYPTO_RMD128 is not set
--# CONFIG_CRYPTO_RMD160 is not set
--# CONFIG_CRYPTO_RMD256 is not set
--# CONFIG_CRYPTO_RMD320 is not set
-+CONFIG_CRYPTO_RMD128=m
-+CONFIG_CRYPTO_RMD160=m
-+CONFIG_CRYPTO_RMD256=m
-+CONFIG_CRYPTO_RMD320=m
- CONFIG_CRYPTO_SHA1=y
- CONFIG_CRYPTO_SHA256=m
- CONFIG_CRYPTO_SHA512=m
--# CONFIG_CRYPTO_TGR192 is not set
--# CONFIG_CRYPTO_WP512 is not set
-+CONFIG_CRYPTO_TGR192=m
-+CONFIG_CRYPTO_WP512=m
- 
- #
- # Ciphers
- #
- CONFIG_CRYPTO_AES=y
--# CONFIG_CRYPTO_ANUBIS is not set
-+CONFIG_CRYPTO_ANUBIS=m
- CONFIG_CRYPTO_ARC4=y
--# CONFIG_CRYPTO_BLOWFISH is not set
--# CONFIG_CRYPTO_CAMELLIA is not set
--# CONFIG_CRYPTO_CAST5 is not set
--# CONFIG_CRYPTO_CAST6 is not set
-+CONFIG_CRYPTO_BLOWFISH=m
-+CONFIG_CRYPTO_CAMELLIA=m
-+CONFIG_CRYPTO_CAST5=m
-+CONFIG_CRYPTO_CAST6=m
- CONFIG_CRYPTO_DES=m
--# CONFIG_CRYPTO_FCRYPT is not set
--# CONFIG_CRYPTO_KHAZAD is not set
--# CONFIG_CRYPTO_SALSA20 is not set
--# CONFIG_CRYPTO_SEED is not set
--# CONFIG_CRYPTO_SERPENT is not set
--# CONFIG_CRYPTO_TEA is not set
--# CONFIG_CRYPTO_TWOFISH is not set
-+CONFIG_CRYPTO_FCRYPT=m
-+CONFIG_CRYPTO_KHAZAD=m
-+CONFIG_CRYPTO_SALSA20=m
-+CONFIG_CRYPTO_SEED=m
-+CONFIG_CRYPTO_SERPENT=m
-+CONFIG_CRYPTO_TEA=m
-+CONFIG_CRYPTO_TWOFISH=m
-+CONFIG_CRYPTO_TWOFISH_COMMON=m
- 
- #
- # Compression
- #
--# CONFIG_CRYPTO_DEFLATE is not set
--# CONFIG_CRYPTO_ZLIB is not set
--# CONFIG_CRYPTO_LZO is not set
-+CONFIG_CRYPTO_DEFLATE=m
-+CONFIG_CRYPTO_ZLIB=m
-+CONFIG_CRYPTO_LZO=m
- 
- #
- # Random Number Generation
-@@ -1912,9 +1956,17 @@
- CONFIG_CRYPTO_ANSI_CPRNG=y
- CONFIG_CRYPTO_HW=y
- # CONFIG_CRYPTO_DEV_HIFN_795X is not set
-+# CONFIG_CRYPTO_DEV_HIFN_795X_RNG is not set
- # CONFIG_BINARY_PRINTF is not set
- 
- #
-+# User-space algorithms
-+#
-+CONFIG_CRYPTO_USER_API=m
-+CONFIG_CRYPTO_USER_API_HASH=m
-+CONFIG_CRYPTO_USER_API_SKCIPHER=m
-+
-+#
- # Library routines
- #
- CONFIG_BITREVERSE=y
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c
-@@ -1868,8 +1868,20 @@
- 	   are only processed once.  */
- 	status = packet[0] & FTDI_STATUS_B0_MASK;
- 	if (status != priv->prev_status) {
--		priv->diff_status |= status ^ priv->prev_status;
--		wake_up_interruptible(&priv->delta_msr_wait);
-+                char diff_status = status ^ priv->prev_status;
-+                priv->diff_status |= diff_status;
-+        
-+                if (diff_status & FTDI_RS0_RLSD) {
-+                        struct tty_struct *tty;
-+ 
-+                        tty = tty_port_tty_get(&port->port);
-+                        if (tty)
-+                                usb_serial_handle_dcd_change(port, tty,
-+                                                status & FTDI_RS0_RLSD);
-+                        tty_kref_put(tty);
-+                }
-+
-+                wake_up_interruptible(&priv->delta_msr_wait);
- 		priv->prev_status = status;
- 	}
- 
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/drivers/usb/serial/generic.c
-@@ -491,6 +491,15 @@
- 	struct tty_port *port = &usb_port->port;
- 
- 	dbg("%s - port %d, status %d", __func__, usb_port->number, status);
-+        if (tty) {
-+               struct tty_ldisc *ld = tty_ldisc_ref(tty);
-+
-+               if (ld) {
-+                       if (ld->ops->dcd_change)
-+                               ld->ops->dcd_change(tty, status, NULL);
-+                       tty_ldisc_deref(ld);
-+               }
-+        }
- 
- 	if (status)
- 		wake_up_interruptible(&port->open_wait);
-
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Kconfig
-@@ -589,6 +589,203 @@
- 
- 	  To compile it as a module, choose M here.  If unsure, say N.
- 
-+config NETFILTER_XT_TARGET_ACCOUNT
-+	tristate '"ACCOUNT" target support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  The ACCOUNT target is a high performance accounting system for large
-+	  local networks. It allows per-IP accounting in whole prefixes of IPv4
-+	  addresses with size of up to /8 without the need to add individual
-+	  accouting rule for each IP address.
-+
-+	  The ACCOUNT is designed to be queried for data every second or at
-+	  least every ten seconds. It is written as kernel module to handle high
-+	  bandwidths without packet loss.
-+
-+	  The largest possible subnet size is 24 bit, meaning for example 10.0.0.0/8
-+	  network. ACCOUNT uses fixed internal data structures
-+	  which speeds up the processing of each packet. Furthermore,
-+	  accounting data for one complete 192.168.1.X/24 network takes 4 KB of
-+	  memory. Memory for 16 or 24 bit networks is only allocated when
-+	  needed.
-+
-+	  To optimize the kernel<->userspace data transfer a bit more, the
-+	  kernel module only transfers information about IPs, where the src/dst
-+	  packet counter is not 0. This saves precious kernel time.
-+
-+	  There is no /proc interface as it would be too slow for continuous access.
-+	  The read-and-flush query operation is the fastest, as no internal data
-+	  snapshot needs to be created&copied for all data. Use the "read"
-+	  operation without flush only for debugging purposes!
-+
-+	  Usage:
-+
-+	  ACCOUNT takes two mandatory parameters:
-+
-+	  --addr network/netmask
-+	  where network/netmask is the subnet to account for, in CIDR syntax
-+
-+	  --tname NAME
-+	  where NAME is the name of the table where the accounting information
-+	  should be stored
-+
-+	  The subnet 0.0.0.0/0 is a special case: all data are then stored in the src_bytes
-+	  and src_packets structure of slot "0". This is useful if you want
-+	  to account the overall traffic to/from your internet provider.
-+
-+	  The data can be queried using the userspace libxt_ACCOUNT_cl library,
-+	  and by the reference implementation to show usage of this library,
-+	  the iptaccount(8) tool.
-+
-+	  Here is an example of use:
-+
-+	  iptables -A FORWARD -j ACCOUNT --addr 0.0.0.0/0 --tname all_outgoing;
-+	  iptables -A FORWARD -j ACCOUNT --addr 192.168.1.0/24 --tname sales;
-+
-+	  This creates two tables called "all_outgoing" and "sales" which can be
-+	  queried using the userspace library/iptaccount tool.
-+
-+	  Note that this target is non-terminating, the packet destined to it
-+	  will continue traversing the chain in which it has been used.
-+
-+	  Also note that once a table has been defined for specific CIDR address/netmask
-+	  block, it can be referenced multiple times using -j ACCOUNT, provided
-+	  that both the original table name and address/netmask block are specified.
-+
-+	  For more information go to http://www.intra2net.com/en/developer/ipt_ACCOUNT/
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.
-+
-+config NETFILTER_XT_TARGET_CHAOS
-+	tristate '"CHAOS" target support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  Causes confusion on the other end by doing odd things with incoming packets.
-+	  CHAOS will randomly reply (or not) with one of its configurable subtargets:
-+
-+	  --delude
-+	  Use the REJECT and DELUDE targets as a base to do a sudden or deferred
-+	  connection reset, fooling some network scanners to return non-deterministic
-+	  (randomly open/closed) results, and in case it is deemed open, it is actually
-+	  closed/filtered.
-+
-+	  --tarpit
-+	  Use the REJECT and TARPIT target as a base to hold the connection until it
-+	  times out. This consumes conntrack entries when connection tracking is loaded
-+	  (which usually is on most machines), and routers inbetween you and the Internet
-+	  may fail to do their connection tracking if they have to handle more
-+	  connections than they can.
-+
-+	  The randomness factor of not replying vs. replying can be set during load-time
-+	  of the xt_CHAOS module or during runtime in /sys/modules/xt_CHAOS/parameters.
-+
-+	  See http://jengelh.medozas.de/projects/chaostables/ for more information
-+	  about CHAOS, DELUDE and lscan.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.
-+
-+config NETFILTER_XT_TARGET_DELUDE
-+	tristate '"DELUDE" target support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  The DELUDE target will reply to a SYN packet with SYN-ACK, and to all other
-+	  packets with an RST. This will terminate the connection much like REJECT, but
-+	  network scanners doing TCP half-open discovery can be spoofed to make them
-+	  belive the port is open rather than closed/filtered.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+
-+config NETFILTER_XT_TARGET_ECHO
-+	tristate '"ECHO" target support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  The ECHO target will send back all packets it received. It serves as an
-+	  examples for an Xtables target.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+
-+config NETFILTER_XT_TARGET_RAWNAT
-+	tristate '"RAWNAT" target support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  The RAWSNAT and RAWDNAT targets provide stateless network address
-+	  translation.
-+
-+	  The RAWDNAT target will rewrite the destination address in the IP header,
-+	  much like the NETMAP target.
-+
-+	  --to-destination addr[/mask]
-+	  Network address to map to. The resulting address will be constructed the
-+	  following way: All 'one' bits in the mask are filled in from the new
-+	  address. All bits that are zero in the mask are filled in from the
-+	  original address.
-+
-+	  The RAWSNAT target will rewrite the source address in the IP header, much
-+	  like the NETMAP target. RAWSNAT (and RAWDNAT) may only be
-+	  used in the raw or rawpost tables, but can be used in all chains,
-+	  which makes it possible to change the source address either when the packet
-+	  enters the machine or when it leaves it. The reason for this table constraint
-+	  is that RAWNAT must happen outside of connection tracking.
-+
-+	  --to-source addr[/mask]
-+	  Network address to map to. The resulting address will be constructed the
-+	  following way: All 'one' bits in the mask are filled in from the new
-+	  address. All bits that are zero in the mask are filled in from the
-+	  original address.
-+
-+	  As an example, changing the destination for packets forwarded from an internal
-+	  LAN to the internet:
-+
-+	  -t raw -A PREROUTING -i lan0 -d 212.201.100.135 -j RAWDNAT --to-destination 199.181.132.250;
-+	  -t rawpost -A POSTROUTING -o lan0 -s 199.181.132.250 -j RAWSNAT --to-source 212.201.100.135;
-+
-+	  Note that changing addresses may influence the route selection! Specifically,
-+	  it statically NATs packets, not connections, like the normal DNAT/SNAT targets
-+	  would do. Also note that it can transform already-NATed connections, as
-+	  said, it is completely external to Netfilter's connection tracking/NAT.
-+
-+	  If the machine itself generates packets that are to be rawnat'ed, you need a
-+	  rule in the OUTPUT chain instead, just like you would with the stateful NAT
-+	  targets.
-+
-+	  It may be necessary that in doing so, you also need an extra RAWSNAT rule, to
-+	  override the automatic source address selection that the routing code does
-+	  before passing packets to iptables. If the connecting socket has not been
-+	  explicitly bound to an address, as is the common mode of operation, the address
-+	  that will be chosen is the primary address of the device through which the
-+	  packet would be routed with its initial destination address - the address as
-+	  seen before any RAWNAT takes place.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+
-+config NETFILTER_XT_TARGET_STEAL
-+	tristate '"STEAL" target support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  Like the DROP target, but does not throw an error like DROP when used in the
-+	  OUTPUT chain.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+	  
-+config NETFILTER_XT_TARGET_TARPIT
-+	tristate '"TARPIT" target support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  Adds a TARPIT target to iptables, which captures and holds
-+	  incoming TCP connections using no local per-connection resources.
-+	  Connections are accepted, but immediately switched to the persist
-+	  state (0 byte window), in which the remote side stops sending data
-+	  and asks to continue every 60-240 seconds. Attempts to close the
-+	  connection are ignored, forcing the remote side to time out the
-+	  connection in 12-24 minutes.
-+
-+	  This offers similar functionality to LaBrea
-+	  <http://www.hackbusters.net/LaBrea/>, but does not require dedicated
-+	  hardware or IPs. Any TCP port that you would normally DROP or REJECT
-+	  can instead become a tarpit.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.
-+	  
- config NETFILTER_XT_TARGET_TCPMSS
- 	tristate '"TCPMSS" target support'
- 	depends on (IPV6 || IPV6=n)
-@@ -1115,6 +1312,350 @@
-           <file:Documentation/modules.txt>.  The module will be
-           called `ipt_geoip'.  If unsure, say `N'.
- 
-+config NETFILTER_XT_MATCH_FUZZY
-+	tristate '"MATCH" match support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  This module matches a rate limit based on a fuzzy logic controller (FLC).
-+
-+	  --lower-limit number
-+	  Specifies the lower limit, in packets per second.
-+
-+	  --upper-limit number
-+	  Specifies the upper limit, also in packets per second.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+
-+config NETFILTER_XT_MATCH_IFACE
-+	tristate '"IFACE" target support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  Allows you to check interface states. First, an interface needs to be selected
-+	  for comparison. Exactly one option of the following three must be specified:
-+
-+	  --iface name
-+	  Check the states on the given interface.
-+
-+	  --dev-in
-+	  Check the states on the interface on which the packet came in. If the input
-+	  device is not set, because for example you are using -m iface in the OUTPUT
-+	  chain, this submatch returns false.
-+
-+	  --dev-out
-+	  Check the states on the interface on which the packet will go out. If the
-+	  output device is not set, because for example you are using -m iface in the
-+	  INPUT chain, this submatch returns false.
-+
-+	  Following that, one can select the interface properties to check for:
-+
-+	  [!] --up, [!] --down
-+	  Check the UP flag.
-+
-+	  [!] --broadcast
-+	  Check the BROADCAST flag.
-+
-+	  [!] --loopback
-+	  Check the LOOPBACK flag.
-+
-+	  [!] --pointtopoint
-+	  Check the POINTTOPOINT flag.
-+
-+	  [!] --running
-+	  Check the RUNNING flag. Do NOT rely on it!
-+
-+	  [!] --noarp, [!] --arp
-+	  Check the NOARP flag.
-+
-+	  [!] --promisc
-+	  Check the PROMISC flag.
-+
-+	  [!] --multicast
-+	  Check the MULTICAST flag.
-+
-+	  [!] --dynamic
-+	  Check the DYNAMIC flag.
-+
-+	  [!] --lower-up
-+	  Check the LOWER_UP flag.
-+
-+	  [!] --dormant
-+	  Check the DORMANT flag.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+
-+config NETFILTER_XT_MATCH_IPV4OPTIONS
-+	tristate '"IPV4OPTIONS" match support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  The "ipv4options" module allows to match against a set of IPv4 header options.
-+
-+	  --flags [!]symbol[,[!]symbol...]
-+	  Specify the options that shall appear or not appear in the header. Each
-+	  symbol specification is delimited by a comma, and a '!' can be prefixed to
-+	  a symbol to negate its presence. Symbols are either the name of an IPv4 option
-+	  or its number. See examples below.
-+
-+	  --any
-+	  By default, all of the flags specified must be present/absent, that is, they
-+	  form an AND condition. Use the --any flag instead to use an OR condition
-+	  where only at least one symbol spec must be true.
-+
-+	  Known symbol names (and their number):
-+
-+	  1 nop
-+	  2 security RFC 1108
-+	  3 lsrr Loose Source Routing, RFC 791
-+	  4 timestamp RFC 781, 791
-+	  7 record-route RFC 791
-+	  9 ssrr Strict Source Routing, RFC 791
-+	  11 mtu-probe RFC 1063
-+	  12 mtu-reply RFC 1063
-+	  18 traceroute RFC 1393
-+	  20 router-alert RFC 2113
-+
-+	  Examples:
-+
-+	  Match packets that have both Timestamp and NOP:
-+	  -m ipv4options --flags nop,timestamp
-+
-+	  ~ that have either of Timestamp or NOP, or both:
-+	  --flags nop,timestamp --any
-+
-+	  ~ that have Timestamp and no NOP: --flags '!nop,timestamp'
-+
-+	  ~ that have either no NOP or a timestamp (or both conditions):
-+	  --flags '!nop,timestamp' --any
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+
-+config NETFILTER_XT_MATCH_LSCAN
-+	tristate '"LSCAN" match support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  Detects simple low-level scan attemps based upon the packet's contents.
-+	  (This is different from other implementations, which also try to match the rate of new
-+	  connections.) Note that an attempt is only discovered after it has been carried
-+	  out, but this information can be used in conjunction with other rules to block
-+	  the remote host's future connections. So this match module will match on the
-+	  (probably) last packet the remote side will send to your machine.
-+
-+	  --stealth
-+	  Match if the packet did not belong to any known TCP connection
-+	  (Stealth/FIN/XMAS/NULL scan).
-+
-+	  --synscan
-+	  Match if the connection was a TCP half-open discovery (SYN scan), i.e. the
-+	  connection was torn down after the 2nd packet in the 3-way handshake.
-+
-+	  --cnscan
-+	  Match if the connection was a TCP full open discovery (connect scan), i.e. the
-+	  connection was torn down after completion of the 3-way handshake.
-+
-+	  --grscan
-+	  Match if data in the connection only flew in the direction of the remote side,
-+	  e.g. if the connection was terminated after a locally running daemon sent its
-+	  identification. (E.g. openssh, smtp, ftpd.) This may falsely trigger on
-+	  warranted single-direction data flows, usually bulk data transfers such as
-+	  FTP DATA connections or IRC DCC. Grab Scan Detection should only be used on
-+	  ports where a protocol runs that is guaranteed to do a bidirectional exchange
-+	  of bytes.
-+
-+	  NOTE: Some clients (Windows XP for example) may do what looks like a SYN scan,
-+	  so be advised to carefully use xt_lscan in conjunction with blocking rules,
-+	  as it may lock out your very own internal network.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+	  
-+config NETFILTER_XT_MATCH_PKNOCK
-+	tristate '"PKNOCK" match support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  Pknock match implements so-called "port knocking", a stealthy system
-+	  for network authentication: a client sends packets to selected
-+	  ports in a specific sequence (= simple mode, see example 1 below), or a HMAC
-+	  payload to a single port (= complex mode, see example 2 below),
-+	  to a target machine that has pknock rule(s) installed. The target machine
-+	  then decides whether to unblock or block (again) the pknock-protected port(s).
-+	  This can be used, for instance, to avoid brute force
-+	  attacks on ssh or ftp services.
-+
-+	  Example prerequisites:
-+
-+	  modprobe cn
-+
-+	  modprobe xt_pknock
-+
-+	  Example 1 (TCP mode, manual closing of opened port not possible):
-+
-+	  iptables -P INPUT DROP
-+
-+	  iptables -A INPUT -p tcp -m pknock --knockports 4002,4001,4004 --strict
-+	  --name SSH --time 10 --autoclose 60 --dport 22 -j ACCEPT
-+
-+	  The rule will allow tcp port 22 for the attempting IP address after the successful reception of TCP SYN packets
-+	  to ports 4002, 4001 and 4004, in this order (a.k.a. port-knocking).
-+	  Port numbers in the connect sequence must follow the exact specification, no
-+	  other ports may be "knocked" inbetween. The rule is named 'SSH', a file of
-+	  the same name for tracking port knocking states will be created in
-+	  /proc/net/xt_pknock .
-+	  Successive port knocks must occur with delay of at most 10 seconds. Port 22 (from the example) will
-+	  be automatiaclly dropped after 60 minutes after it was previously allowed.
-+
-+	  Example 2 (UDP mode, non-replayable and non-spoofable, manual closing
-+	  of opened port possible, secure, also called "SPA" = Secure Port
-+	  Authorization):
-+
-+	  iptables -A INPUT -p udp -m pknock --knockports 4000 --name FTP
-+	  --opensecret foo --closesecret bar --autoclose 240 -j DROP
-+
-+	  iptables -A INPUT -p tcp -m pknock --checkip --name FTP --dport 21 -j ACCEPT
-+
-+	  The first rule will create an "ALLOWED" record in /proc/net/xt_pknock/FTP after
-+	  the successful reception of an UDP packet to port 4000. The packet payload must be
-+	  constructed as a HMAC256 using "foo" as a key. The HMAC content is the particular 
-+	  client's IP address as a 32-bit network byteorder quantity,
-+	  plus the number of minutes since the Unix epoch, also as a 32-bit value.
-+	  (This is known as Simple Packet Authorization, also called "SPA".)
-+	  In such case, any subsequent attempt to connect to port 21 from the client's IP
-+	  address will cause such packets to be accepted in the second rule.
-+
-+	  Similarly, upon reception of an UDP packet constructed the same way, but with
-+	  the key "bar", the first rule will remove a previously installed "ALLOWED" state
-+	  record from /proc/net/xt_pknock/FTP, which means that the second rule will
-+	  stop matching for subsequent connection attempts to port 21.
-+	  In case no close-secret packet is received within 4 hours, the first rule
-+	  will remove "ALLOWED" record from /proc/net/xt_pknock/FTP itself.
-+
-+	  Things worth noting:
-+
-+	  General:
-+
-+	  Specifying --autoclose 0 means that no automatic close will be performed at all.
-+
-+	  xt_pknock is capable of sending information about successful matches
-+	  via a netlink socket to userspace, should you need to implement your own
-+	  way of receiving and handling portknock notifications.
-+	  Be sure to read the documentation in the doc/pknock/ directory,
-+	  or visit the original site, http://portknocko.berlios.de/ .
-+
-+	  TCP mode:
-+
-+	  This mode is not immune against eavesdropping, spoofing and
-+	  replaying of the port knock sequence by someone else (but its use may still
-+	  be sufficient for scenarios where these factors are not necessarily
-+	  this important, such as bare shielding of the SSH port from brute-force attacks).
-+	  However, if you need these features, you should use UDP mode.
-+
-+	  It is always wise to specify three or more ports that are not monotonically
-+	  increasing or decreasing with a small stepsize (e.g. 1024,1025,1026)
-+	  to avoid accidentally triggering
-+	  the rule by a portscan.
-+
-+	  Specifying the inter-knock timeout with --time is mandatory in TCP mode,
-+	  to avoid permanent denial of services by clogging up the peer knock-state tracking table
-+	  that xt_pknock internally keeps, should there be a DDoS on the
-+	  first-in-row knock port from more hostile IP addresses than what the actual size
-+	  of this table is (defaults to 16, can be changed via the "peer_hasht_ents" module parameter).
-+	  It is also wise to use as short a time as possible (1 second) for --time
-+	  for this very reason. You may also consider increasing the size
-+	  of the peer knock-state tracking table. Using --strict also helps,
-+	  as it requires the knock sequence to be exact. This means that if the
-+	  hostile client sends more knocks to the same port, xt_pknock will
-+	  mark such attempt as failed knock sequence and will forget it immediately.
-+	  To completely thwart this kind of DDoS, knock-ports would need to have
-+	  an additional rate-limit protection. Or you may consider using UDP mode.
-+
-+	  UDP mode:
-+
-+	  This mode is immune against eavesdropping, replaying and spoofing attacks.
-+	  It is also immune against DDoS attack on the knockport.
-+
-+	  For this mode to work, the clock difference on the client and on the server
-+	  must be below 1 minute. Synchronizing time on both ends by means
-+	  of NTP or rdate is strongly suggested.
-+
-+	  There is a rate limiter built into xt_pknock which blocks any subsequent
-+	  open attempt in UDP mode should the request arrive within less than one
-+	  minute since the first successful open. This is intentional;
-+	  it thwarts eventual spoofing attacks.
-+
-+	  Because the payload value of an UDP knock packet is influenced by client's IP address,
-+	  UDP mode cannot be used across NAT.
-+
-+	  For sending UDP "SPA" packets, you may use either knock.sh or
-+	  knock-orig.sh. These may be found in doc/pknock/util.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+
-+config NETFILTER_XT_MATCH_PSD
-+	tristate '"PSD" match support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  Attempt to detect TCP and UDP port scans. This match was derived from
-+	  Solar Designer's scanlogd.
-+
-+	  --psd-weight-threshold threshold
-+	  Total weight of the latest TCP/UDP packets with different
-+	  destination ports coming from the same host to be treated as port
-+	  scan sequence.
-+
-+	  --psd-delay-threshold delay
-+	  Delay (in hundredths of second) for the packets with different
-+	  destination ports coming from the same host to be treated as
-+	  possible port scan subsequence.
-+
-+	  --psd-lo-ports-weight weight
-+	  Weight of the packet with privileged (<=1024) destination port.
-+
-+	  --psd-hi-ports-weight weight
-+	  Weight of the packet with non-priviliged destination port.
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+
-+config NETFILTER_XT_MATCH_QUOTA2
-+	tristate '"QUOTA2" match support'
-+	depends on NETFILTER_XTABLES
-+	---help---
-+	  The "quota2" implements a named counter which can be increased or decreased
-+	  on a per-match basis. Available modes are packet counting or byte counting.
-+	  The value of the counter can be read and reset through procfs, thereby making
-+	  this match a minimalist accounting tool.
-+
-+	  When counting down from the initial quota, the counter will stop at 0 and
-+	  the match will return false, just like the original "quota" match. In growing
-+	  (upcounting) mode, it will always return true.
-+
-+	  --grow
-+	  Count upwards instead of downwards.
-+
-+	  --no-change
-+	  Makes it so the counter or quota amount is never changed by packets matching
-+	  this rule. This is only really useful in "quota" mode, as it will allow you to
-+	  use complex prerouting rules in association with the quota system, without
-+	  counting a packet twice.
-+
-+	  --name name
-+	  Assign the counter a specific name. This option must be present, as an empty
-+	  name is not allowed. Names starting with a dot or names containing a slash are
-+	  prohibited.
-+
-+	  [!] --quota iq
-+	  Specify the initial quota for this counter. If the counter already exists,
-+	  it is not reset. An "!" may be used to invert the result of the match. The
-+	  negation has no effect when --grow is used.
-+
-+	  --packets
-+	  Count packets instead of bytes that passed the quota2 match.
-+
-+	  Because counters in quota2 can be shared, you can combine them for various
-+	  purposes, for example, a bytebucket filter that only lets as much traffic go
-+	  out as has come in:
-+
-+	  -A INPUT -p tcp --dport 6881 -m quota --name bt --grow;
-+	  -A OUTPUT -p tcp --sport 6881 -m quota --name bt;
-+
-+	  To compile it as a module, choose M here.  If unsure, say N.  
-+
- endif # NETFILTER_XTABLES
- 
- endmenu
-
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/netfilter/Makefile
-@@ -40,6 +40,7 @@
- 
- # generic X tables 
- obj-$(CONFIG_NETFILTER_XTABLES) += x_tables.o xt_tcpudp.o
-+obj-y += compat_xtables.o
- 
- # combos
- obj-$(CONFIG_NETFILTER_XT_MARK) += xt_mark.o
-@@ -61,6 +62,14 @@
- obj-$(CONFIG_NETFILTER_XT_TARGET_RATEEST) += xt_RATEEST.o
- obj-$(CONFIG_NETFILTER_XT_TARGET_SECMARK) += xt_SECMARK.o
- obj-$(CONFIG_NETFILTER_XT_TARGET_TPROXY) += xt_TPROXY.o
-+obj-$(CONFIG_NETFILTER_XT_TARGET_CHAOS) += xt_CHAOS.o
-+obj-$(CONFIG_NETFILTER_XT_TARGET_DELUDE) += xt_DELUDE.o
-+obj-$(CONFIG_NETFILTER_XT_TARGET_RAWNAT) += xt_RAWNAT.o iptable_rawpost.o
-+ifneq (${CONFIG_IP6_NF_IPTABLES},)
-+obj-${CONFIG_NETFILTER_XT_TARGET_RAWNAT} += ip6table_rawpost.o
-+endif
-+obj-$(CONFIG_NETFILTER_XT_TARGET_STEAL) += xt_STEAL.o
-+obj-$(CONFIG_NETFILTER_XT_TARGET_TARPIT) += xt_TARPIT.o
- obj-$(CONFIG_NETFILTER_XT_TARGET_TCPMSS) += xt_TCPMSS.o
- obj-$(CONFIG_NETFILTER_XT_TARGET_TCPOPTSTRIP) += xt_TCPOPTSTRIP.o
- obj-$(CONFIG_NETFILTER_XT_TARGET_TEE) += xt_TEE.o
-@@ -109,6 +118,13 @@
- obj-$(CONFIG_NETFILTER_XT_MATCH_CONDITION) += xt_condition.o
- obj-$(CONFIG_NETFILTER_XT_MATCH_GEOIP) += xt_geoip.o
- obj-$(CONFIG_NETFILTER_XT_MATCH_ETHPORT) += xt_ethport.o
-+obj-$(CONFIG_NETFILTER_XT_MATCH_FUZZY) += xt_fuzzy.o
-+obj-$(CONFIG_NETFILTER_XT_MATCH_IFACE) += xt_iface.o
-+obj-$(CONFIG_NETFILTER_XT_MATCH_IPV4OPTIONS) += xt_ipv4options.o
-+obj-$(CONFIG_NETFILTER_XT_MATCH_LSCAN) += xt_lscan.o
-+obj-$(CONFIG_NETFILTER_XT_MATCH_PKNOCK) += xt_pknock.o
-+obj-$(CONFIG_NETFILTER_XT_MATCH_PSD) += xt_psd.o
-+obj-$(CONFIG_NETFILTER_XT_MATCH_QUOTA2) += xt_quota2.o
- 
- # ipset
- obj-$(CONFIG_IP_SET) += ipset/
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/Kconfig
-@@ -66,6 +66,28 @@
- 
- 	  If unsure, say N.
- 
-+config SQUASHFS_4K_DEVBLK_SIZE
-+	bool "Use 4K device block size?"
-+	depends on SQUASHFS
-+	help
-+	  By default Squashfs sets the dev block size (sb_min_blocksize)
-+	  to 1K or the smallest block size supported by the block device
-+	  (if larger).  This, because blocks are packed together and
-+	  unaligned in Squashfs, should reduce latency.
-+
-+	  This, however, gives poor performance on MTD NAND devices where
-+	  the optimal I/O size is 4K (even though the devices can support
-+	  smaller block sizes).
-+
-+	  Using a 4K device block size may also improve overall I/O
-+	  performance for some file access patterns (e.g. sequential
-+	  accesses of files in filesystem order) on all media.
-+
-+	  Setting this option will force Squashfs to use a 4K device block
-+	  size by default.
-+
-+	  If unsure, say N.
-+
- config SQUASHFS_EMBEDDED
- 	bool "Additional option for memory-constrained systems"
- 	depends on SQUASHFS
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/squashfs_fs.h
-@@ -37,6 +37,13 @@
- #define SQUASHFS_FILE_SIZE		131072
- #define SQUASHFS_FILE_LOG		17
- 
-+/* default size of block device I/O */
-+#ifdef CONFIG_SQUASHFS_4K_DEVBLK_SIZE
-+#define SQUASHFS_DEVBLK_SIZE 4096
-+#else
-+#define SQUASHFS_DEVBLK_SIZE 1024
-+#endif
-+
- #define SQUASHFS_FILE_MAX_SIZE		1048576
- #define SQUASHFS_FILE_MAX_LOG		20
- 
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/fs/squashfs/super.c
-@@ -102,7 +102,7 @@
- 		goto failure;
- 	}
- 
--	msblk->devblksize = sb_min_blocksize(sb, BLOCK_SIZE);
-+	msblk->devblksize = sb_min_blocksize(sb, SQUASHFS_DEVBLK_SIZE);
- 	msblk->devblksize_log2 = ffz(~msblk->devblksize);
- 
- 	mutex_init(&msblk->read_data_mutex);
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Makefile
-@@ -85,6 +85,9 @@
- obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
- obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
- obj-$(CONFIG_CRYPTO_GHASH) += ghash-generic.o
-+obj-$(CONFIG_CRYPTO_USER_API) += af_alg.o
-+obj-$(CONFIG_CRYPTO_USER_API_HASH) += algif_hash.o
-+obj-$(CONFIG_CRYPTO_USER_API_SKCIPHER) += algif_skcipher.o
- 
- #
- # generic algorithms and the async_tx api
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/Kconfig
-@@ -842,6 +842,27 @@
- 	  ANSI X9.31 A.2.4. Note that this option must be enabled if
- 	  CRYPTO_FIPS is selected
- 
-+config CRYPTO_USER_API
-+	tristate
-+
-+config CRYPTO_USER_API_HASH
-+	tristate "User-space interface for hash algorithms"
-+	depends on NET
-+	select CRYPTO_HASH
-+	select CRYPTO_USER_API
-+	help
-+	  This option enables the user-spaces interface for hash
-+	  algorithms.
-+
-+config CRYPTO_USER_API_SKCIPHER
-+	tristate "User-space interface for symmetric key cipher algorithms"
-+	depends on NET
-+	select CRYPTO_BLKCIPHER
-+	select CRYPTO_USER_API
-+	help
-+	  This option enables the user-spaces interface for symmetric
-+	  key cipher algorithms.
-+
- source "drivers/crypto/Kconfig"
- 
- endif	# if CRYPTO
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/af_alg.c
-@@ -0,0 +1,483 @@
-+/*
-+ * af_alg: User-space algorithm interface
-+ *
-+ * This file provides the user-space API for algorithms.
-+ *
-+ * Copyright (c) 2010 Herbert Xu <herbert@gondor.apana.org.au>
-+ *
-+ * This program is free software; you can redistribute it and/or modify it
-+ * under the terms of the GNU General Public License as published by the Free
-+ * Software Foundation; either version 2 of the License, or (at your option)
-+ * any later version.
-+ *
-+ */
-+
-+#include <asm/atomic.h>
-+#include <crypto/if_alg.h>
-+#include <linux/crypto.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/list.h>
-+#include <linux/module.h>
-+#include <linux/net.h>
-+#include <linux/rwsem.h>
-+
-+struct alg_type_list {
-+	const struct af_alg_type *type;
-+	struct list_head list;
-+};
-+
-+static atomic_long_t alg_memory_allocated;
-+
-+static struct proto alg_proto = {
-+	.name			= "ALG",
-+	.owner			= THIS_MODULE,
-+	.memory_allocated	= &alg_memory_allocated,
-+	.obj_size		= sizeof(struct alg_sock),
-+};
-+
-+static LIST_HEAD(alg_types);
-+static DECLARE_RWSEM(alg_types_sem);
-+
-+static const struct af_alg_type *alg_get_type(const char *name)
-+{
-+	const struct af_alg_type *type = ERR_PTR(-ENOENT);
-+	struct alg_type_list *node;
-+
-+	down_read(&alg_types_sem);
-+	list_for_each_entry(node, &alg_types, list) {
-+		if (strcmp(node->type->name, name))
-+			continue;
-+
-+		if (try_module_get(node->type->owner))
-+			type = node->type;
-+		break;
-+	}
-+	up_read(&alg_types_sem);
-+
-+	return type;
-+}
-+
-+int af_alg_register_type(const struct af_alg_type *type)
-+{
-+	struct alg_type_list *node;
-+	int err = -EEXIST;
-+
-+	down_write(&alg_types_sem);
-+	list_for_each_entry(node, &alg_types, list) {
-+		if (!strcmp(node->type->name, type->name))
-+			goto unlock;
-+	}
-+
-+	node = kmalloc(sizeof(*node), GFP_KERNEL);
-+	err = -ENOMEM;
-+	if (!node)
-+		goto unlock;
-+
-+	type->ops->owner = THIS_MODULE;
-+	node->type = type;
-+	list_add(&node->list, &alg_types);
-+	err = 0;
-+
-+unlock:
-+	up_write(&alg_types_sem);
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(af_alg_register_type);
-+
-+int af_alg_unregister_type(const struct af_alg_type *type)
-+{
-+	struct alg_type_list *node;
-+	int err = -ENOENT;
-+
-+	down_write(&alg_types_sem);
-+	list_for_each_entry(node, &alg_types, list) {
-+		if (strcmp(node->type->name, type->name))
-+			continue;
-+
-+		list_del(&node->list);
-+		kfree(node);
-+		err = 0;
-+		break;
-+	}
-+	up_write(&alg_types_sem);
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(af_alg_unregister_type);
-+
-+static void alg_do_release(const struct af_alg_type *type, void *private)
-+{
-+	if (!type)
-+		return;
-+
-+	type->release(private);
-+	module_put(type->owner);
-+}
-+
-+int af_alg_release(struct socket *sock)
-+{
-+	if (sock->sk)
-+		sock_put(sock->sk);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(af_alg_release);
-+
-+static int alg_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
-+{
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct sockaddr_alg *sa = (void *)uaddr;
-+	const struct af_alg_type *type;
-+	void *private;
-+
-+	if (sock->state == SS_CONNECTED)
-+		return -EINVAL;
-+
-+	if (addr_len != sizeof(*sa))
-+		return -EINVAL;
-+
-+	sa->salg_type[sizeof(sa->salg_type) - 1] = 0;
-+	sa->salg_name[sizeof(sa->salg_name) - 1] = 0;
-+
-+	type = alg_get_type(sa->salg_type);
-+	if (IS_ERR(type) && PTR_ERR(type) == -ENOENT) {
-+		request_module("algif-%s", sa->salg_type);
-+		type = alg_get_type(sa->salg_type);
-+	}
-+
-+	if (IS_ERR(type))
-+		return PTR_ERR(type);
-+
-+	private = type->bind(sa->salg_name, sa->salg_feat, sa->salg_mask);
-+	if (IS_ERR(private)) {
-+		module_put(type->owner);
-+		return PTR_ERR(private);
-+	}
-+
-+	lock_sock(sk);
-+
-+	swap(ask->type, type);
-+	swap(ask->private, private);
-+
-+	release_sock(sk);
-+
-+	alg_do_release(type, private);
-+
-+	return 0;
-+}
-+
-+static int alg_setkey(struct sock *sk, char __user *ukey,
-+		      unsigned int keylen)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	const struct af_alg_type *type = ask->type;
-+	u8 *key;
-+	int err;
-+
-+	key = sock_kmalloc(sk, keylen, GFP_KERNEL);
-+	if (!key)
-+		return -ENOMEM;
-+
-+	err = -EFAULT;
-+	if (copy_from_user(key, ukey, keylen))
-+		goto out;
-+
-+	err = type->setkey(ask->private, key, keylen);
-+
-+out:
-+	sock_kfree_s(sk, key, keylen);
-+
-+	return err;
-+}
-+
-+static int alg_setsockopt(struct socket *sock, int level, int optname,
-+			  char __user *optval, unsigned int optlen)
-+{
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	const struct af_alg_type *type;
-+	int err = -ENOPROTOOPT;
-+
-+	lock_sock(sk);
-+	type = ask->type;
-+
-+	if (level != SOL_ALG || !type)
-+		goto unlock;
-+
-+	switch (optname) {
-+	case ALG_SET_KEY:
-+		if (sock->state == SS_CONNECTED)
-+			goto unlock;
-+		if (!type->setkey)
-+			goto unlock;
-+
-+		err = alg_setkey(sk, optval, optlen);
-+	}
-+
-+unlock:
-+	release_sock(sk);
-+
-+	return err;
-+}
-+
-+int af_alg_accept(struct sock *sk, struct socket *newsock)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	const struct af_alg_type *type;
-+	struct sock *sk2;
-+	int err;
-+
-+	lock_sock(sk);
-+	type = ask->type;
-+
-+	err = -EINVAL;
-+	if (!type)
-+		goto unlock;
-+
-+	sk2 = sk_alloc(sock_net(sk), PF_ALG, GFP_KERNEL, &alg_proto);
-+	err = -ENOMEM;
-+	if (!sk2)
-+		goto unlock;
-+
-+	sock_init_data(newsock, sk2);
-+	sock_graft(sk2, newsock);
-+
-+	err = type->accept(ask->private, sk2);
-+	if (err) {
-+		sk_free(sk2);
-+		goto unlock;
-+	}
-+
-+	sk2->sk_family = PF_ALG;
-+
-+	sock_hold(sk);
-+	alg_sk(sk2)->parent = sk;
-+	alg_sk(sk2)->type = type;
-+
-+	newsock->ops = type->ops;
-+	newsock->state = SS_CONNECTED;
-+
-+	err = 0;
-+
-+unlock:
-+	release_sock(sk);
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(af_alg_accept);
-+
-+static int alg_accept(struct socket *sock, struct socket *newsock, int flags)
-+{
-+	return af_alg_accept(sock->sk, newsock);
-+}
-+
-+static const struct proto_ops alg_proto_ops = {
-+	.family		=	PF_ALG,
-+	.owner		=	THIS_MODULE,
-+
-+	.connect	=	sock_no_connect,
-+	.socketpair	=	sock_no_socketpair,
-+	.getname	=	sock_no_getname,
-+	.ioctl		=	sock_no_ioctl,
-+	.listen		=	sock_no_listen,
-+	.shutdown	=	sock_no_shutdown,
-+	.getsockopt	=	sock_no_getsockopt,
-+	.mmap		=	sock_no_mmap,
-+	.sendpage	=	sock_no_sendpage,
-+	.sendmsg	=	sock_no_sendmsg,
-+	.recvmsg	=	sock_no_recvmsg,
-+	.poll		=	sock_no_poll,
-+
-+	.bind		=	alg_bind,
-+	.release	=	af_alg_release,
-+	.setsockopt	=	alg_setsockopt,
-+	.accept		=	alg_accept,
-+};
-+
-+static void alg_sock_destruct(struct sock *sk)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+
-+	alg_do_release(ask->type, ask->private);
-+}
-+
-+static int alg_create(struct net *net, struct socket *sock, int protocol,
-+		      int kern)
-+{
-+	struct sock *sk;
-+	int err;
-+
-+	if (sock->type != SOCK_SEQPACKET)
-+		return -ESOCKTNOSUPPORT;
-+	if (protocol != 0)
-+		return -EPROTONOSUPPORT;
-+
-+	err = -ENOMEM;
-+	sk = sk_alloc(net, PF_ALG, GFP_KERNEL, &alg_proto);
-+	if (!sk)
-+		goto out;
-+
-+	sock->ops = &alg_proto_ops;
-+	sock_init_data(sock, sk);
-+
-+	sk->sk_family = PF_ALG;
-+	sk->sk_destruct = alg_sock_destruct;
-+
-+	return 0;
-+out:
-+	return err;
-+}
-+
-+static const struct net_proto_family alg_family = {
-+	.family	=	PF_ALG,
-+	.create	=	alg_create,
-+	.owner	=	THIS_MODULE,
-+};
-+
-+int af_alg_make_sg(struct af_alg_sgl *sgl, void __user *addr, int len,
-+		   int write)
-+{
-+	unsigned long from = (unsigned long)addr;
-+	unsigned long npages;
-+	unsigned off;
-+	int err;
-+	int i;
-+
-+	err = -EFAULT;
-+	if (!access_ok(write ? VERIFY_READ : VERIFY_WRITE, addr, len))
-+		goto out;
-+
-+	off = from & ~PAGE_MASK;
-+	npages = (off + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-+	if (npages > ALG_MAX_PAGES)
-+		npages = ALG_MAX_PAGES;
-+
-+	err = get_user_pages_fast(from, npages, write, sgl->pages);
-+	if (err < 0)
-+		goto out;
-+
-+	npages = err;
-+	err = -EINVAL;
-+	if (WARN_ON(npages == 0))
-+		goto out;
-+
-+	err = 0;
-+
-+	sg_init_table(sgl->sg, npages);
-+
-+	for (i = 0; i < npages; i++) {
-+		int plen = min_t(int, len, PAGE_SIZE - off);
-+
-+		sg_set_page(sgl->sg + i, sgl->pages[i], plen, off);
-+
-+		off = 0;
-+		len -= plen;
-+		err += plen;
-+	}
-+
-+out:
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(af_alg_make_sg);
-+
-+void af_alg_free_sg(struct af_alg_sgl *sgl)
-+{
-+	int i;
-+
-+	i = 0;
-+	do {
-+		put_page(sgl->pages[i]);
-+	} while (!sg_is_last(sgl->sg + (i++)));
-+}
-+EXPORT_SYMBOL_GPL(af_alg_free_sg);
-+
-+int af_alg_cmsg_send(struct msghdr *msg, struct af_alg_control *con)
-+{
-+	struct cmsghdr *cmsg;
-+
-+	for (cmsg = CMSG_FIRSTHDR(msg); cmsg; cmsg = CMSG_NXTHDR(msg, cmsg)) {
-+		if (!CMSG_OK(msg, cmsg))
-+			return -EINVAL;
-+		if (cmsg->cmsg_level != SOL_ALG)
-+			continue;
-+
-+		switch(cmsg->cmsg_type) {
-+		case ALG_SET_IV:
-+			if (cmsg->cmsg_len < CMSG_LEN(sizeof(*con->iv)))
-+				return -EINVAL;
-+			con->iv = (void *)CMSG_DATA(cmsg);
-+			if (cmsg->cmsg_len < CMSG_LEN(con->iv->ivlen +
-+						      sizeof(*con->iv)))
-+				return -EINVAL;
-+			break;
-+
-+		case ALG_SET_OP:
-+			if (cmsg->cmsg_len < CMSG_LEN(sizeof(u32)))
-+				return -EINVAL;
-+			con->op = *(u32 *)CMSG_DATA(cmsg);
-+			break;
-+
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(af_alg_cmsg_send);
-+
-+int af_alg_wait_for_completion(int err, struct af_alg_completion *completion)
-+{
-+	switch (err) {
-+	case -EINPROGRESS:
-+	case -EBUSY:
-+		wait_for_completion(&completion->completion);
-+		INIT_COMPLETION(completion->completion);
-+		err = completion->err;
-+		break;
-+	};
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(af_alg_wait_for_completion);
-+
-+void af_alg_complete(struct crypto_async_request *req, int err)
-+{
-+	struct af_alg_completion *completion = req->data;
-+
-+	completion->err = err;
-+	complete(&completion->completion);
-+}
-+EXPORT_SYMBOL_GPL(af_alg_complete);
-+
-+static int __init af_alg_init(void)
-+{
-+	int err = proto_register(&alg_proto, 0);
-+
-+	if (err)
-+		goto out;
-+
-+	err = sock_register(&alg_family);
-+	if (err != 0)
-+		goto out_unregister_proto;
-+
-+out:
-+	return err;
-+
-+out_unregister_proto:
-+	proto_unregister(&alg_proto);
-+	goto out;
-+}
-+
-+static void __exit af_alg_exit(void)
-+{
-+	sock_unregister(PF_ALG);
-+	proto_unregister(&alg_proto);
-+}
-+
-+module_init(af_alg_init);
-+module_exit(af_alg_exit);
-+MODULE_LICENSE("GPL");
-+MODULE_ALIAS_NETPROTO(AF_ALG);
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_hash.c
-@@ -0,0 +1,319 @@
-+/*
-+ * algif_hash: User-space interface for hash algorithms
-+ *
-+ * This file provides the user-space API for hash algorithms.
-+ *
-+ * Copyright (c) 2010 Herbert Xu <herbert@gondor.apana.org.au>
-+ *
-+ * This program is free software; you can redistribute it and/or modify it
-+ * under the terms of the GNU General Public License as published by the Free
-+ * Software Foundation; either version 2 of the License, or (at your option)
-+ * any later version.
-+ *
-+ */
-+
-+#include <crypto/hash.h>
-+#include <crypto/if_alg.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
-+#include <linux/net.h>
-+#include <net/sock.h>
-+
-+struct hash_ctx {
-+	struct af_alg_sgl sgl;
-+
-+	u8 *result;
-+
-+	struct af_alg_completion completion;
-+
-+	unsigned int len;
-+	bool more;
-+
-+	struct ahash_request req;
-+};
-+
-+static int hash_sendmsg(struct kiocb *unused, struct socket *sock,
-+			struct msghdr *msg, size_t ignored)
-+{
-+	int limit = ALG_MAX_PAGES * PAGE_SIZE;
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct hash_ctx *ctx = ask->private;
-+	unsigned long iovlen;
-+	struct iovec *iov;
-+	long copied = 0;
-+	int err;
-+
-+	if (limit > sk->sk_sndbuf)
-+		limit = sk->sk_sndbuf;
-+
-+	lock_sock(sk);
-+	if (!ctx->more) {
-+		err = crypto_ahash_init(&ctx->req);
-+		if (err)
-+			goto unlock;
-+	}
-+
-+	ctx->more = 0;
-+
-+	for (iov = msg->msg_iov, iovlen = msg->msg_iovlen; iovlen > 0;
-+	     iovlen--, iov++) {
-+		unsigned long seglen = iov->iov_len;
-+		char __user *from = iov->iov_base;
-+
-+		while (seglen) {
-+			int len = min_t(unsigned long, seglen, limit);
-+			int newlen;
-+
-+			newlen = af_alg_make_sg(&ctx->sgl, from, len, 0);
-+			if (newlen < 0)
-+				goto unlock;
-+
-+			ahash_request_set_crypt(&ctx->req, ctx->sgl.sg, NULL,
-+						newlen);
-+
-+			err = af_alg_wait_for_completion(
-+				crypto_ahash_update(&ctx->req),
-+				&ctx->completion);
-+
-+			af_alg_free_sg(&ctx->sgl);
-+
-+			if (err)
-+				goto unlock;
-+
-+			seglen -= newlen;
-+			from += newlen;
-+			copied += newlen;
-+		}
-+	}
-+
-+	err = 0;
-+
-+	ctx->more = msg->msg_flags & MSG_MORE;
-+	if (!ctx->more) {
-+		ahash_request_set_crypt(&ctx->req, NULL, ctx->result, 0);
-+		err = af_alg_wait_for_completion(crypto_ahash_final(&ctx->req),
-+						 &ctx->completion);
-+	}
-+
-+unlock:
-+	release_sock(sk);
-+
-+	return err ?: copied;
-+}
-+
-+static ssize_t hash_sendpage(struct socket *sock, struct page *page,
-+			     int offset, size_t size, int flags)
-+{
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct hash_ctx *ctx = ask->private;
-+	int err;
-+
-+	lock_sock(sk);
-+	sg_init_table(ctx->sgl.sg, 1);
-+	sg_set_page(ctx->sgl.sg, page, size, offset);
-+
-+	ahash_request_set_crypt(&ctx->req, ctx->sgl.sg, ctx->result, size);
-+
-+	if (!(flags & MSG_MORE)) {
-+		if (ctx->more)
-+			err = crypto_ahash_finup(&ctx->req);
-+		else
-+			err = crypto_ahash_digest(&ctx->req);
-+	} else {
-+		if (!ctx->more) {
-+			err = crypto_ahash_init(&ctx->req);
-+			if (err)
-+				goto unlock;
-+		}
-+
-+		err = crypto_ahash_update(&ctx->req);
-+	}
-+
-+	err = af_alg_wait_for_completion(err, &ctx->completion);
-+	if (err)
-+		goto unlock;
-+
-+	ctx->more = flags & MSG_MORE;
-+
-+unlock:
-+	release_sock(sk);
-+
-+	return err ?: size;
-+}
-+
-+static int hash_recvmsg(struct kiocb *unused, struct socket *sock,
-+			struct msghdr *msg, size_t len, int flags)
-+{
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct hash_ctx *ctx = ask->private;
-+	unsigned ds = crypto_ahash_digestsize(crypto_ahash_reqtfm(&ctx->req));
-+	int err;
-+
-+	if (len > ds)
-+		len = ds;
-+	else if (len < ds)
-+		msg->msg_flags |= MSG_TRUNC;
-+
-+	lock_sock(sk);
-+	if (ctx->more) {
-+		ctx->more = 0;
-+		ahash_request_set_crypt(&ctx->req, NULL, ctx->result, 0);
-+		err = af_alg_wait_for_completion(crypto_ahash_final(&ctx->req),
-+						 &ctx->completion);
-+		if (err)
-+			goto unlock;
-+	}
-+
-+	err = memcpy_toiovec(msg->msg_iov, ctx->result, len);
-+
-+unlock:
-+	release_sock(sk);
-+
-+	return err ?: len;
-+}
-+
-+static int hash_accept(struct socket *sock, struct socket *newsock, int flags)
-+{
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct hash_ctx *ctx = ask->private;
-+	struct ahash_request *req = &ctx->req;
-+	char state[crypto_ahash_statesize(crypto_ahash_reqtfm(req))];
-+	struct sock *sk2;
-+	struct alg_sock *ask2;
-+	struct hash_ctx *ctx2;
-+	int err;
-+
-+	err = crypto_ahash_export(req, state);
-+	if (err)
-+		return err;
-+
-+	err = af_alg_accept(ask->parent, newsock);
-+	if (err)
-+		return err;
-+
-+	sk2 = newsock->sk;
-+	ask2 = alg_sk(sk2);
-+	ctx2 = ask2->private;
-+	ctx2->more = 1;
-+
-+	err = crypto_ahash_import(&ctx2->req, state);
-+	if (err) {
-+		sock_orphan(sk2);
-+		sock_put(sk2);
-+	}
-+
-+	return err;
-+}
-+
-+static struct proto_ops algif_hash_ops = {
-+	.family		=	PF_ALG,
-+
-+	.connect	=	sock_no_connect,
-+	.socketpair	=	sock_no_socketpair,
-+	.getname	=	sock_no_getname,
-+	.ioctl		=	sock_no_ioctl,
-+	.listen		=	sock_no_listen,
-+	.shutdown	=	sock_no_shutdown,
-+	.getsockopt	=	sock_no_getsockopt,
-+	.mmap		=	sock_no_mmap,
-+	.bind		=	sock_no_bind,
-+	.setsockopt	=	sock_no_setsockopt,
-+	.poll		=	sock_no_poll,
-+
-+	.release	=	af_alg_release,
-+	.sendmsg	=	hash_sendmsg,
-+	.sendpage	=	hash_sendpage,
-+	.recvmsg	=	hash_recvmsg,
-+	.accept		=	hash_accept,
-+};
-+
-+static void *hash_bind(const char *name, u32 type, u32 mask)
-+{
-+	return crypto_alloc_ahash(name, type, mask);
-+}
-+
-+static void hash_release(void *private)
-+{
-+	crypto_free_ahash(private);
-+}
-+
-+static int hash_setkey(void *private, const u8 *key, unsigned int keylen)
-+{
-+	return crypto_ahash_setkey(private, key, keylen);
-+}
-+
-+static void hash_sock_destruct(struct sock *sk)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct hash_ctx *ctx = ask->private;
-+
-+	sock_kfree_s(sk, ctx->result,
-+		     crypto_ahash_digestsize(crypto_ahash_reqtfm(&ctx->req)));
-+	sock_kfree_s(sk, ctx, ctx->len);
-+	af_alg_release_parent(sk);
-+}
-+
-+static int hash_accept_parent(void *private, struct sock *sk)
-+{
-+	struct hash_ctx *ctx;
-+	struct alg_sock *ask = alg_sk(sk);
-+	unsigned len = sizeof(*ctx) + crypto_ahash_reqsize(private);
-+	unsigned ds = crypto_ahash_digestsize(private);
-+
-+	ctx = sock_kmalloc(sk, len, GFP_KERNEL);
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	ctx->result = sock_kmalloc(sk, ds, GFP_KERNEL);
-+	if (!ctx->result) {
-+		sock_kfree_s(sk, ctx, len);
-+		return -ENOMEM;
-+	}
-+
-+	memset(ctx->result, 0, ds);
-+
-+	ctx->len = len;
-+	ctx->more = 0;
-+	af_alg_init_completion(&ctx->completion);
-+
-+	ask->private = ctx;
-+
-+	ahash_request_set_tfm(&ctx->req, private);
-+	ahash_request_set_callback(&ctx->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-+				   af_alg_complete, &ctx->completion);
-+
-+	sk->sk_destruct = hash_sock_destruct;
-+
-+	return 0;
-+}
-+
-+static const struct af_alg_type algif_type_hash = {
-+	.bind		=	hash_bind,
-+	.release	=	hash_release,
-+	.setkey		=	hash_setkey,
-+	.accept		=	hash_accept_parent,
-+	.ops		=	&algif_hash_ops,
-+	.name		=	"hash",
-+	.owner		=	THIS_MODULE
-+};
-+
-+static int __init algif_hash_init(void)
-+{
-+	return af_alg_register_type(&algif_type_hash);
-+}
-+
-+static void __exit algif_hash_exit(void)
-+{
-+	int err = af_alg_unregister_type(&algif_type_hash);
-+	BUG_ON(err);
-+}
-+
-+module_init(algif_hash_init);
-+module_exit(algif_hash_exit);
-+MODULE_LICENSE("GPL");
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/crypto/algif_skcipher.c
-@@ -0,0 +1,632 @@
-+/*
-+ * algif_skcipher: User-space interface for skcipher algorithms
-+ *
-+ * This file provides the user-space API for symmetric key ciphers.
-+ *
-+ * Copyright (c) 2010 Herbert Xu <herbert@gondor.apana.org.au>
-+ *
-+ * This program is free software; you can redistribute it and/or modify it
-+ * under the terms of the GNU General Public License as published by the Free
-+ * Software Foundation; either version 2 of the License, or (at your option)
-+ * any later version.
-+ *
-+ */
-+
-+#include <crypto/scatterwalk.h>
-+#include <crypto/skcipher.h>
-+#include <crypto/if_alg.h>
-+#include <linux/init.h>
-+#include <linux/list.h>
-+#include <linux/kernel.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
-+#include <linux/net.h>
-+#include <net/sock.h>
-+
-+struct skcipher_sg_list {
-+	struct list_head list;
-+
-+	int cur;
-+
-+	struct scatterlist sg[0];
-+};
-+
-+struct skcipher_ctx {
-+	struct list_head tsgl;
-+	struct af_alg_sgl rsgl;
-+
-+	void *iv;
-+
-+	struct af_alg_completion completion;
-+
-+	unsigned used;
-+
-+	unsigned int len;
-+	bool more;
-+	bool merge;
-+	bool enc;
-+
-+	struct ablkcipher_request req;
-+};
-+
-+#define MAX_SGL_ENTS ((PAGE_SIZE - sizeof(struct skcipher_sg_list)) / \
-+		      sizeof(struct scatterlist) - 1)
-+
-+static inline int skcipher_sndbuf(struct sock *sk)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+
-+	return max_t(int, max_t(int, sk->sk_sndbuf & PAGE_MASK, PAGE_SIZE) -
-+			  ctx->used, 0);
-+}
-+
-+static inline bool skcipher_writable(struct sock *sk)
-+{
-+	return PAGE_SIZE <= skcipher_sndbuf(sk);
-+}
-+
-+static int skcipher_alloc_sgl(struct sock *sk)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+	struct skcipher_sg_list *sgl;
-+	struct scatterlist *sg = NULL;
-+
-+	sgl = list_entry(ctx->tsgl.prev, struct skcipher_sg_list, list);
-+	if (!list_empty(&ctx->tsgl))
-+		sg = sgl->sg;
-+
-+	if (!sg || sgl->cur >= MAX_SGL_ENTS) {
-+		sgl = sock_kmalloc(sk, sizeof(*sgl) +
-+				       sizeof(sgl->sg[0]) * (MAX_SGL_ENTS + 1),
-+				   GFP_KERNEL);
-+		if (!sgl)
-+			return -ENOMEM;
-+
-+		sg_init_table(sgl->sg, MAX_SGL_ENTS + 1);
-+		sgl->cur = 0;
-+
-+		if (sg)
-+			scatterwalk_sg_chain(sg, MAX_SGL_ENTS + 1, sgl->sg);
-+
-+		list_add_tail(&sgl->list, &ctx->tsgl);
-+	}
-+
-+	return 0;
-+}
-+
-+static void skcipher_pull_sgl(struct sock *sk, int used)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+	struct skcipher_sg_list *sgl;
-+	struct scatterlist *sg;
-+	int i;
-+
-+	while (!list_empty(&ctx->tsgl)) {
-+		sgl = list_first_entry(&ctx->tsgl, struct skcipher_sg_list,
-+				       list);
-+		sg = sgl->sg;
-+
-+		for (i = 0; i < sgl->cur; i++) {
-+			int plen = min_t(int, used, sg[i].length);
-+
-+			if (!sg_page(sg + i))
-+				continue;
-+
-+			sg[i].length -= plen;
-+			sg[i].offset += plen;
-+
-+			used -= plen;
-+			ctx->used -= plen;
-+
-+			if (sg[i].length)
-+				return;
-+
-+			put_page(sg_page(sg + i));
-+			sg_assign_page(sg + i, NULL);
-+		}
-+
-+		list_del(&sgl->list);
-+		sock_kfree_s(sk, sgl,
-+			     sizeof(*sgl) + sizeof(sgl->sg[0]) *
-+					    (MAX_SGL_ENTS + 1));
-+	}
-+
-+	if (!ctx->used)
-+		ctx->merge = 0;
-+}
-+
-+static void skcipher_free_sgl(struct sock *sk)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+
-+	skcipher_pull_sgl(sk, ctx->used);
-+}
-+
-+static int skcipher_wait_for_wmem(struct sock *sk, unsigned flags)
-+{
-+	long timeout;
-+	DEFINE_WAIT(wait);
-+	int err = -ERESTARTSYS;
-+
-+	if (flags & MSG_DONTWAIT)
-+		return -EAGAIN;
-+
-+	set_bit(SOCK_ASYNC_NOSPACE, &sk->sk_socket->flags);
-+
-+	for (;;) {
-+		if (signal_pending(current))
-+			break;
-+		prepare_to_wait(sk_sleep(sk), &wait, TASK_INTERRUPTIBLE);
-+		timeout = MAX_SCHEDULE_TIMEOUT;
-+		if (sk_wait_event(sk, &timeout, skcipher_writable(sk))) {
-+			err = 0;
-+			break;
-+		}
-+	}
-+	finish_wait(sk_sleep(sk), &wait);
-+
-+	return err;
-+}
-+
-+static void skcipher_wmem_wakeup(struct sock *sk)
-+{
-+	struct socket_wq *wq;
-+
-+	if (!skcipher_writable(sk))
-+		return;
-+
-+	rcu_read_lock();
-+	wq = rcu_dereference(sk->sk_wq);
-+	if (wq_has_sleeper(wq))
-+		wake_up_interruptible_sync_poll(&wq->wait, POLLIN |
-+							   POLLRDNORM |
-+							   POLLRDBAND);
-+	sk_wake_async(sk, SOCK_WAKE_WAITD, POLL_IN);
-+	rcu_read_unlock();
-+}
-+
-+static int skcipher_wait_for_data(struct sock *sk, unsigned flags)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+	long timeout;
-+	DEFINE_WAIT(wait);
-+	int err = -ERESTARTSYS;
-+
-+	if (flags & MSG_DONTWAIT) {
-+		return -EAGAIN;
-+	}
-+
-+	set_bit(SOCK_ASYNC_WAITDATA, &sk->sk_socket->flags);
-+
-+	for (;;) {
-+		if (signal_pending(current))
-+			break;
-+		prepare_to_wait(sk_sleep(sk), &wait, TASK_INTERRUPTIBLE);
-+		timeout = MAX_SCHEDULE_TIMEOUT;
-+		if (sk_wait_event(sk, &timeout, ctx->used)) {
-+			err = 0;
-+			break;
-+		}
-+	}
-+	finish_wait(sk_sleep(sk), &wait);
-+
-+	clear_bit(SOCK_ASYNC_WAITDATA, &sk->sk_socket->flags);
-+
-+	return err;
-+}
-+
-+static void skcipher_data_wakeup(struct sock *sk)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+	struct socket_wq *wq;
-+
-+	if (!ctx->used)
-+		return;
-+
-+	rcu_read_lock();
-+	wq = rcu_dereference(sk->sk_wq);
-+	if (wq_has_sleeper(wq))
-+		wake_up_interruptible_sync_poll(&wq->wait, POLLOUT |
-+							   POLLRDNORM |
-+							   POLLRDBAND);
-+	sk_wake_async(sk, SOCK_WAKE_SPACE, POLL_OUT);
-+	rcu_read_unlock();
-+}
-+
-+static int skcipher_sendmsg(struct kiocb *unused, struct socket *sock,
-+			    struct msghdr *msg, size_t size)
-+{
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+	struct crypto_ablkcipher *tfm = crypto_ablkcipher_reqtfm(&ctx->req);
-+	unsigned ivsize = crypto_ablkcipher_ivsize(tfm);
-+	struct skcipher_sg_list *sgl;
-+	struct af_alg_control con = {};
-+	long copied = 0;
-+	bool enc = 0;
-+	int err;
-+	int i;
-+
-+	if (msg->msg_controllen) {
-+		err = af_alg_cmsg_send(msg, &con);
-+		if (err)
-+			return err;
-+
-+		switch (con.op) {
-+		case ALG_OP_ENCRYPT:
-+			enc = 1;
-+			break;
-+		case ALG_OP_DECRYPT:
-+			enc = 0;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+		if (con.iv && con.iv->ivlen != ivsize)
-+			return -EINVAL;
-+	}
-+
-+	err = -EINVAL;
-+
-+	lock_sock(sk);
-+	if (!ctx->more && ctx->used)
-+		goto unlock;
-+
-+	if (!ctx->used) {
-+		ctx->enc = enc;
-+		if (con.iv)
-+			memcpy(ctx->iv, con.iv->iv, ivsize);
-+	}
-+
-+	while (size) {
-+		struct scatterlist *sg;
-+		unsigned long len = size;
-+		int plen;
-+
-+		if (ctx->merge) {
-+			sgl = list_entry(ctx->tsgl.prev,
-+					 struct skcipher_sg_list, list);
-+			sg = sgl->sg + sgl->cur - 1;
-+			len = min_t(unsigned long, len,
-+				    PAGE_SIZE - sg->offset - sg->length);
-+
-+			err = memcpy_fromiovec(page_address(sg_page(sg)) +
-+					       sg->offset + sg->length,
-+					       msg->msg_iov, len);
-+			if (err)
-+				goto unlock;
-+
-+			sg->length += len;
-+			ctx->merge = (sg->offset + sg->length) &
-+				     (PAGE_SIZE - 1);
-+
-+			ctx->used += len;
-+			copied += len;
-+			size -= len;
-+			continue;
-+		}
-+
-+		if (!skcipher_writable(sk)) {
-+			err = skcipher_wait_for_wmem(sk, msg->msg_flags);
-+			if (err)
-+				goto unlock;
-+		}
-+
-+		len = min_t(unsigned long, len, skcipher_sndbuf(sk));
-+
-+		err = skcipher_alloc_sgl(sk);
-+		if (err)
-+			goto unlock;
-+
-+		sgl = list_entry(ctx->tsgl.prev, struct skcipher_sg_list, list);
-+		sg = sgl->sg;
-+		do {
-+			i = sgl->cur;
-+			plen = min_t(int, len, PAGE_SIZE);
-+
-+			sg_assign_page(sg + i, alloc_page(GFP_KERNEL));
-+			err = -ENOMEM;
-+			if (!sg_page(sg + i))
-+				goto unlock;
-+
-+			err = memcpy_fromiovec(page_address(sg_page(sg + i)),
-+					       msg->msg_iov, plen);
-+			if (err) {
-+				__free_page(sg_page(sg + i));
-+				sg_assign_page(sg + i, NULL);
-+				goto unlock;
-+			}
-+
-+			sg[i].length = plen;
-+			len -= plen;
-+			ctx->used += plen;
-+			copied += plen;
-+			size -= plen;
-+			sgl->cur++;
-+		} while (len && sgl->cur < MAX_SGL_ENTS);
-+
-+		ctx->merge = plen & (PAGE_SIZE - 1);
-+	}
-+
-+	err = 0;
-+
-+	ctx->more = msg->msg_flags & MSG_MORE;
-+	if (!ctx->more && !list_empty(&ctx->tsgl))
-+		sgl = list_entry(ctx->tsgl.prev, struct skcipher_sg_list, list);
-+
-+unlock:
-+	skcipher_data_wakeup(sk);
-+	release_sock(sk);
-+
-+	return copied ?: err;
-+}
-+
-+static ssize_t skcipher_sendpage(struct socket *sock, struct page *page,
-+				 int offset, size_t size, int flags)
-+{
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+	struct skcipher_sg_list *sgl;
-+	int err = -EINVAL;
-+
-+	lock_sock(sk);
-+	if (!ctx->more && ctx->used)
-+		goto unlock;
-+
-+	if (!size)
-+		goto done;
-+
-+	if (!skcipher_writable(sk)) {
-+		err = skcipher_wait_for_wmem(sk, flags);
-+		if (err)
-+			goto unlock;
-+	}
-+
-+	err = skcipher_alloc_sgl(sk);
-+	if (err)
-+		goto unlock;
-+
-+	ctx->merge = 0;
-+	sgl = list_entry(ctx->tsgl.prev, struct skcipher_sg_list, list);
-+
-+	get_page(page);
-+	sg_set_page(sgl->sg + sgl->cur, page, size, offset);
-+	sgl->cur++;
-+	ctx->used += size;
-+
-+done:
-+	ctx->more = flags & MSG_MORE;
-+	if (!ctx->more && !list_empty(&ctx->tsgl))
-+		sgl = list_entry(ctx->tsgl.prev, struct skcipher_sg_list, list);
-+
-+unlock:
-+	skcipher_data_wakeup(sk);
-+	release_sock(sk);
-+
-+	return err ?: size;
-+}
-+
-+static int skcipher_recvmsg(struct kiocb *unused, struct socket *sock,
-+			    struct msghdr *msg, size_t ignored, int flags)
-+{
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+	unsigned bs = crypto_ablkcipher_blocksize(crypto_ablkcipher_reqtfm(
-+		&ctx->req));
-+	struct skcipher_sg_list *sgl;
-+	struct scatterlist *sg;
-+	unsigned long iovlen;
-+	struct iovec *iov;
-+	int err = -EAGAIN;
-+	int used;
-+	long copied = 0;
-+
-+	lock_sock(sk);
-+	for (iov = msg->msg_iov, iovlen = msg->msg_iovlen; iovlen > 0;
-+	     iovlen--, iov++) {
-+		unsigned long seglen = iov->iov_len;
-+		char __user *from = iov->iov_base;
-+
-+		while (seglen) {
-+			sgl = list_first_entry(&ctx->tsgl,
-+					       struct skcipher_sg_list, list);
-+			sg = sgl->sg;
-+
-+			while (!sg->length)
-+				sg++;
-+
-+			used = ctx->used;
-+			if (!used) {
-+				err = skcipher_wait_for_data(sk, flags);
-+				if (err)
-+					goto unlock;
-+			}
-+
-+			used = min_t(unsigned long, used, seglen);
-+
-+			used = af_alg_make_sg(&ctx->rsgl, from, used, 1);
-+			err = used;
-+			if (err < 0)
-+				goto unlock;
-+
-+			if (ctx->more || used < ctx->used)
-+				used -= used % bs;
-+
-+			err = -EINVAL;
-+			if (!used)
-+				goto free;
-+
-+			ablkcipher_request_set_crypt(&ctx->req, sg,
-+						     ctx->rsgl.sg, used,
-+						     ctx->iv);
-+
-+			err = af_alg_wait_for_completion(
-+				ctx->enc ?
-+					crypto_ablkcipher_encrypt(&ctx->req) :
-+					crypto_ablkcipher_decrypt(&ctx->req),
-+				&ctx->completion);
-+
-+free:
-+			af_alg_free_sg(&ctx->rsgl);
-+
-+			if (err)
-+				goto unlock;
-+
-+			copied += used;
-+			from += used;
-+			seglen -= used;
-+			skcipher_pull_sgl(sk, used);
-+		}
-+	}
-+
-+	err = 0;
-+
-+unlock:
-+	skcipher_wmem_wakeup(sk);
-+	release_sock(sk);
-+
-+	return copied ?: err;
-+}
-+
-+
-+static unsigned int skcipher_poll(struct file *file, struct socket *sock,
-+				  poll_table *wait)
-+{
-+	struct sock *sk = sock->sk;
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+	unsigned int mask;
-+
-+	sock_poll_wait(file, sk_sleep(sk), wait);
-+	mask = 0;
-+
-+	if (ctx->used)
-+		mask |= POLLIN | POLLRDNORM;
-+
-+	if (skcipher_writable(sk))
-+		mask |= POLLOUT | POLLWRNORM | POLLWRBAND;
-+
-+	return mask;
-+}
-+
-+static struct proto_ops algif_skcipher_ops = {
-+	.family		=	PF_ALG,
-+
-+	.connect	=	sock_no_connect,
-+	.socketpair	=	sock_no_socketpair,
-+	.getname	=	sock_no_getname,
-+	.ioctl		=	sock_no_ioctl,
-+	.listen		=	sock_no_listen,
-+	.shutdown	=	sock_no_shutdown,
-+	.getsockopt	=	sock_no_getsockopt,
-+	.mmap		=	sock_no_mmap,
-+	.bind		=	sock_no_bind,
-+	.accept		=	sock_no_accept,
-+	.setsockopt	=	sock_no_setsockopt,
-+
-+	.release	=	af_alg_release,
-+	.sendmsg	=	skcipher_sendmsg,
-+	.sendpage	=	skcipher_sendpage,
-+	.recvmsg	=	skcipher_recvmsg,
-+	.poll		=	skcipher_poll,
-+};
-+
-+static void *skcipher_bind(const char *name, u32 type, u32 mask)
-+{
-+	return crypto_alloc_ablkcipher(name, type, mask);
-+}
-+
-+static void skcipher_release(void *private)
-+{
-+	crypto_free_ablkcipher(private);
-+}
-+
-+static int skcipher_setkey(void *private, const u8 *key, unsigned int keylen)
-+{
-+	return crypto_ablkcipher_setkey(private, key, keylen);
-+}
-+
-+static void skcipher_sock_destruct(struct sock *sk)
-+{
-+	struct alg_sock *ask = alg_sk(sk);
-+	struct skcipher_ctx *ctx = ask->private;
-+	struct crypto_ablkcipher *tfm = crypto_ablkcipher_reqtfm(&ctx->req);
-+
-+	skcipher_free_sgl(sk);
-+	sock_kfree_s(sk, ctx->iv, crypto_ablkcipher_ivsize(tfm));
-+	sock_kfree_s(sk, ctx, ctx->len);
-+	af_alg_release_parent(sk);
-+}
-+
-+static int skcipher_accept_parent(void *private, struct sock *sk)
-+{
-+	struct skcipher_ctx *ctx;
-+	struct alg_sock *ask = alg_sk(sk);
-+	unsigned int len = sizeof(*ctx) + crypto_ablkcipher_reqsize(private);
-+
-+	ctx = sock_kmalloc(sk, len, GFP_KERNEL);
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	ctx->iv = sock_kmalloc(sk, crypto_ablkcipher_ivsize(private),
-+			       GFP_KERNEL);
-+	if (!ctx->iv) {
-+		sock_kfree_s(sk, ctx, len);
-+		return -ENOMEM;
-+	}
-+
-+	memset(ctx->iv, 0, crypto_ablkcipher_ivsize(private));
-+
-+	INIT_LIST_HEAD(&ctx->tsgl);
-+	ctx->len = len;
-+	ctx->used = 0;
-+	ctx->more = 0;
-+	ctx->merge = 0;
-+	ctx->enc = 0;
-+	af_alg_init_completion(&ctx->completion);
-+
-+	ask->private = ctx;
-+
-+	ablkcipher_request_set_tfm(&ctx->req, private);
-+	ablkcipher_request_set_callback(&ctx->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-+					af_alg_complete, &ctx->completion);
-+
-+	sk->sk_destruct = skcipher_sock_destruct;
-+
-+	return 0;
-+}
-+
-+static const struct af_alg_type algif_type_skcipher = {
-+	.bind		=	skcipher_bind,
-+	.release	=	skcipher_release,
-+	.setkey		=	skcipher_setkey,
-+	.accept		=	skcipher_accept_parent,
-+	.ops		=	&algif_skcipher_ops,
-+	.name		=	"skcipher",
-+	.owner		=	THIS_MODULE
-+};
-+
-+static int __init algif_skcipher_init(void)
-+{
-+	return af_alg_register_type(&algif_type_skcipher);
-+}
-+
-+static void __exit algif_skcipher_exit(void)
-+{
-+	int err = af_alg_unregister_type(&algif_type_skcipher);
-+	BUG_ON(err);
-+}
-+
-+module_init(algif_skcipher_init);
-+module_exit(algif_skcipher_exit);
-+MODULE_LICENSE("GPL");
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/net/core/sock.c
-@@ -157,7 +157,7 @@
-   "sk_lock-27"       , "sk_lock-28"          , "sk_lock-AF_CAN"      ,
-   "sk_lock-AF_TIPC"  , "sk_lock-AF_BLUETOOTH", "sk_lock-IUCV"        ,
-   "sk_lock-AF_RXRPC" , "sk_lock-AF_ISDN"     , "sk_lock-AF_PHONET"   ,
--  "sk_lock-AF_IEEE802154", "sk_lock-AF_CAIF" ,
-+  "sk_lock-AF_IEEE802154", "sk_lock-AF_CAIF" , "sk_lock-AF_ALG"      ,
-   "sk_lock-AF_MAX"
- };
- static const char *const af_family_slock_key_strings[AF_MAX+1] = {
-@@ -173,7 +173,7 @@
-   "slock-27"       , "slock-28"          , "slock-AF_CAN"      ,
-   "slock-AF_TIPC"  , "slock-AF_BLUETOOTH", "slock-AF_IUCV"     ,
-   "slock-AF_RXRPC" , "slock-AF_ISDN"     , "slock-AF_PHONET"   ,
--  "slock-AF_IEEE802154", "slock-AF_CAIF" ,
-+  "slock-AF_IEEE802154", "slock-AF_CAIF" , "slock-AF_ALG"      ,
-   "slock-AF_MAX"
- };
- static const char *const af_family_clock_key_strings[AF_MAX+1] = {
-@@ -189,7 +189,7 @@
-   "clock-27"       , "clock-28"          , "clock-AF_CAN"      ,
-   "clock-AF_TIPC"  , "clock-AF_BLUETOOTH", "clock-AF_IUCV"     ,
-   "clock-AF_RXRPC" , "clock-AF_ISDN"     , "clock-AF_PHONET"   ,
--  "clock-AF_IEEE802154", "clock-AF_CAIF" ,
-+  "clock-AF_IEEE802154", "clock-AF_CAIF" , "clock-AF_ALG"      ,
-   "clock-AF_MAX"
- };
- 
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/if_alg.h
-@@ -0,0 +1,92 @@
-+/*
-+ * if_alg: User-space algorithm interface
-+ *
-+ * Copyright (c) 2010 Herbert Xu <herbert@gondor.apana.org.au>
-+ *
-+ * This program is free software; you can redistribute it and/or modify it
-+ * under the terms of the GNU General Public License as published by the Free
-+ * Software Foundation; either version 2 of the License, or (at your option)
-+ * any later version.
-+ *
-+ */
-+
-+#ifndef _CRYPTO_IF_ALG_H
-+#define _CRYPTO_IF_ALG_H
-+
-+#include <linux/compiler.h>
-+#include <linux/completion.h>
-+#include <linux/if_alg.h>
-+#include <linux/types.h>
-+#include <net/sock.h>
-+
-+#define ALG_MAX_PAGES			16
-+
-+struct crypto_async_request;
-+
-+struct alg_sock {
-+	/* struct sock must be the first member of struct alg_sock */
-+	struct sock sk;
-+
-+	struct sock *parent;
-+
-+	const struct af_alg_type *type;
-+	void *private;
-+};
-+
-+struct af_alg_completion {
-+	struct completion completion;
-+	int err;
-+};
-+
-+struct af_alg_control {
-+	struct af_alg_iv *iv;
-+	int op;
-+};
-+
-+struct af_alg_type {
-+	void *(*bind)(const char *name, u32 type, u32 mask);
-+	void (*release)(void *private);
-+	int (*setkey)(void *private, const u8 *key, unsigned int keylen);
-+	int (*accept)(void *private, struct sock *sk);
-+
-+	struct proto_ops *ops;
-+	struct module *owner;
-+	char name[14];
-+};
-+
-+struct af_alg_sgl {
-+	struct scatterlist sg[ALG_MAX_PAGES];
-+	struct page *pages[ALG_MAX_PAGES];
-+};
-+
-+int af_alg_register_type(const struct af_alg_type *type);
-+int af_alg_unregister_type(const struct af_alg_type *type);
-+
-+int af_alg_release(struct socket *sock);
-+int af_alg_accept(struct sock *sk, struct socket *newsock);
-+
-+int af_alg_make_sg(struct af_alg_sgl *sgl, void __user *addr, int len,
-+		   int write);
-+void af_alg_free_sg(struct af_alg_sgl *sgl);
-+
-+int af_alg_cmsg_send(struct msghdr *msg, struct af_alg_control *con);
-+
-+int af_alg_wait_for_completion(int err, struct af_alg_completion *completion);
-+void af_alg_complete(struct crypto_async_request *req, int err);
-+
-+static inline struct alg_sock *alg_sk(struct sock *sk)
-+{
-+	return (struct alg_sock *)sk;
-+}
-+
-+static inline void af_alg_release_parent(struct sock *sk)
-+{
-+	sock_put(alg_sk(sk)->parent);
-+}
-+
-+static inline void af_alg_init_completion(struct af_alg_completion *completion)
-+{
-+	init_completion(&completion->completion);
-+}
-+
-+#endif	/* _CRYPTO_IF_ALG_H */
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/crypto/scatterwalk.h
-@@ -68,6 +68,21 @@
- 	return (++sg)->length ? sg : (void *)sg_page(sg);
- }
- 
-+static inline void scatterwalk_crypto_chain(struct scatterlist *head,
-+					    struct scatterlist *sg,
-+					    int chain, int num)
-+{
-+	if (chain) {
-+		head->length += sg->length;
-+		sg = scatterwalk_sg_next(sg);
-+	}
-+
-+	if (sg)
-+		scatterwalk_sg_chain(head, num, sg);
-+	else
-+		sg_mark_end(head);
-+}
-+
- static inline unsigned long scatterwalk_samebuf(struct scatter_walk *walk_in,
- 						struct scatter_walk *walk_out)
- {
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/if_alg.h
-@@ -0,0 +1,40 @@
-+/*
-+ * if_alg: User-space algorithm interface
-+ *
-+ * Copyright (c) 2010 Herbert Xu <herbert@gondor.apana.org.au>
-+ *
-+ * This program is free software; you can redistribute it and/or modify it
-+ * under the terms of the GNU General Public License as published by the Free
-+ * Software Foundation; either version 2 of the License, or (at your option)
-+ * any later version.
-+ *
-+ */
-+
-+#ifndef _LINUX_IF_ALG_H
-+#define _LINUX_IF_ALG_H
-+
-+#include <linux/types.h>
-+
-+struct sockaddr_alg {
-+	__u16	salg_family;
-+	__u8	salg_type[14];
-+	__u32	salg_feat;
-+	__u32	salg_mask;
-+	__u8	salg_name[64];
-+};
-+
-+struct af_alg_iv {
-+	__u32	ivlen;
-+	__u8	iv[0];
-+};
-+
-+/* Socket options */
-+#define ALG_SET_KEY			1
-+#define ALG_SET_IV			2
-+#define ALG_SET_OP			3
-+
-+/* Operations */
-+#define ALG_OP_DECRYPT			0
-+#define ALG_OP_ENCRYPT			1
-+
-+#endif	/* _LINUX_IF_ALG_H */
---- a/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h
-+++ b/release/src-rt-7.x.main/src/linux/linux-2.6.36/include/linux/socket.h
-@@ -193,7 +193,8 @@
- #define AF_PHONET	35	/* Phonet sockets		*/
- #define AF_IEEE802154	36	/* IEEE802154 sockets		*/
- #define AF_CAIF		37	/* CAIF sockets			*/
--#define AF_MAX		38	/* For now.. */
-+#define AF_ALG		38	/* Algorithm sockets		*/
-+#define AF_MAX		39	/* For now.. */
- 
- /* Protocol families, same as address families. */
- #define PF_UNSPEC	AF_UNSPEC
-@@ -234,6 +235,7 @@
- #define PF_PHONET	AF_PHONET
- #define PF_IEEE802154	AF_IEEE802154
- #define PF_CAIF		AF_CAIF
-+#define PF_ALG		AF_ALG
- #define PF_MAX		AF_MAX
- 
- /* Maximum queue length specifiable by listen.  */
-@@ -310,6 +312,7 @@
- #define SOL_RDS		276
- #define SOL_IUCV	277
- #define SOL_CAIF	278
-+#define SOL_ALG		279
- 
- /* IPX options */
- #define IPX_TYPE	1
 --- a/release/src-rt/Makefile
 +++ b/release/src-rt/Makefile
-@@ -2551,12 +2551,6 @@
+@@ -3575,12 +3575,6 @@
  	else \
  		echo "CONFIG_LINUX_MTD=$(LINUX_MTD)" >>$(1); \
  	fi; \
 -	sed -i "/CONFIG_NF_CONNTRACK_EVENTS/d" $(1); \
--	if [ "$(BWDPI)" = "y" ]; then \
+-	if [ "$(BWDPI)" = "y" ] || [ "$(HND_ROUTER)" = "y" ]; then \
 -		echo "CONFIG_NF_CONNTRACK_EVENTS=y" >>$(1); \
 -	else \
 -		echo "# CONFIG_NF_CONNTRACK_EVENTS is not set" >>$(1); \
 -	fi; \
- 	if [ "$(USB_DEBUG)" = "y" ]; then \
- 		sed -i "/CONFIG_USB_DEBUG/d" $(1); \
- 		echo "CONFIG_USB_DEBUG=y" >>$(1); \
+ 	if [ "$(BWDPI)" = "y" ]; then \
+ 		sed -i "/CONFIG_NET_SCH_HTB/d" $(1); \
+ 		echo "CONFIG_NET_SCH_HTB=y" >>$(1); \
 --- a/release/src-rt/target.mak
 +++ b/release/src-rt/target.mak
-@@ -1,98 +1,98 @@
- # Broadcom MIPS platform
- export RT-N66U := IPV6SUPP=y HTTPS=y MIPS32=r2 BCM57=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=3.6.x \
--                  MEDIASRV=y MODEM=y MODEMPIN=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y CLOUDSYNC=y \
--                  SWEBDAVCLIENT=y DROPBOXCLIENT=y FTPCLIENT=y SAMBACLIENT=y \
-+                  MEDIASRV=n MODEM=y MODEMPIN=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n CLOUDSYNC=n \
-+                  SWEBDAVCLIENT=n DROPBOXCLIENT=n FTPCLIENT=y SAMBACLIENT=y \
-                   USB="USB" GRO=n APP="network" BUILD_NAME="RT-N66U" DNSMQ=y LFP=y NVRAM_64K=y NFS=y STAINFO=y \
-                   RTN66U=y BECEEM=y ODMPID=y OPENVPN=y OPTIMIZE_XBOX=y JFFS2=y SSH=y DISK_MONITOR=y BCMWL6=y \
-                   USER_LOW_RSSI=y  TIMEMACHINE=n MDNS=n VPNC=y JFFS2LOG=n JFFS2USERICON=y \
--                  PROXYSTA=y AUTODICT=y CFE_NVRAM_CHK=y DUMP_OOPS_MSG=y DEBUGFS=n SNMPD=y ROG=y \
--                  TFAT=n HFS="none" NTFS="paragon" IPSECMOD=y REPEATER=y DUALWAN=y YANDEXDNS=n DNSFILTER=y \
--                  CLOUDCHECK=y NATNL=y REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=y \
-+                  PROXYSTA=y AUTODICT=y CFE_NVRAM_CHK=y DUMP_OOPS_MSG=y DEBUGFS=n SNMPD=n ROG=y \
-+                  TFAT=n HFS="none" NTFS="paragon" IPSECMOD=y REPEATER=y DUALWAN=n YANDEXDNS=n DNSFILTER=n \
-+                  CLOUDCHECK=n NATNL=y REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=y \
-                   TOR=y UPNPIGD2=n DNSSEC=y NANO=y
- 
- export RT-AC66U := IPV6SUPP=y HTTPS=y MIPS32=r2 BCM57=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=3.6.x STAINFO=y \
--                   MEDIASRV=y MODEM=y MODEMPIN=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y \
--                   CLOUDSYNC=y SWEBDAVCLIENT=y DROPBOXCLIENT=y FTPCLIENT=y SAMBACLIENT=y \
-+                   MEDIASRV=n MODEM=y MODEMPIN=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n \
-+                   CLOUDSYNC=n SWEBDAVCLIENT=n DROPBOXCLIENT=n FTPCLIENT=y SAMBACLIENT=y \
-                    USB="USB" GRO=n APP="network" BUILD_NAME="RT-AC66U" DNSMQ=y LFP=y NVRAM_64K=y ROG=y \
-                    RTAC66U=y BCMWL6=y BCMNAND=y PROXYSTA=y BECEEM=y ODMPID=y OPENVPN=y JFFS2=y AUTODICT=y \
--                   SSH=y BOOTLZMA=y DUAL_TRX=n DISK_MONITOR=y OPTIMIZE_XBOX=y NFS=y USER_LOW_RSSI=y SNMPD=y \
-+                   SSH=y BOOTLZMA=y DUAL_TRX=n DISK_MONITOR=y OPTIMIZE_XBOX=y NFS=y USER_LOW_RSSI=y SNMPD=n \
-                    TIMEMACHINE=n MDNS=n VPNC=y JFFS2LOG=y DUMP_OOPS_MSG=y DEBUGFS=n TEMPROOTFS=y \
--                   TOR=y UPNPIGD2=n STAINFO=y CLOUDCHECK=y NATNL=y \
-+                   TOR=y UPNPIGD2=n STAINFO=y CLOUDCHECK=n NATNL=y \
-                    REBOOT_SCHEDULE=y TFAT=n HFS="none" NTFS="paragon" MULTICASTIPTV=y QUAGGA=y JFFS2USERICON=y \
-                    LAN50=y ATCOVER=y GETREALIP=y \
--                   IPSECMOD=y REPEATER=y DUALWAN=y YANDEXDNS=n DNSFILTER=y DNSSEC=y NANO=y
-+                   IPSECMOD=y REPEATER=y DUALWAN=n YANDEXDNS=n DNSFILTER=n DNSSEC=y NANO=y
- 
- # Broadcom ARM platform
+@@ -2,17 +2,17 @@
+ # Broadcom SDK 6.37 ARM platform
+ #
  export RT-AC68U_BASE := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y \
--                        SAMBA3=3.6.x MEDIASRV=y MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
--                        WEBDAV=y USB="USB" GRO=y APP="network" PROXYSTA=y JFFS2USERICON=y \
--                        CLOUDSYNC=y SWEBDAVCLIENT=y DROPBOXCLIENT=y FTPCLIENT=y SAMBACLIENT=y \
-+                        SAMBA3=3.6.x MEDIASRV=n MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
-+                        WEBDAV=n USB="USB" GRO=y APP="network" PROXYSTA=y JFFS2USERICON=y \
-+                        CLOUDSYNC=n SWEBDAVCLIENT=n DROPBOXCLIENT=n FTPCLIENT=y SAMBACLIENT=y \
-                         DNSMQ=y SHP=y NVRAM_64K=y RTAC68U=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y \
--                        BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=y \
-+                        BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=n \
-                         BCMSMP=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y USER_LOW_RSSI=y \
--                        TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=y HSPOT=y \
--                        DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=y TOR=y \
-+                        TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n HSPOT=n \
-+                        DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
-                         MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
--                        BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y NATNL=y REBOOT_SCHEDULE=y \
--                        TFAT=y HFS="tuxera" NTFS="tuxera" IPSECMOD=n REPEATER=y DUALWAN=y DNSFILTER=y UPNPIGD2=n \
-+                        BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n NATNL=y REBOOT_SCHEDULE=y \
-+                        TFAT=y HFS="tuxera" NTFS="tuxera" IPSECMOD=n REPEATER=y DUALWAN=n DNSFILTER=n UPNPIGD2=n \
-                         DNSSEC=y NANO=y
+-			SAMBA3=3.6.x MEDIASRV=y MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
+-			WEBDAV=y USB="USB" GRO=y APP="network" PROXYSTA=y NOTIFICATION_CENTER=y HD_SPINDOWN=y \
+-			SMARTSYNCBASE=y SYSSTATE=y NATNL_AICLOUD=y NATNL_AIHOME=y SW_HW_AUTH=y \
++			SAMBA3=3.6.x MEDIASRV=n MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
++			WEBDAV=n USB="USB" GRO=y APP="network" PROXYSTA=y NOTIFICATION_CENTER=n HD_SPINDOWN=y \
++			SMARTSYNCBASE=n SYSSTATE=y NATNL_AICLOUD=n NATNL_AIHOME=n SW_HW_AUTH=y \
+ 			DNSMQ=y SHP=y NVRAM_64K=y RTAC68U=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y \
+-			BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=y \
++			BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=n \
+ 			BCMSMP=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y NEW_USER_LOW_RSSI=y \
+-			TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=y HSPOT=y \
+-			DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=y TOR=y \
++			TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n HSPOT=n \
++			DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
+ 			MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
+-			BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y REBOOT_SCHEDULE=y DPSTA=y \
+-			TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=y UPNPIGD2=n \
++			BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n REBOOT_SCHEDULE=y DPSTA=y \
++			TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=n UPNPIGD2=n \
+ 			DNSSEC=y NANO=y
  
  export RT-AC68U := $(RT-AC68U_BASE) FAKEHDR=y FORCE_SN=380 FORCE_EN=1031
- export RT-AC68U += BUILD_NAME="RT-AC68U"
+@@ -26,35 +26,35 @@
+ export RT-AC86U := $(HND-94908_BASE)
+ export RT-AC86U += BUILD_NAME="RT-AC86U" NVSIZE="128" DHDAP=y DPSTA=y LACP=n WTFAST=y REPEATER=y \
+ 				DISABLE_REPEATER_UI=n IPV6SUPP=y HTTPS=y ARM=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y \
+-				EBTABLES=y SAMBA3=3.6.x MEDIASRV=y MODEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y \
+-				SMARTSYNCBASE=y USB="USB" APP="installed" PROXYSTA=y DNSMQ=y SHP=n BCMWL6=y BCMWL6A=y \
++				EBTABLES=y SAMBA3=3.6.x MEDIASRV=n MODEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n \
++				SMARTSYNCBASE=n USB="USB" APP="installed" PROXYSTA=y DNSMQ=y SHP=n BCMWL6=y BCMWL6A=y \
+ 				TUNEK="n" DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y BCMSMP=y \
+-				XHCI=y DUALWAN=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y MDNS=y VPNC=y \
+-				BRCM_NAND_JFFS2=y JFFS2LOG=y BWDPI=y DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y \
+-				TEMPROOTFS=n SSH=y EMAIL=y SYSSTATE=y ROG=y STAINFO=y CLOUDCHECK=y NATNL_AICLOUD=y \
++				XHCI=y DUALWAN=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n MDNS=n VPNC=y \
++				BRCM_NAND_JFFS2=y JFFS2LOG=y BWDPI=n DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y \
++				TEMPROOTFS=n SSH=y EMAIL=n SYSSTATE=y ROG=y STAINFO=y CLOUDCHECK=n NATNL_AICLOUD=n \
+ 				REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y WLCLMLOAD=n BCM_MUMIMO=y \
+ 				LAN50=y ATCOVER=y GETREALIP=y CFEZ=y TFAT=y NTFS="tuxera" HFS="tuxera" \
+ 				NEWSSID_REV2=y LAN4WAN_LED=y NEW_APP_ARM=y NETOOL=y TRACEROUTE=y FORCE_AUTO_UPGRADE=n \
+-				HD_SPINDOWN=y SW_HW_AUTH=y NATNL_AIHOME=y ASPMD=n BCM_MEVENT=y \
++				HD_SPINDOWN=y SW_HW_AUTH=y NATNL_AIHOME=n ASPMD=n BCM_MEVENT=y \
+ 				BCMEVENTD=y BCM_APPEVENTD=y JFFS_NVRAM=y \
+-				VISUALIZATION=y NFS=y DNSFILTER=y SNMPD=y TOR=y UPNPIGD2=n DNSSEC=y NANO=y
++				VISUALIZATION=y NFS=y DNSFILTER=n SNMPD=n TOR=y UPNPIGD2=n DNSSEC=y NANO=y
  
- export RT-AC56U := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y ROMCCODE=y \
--                   SAMBA3=3.6.x MEDIASRV=y MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
--                   WEBDAV=y USB="USB" GRO=y APP="network" BUILD_NAME="RT-AC56U" PROXYSTA=y BCM_RECVFILE=y \
--                   CLOUDSYNC=y SWEBDAVCLIENT=y DROPBOXCLIENT=y FTPCLIENT=y SAMBACLIENT=y \
-+                   SAMBA3=3.6.x MEDIASRV=n MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
-+                   WEBDAV=n USB="USB" GRO=y APP="network" BUILD_NAME="RT-AC56U" PROXYSTA=y BCM_RECVFILE=y \
-+                   CLOUDSYNC=n SWEBDAVCLIENT=n DROPBOXCLIENT=n FTPCLIENT=y SAMBACLIENT=y \
-                    DNSMQ=y SHP=y NVRAM_64K=y RTAC56U=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y \
-                    BTN_WIFITOG=y TURBO=y BCM4352_5G=y LANWAN_LED=y OPTIMIZE_XBOX=y ODMPID=y BCMSMP=y \
--                   LED_ALL=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y LINUX_MTD="64" USER_LOW_RSSI=y ROG=y EMAIL=y \
--                   TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y XHCIMODE=y LAN50=y ATCOVER=y GETREALIP=y \
--                   TEMPROOTFS=y SNMPD=y DEBUGFS=y BWDPI=y TOR=y \
--                   BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y DUMP_OOPS_MSG=y REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y \
--                   TFAT=y HFS="tuxera" NTFS="tuxera" IPSECMOD=n REPEATER=y DUALWAN=y DNSFILTER=y UPNPIGD2=n \
-+                   LED_ALL=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y LINUX_MTD="64" USER_LOW_RSSI=y ROG=y EMAIL=n \
-+                   TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y XHCIMODE=y LAN50=y ATCOVER=y GETREALIP=y \
-+                   TEMPROOTFS=y SNMPD=n DEBUGFS=y BWDPI=n TOR=y \
-+                   BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n DUMP_OOPS_MSG=y REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y \
-+                   TFAT=y HFS="tuxera" NTFS="tuxera" IPSECMOD=n REPEATER=y DUALWAN=n DNSFILTER=n UPNPIGD2=n \
-                    DNSSEC=y NANO=y
- 
- export RT-AC87U := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y WPS_DUALBAND=y ROG=y \
--                   SAMBA3=3.6.x MEDIASRV=y MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
--                   WEBDAV=y USB="USB" GRO=y APP="network" BUILD_NAME="RT-AC87U" PROXYSTA=y \
--                   CLOUDSYNC=y SWEBDAVCLIENT=y DROPBOXCLIENT=y FTPCLIENT=y SAMBACLIENT=y \
-+                   SAMBA3=3.6.x MEDIASRV=n MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
-+                   WEBDAV=n USB="USB" GRO=y APP="network" BUILD_NAME="RT-AC87U" PROXYSTA=y \
-+                   CLOUDSYNC=n SWEBDAVCLIENT=n DROPBOXCLIENT=n FTPCLIENT=y SAMBACLIENT=y \
-                    DNSMQ=y SHP=y NVRAM_64K=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y JFFS2=y BCM_RECVFILE=y \
-                    BTN_WIFITOG=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y LED2_BTN=y DUMP_OOPS_MSG=y \
--                   BCMSMP=y XHCI=y DUALWAN=y REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y EMAIL=y \
--                   MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y RGMII_BCM_FA=y XHCIMODE=y DISABLE_REPEATER_UI=y \
--                   QTN=y TFTP=y LINUX_MTD="64" RGMII_BRCM5301X=y BWDPI=y RTAC87U=y EXT_LED_WPS=y DEBUGFS=y \
--                   BCM5301X_TRAFFIC_MONITOR=n NATNL=y JFFS2USERICON=y CLOUDCHECK=y LACP=n HW_DUALWAN=y \
--                   TEMPROOTFS=y JFFS2ND_BACKUP=y SNMPD=y TOR=y REBOOT_SCHEDULE=y \
-+                   BCMSMP=y XHCI=y DUALWAN=n REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n EMAIL=n \
-+                   MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y RGMII_BCM_FA=y XHCIMODE=y DISABLE_REPEATER_UI=y \
-+                   QTN=y TFTP=y LINUX_MTD="64" RGMII_BRCM5301X=y BWDPI=n RTAC87U=y EXT_LED_WPS=y DEBUGFS=y \
-+                   BCM5301X_TRAFFIC_MONITOR=n NATNL=y JFFS2USERICON=y CLOUDCHECK=n LACP=n HW_DUALWAN=n \
-+                   TEMPROOTFS=y JFFS2ND_BACKUP=y SNMPD=n TOR=y REBOOT_SCHEDULE=y \
-                    MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=y NANO=y \
--                   TFAT=y HFS="tuxera" NTFS="tuxera" NFS=y SSH=y IPSECMOD=n DNSFILTER=y UPNPIGD2=n DNSSEC=y
-+                   TFAT=y HFS="tuxera" NTFS="tuxera" NFS=y SSH=y IPSECMOD=n DNSFILTER=n UPNPIGD2=n DNSSEC=y
- 
--export RT-AC3200 := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=3.6.x MEDIASRV=y \
--                    MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y \
--                    CLOUDSYNC=y SWEBDAVCLIENT=y DROPBOXCLIENT=y FTPCLIENT=y SAMBACLIENT=y \
-+export RT-AC3200 := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=3.6.x MEDIASRV=n \
-+                    MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n \
-+                    CLOUDSYNC=n SWEBDAVCLIENT=n DROPBOXCLIENT=n FTPCLIENT=y SAMBACLIENT=y \
-                     USB="USB" GRO=y APP="network" BUILD_NAME="RT-AC3200" PROXYSTA=y DNSMQ=y SHP=y NVRAM_64K=y STAINFO=y \
-                     RTAC3200=y BCMWL6=y BCMWL6A=y BCM7=y TUNEK="n" BCM5301X=y DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y \
--                    ODMPID=y LED_BTN=y BCMSMP=y DUALWAN=y REPEATER=y USER_LOW_RSSI=y OPENVPN=y \
--                    TIMEMACHINE=y MDNS=y TFAT=y NTFS="tuxera" HFS="tuxera" VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y \
--                    XHCI=y BWDPI=y DUMP_OOPS_MSG=y DHDAP=y GMAC3=y HSPOT=n LINUX_MTD="64" DEBUGFS=y NVSIZE="64" \
--                    TEMPROOTFS=y SSH=y NOWL=y EMAIL=y BCM_RECVFILE=y REBOOT_SCHEDULE=y JFFS2USERICON=y \
--                    BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y NATNL=y DISABLE_REPEATER_UI=y \
-+                    ODMPID=y LED_BTN=y BCMSMP=y DUALWAN=n REPEATER=y USER_LOW_RSSI=y OPENVPN=y \
-+                    TIMEMACHINE=n MDNS=n TFAT=y NTFS="tuxera" HFS="tuxera" VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y \
-+                    XHCI=y BWDPI=n DUMP_OOPS_MSG=y DHDAP=y GMAC3=y HSPOT=n LINUX_MTD="64" DEBUGFS=y NVSIZE="64" \
-+                    TEMPROOTFS=y SSH=y NOWL=y EMAIL=n BCM_RECVFILE=y REBOOT_SCHEDULE=y JFFS2USERICON=y \
-+                    BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n NATNL=y DISABLE_REPEATER_UI=y \
-                     MULTICASTIPTV=y QUAGGA=y LAN50=y ATCOVER=y GETREALIP=y NANO=y \
--                    NFS=y IPSECMOD=n DNSFILTER=y SNMPD=y TOR=y UPNPIGD2=n DNSSEC=y
-+                    NFS=y IPSECMOD=n DNSFILTER=n SNMPD=n TOR=y UPNPIGD2=n DNSSEC=y
- 
- 
+ #
+ # Broadcom SDK7 ARM platform
+ #
 -export RT-AC88U_BASE := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=3.6.x MEDIASRV=y \
--                        MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y \
--                        CLOUDSYNC=y SWEBDAVCLIENT=y DROPBOXCLIENT=y FTPCLIENT=y SAMBACLIENT=y \
+-		MODEM=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y \
+-		NETOOL=y SW_HW_AUTH=y IFTTT=y ALEXA=y LETSENCRYPT=y IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
 +export RT-AC88U_BASE := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=3.6.x MEDIASRV=n \
-+                        MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n \
-+                        CLOUDSYNC=n SWEBDAVCLIENT=n DROPBOXCLIENT=n FTPCLIENT=y SAMBACLIENT=y \
-                         USB="USB" GRO=y APP="network" DNSMQ=y SHP=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y JFFS2USERICON=y \
-                         DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y LED_BTN=y ODMPID=y BCMSMP=y XHCI=y \
--                        DUALWAN=y REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y \
-+                        DUALWAN=n REPEATER=y USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y \
-                         REBOOT_SCHEDULE=y FORCE_AUTO_UPGRADE=n FAKEID=n MULTICASTIPTV=y QUAGGA=y \
--                        JFFS2LOG=y BWDPI=y DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
--                        EMAIL=y ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
--                        BCM_RECVFILE=y TFAT=y NTFS="tuxera" HFS="tuxera" CFEZ=y NATNL=y ERPTEST=n CLOUDCHECK=y \
-+                        JFFS2LOG=y BWDPI=n DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
-+                        EMAIL=n ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
-+                        BCM_RECVFILE=y TFAT=y NTFS="tuxera" HFS="tuxera" CFEZ=y NATNL=y ERPTEST=n CLOUDCHECK=n \
-                         ASPMD=n BCMEVENT=n WLCLMLOAD=n BCM_MUMIMO=y LAN50=y ATCOVER=y GETREALIP=y \
--                        NFS=y IPSECMOD=n DNSFILTER=y SNMPD=y TOR=y UPNPIGD2=n DNSSEC=y NANO=y
-+                        NFS=y IPSECMOD=n DNSFILTER=n SNMPD=n TOR=y UPNPIGD2=n DNSSEC=y NANO=y
++		MODEM=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n \
++		NETOOL=y SW_HW_AUTH=y IFTTT=n ALEXA=n LETSENCRYPT=n IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
+ 		USB="USB" GRO=y APP="network" DNSMQ=y SHP=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y \
+ 		DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y LED_BTN=y ODMPID=y BCMSMP=y XHCI=y \
+-		DUALWAN=y REPEATER=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y \
++		DUALWAN=y REPEATER=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y \
+ 		REBOOT_SCHEDULE=y FORCE_AUTO_UPGRADE=n FAKEID=n MULTICASTIPTV=y QUAGGA=y HD_SPINDOWN=y \
+-		JFFS2LOG=y BWDPI=y DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
+-		EMAIL=y ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
+-		BCM_RECVFILE=y TFAT=y NTFS="tuxera" HFS="tuxera" CFEZ=y ERPTEST=n CLOUDCHECK=y \
++		JFFS2LOG=y BWDPI=n DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
++		EMAIL=n ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
++		BCM_RECVFILE=y TFAT=y NTFS="tuxera" HFS="tuxera" CFEZ=y ERPTEST=n CLOUDCHECK=n \
+ 		ASPMD=n BCMEVENTD=n WLCLMLOAD=n BCM_MUMIMO=y LAN50=y ATCOVER=y GETREALIP=y \
+-		NOTIFICATION_CENTER=y NATNL_AICLOUD=y SYSSTATE=y SMARTSYNCBASE=y \
+-		NFS=y DNSFILTER=y SNMPD=y TOR=y UPNPIGD2=n DNSSEC=y NANO=y
++		NOTIFICATION_CENTER=n NATNL_AICLOUD=n SYSSTATE=y SMARTSYNCBASE=n \
++		NFS=y DNSFILTER=n SNMPD=n TOR=y UPNPIGD2=n DNSSEC=y NANO=y
  
  export RT-AC88U := $(RT-AC88U_BASE)
- export RT-AC88U += BUILD_NAME="RT-AC88U" RGMII_BRCM5301X=y SWITCH2="RTL8365MB" BCM_MMC=n BCM_7114=y NOWLALL=n \
+ export RT-AC88U += BUILD_NAME="RT-AC88U" RGMII_BRCM5301X=y SWITCH2="RTL8365MB" BCM_MMC=n BCM_7114=y \
 --- a/release/src/router/config_base
 +++ b/release/src/router/config_base
-@@ -298,7 +298,7 @@
- # RTCONFIG_MULTICAST_IPTV is not set
- # RTCONFIG_DYN_MODEM is not set
+@@ -345,7 +345,7 @@
+ # RTCONFIG_WAN_AT_P4 is not set
+ # RTCONFIG_MTK_REP is not set
  # RTCONFIG_NOTIFICATION_CENTER is not set
 -RTCONFIG_PROTECTION_SERVER=y
 +# RTCONFIG_PROTECTION_SERVER is not set
  RTCONFIG_6RELAYD=y
  # RTCONFIG_BCMASPMD is not set
- # RTCONFIG_WLCLMLOAD is not set
+ # RTCONFIG_FBT is not set
 --- a/release/src/router/Makefile
 +++ b/release/src/router/Makefile
-@@ -394,6 +394,136 @@
- obj-y += iproute2
+@@ -715,11 +715,143 @@
+ obj-y += iproute2-3.15.0
  endif
  
 +######################################################################
@@ -8188,6 +5456,8 @@
 +ASUSWRT_DIR="`readlink -f $(TOP)`/../../.."
 +BLACKFUEL_ADDON="blackfuel-addon"
 +BLACKFUEL_DIR="$(ASUSWRT_DIR)/$(BLACKFUEL_ADDON)"
++
++obj-y += mbedtls curl
 +
 +RTCONFIG_APCUPSD=y
 +ifeq ($(RTCONFIG_APCUPSD),y)
@@ -8311,10 +5581,52 @@
 +
 +######################################################################
 +
+ obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlite
+ obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlCipher
+ obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += PMS_DBapis
+ 
+-obj-$(RTCONFIG_SPEEDTEST) += curl-7.21.7
++obj-$(RTCONFIG_SPEEDTEST) += curl
+ 
  obj-$(RTCONFIG_BWDPI) += sqlite
- obj-$(RTCONFIG_BWDPI) += bwdpi
- obj-$(RTCONFIG_BWDPI) += bwdpi_sqlite
-@@ -807,6 +937,9 @@
+ obj-$(RTCONFIG_BWDPI) += bwdpi_source
+@@ -1050,7 +1182,7 @@
+ #add by gauss for cloudsync
+ obj-$(RTCONFIG_CLOUDSYNC) += openssl
+ obj-$(RTCONFIG_CLOUDSYNC) += libxml2
+-obj-$(RTCONFIG_CLOUDSYNC) += curl-7.21.7
++obj-$(RTCONFIG_CLOUDSYNC) += curl
+ obj-$(RTCONFIG_CLOUDSYNC) += smartsync_api
+ obj-$(RTCONFIG_CLOUDSYNC) += asuswebstorage
+ obj-$(RTCONFIG_CLOUDSYNC) += inotify
+@@ -1068,7 +1200,7 @@
+ 
+ #aaews,asusnatnl related
+ obj-$(RTCONFIG_TUNNEL) += libxml2
+-obj-$(RTCONFIG_TUNNEL) += curl-7.21.7
++obj-$(RTCONFIG_TUNNEL) += curl
+ obj-$(RTCONFIG_TUNNEL) += wb
+ obj-$(RTCONFIG_TUNNEL) += aaews
+ obj-$(RTCONFIG_TUNNEL) += mastiff
+@@ -1111,7 +1243,7 @@
+ obj-$(RTCONFIG_FREERADIUS) += sqlite pcre-8.31
+ obj-$(RTCONFIG_FREERADIUS) += talloc-2.1.1
+ obj-$(RTCONFIG_FREERADIUS) += freeradius-server-3.0.0
+-obj-$(RTCONFIG_CAPTIVE_PORTAL) += sqlite libxml2 pcre-8.31 lighttpd-1.4.39 libexif curl-7.21.7
++obj-$(RTCONFIG_CAPTIVE_PORTAL) += sqlite libxml2 pcre-8.31 lighttpd-1.4.39 libexif curl
+ obj-$(RTCONFIG_CAPTIVE_PORTAL) += samba-3.5.8
+ 
+ obj-$(RTCONFIG_FBWIFI) += fb_wifi
+@@ -1257,8 +1389,6 @@
+ 
+ obj-$(RTCONFIG_GEOIP) += GeoIP-1.6.2
+ 
+-obj-$(RTCONFIG_TRANSMISSION) += Transmission curl-7.21.7 libevent-2.0.21
+-
+ # Begin merlin add-ons
+ obj-$(RTCONFIG_NANO) += ncurses-6.0
+ obj-$(RTCONFIG_NANO) += nano
+@@ -1286,6 +1416,9 @@
  obj-y += openssl
  obj-y += zlib
  obj-y += libevent-2.0.21
@@ -8324,24 +5636,24 @@
  obj-y += tor
  endif
  
-@@ -1107,6 +1240,7 @@
- endif
- 
+@@ -1843,6 +1976,7 @@
+ 	@echo ---
+ else
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}.sh
 +	[ ! -d $(BLACKFUEL_DIR)/staging ] || cp -afv $(BLACKFUEL_DIR)/staging/* $(TARGETDIR)
  	@echo ---
+ endif
  
- ifeq ($(RTCONFIG_QCA),y)
-@@ -1156,7 +1290,7 @@
- 	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/bluetooth $(PLATFORMDIR)/extras/bluetooth/drivers/ || true
- 	@mv $(TARGETDIR)/lib/modules/*/kernel/net/bluetooth $(PLATFORMDIR)/extras/bluetooth/net/ || true
+@@ -1904,7 +2038,7 @@
+ #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/scsi/sr_mod.*o $(PLATFORMDIR)/extras/ || true
+ 	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/scanner.*o $(PLATFORMDIR)/extras/ || true
  
 -	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/usbserial.*o $(PLATFORMDIR)/extras/ || true
 +	@cp -f $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/usbserial.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1171,9 +1305,9 @@
+@@ -1919,9 +2053,9 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
@@ -8353,7 +5665,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/audio.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ov51*.*o $(PLATFORMDIR)/extras/ || true
-@@ -1186,15 +1320,13 @@
+@@ -1934,16 +2068,14 @@
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/drivers/sound || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/sound/* $(PLATFORMDIR)/extras/ || true
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/sound || true
@@ -8366,15 +5678,17 @@
  	@cp -f $(TARGETDIR)/lib/modules/*/kernel/drivers/net/bcm57*.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_PPTP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pptp.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_L2TP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pppol2tp.*o $(PLATFORMDIR)/extras/ || true
- 	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/net/ppp_deflate.*o  $(PLATFORMDIR)/extras/ || true
--	$(if $(RTCONFIG_IPSEC),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/crypto/* $(PLATFORMDIR)/extras/ || true
+ 	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/net/ppp_deflate.*o $(PLATFORMDIR)/extras/ || true
+-	@mv $(TARGETDIR)/lib/modules/*/kernel/crypto/* $(PLATFORMDIR)/extras/ || true
+-	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/crypto || true
 +	@cp -f $(TARGETDIR)/lib/modules/*/kernel/crypto/* $(PLATFORMDIR)/extras/ || true
- 	[ ! -f $(TARGETDIR)/lib/modules/*/kernel/crypto/* ] && rm -rf $(TARGETDIR)/lib/modules/*/kernel/crypto || true
++	[ ! -f $(TARGETDIR)/lib/modules/*/kernel/crypto/* ] && rm -rf $(TARGETDIR)/lib/modules/*/kernel/crypto || true
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
-@@ -1351,6 +1483,59 @@
- 	rm -rf $(PLATFORMDIR)/extras
+ 	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp1251.*o $(PLATFORMDIR)/extras/ || true
+@@ -2201,6 +2333,58 @@
  	rm -rf kernel_header
+ endif
  
 +	# Blackfuel packages and updates
 +	if [ ! -d "$(BLACKFUEL_DIR)" ]; then \
@@ -8410,7 +5724,7 @@
 +		rm -rf "$(TOP)/libcap"; \
 +		rm -rf "$(TOP)/rtl-sdr"; \
 +		rm -rf "$(TOP)/rtl-entropy"; \
-+		rm -rf "$(TOP)/ncurses"; \
++		rm -rf "$(TOP)/ncurses-6.0"; \
 +		rm -rf "$(TOP)/transmission-openssl $(TOP)/transmission-mbedtls"; \
 +		rm -rf "$(TOP)/mbedtls"; \
 +		rm -rf "$(TOP)/wget"; \
@@ -8425,92 +5739,14 @@
 +		rm -rf "$(TOP)/zlib"; \
 +		rm -rf "$(TOP)/lzo"; \
 +		rm -rf "$(TOP)/liblz4"; \
-+		rm -rf "$(TOP)/json-c"; \
 +		true; \
 +	fi
 +
  distclean: clean
  ifneq ($(INSIDE_MAK),1)
  	$(MAKE) -C $(SRCBASE) $@ INSIDE_MAK=1
-@@ -1446,20 +1631,6 @@
- busybox-config:
- 	$(MAKE) -C busybox menuconfig
- 
--e2fsprogs/Makefile: e2fsprogs/Makefile.in
--ifeq ($(RTCONFIG_BCMARM),y)
--	cd e2fsprogs && CFLAGS="-Os $(EXTRACFLAGS)" \
--	$(CONFIGURE) --prefix=/usr --sysconfdir=/etc --enable-elf-shlibs ac_cv_lib_pthread_sem_init=no \
--		--disable-tls --disable-rpath --disable-nls \
--		--disable-debugfs --disable-imager --disable-resizer --disable-defrag --disable-uuidd
--else
--	cd e2fsprogs && CFLAGS="-Os $(EXTRACFLAGS)" \
--	$(CONFIGURE) LDFLAGS="$(if $(QCA),-ldl)" \
--		--prefix=/usr --sysconfdir=/etc --enable-elf-shlibs \
--		--disable-tls --disable-rpath --disable-nls \
--		--disable-debugfs --disable-imager --disable-resizer --disable-defrag --disable-uuidd
--endif
--
- 6relayd: 6relayd/Makefile
- 	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
- 	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -1473,25 +1644,50 @@
- 6relayd-clean:
- 	-@$(MAKE) -C 6relayd clean
- 
--e2fsprogs: e2fsprogs/Makefile
-+e2fsprogs: util-linux e2fsprogs/Makefile
- 	$(MAKE) -C $@ $(PARALLEL_BUILD)
- 
-+e2fsprogs/Makefile: e2fsprogs/Makefile.in
-+ifeq ($(RTCONFIG_BCMARM),y)
-+	cd e2fsprogs && \
-+	PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+	CFLAGS="$(CFLAGS) -Os $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include" \
-+	CPPFLAGS="$(CPPFLAGS) -Os $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include" \
-+	LDFLAGS="$(LDFLAGS) -L$(STAGEDIR)/usr/lib" \
-+	LIBS="-luuid -L$(STAGEDIR)/usr/lib" \
-+	$(CONFIGURE) --prefix=$(STAGEDIR)/usr --sysconfdir=/etc --enable-elf-shlibs ac_cv_lib_pthread_sem_init=no \
-+		--disable-tls --disable-rpath --disable-nls \
-+		--disable-debugfs --disable-imager --disable-resizer --disable-defrag --disable-uuidd \
-+		--disable-libuuid --disable-libblkid
-+else
-+	cd e2fsprogs && \
-+	PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+	CFLAGS="$(CFLAGS) -Os $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include" \
-+	CPPFLAGS="$(CPPFLAGS) -Os $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include" \
-+	LDFLAGS="$(LDFLAGS) $(if $(QCA),-ldl) -L$(STAGEDIR)/usr/lib" \
-+	LIBS="-luuid -L$(STAGEDIR)/usr/lib" \
-+	$(CONFIGURE) --prefix=$(STAGEDIR)/usr --sysconfdir=/etc --enable-elf-shlibs \
-+		--disable-tls --disable-rpath --disable-nls \
-+		--disable-debugfs --disable-imager --disable-resizer --disable-defrag --disable-uuidd \
-+		--disable-libuuid --disable-libblkid
-+endif
-+
- e2fsprogs-clean:
- 	-@$(MAKE) -C e2fsprogs clean
- 	@rm -f e2fsprogs/Makefile
- 
- e2fsprogs-install:
--	install -D e2fsprogs/lib/libblkid.so.1.0 $(INSTALLDIR)/e2fsprogs/usr/lib/libblkid.so.1.0
-+	#install -D e2fsprogs/lib/libblkid.so.1.0 $(INSTALLDIR)/e2fsprogs/usr/lib/libblkid.so.1.0
- 	install -D e2fsprogs/lib/libcom_err.so.2.1 $(INSTALLDIR)/e2fsprogs/usr/lib/libcom_err.so.2.1
- 	install -D e2fsprogs/lib/libe2p.so.2.3 $(INSTALLDIR)/e2fsprogs/usr/lib/libe2p.so.2.3
- 	install -D e2fsprogs/lib/libext2fs.so.2.4 $(INSTALLDIR)/e2fsprogs/usr/lib/libext2fs.so.2.4
--	install -D e2fsprogs/lib/libuuid.so.1.2 $(INSTALLDIR)/e2fsprogs/usr/lib/libuuid.so.1.2
-+	#install -D e2fsprogs/lib/libuuid.so.1.2 $(INSTALLDIR)/e2fsprogs/usr/lib/libuuid.so.1.2
- 	$(STRIP) $(INSTALLDIR)/e2fsprogs/usr/lib/*.so.*
--	ln -sf libblkid.so.1.0 $(INSTALLDIR)/e2fsprogs/usr/lib/libblkid.so.1
-+	#ln -sf libblkid.so.1.0 $(INSTALLDIR)/e2fsprogs/usr/lib/libblkid.so.1
- 	ln -sf libcom_err.so.2.1 $(INSTALLDIR)/e2fsprogs/usr/lib/libcom_err.so.2
- 	ln -sf libe2p.so.2.3 $(INSTALLDIR)/e2fsprogs/usr/lib/libe2p.so.2
- 	ln -sf libext2fs.so.2.4 $(INSTALLDIR)/e2fsprogs/usr/lib/libext2fs.so.2
--	ln -sf libuuid.so.1.2 $(INSTALLDIR)/e2fsprogs/usr/lib/libuuid.so.1
-+	#ln -sf libuuid.so.1.2 $(INSTALLDIR)/e2fsprogs/usr/lib/libuuid.so.1
- 	install -D e2fsprogs/e2fsck/e2fsck $(INSTALLDIR)/e2fsprogs/usr/sbin/e2fsck
- 	install -D e2fsprogs/misc/mke2fs $(INSTALLDIR)/e2fsprogs/usr/sbin/mke2fs
- 	install -D e2fsprogs/misc/tune2fs $(INSTALLDIR)/e2fsprogs/usr/sbin/tune2fs
-@@ -1553,11 +1749,17 @@
- 	@$(MAKE) -C www install INSTALLDIR=$(INSTALLDIR)/www TOMATO_EXPERIMENTAL=$(TOMATO_EXPERIMENTAL)
+@@ -2449,11 +2633,17 @@
+ 	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
 +ifneq ($(RTCONFIG_TRANSMISSION),openssl)
@@ -8527,14 +5763,23 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -1827,22 +2029,29 @@
+@@ -2577,7 +2767,7 @@
+ mssl-install:
+ 	$(MAKE) -C mssl INSTALLDIR=$(INSTALLDIR)/mssl install
+ 
+-wb: json-c openssl libxml2 curl-7.21.7
++wb: json-c openssl libxml2 curl
+ 
+ wb-install:
+ 	$(MAKE) -C wb INSTALLDIR=$(INSTALLDIR)/wb install
+@@ -2758,11 +2948,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
 -		$(if $(RTCONFIG_DNSSEC),-I$(TOP)/nettle/include -I$(TOP)/gmp -DHAVE_DNSSEC -DHAVE_DNSSEC_STATIC,)" \
 +		$(if $(RTCONFIG_DNSSEC),-I$(STAGEDIR)/usr/include -I$(TOP)/gmp -DHAVE_DNSSEC -DHAVE_DNSSEC_STATIC,)" \
  	CFLAGS="-Os -ffunction-sections -fdata-sections $(EXTRACFLAGS)" \
- 	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
+ 	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections $(EXTRALDFLAGS) \
 -		$(if $(RTCONFIG_DNSSEC),-L$(TOP)/nettle/lib -L$(TOP)/gmp/.libs,)" \
 -	$(if $(RTCONFIG_DNSSEC),PKG_CONFIG_PATH="$(TOP)/nettle/lib/pkgconfig",)
 +		$(if $(RTCONFIG_DNSSEC),-L$(STAGEDIR)/usr/lib -L$(TOP)/gmp/.libs,)" \
@@ -8542,30 +5787,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
- 	$(STRIP) $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
- 
--nettle/stamp-h1:
-+nettle/stamp-h1: nettle-unpack
- 	@cd nettle && \
--	CPPFLAGS="-I$(TOP)/gmp" \
--	CFLAGS="-O2 -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
--	LDFLAGS="-L$(TOP)/gmp/.libs -ffunction-sections -fdata-sections -Wl,--gc-sections -fPIC" \
--	$(CONFIGURE) prefix=$(TOP)/nettle --enable-mini-gmp --disable-documentation --disable-shared
-+	PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+	CFLAGS="$(CFLAGS) $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include -I$(STAGEDIR)/usr/include/nettle -I$(TOP)/gmp" \
-+	CXXFLAGS="$(CXXFLAGS) $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include -I$(STAGEDIR)/usr/include/nettle -I$(TOP)/gmp" \
-+	CPPFLAGS="$(CPPFLAGS) $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include -I$(STAGEDIR)/usr/include/nettle -I$(TOP)/gmp" \
-+	LDFLAGS="$(LDFLAGS) -L$(STAGEDIR)/usr/lib -L$(TOP)/gmp/.libs" \
-+	$(CONFIGURE) \
-+	--prefix="$(STAGEDIR)/usr" \
-+	--disable-shared \
-+	--enable-static \
-+	--enable-mini-gmp \
-+	--disable-documentation
- 	@touch nettle/stamp-h1
- 
- nettle: nettle/stamp-h1
-@@ -2006,14 +2215,14 @@
+@@ -2934,14 +3124,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -8583,7 +5805,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -2168,7 +2377,8 @@
+@@ -3099,7 +3289,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -8593,7 +5815,16 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -2298,44 +2508,44 @@
+@@ -3250,7 +3441,7 @@
+ 	( cd lsof ; ./Configure -clean )
+ 	@rm -f lsof/Makefile
+ 
+-mtd-utils: e2fsprogs lzo zlib
++mtd-utils: util-linux lzo zlib
+ ifeq ($(ALPINE)$(LANTIQ),y)
+ 	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
+ 		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
+@@ -3269,45 +3460,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -8635,48 +5866,62 @@
 -util-linux-clean:
 -	[ ! -f util-linux/Makefile ] || $(MAKE) -C util-linux distclean
 -	@rm -f util-linux/Makefile
-+#util-linux: util-linux/Makefile
-+#	$(MAKE) -C $@/libuuid/src && $(MAKE) $@-stage
-+#
-+#util-linux/Makefile: util-linux/configure
-+#	$(MAKE) util-linux-configure
-+#
-+#util-linux/configure:
-+#	( cd util-linux ; ./autogen.sh )
-+#
-+#util-linux-configure:
-+#	( export scanf_cv_alloc_modifier=no; \
-+#		cd util-linux ; \
-+#		$(CONFIGURE) \
-+#		--prefix=/usr \
-+#		--bindir=/usr/sbin \
-+#		--libdir=/usr/lib \
-+#		--enable-libuuid \
-+#		--disable-nls --disable-tls --disable-libblkid --disable-mount --disable-libmount \
-+#		--disable-fsck --disable-cramfs --disable-partx --disable-uuidd --disable-mountpoint \
-+#		--disable-fallocate --disable-unshare --disable-agetty \
-+#		--disable-cramfs --disable-switch_root --disable-pivot_root \
-+#		--disable-kill --disable-rename --disable-chsh-only-listed \
-+#		--disable-schedutils --disable-wall --disable-pg-bell --disable-require-password \
-+#		--disable-use-tty-group --disable-makeinstall-chown --disable-makeinstall-setuid\
-+#		--without-ncurses --without-selinux --without-audit \
-+#	)
-+#
-+#util-linux-stage:
-+#	$(MAKE) -C util-linux/libuuid/src DESTDIR=$(STAGEDIR) \
-+#		install-usrlib_execLTLIBRARIES install-uuidincHEADERS
-+#
-+#util-linux-install: util-linux
-+#	install -D $(STAGEDIR)/usr/lib/libuuid.so.1 $(INSTALLDIR)/util-linux/usr/lib/libuuid.so.1
-+#	$(STRIP) $(INSTALLDIR)/util-linux/usr/lib/*.so*
-+#
-+#util-linux-clean:
-+#	[ ! -f util-linux/Makefile ] || $(MAKE) -C util-linux distclean
-+#	@rm -f util-linux/Makefile
- 
+-
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
-@@ -2828,20 +3038,2103 @@
+ 	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
+@@ -3334,20 +3486,23 @@
+ 6relayd-clean:
+ 	-@$(MAKE) -C 6relayd clean
+ 
+-e2fsprogs: e2fsprogs/Makefile
+-	$(MAKE) -C e2fsprogs $(PARALLEL_BUILD) && $(MAKE) $@-stage
++e2fsprogs: util-linux e2fsprogs/Makefile
++	$(MAKE) -C e2fsprogs $(PARALLEL_BUILD)
+ 
+ e2fsprogs/Makefile:
+ 	$(MAKE) e2fsprogs-configure
+ 
+ e2fsprogs-configure: e2fsprogs/Makefile.in
+ 	cd e2fsprogs && \
+-	CFLAGS="-Os -ffunction-sections -fdata-sections $(EXTRACFLAGS)" \
+-	LDFLAGS="-Wl,--gc-sections $(EXTRALDFLAGS)" \
++	PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
++	CFLAGS="$(CFLAGS) -Os $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include" \
++	CPPFLAGS="$(CPPFLAGS) -Os $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include" \
++	LDFLAGS="$(LDFLAGS) -L$(STAGEDIR)/usr/lib" \
++	LIBS="-luuid -L$(STAGEDIR)/usr/lib" \
+ 	$(CONFIGURE) --prefix=/usr --sysconfdir=/etc --enable-elf-shlibs \
+ 		--disable-rpath --disable-nls --disable-tls \
+ 		--disable-jbd-debug --disable-blkid-debug --disable-testio-debug \
+-		--enable-libuuid --enable-libblkid \
++		--disable-libuuid --disable-libblkid \
+ 		--disable-backtrace --disable-debugfs \
+ 		--disable-imager --disable-resizer --disable-defrag \
+ 		--disable-e2initrd-helper --disable-uuidd \
+@@ -3355,21 +3510,13 @@
+ 		ac_cv_lib_dl_dlopen=no \
+ 		ac_cv_have_decl_fgets_unlocked=yes
+ 
+-e2fsprogs-stage:
+-	$(MAKE) -C e2fsprogs/lib/uuid DESTDIR=$(STAGEDIR) LDCONFIG=true install
+-
+ e2fsprogs-install:
+ # libs
+-	install -D e2fsprogs/lib/libuuid.so.1.2 $(INSTALLDIR)/e2fsprogs/usr/lib/libuuid.so.1.2
+-	cd $(INSTALLDIR)/e2fsprogs/usr/lib && \
+-		ln -sf libuuid.so.1.2 libuuid.so.1 && ln -sf libuuid.so.1.2 libuuid.so
+ ifneq (,$(filter y,$(RTCONFIG_E2FSPROGS) $(RTCONFIG_EXT4FS)))
+-	install -D e2fsprogs/lib/libblkid.so.1.0 $(INSTALLDIR)/e2fsprogs/usr/lib/libblkid.so.1.0
+ 	install -D e2fsprogs/lib/libcom_err.so.2.1 $(INSTALLDIR)/e2fsprogs/usr/lib/libcom_err.so.2.1
+ 	install -D e2fsprogs/lib/libe2p.so.2.3 $(INSTALLDIR)/e2fsprogs/usr/lib/libe2p.so.2.3
+ 	install -D e2fsprogs/lib/libext2fs.so.2.4 $(INSTALLDIR)/e2fsprogs/usr/lib/libext2fs.so.2.4
+ 	cd $(INSTALLDIR)/e2fsprogs/usr/lib && \
+-		ln -sf libblkid.so.1.0 libblkid.so.1 && ln -sf libblkid.so.1.0 libblkid.so && \
+ 		ln -sf libcom_err.so.2.1 libcom_err.so.2 && ln -sf libcom_err.so.2.1 libcom_err.so && \
+ 		ln -sf libe2p.so.2.3 libe2p.so.2 && ln -sf libe2p.so.2.3 libe2p.so && \
+ 		ln -sf libext2fs.so.2.4 libext2fs.so.2 && ln -sf libext2fs.so.2.4 libext2fs.so
+@@ -4012,20 +4159,2062 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -8815,9 +6060,9 @@
 +libsodium-configure:
 +	@[ ! -d libsodium ] || [ -f "$(STAGEDIR)/usr/lib/libsodium.so" ] || ( cd libsodium ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fno-data-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fno-data-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fno-data-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
@@ -9298,7 +6543,7 @@
 +
 +### util-linux
 +
-+util-linux: ncurses libgcrypt util-linux/Makefile
++util-linux: ncurses-6.0 libgcrypt util-linux/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +util-linux/Makefile: util-linux-unpack util-linux/configure
@@ -9311,8 +6556,8 @@
 +	@[ ! -d util-linux ] || [ -f "$(STAGEDIR)/usr/lib/libuuid.so" ] || ( \
 +		cd util-linux ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fno-data-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DHAVE_POSIX_FALLOCATE=1 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include -lm" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fno-data-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DHAVE_POSIX_FALLOCATE=1 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include -lm" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fno-data-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -lm" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fno-data-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -lm" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fno-data-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lm $(if $(RTCONFIG_BCMARM),-lncursesw,-lncurses) -L$(STAGEDIR)/usr/lib" \
 +		$(CONFIGURE) \
@@ -9432,7 +6677,7 @@
 +
 +### cryptsetup-gcrypt
 +
-+cryptsetup-gcrypt: json-c popt util-linux lvm2 libgpg-error libgcrypt cryptsetup-gcrypt/Makefile
++cryptsetup-gcrypt: popt util-linux lvm2 libgpg-error libgcrypt cryptsetup-gcrypt/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +cryptsetup-gcrypt/Makefile: cryptsetup-gcrypt-unpack cryptsetup-gcrypt/configure
@@ -9443,18 +6688,17 @@
 +
 +cryptsetup-gcrypt-configure:
 +	@[ ! -d cryptsetup-gcrypt ] || [ -f "$(STAGEDIR)/usr/lib/libcryptsetup.so" ] || ( cd cryptsetup-gcrypt ; \
-+		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/files/linux/if_alg.h"; \
++		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/linux/if_alg.h"; \
 +		STAGEDIR_INCLUDE_LINUX="$(STAGEDIR)/usr/include/linux"; \
 +		if [ -f "$$IF_ALG_H" ]; then \
 +		  mkdir -p "$$STAGEDIR_INCLUDE_LINUX"; \
 +		  cp -pn "$$IF_ALG_H" "$$STAGEDIR_INCLUDE_LINUX"; \
 +		fi; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread -lgpg-error -luuid -lblkid -ldl -lgcrypt -L$(STAGEDIR)/usr/lib" \
-+		ac_cv_func_posix_fallocate=yes \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -9491,7 +6735,7 @@
 +
 +### cryptsetup-openssl
 +
-+cryptsetup-openssl: json-c popt util-linux lvm2 openssl cryptsetup-openssl/Makefile
++cryptsetup-openssl: popt util-linux lvm2 openssl cryptsetup-openssl/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +cryptsetup-openssl/Makefile: cryptsetup-openssl-unpack cryptsetup-openssl/configure
@@ -9502,18 +6746,17 @@
 +
 +cryptsetup-openssl-configure:
 +	@[ ! -d cryptsetup-openssl ] || [ -f "$(STAGEDIR)/usr/lib/libcryptsetup.so" ] || ( cd cryptsetup-openssl ; \
-+		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/files/linux/if_alg.h"; \
++		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/linux/if_alg.h"; \
 +		STAGEDIR_INCLUDE_LINUX="$(STAGEDIR)/usr/include/linux"; \
 +		if [ -f "$$IF_ALG_H" ]; then \
 +		  mkdir -p "$$STAGEDIR_INCLUDE_LINUX"; \
 +		  cp -pn "$$IF_ALG_H" "$$STAGEDIR_INCLUDE_LINUX"; \
 +		fi; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread -lssl -lcrypto -lz -luuid -lblkid -ldl -L$(STAGEDIR)/usr/lib" \
-+		ac_cv_func_posix_fallocate=yes \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -9549,7 +6792,7 @@
 +
 +### cryptsetup-nettle
 +
-+cryptsetup-nettle: json-c popt util-linux lvm2 nettle cryptsetup-nettle/Makefile
++cryptsetup-nettle: popt util-linux lvm2 nettle cryptsetup-nettle/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +cryptsetup-nettle/Makefile: cryptsetup-nettle-unpack cryptsetup-nettle/configure
@@ -9560,18 +6803,17 @@
 +
 +cryptsetup-nettle-configure:
 +	@[ ! -d cryptsetup-nettle ] || [ -f "$(STAGEDIR)/usr/lib/libcryptsetup.so" ] || ( cd cryptsetup-nettle ; \
-+		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/files/linux/if_alg.h"; \
++		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/linux/if_alg.h"; \
 +		STAGEDIR_INCLUDE_LINUX="$(STAGEDIR)/usr/include/linux"; \
 +		if [ -f "$$IF_ALG_H" ]; then \
 +		  mkdir -p "$$STAGEDIR_INCLUDE_LINUX"; \
 +		  cp -pn "$$IF_ALG_H" "$$STAGEDIR_INCLUDE_LINUX"; \
 +		fi; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread -luuid -lblkid -ldl -lnettle -L$(STAGEDIR)/usr/lib" \
-+		ac_cv_func_posix_fallocate=yes \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -9607,7 +6849,7 @@
 +
 +### cryptsetup-kernel
 +
-+cryptsetup-kernel: json-c popt util-linux lvm2 cryptsetup-kernel/Makefile
++cryptsetup-kernel: popt util-linux lvm2 cryptsetup-kernel/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +cryptsetup-kernel/Makefile: cryptsetup-kernel-unpack cryptsetup-kernel/configure
@@ -9618,18 +6860,17 @@
 +
 +cryptsetup-kernel-configure:
 +	@[ ! -d cryptsetup-kernel ] || [ -f "$(STAGEDIR)/usr/lib/libcryptsetup.so" ] || ( cd cryptsetup-kernel ; \
-+		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/files/linux/if_alg.h"; \
++		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/linux/if_alg.h"; \
 +		STAGEDIR_INCLUDE_LINUX="$(STAGEDIR)/usr/include/linux"; \
 +		if [ -f "$$IF_ALG_H" ]; then \
 +		  mkdir -p "$$STAGEDIR_INCLUDE_LINUX"; \
 +		  cp -pn "$$IF_ALG_H" "$$STAGEDIR_INCLUDE_LINUX"; \
 +		fi; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread -luuid -lblkid -ldl -L$(STAGEDIR)/usr/lib" \
-+		ac_cv_func_posix_fallocate=yes \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -9774,8 +7015,8 @@
 +			--without-lineeditlibs \
 +			--enable-linuxcaps \
 +			--with-crypto \
-+			--with-openssl-libdir="$(STAGEDIR)/etc/lib" \
-+			--with-openssl-incdir="$(STAGEDIR)/etc/include" \
++			--with-openssl-libdir="$(STAGEDIR)/usr/lib" \
++			--with-openssl-incdir="$(STAGEDIR)/usr/include" \
 +			--enable-autokey \
 +			--enable-openssl-random \
 +			--enable-thread-support \
@@ -9900,7 +7141,7 @@
 +rtl-entropy/build/Makefile: rtl-entropy-unpack
 +	@[ -f $@ ] || ( cd rtl-entropy ; \
 +		rm -rf build ; mkdir -p build ; cd build ; \
-+		STATIC_LIBS_RTLENTROPY="-L$(STAGEDIR)/usr/lib/libcap.a $(STAGEDIR)/usr/lib/libcap.a -L$(STAGEDIR)/usr/lib/librtlsdr.a $(STAGEDIR)/usr/lib/librtlsdr.a -L$(STAGEDIR)/usr/lib/libusb-1.0.a $(STAGEDIR)/usr/lib/libusb-1.0.a  -L$(STAGEDIR)/etc/lib/libssl.a $(STAGEDIR)/etc/lib/libssl.a  -L$(STAGEDIR)/etc/lib/libcrypto.a $(STAGEDIR)/etc/lib/libcrypto.a -L$(LIBS_DL) $(LIBS_DL) -L$(LIBS_PTHREAD) $(LIBS_PTHREAD) -L$(LIBS_M) $(LIBS_M) -L$(LIBS_RT) $(LIBS_RT) -L$(LIBS_C) $(LIBS_C) -L$(STAGEDIR)/usr/lib -L$(STAGEDIR)/etc/lib"; \
++		STATIC_LIBS_RTLENTROPY="-L$(STAGEDIR)/usr/lib/libcap.a $(STAGEDIR)/usr/lib/libcap.a -L$(STAGEDIR)/usr/lib/librtlsdr.a $(STAGEDIR)/usr/lib/librtlsdr.a -L$(STAGEDIR)/usr/lib/libusb-1.0.a $(STAGEDIR)/usr/lib/libusb-1.0.a  -L$(STAGEDIR)/usr/lib/libssl.a $(STAGEDIR)/usr/lib/libssl.a  -L$(STAGEDIR)/usr/lib/libcrypto.a $(STAGEDIR)/usr/lib/libcrypto.a -L$(LIBS_DL) $(LIBS_DL) -L$(LIBS_PTHREAD) $(LIBS_PTHREAD) -L$(LIBS_M) $(LIBS_M) -L$(LIBS_RT) $(LIBS_RT) -L$(LIBS_C) $(LIBS_C) -L$(STAGEDIR)/usr/lib"; \
 +		ARM_COMPILER_FLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99"; \
 +		ARM_LINKER_FLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections $$STATIC_LIBS_RTLENTROPY"; \
 +		ARM_LINK_EXECUTABLE="arm-brcm-linux-uclibcgnueabi-gcc  -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -O3 -DNDEBUG  -ffunction-sections -fdata-sections -Wl,--gc-sections CMakeFiles/rtlentropylib.dir/fips.c.o CMakeFiles/rtlentropylib.dir/log.c.o CMakeFiles/rtlentropylib.dir/util.c.o CMakeFiles/rtl_entropy.dir/rtl_entropy.c.o  -o rtl_entropy -rdynamic $$STATIC_LIBS_RTLENTROPY"; \
@@ -9911,8 +7152,8 @@
 +		-DCMAKE_FIND_ROOT_PATH="$(STAGEDIR)/usr" \
 +		-DCMAKE_INSTALL_PREFIX="$(STAGEDIR)/usr" \
 +		-DCMAKE_PREFIX_PATH="$(STAGEDIR)/usr" \
-+		-DOPENSSL_LIBRARIES="$(STAGEDIR)/etc/lib" \
-+		-DOPENSSL_INCLUDE_DIRS="$(STAGEDIR)/etc/include" \
++		-DOPENSSL_LIBRARIES="$(STAGEDIR)/usr/lib" \
++		-DOPENSSL_INCLUDE_DIRS="$(STAGEDIR)/usr/include" \
 +		-DCMAKE_C_COMPILER="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-gcc" \
 +		-DCMAKE_CXX_COMPILER="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-g++" \
 +		-DCMAKE_AR="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-ar" \
@@ -9955,24 +7196,23 @@
 +transmission-openssl-configure:
 +	@[ ! -d transmission-openssl ] || [ -f "$(STAGEDIR)/usr/bin/transmission-daemon" ] || ( \
 +		cd transmission-openssl ; \
-+		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig:$(STAGEDIR)/etc/lib/pkgconfig" \
++		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
 +		DESTDIR="$(STAGEDIR)" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/etc/include -I$(STAGEDIR)/usr/include" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		CXXFLAGS="$(CXXFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -D_GNU_SOURCE" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -D_GNU_SOURCE -I$(STAGEDIR)/etc/include -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/etc/lib -L$(STAGEDIR)/usr/lib" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
-+		OPENSSL_CFLAGS="-I$(STAGEDIR)/etc/include" \
-+		OPENSSL_LIBS="-L$(STAGEDIR)/etc/lib -lcrypto -lssl" \
-+		CRYPTO_CFLAGS="-I$(STAGEDIR)/etc/include" \
-+		CRYPTO_LIBS="-L$(STAGEDIR)/etc/lib -lcrypto -lssl" \
++		OPENSSL_CFLAGS="-I$(STAGEDIR)/usr/include" \
++		OPENSSL_LIBS="-L$(STAGEDIR)/usr/lib -lcrypto -lssl" \
++		CRYPTO_CFLAGS="-I$(STAGEDIR)/usr/include" \
++		CRYPTO_LIBS="-L$(STAGEDIR)/usr/lib -lcrypto -lssl" \
 +		LIBCURL_CFLAGS="-I$(STAGEDIR)/usr/include" \
 +		LIBCURL_LIBS="-L$(STAGEDIR)/usr/lib -lcurl" \
 +		LIBEVENT_CFLAGS="-I$(STAGEDIR)/usr/include" \
 +		LIBEVENT_LIBS="-L$(STAGEDIR)/usr/lib -levent" \
 +		ZLIB_CFLAGS="-I$(STAGEDIR)/usr/include" \
 +		ZLIB_LIBS="-L$(STAGEDIR)/usr/lib -lz" \
-+		ac_cv_func_posix_fallocate=yes \
 +		./autogen.sh \
 +		--host=arm-brcm-linux-uclibcgnueabi \
 +		--build=x86_64-linux-gnu \
@@ -10029,8 +7269,8 @@
 +		LIBS="-lpthread" \
 +		MBEDTLS_CFLAGS="-I$(STAGEDIR)/usr/include" \
 +		MBEDTLS_LIBS="-L$(STAGEDIR)/usr/lib -lmbedtls" \
-+		LIBCURL_CFLAGS="-I$(STAGEDIR)/etc/include -I$(STAGEDIR)/usr/include" \
-+		LIBCURL_LIBS="-L$(STAGEDIR)/etc/lib -L$(STAGEDIR)/usr/lib -lcrypto -lssl -lcurl" \
++		LIBCURL_CFLAGS="-I$(STAGEDIR)/usr/include" \
++		LIBCURL_LIBS="-L$(STAGEDIR)/usr/lib -lcrypto -lssl -lcurl" \
 +		LIBEVENT_CFLAGS="-I$(STAGEDIR)/usr/include" \
 +		LIBEVENT_LIBS="-L$(STAGEDIR)/usr/lib -levent" \
 +		ZLIB_CFLAGS="-I$(STAGEDIR)/usr/include" \
@@ -10547,41 +7787,6 @@
 +	chmod u+w $(INSTALLDIR)/liblz4/usr/lib/*
 +	$(STRIP) $(INSTALLDIR)/liblz4/usr/lib/*
 +
-+### json-c
-+
-+json-c: json-c/stamp-h1
-+	@[ ! -f json-c/stamp-h1 ] || ( $(SEP); \
-+		[ -f "$(STAGEDIR)/usr/lib/libjson-c.so" ] || ( \
-+			$(MAKE) -C json-c $(PARALLEL_BUILD) && $(MAKE) -C json-c install \
-+			) \
-+		)
-+
-+json-c/stamp-h1: json-c-unpack
-+	cd json-c ; \
-+	PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+	CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
-+	CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
-+	LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
-+	LIBS="" \
-+	ac_cv_func_realloc_0_nonnull=yes \
-+	ac_cv_func_malloc_0_nonnull=yes \
-+	$(CONFIGURE) \
-+	--prefix="$(STAGEDIR)/usr" \
-+	--enable-shared \
-+	--enable-static \
-+	--disable-silent-rules
-+	touch $@
-+
-+json-c-clean:
-+	[ ! -f json-c/stamp-h1 ] || $(MAKE) -C json-c clean
-+	@rm -f json-c/stamp-h1
-+
-+json-c-install:
-+	install -d $(INSTALLDIR)/json-c/usr/lib/
-+	cp -df $(STAGEDIR)/usr/lib/libjson-c.so* $(INSTALLDIR)/json-c/usr/lib/
-+	chmod u+w $(INSTALLDIR)/json-c/usr/lib/*
-+	$(STRIP) $(INSTALLDIR)/json-c/usr/lib/*
-+
 +
 +### package download and patches
 +
@@ -10592,7 +7797,7 @@
 +		if [ "$$PACKAGE_DIR" = "xzutils" ]; then \
 +			URL="https://tukaani.org/xz/xz-5.2.3.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "zstd" ]; then \
-+			URL="https://github.com/facebook/zstd/archive/v1.3.3.tar.gz"; \
++			URL="https://github.com/facebook/zstd/archive/v1.3.2.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "tor" ]; then \
 +			URL="https://www.torproject.org/dist/tor-0.3.1.9.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "nettle" ]; then \
@@ -10602,11 +7807,11 @@
 +		elif [ "$$PACKAGE_DIR" = "findutils" ]; then \
 +			URL="https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "whois" ]; then \
-+			URL="http://ftp.debian.org/debian/pool/main/w/whois/whois_5.2.20.tar.xz"; \
++			URL="http://ftp.debian.org/debian/pool/main/w/whois/whois_5.2.18.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "libsodium" ]; then \
 +			URL="https://download.libsodium.org/libsodium/releases/libsodium-1.0.16.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "dnscrypt" ]; then \
-+			URL="https://download.dnscrypt.org/dnscrypt-proxy/dnscrypt-proxy-1.9.5.tar.bz2"; \
++			URL="http://http.debian.net/debian/pool/main/d/dnscrypt-proxy/dnscrypt-proxy_1.9.5.orig.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "haveged" ]; then \
 +			URL="http://www.issihosts.com/haveged/haveged-1.9.1.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "wipe" ]; then \
@@ -10620,16 +7825,16 @@
 +		elif [ "$$PACKAGE_DIR" = "libgpg-error" ]; then \
 +			URL="https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.27.tar.bz2"; \
 +		elif [ "$$PACKAGE_DIR" = "util-linux" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.31/util-linux-2.31.1.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.31/util-linux-2.31.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "lvm2" ]; then \
-+			URL="https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.02.177.tgz"; \
++			URL="https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.02.176.tgz"; \
 +		elif [ "$$PACKAGE_DIR" = "libgcrypt" ]; then \
-+			URL="https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.2.tar.bz2"; \
++			URL="https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.1.tar.bz2"; \
 +		elif [ "$$PACKAGE_DIR" = "cryptsetup-gcrypt" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-nettle" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-kernel" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.0.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v1.7/cryptsetup-1.7.5.tar.xz"; \
 +			PACKAGE_NAME="cryptsetup"; \
 +		elif [ "$$PACKAGE_DIR" = "pps-tools" ]; then \
 +			URL="https://github.com/redlab-i/pps-tools/archive/v1.0.1.tar.gz"; \
@@ -10649,7 +7854,7 @@
 +		elif [ "$$PACKAGE_DIR" = "rtl-entropy" ]; then \
 +			URL="git://github.com/pwarren/rtl-entropy.git"; \
 +			VERSION="142df23630ea6216c17e00dada85d1cd245bc22f"; \
-+		elif [ "$$PACKAGE_DIR" = "ncurses" ]; then \
++		elif [ "$$PACKAGE_DIR" = "ncurses-6.0" ]; then \
 +			URL="https://ftp.gnu.org/gnu/ncurses/ncurses-6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "transmission-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "transmission-mbedtls" ]; then \
@@ -10682,8 +7887,6 @@
 +			URL="http://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "liblz4" ]; then \
 +			URL="https://github.com/lz4/lz4/archive/v1.8.0.tar.gz"; \
-+		elif [ "$$PACKAGE_DIR" = "json-c" ]; then \
-+			URL="http://http.debian.net/debian/pool/main/j/json-c/json-c_0.12.1.orig.tar.gz"; \
 +		else \
 +			URL="/$$PACKAGE_DIR-MISSING-URL"; \
 +		fi; \
@@ -10753,6 +7956,7 @@
 +
 +#######################################################################################
 +
++
 +tor: openssl zlib libevent-2.0.21 zstd tor/Makefile
  	@$(SEP)
  	$(MAKE) -C $@ $(PARALLEL_BUILD)
@@ -10784,7 +7988,7 @@
  
  tor-clean:
  	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
-@@ -3053,24 +5346,24 @@
+@@ -4301,25 +6490,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -10806,28 +8010,11 @@
 -	install -D jpeg/libjpeg.so $(INSTALLDIR)/jpeg/usr/lib/libjpeg.so
 -	$(STRIP) $(INSTALLDIR)/jpeg/usr/lib/libjpeg.so
 -endif
-+#jpeg/stamp-h1:
-+#	cd jpeg && \
-+#	CFLAGS="-Os $(EXTRACFLAGS) -fPIC" CC=$(CC) AR2="touch" $(CONFIGURE) --enable-maxmem=1 --enable-shared --enable-static --prefix=''
-+#	touch $@
-+#
-+#jpeg: jpeg/stamp-h1
-+#	@$(MAKE) -C jpeg LIBTOOL="" O=o A=a CC=$(CC) AR2="touch" libjpeg.a libjpeg.so $(PARALLEL_BUILD)
-+#
-+#jpeg-clean:
-+#	-@$(MAKE) -C jpeg clean
-+#	@rm -f jpeg/stamp-h1
-+#
-+#jpeg-install:
-+#	@$(SEP)
-+#ifneq ($(MEDIA_SERVER_STATIC),y)
-+#	install -D jpeg/libjpeg.so $(INSTALLDIR)/jpeg/usr/lib/libjpeg.so
-+#	$(STRIP) $(INSTALLDIR)/jpeg/usr/lib/libjpeg.so
-+#endif
- 
+-
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
-@@ -3093,21 +5386,22 @@
+ 	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+@@ -4341,33 +6511,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -10838,33 +8025,30 @@
 -	touch $@
 -
 -zlib: zlib/stamp-h1
--	@$(MAKE) -C zlib CC=$(CC) AR="ar rc" RANLIB=$(RANLIB) LD=$(LD) all $(PARALLEL_BUILD) && $(MAKE) $@-stage
+-	@$(MAKE) -C zlib CC=$(CC) AR="ar rc" RANLIB=$(RANLIB) LD=$(LD) all && $(MAKE) $@-stage
 -
 -zlib-clean:
 -	-@$(MAKE) -C zlib clean
 -	@rm -f zlib/stamp-h1
-+#zlib/stamp-h1:
-+#	cd zlib && \
-+#	CC=$(CC) AR="ar rc" RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC" LDSHAREDLIBC="$(EXTRALDFLAGS)" \
-+#	./configure --shared --prefix=/usr --libdir=/usr/lib
-+#	touch $@
-+#
-+#zlib: zlib/stamp-h1
-+#	@$(MAKE) -C zlib CC=$(CC) AR="ar rc" RANLIB=$(RANLIB) LD=$(LD) all $(PARALLEL_BUILD) && $(MAKE) $@-stage
-+#
-+#zlib-clean:
-+#	-@$(MAKE) -C zlib clean
-+#	@rm -f zlib/stamp-h1
-+#
-+#zlib-install:
-+#	@$(SEP)
- 
+-
 -zlib-install:
 -	@$(SEP)
- # commented out for mt-daapd-svn-1696
- ifneq ($(MEDIA_SERVER_STATIC),y)
- 	install -d $(INSTALLDIR)/zlib/usr/lib
-@@ -3515,7 +5809,7 @@
+-# commented out for mt-daapd-svn-1696
+-ifneq ($(MEDIA_SERVER_STATIC),y)
+-	install -d $(INSTALLDIR)/zlib/usr/lib
+-	install -D zlib/libz.so.1 $(INSTALLDIR)/zlib/usr/lib/
+-	$(STRIP) $(INSTALLDIR)/zlib/usr/lib/libz.so.1
+-endif
+-ifeq ($(or $(RTCONFIG_USB_BECEEM),$(RTCONFIG_MEDIA_SERVER),$(RTCONFIG_CLOUDSYNC),$(RTCONFIG_PUSH_EMAIL)),y)
+-	install -d $(INSTALLDIR)/zlib/usr/lib
+-	install -D zlib/libz.so.1 $(INSTALLDIR)/zlib/usr/lib/
+-	$(STRIP) $(INSTALLDIR)/zlib/usr/lib/libz.so.1
+-endif
+-
+ libid3tag/stamp-h1: zlib
+ 	cd libid3tag && \
+ 	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
+@@ -4885,7 +7028,7 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -10873,11 +8057,43 @@
  	cd lzo && \
  	CFLAGS="-O3 -Wall $(EXTRACFLAGS)" $(CONFIGURE) --enable-shared --enable-static \
  		--prefix=/usr \
-@@ -3978,23 +6272,34 @@
- curl: curl/Makefile
- 	@$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
+@@ -5114,7 +7257,7 @@
+ endif
+ 	@touch $@
  
--curl/Makefile: curl/configure
+-lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
++lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
+ 	@mkdir -p lighttpd-1.4.39/src/.libs
+ ifeq ($(HND_ROUTER),y)
+ 	@cp lighttpd-1.4.39/prebuild_hnd/*.so lighttpd-1.4.39/src/.libs/
+@@ -5334,7 +7477,7 @@
+ 	--enable-cmd --enable-eap-tls --enable-libipsec --disable-static \
+ 	CFLAGS="-O3 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include $(if $(RTCONFIG_HND_ROUTER),-DHND_ROUTER,)" \
+ 	LDFLAGS="$(if $(RTCONFIG_HND_ROUTER), -L$(TOP)/strongswan-5.2.1, -L$(STAGEDIR)/usr/lib -L$(TOP)/openssl)" \
+-	LIBS="-lpthread -ldl -lm"
++	LIBS="-lssl -lcrypto -lpthread -ldl -lm"
+ 	touch $@
+ 
+ strongswan-5.2.1: strongswan-5.2.1/stamp-h1
+@@ -5434,7 +7577,7 @@
+ fb_wifi/stamp-h1:
+ 	touch $@
+ 
+-fb_wifi: curl-7.21.7 fb_wifi/stamp-h1
++fb_wifi: curl fb_wifi/stamp-h1
+ 	@$(MAKE) -C fb_wifi
+ 
+ fb_wifi-install: fb_wifi
+@@ -5452,35 +7595,46 @@
+ 
+ #add by gauss
+ #add install libcurl
+-curl-7.21.7: curl-7.21.7/Makefile
+-	@$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage && sed 's|/usr/lib|$(STAGEDIR)/usr/lib|g' -i $(STAGEDIR)/usr/lib/libcurl.la
++curl: openssl mbedtls curl/Makefile
++	@$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
+ 
+-curl-7.21.7/Makefile: curl/configure
 -	@cd curl && $(CONFIGURE) CC=$(CC) \
 -		CFLAGS="-Os -Wall -ffunction-sections -fdata-sections" \
 -		--prefix=/usr --bindir=/usr/sbin --libdir=/usr/lib \
@@ -10888,15 +8104,21 @@
 -		CPPFLAGS='-I$(TOP)/openssl/include' \
 -		LDFLAGS='$(LDFLAGS) -L$(TOP)/openssl' LIBS='-lcrypto -lssl -ldl' \
 -		--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
+-
+-curl-7.21.7-install: curl-7.21.7
+-	@$(SEP)
+-	install -D curl-7.21.7/lib/.libs/libcurl.so.4.4.0 $(INSTALLDIR)/curl-7.21.7/usr/lib/libcurl.so.4.4.0
+-	$(STRIP) $(INSTALLDIR)/curl-7.21.7/usr/lib/libcurl.so.4.4.0
+-	cd $(INSTALLDIR)/curl-7.21.7/usr/lib && ln -sf libcurl.so.4.4.0 libcurl.so && ln -sf libcurl.so.4.4.0 libcurl.so.4
 +curl/Makefile: curl-unpack curl/configure
 +	@cd curl && \
 +	$(CONFIGURE) \
 +	CC=$(CC) \
-+	CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
-+	CXXFLAGS="$(CXXFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
-+	CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
-+	LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib -L$(TOP)/openssl" \
-+	LIBS="-lcrypto -lssl -ldl" \
++	CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
++	CXXFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
++	CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
++	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib -L$(TOP)/openssl" \
++	LIBS="-lcrypto -lssl -ldl -lmbedx509 -lmbedcrypto -lmbedtls" \
 +	--prefix=/usr \
 +	--bindir=/usr/sbin \
 +	--libdir=/usr/lib \
@@ -10909,72 +8131,31 @@
 +	--disable-manual \
 +	--disable-libcurl-option \
 +	--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
- 
- curl-install:
- 	@$(SEP)
--	install -D curl/lib/.libs/libcurl.so.4.4.0 $(INSTALLDIR)/curl/usr/lib/libcurl.so.4.4.0
--	$(STRIP) $(INSTALLDIR)/curl/usr/lib/libcurl.so.4.4.0
--	cd $(INSTALLDIR)/curl/usr/lib && ln -sf libcurl.so.4.4.0 libcurl.so && ln -sf libcurl.so.4.4.0 libcurl.so.4
++
++curl-install:
++	@$(SEP)
 +	install -d $(INSTALLDIR)/curl/usr/lib/
 +	cp -df curl/lib/.libs/libcurl.so* $(INSTALLDIR)/curl/usr/lib/
 +	chmod u+w $(INSTALLDIR)/curl/usr/lib/*
 +	$(STRIP) $(INSTALLDIR)/curl/usr/lib/libcurl.so*
  #ifeq ($(RTCONFIG_SPEEDTEST),y)
  	# for speedtest
- 	install -D curl/src/.libs/curl $(INSTALLDIR)/curl/usr/sbin/curl
-@@ -4410,21 +6715,29 @@
- 	$(STRIP) $(INSTALLDIR)/ipset/usr/sbin/ipset
+-	install -D curl-7.21.7/src/.libs/curl $(INSTALLDIR)/curl-7.21.7/usr/sbin/curl
+-	$(STRIP) $(INSTALLDIR)/curl-7.21.7/usr/sbin/curl
++	install -D curl/src/.libs/curl $(INSTALLDIR)/curl/usr/sbin/curl
++	$(STRIP) $(INSTALLDIR)/curl/usr/sbin/curl
+ #endif
  
- ncurses/Makefile:
--	cd ncurses && CFLAGS="$(EXTRACFLAGS) -Os -I$(STAGEDIR)/usr/include -ffunction-sections -fdata-sections -fPIC" \
--	$(CONFIGURE) --prefix=/usr --without-cxx --without-cxx-binding \
--	LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
--	--enable-echo --enable-const --enable-overwrite --disable-rpath --without-ada \
-+	cd ncurses && \
-+	PKG_CONFIG_PATH="/usr/lib/pkgconfig" \
-+	CFLAGS="$(CFLAGS) $(EXTRACFLAGS) -Os -I$(STAGEDIR)/usr/include" \
-+	CXXFLAGS="$(CXXFLAGS) $(EXTRACFLAGS) -Os -I$(STAGEDIR)/usr/include" \
-+	CPPFLAGS="$(CPPFLAGS) $(EXTRACFLAGS) -Os -I$(STAGEDIR)/usr/include" \
-+	LDFLAGS="$(LDFLAGS) -L$(STAGEDIR)/usr/lib" \
-+	$(CONFIGURE) \
-+	--prefix=/usr \
-+	--enable-echo --enable-const --disable-overwrite --disable-rpath --without-ada \
- 	$(if $(RTCONFIG_BCMARM),--enable-widec,) \
--	--without-debug --without-manpages --without-profile --without-progs --without-tests \
-+	--without-debug --without-manpages --without-profile --without-tests \
- 	--disable-home-terminfo --with-normal --with-shared --with-build-cppflags=-D_GNU_SOURCE \
--	--enable-pc-files \
--	--disable-termcap --disable-database --with-fallbacks="xterm,vt100,vt200,linux,ansi,xterm-256color"
--
--#	--with-default-terminfo-dir=/usr/share/terminfo --with-terminfo-dirs=/usr/share/terminfo
--
--ncurses: ncurses/Makefile
--	@$(SEP)
--	cd ncurses && $(MAKE) -C ncurses && $(MAKE) -C misc pc-files
-+	--enable-pc-files --with-pkg-config="/usr/lib/pkgconfig" \
-+	--enable-termcap --with-fallbacks="xterm,vt100,vt200,linux,ansi,xterm-256color" \
-+	--with-default-terminfo-dir=/usr/share/terminfo --with-terminfo-dirs=/usr/share/terminfo \
-+	--with-install-prefix="$(STAGEDIR)" --with-pkg-config-libdir="/usr/lib/pkgconfig"
-+
-+ncurses: ncurses-unpack ncurses/Makefile
-+	@$(SEP)
-+#	cd ncurses && $(MAKE) -C ncurses && $(MAKE) -C misc pc-files && $(MAKE) install DESTDIR="$(STAGEDIR)"
-+	cd ncurses && \
-+	$(MAKE) DESTDIR="$(STAGEDIR)" && \
-+	$(MAKE) install DESTDIR="$(STAGEDIR)"
+-curl-7.21.7-clean:
+-	[ ! -f curl-7.21.7/Makefile ] || $(MAKE) -C curl-7.21.7 clean
+-	@rm -f curl-7.21.7/Makefile
++curl-clean:
++	[ ! -f curl/Makefile ] || $(MAKE) -C curl clean
++	@rm -f curl/Makefile
  
- ncurses-clean:
- 	-@$(MAKE) -C ncurses distclean
-@@ -4449,7 +6762,7 @@
- nano/Makefile:
- 	cd nano && \
- 	autoreconf -i -f && $(CONFIGURE) --prefix=$(INSTALLDIR)/nano/usr \
--		CFLAGS="$(EXTRACFLAGS) -Os -I$(TOP)/ncurses/include -ffunction-sections -fdata-sections" \
-+		CFLAGS="$(EXTRACFLAGS) -Os -I$(TOP)/ncurses/include -I$(STAGEDIR)/usr/include -ffunction-sections -fdata-sections" \
- 		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
- 		PKG_CONFIG_LIBDIR="$(TOP)/ncurses/misc" PKG_CONFIG_PATH="$(TOP)/ncurses/misc" \
- 		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes,ac_cv_lib_ncursesw_get_wch=no) \
-@@ -4892,29 +7205,29 @@
+ #snmp
+ net-snmp-5.7.2/stamp-h1:
+@@ -6274,30 +8428,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -10989,7 +8170,7 @@
 -Transmission/Makefile:
 -	$(MAKE) Transmission-configure
 -
--Transmission: curl libevent-2.0.21 Transmission/Makefile
+-Transmission: curl-7.21.7 libevent-2.0.21 Transmission/Makefile
 -	@$(SEP)
 -	$(MAKE) -C $@
 -
@@ -10999,35 +8180,13 @@
 -	$(STRIP) $(INSTALLDIR)/$</usr/sbin/*
 -
 -Transmission-clean:
--	[ ! -f Transmission/Makefile ] || $(MAKE) -C distclean
+-	[ ! -f Transmission/Makefile ] || $(MAKE) -C Transmission KERNEL_DIR=$(LINUX_INC_DIR) distclean
 -	@rm -f Transmission/Makefile
-+#Transmission-configure:
-+#	( cd Transmission && ./autogen.sh && \
-+#		$(CONFIGURE) --prefix=/usr --bindir=/usr/sbin --libdir=/usr/lib \
-+#			CFLAGS="$(CFLAGS) -I$(STAGEDIR)/usr/include" \
-+#			LDFLAGS="$(LDFLAGS) -L$(STAGEDIR)/usr/lib" \
-+#			--disable-nls --disable-gtk \
-+#	)
-+#
-+#Transmission/Makefile:
-+#	$(MAKE) Transmission-configure
-+#
-+#Transmission: curl libevent-2.0.21 Transmission/Makefile
-+#	@$(SEP)
-+#	$(MAKE) -C $@
-+#
-+#Transmission-install: Transmission
-+#	install -D $</daemon/transmission-daemon $(INSTALLDIR)/$</usr/sbin/transmission-daemon
-+#	install -D $</daemon/transmission-remote $(INSTALLDIR)/$</usr/sbin/transmission-remote
-+#	$(STRIP) $(INSTALLDIR)/$</usr/sbin/*
-+#
-+#Transmission-clean:
-+#	[ ! -f Transmission/Makefile ] || $(MAKE) -C distclean
-+#	@rm -f Transmission/Makefile
- 
+-
  wget/Makefile.in: wget/Makefile.am
  	cd wget && autoreconf -fi
-@@ -4928,7 +7241,7 @@
+ 
+@@ -6310,7 +8440,7 @@
  		CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -I$(TOP)/openssl/include -I$(TOP)/zlib" \
  		LDFLAGS="$(EXTRALDFLAGS) -Wl,--gc-sections -L$(TOP)/openssl -lssl -lcrypto -L$(TOP)/zlib -lz"
  
@@ -11036,56 +8195,125 @@
  	$(MAKE) -C $@
  
  wget-clean:
-@@ -5270,26 +7583,26 @@
- 	cd aaews && make clean
+@@ -6919,46 +9049,55 @@
+ 		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2.0 &&\
+ 		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2
  
- #json-c-0.12
--json-c/stamp-h1:
--	cd $(TOP)/json-c && \
--	$(CONFIGURE) --enable-shared --disable-static \
--	ac_cv_func_realloc_0_nonnull=yes ac_cv_func_malloc_0_nonnull=yes \
--	CFLAGS="-Os -Wno-error $(EXTRACFLAGS)" \
--	LDFLAGS="$(EXTRALDFLAGS)"
--	touch $@
+-ncurses-6.0/Makefile: ncurses-6.0/configure
+-	cd ncurses-6.0 && $(CONFIGURE) \
+-		CFLAGS="$(EXTRACFLAGS) -Os -I$(STAGEDIR)/usr/include -ffunction-sections -fdata-sections -fPIC" \
+-		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
+-		$(if $(HND_ROUTER),CPPFLAGS="-P",) \
+-		--prefix=/usr --without-cxx --without-cxx-binding \
+-		--enable-echo --enable-const --enable-overwrite --disable-rpath --without-ada \
+-		$(if $(RTCONFIG_BCMARM),--enable-widec,) \
+-		--without-debug --without-manpages --without-profile --without-progs --without-tests \
+-		--disable-home-terminfo --with-normal --with-shared --with-build-cppflags=-D_GNU_SOURCE \
+-		--enable-pc-files \
+-		--disable-termcap --disable-database --with-fallbacks="xterm,vt100,vt200,linux,ansi,xterm-256color"
+-#		--with-default-terminfo-dir=/usr/share/terminfo --with-terminfo-dirs=/usr/share/terminfo
 -
--json-c: json-c/stamp-h1
--	$(MAKE) -C $@
--
--json-c-install:
--	install -D json-c/.libs/libjson-c.so.2.0.1 $(INSTALLDIR)/json-c/usr/lib/libjson-c.so.2.0.1
--	$(STRIP) $(INSTALLDIR)/json-c/usr/lib/libjson-c.so.2.0.1
--	cd $(INSTALLDIR)/json-c/usr/lib && ln -sf libjson-c.so.2.0.1 libjson-c.so
--	cd $(INSTALLDIR)/json-c/usr/lib && ln -sf libjson-c.so.2.0.1 libjson-c.so.2
--
--json-c-clean:
--	-@[ ! -f json-c/Makefile ] || $(MAKE) -C json-c clean
--	-@rm -f json-c/stamp-h1
-+#json-c/stamp-h1:
-+#	cd $(TOP)/json-c && \
-+#	$(CONFIGURE) --enable-shared --disable-static \
-+#	ac_cv_func_realloc_0_nonnull=yes ac_cv_func_malloc_0_nonnull=yes \
-+#	CFLAGS="-Os -Wno-error $(EXTRACFLAGS)" \
-+#	LDFLAGS="$(EXTRALDFLAGS)"
-+#	touch $@
-+#
-+#json-c: json-c/stamp-h1
-+#	$(MAKE) -C $@
-+#
-+#json-c-install:
-+#	install -D json-c/.libs/libjson-c.so.2.0.1 $(INSTALLDIR)/json-c/usr/lib/libjson-c.so.2.0.1
-+#	$(STRIP) $(INSTALLDIR)/json-c/usr/lib/libjson-c.so.2.0.1
-+#	cd $(INSTALLDIR)/json-c/usr/lib && ln -sf libjson-c.so.2.0.1 libjson-c.so
-+#	cd $(INSTALLDIR)/json-c/usr/lib && ln -sf libjson-c.so.2.0.1 libjson-c.so.2
-+#
-+#json-c-clean:
-+#	-@[ ! -f json-c/Makefile ] || $(MAKE) -C json-c clean
-+#	-@rm -f json-c/stamp-h1
+-ncurses-6.0: ncurses-6.0/Makefile
+-	@$(SEP)
+-	cd ncurses-6.0 && $(MAKE) -C ncurses && $(MAKE) -C misc pc-files
++ncurses-6.0/Makefile:
++	cd ncurses-6.0 && \
++	PKG_CONFIG_PATH="/usr/lib/pkgconfig" \
++	CFLAGS="$(CFLAGS) $(EXTRACFLAGS) -Os -I$(STAGEDIR)/usr/include" \
++	CXXFLAGS="$(CXXFLAGS) $(EXTRACFLAGS) -Os -I$(STAGEDIR)/usr/include" \
++	CPPFLAGS="$(CPPFLAGS) $(EXTRACFLAGS) -Os -I$(STAGEDIR)/usr/include" \
++	LDFLAGS="$(LDFLAGS) -L$(STAGEDIR)/usr/lib" \
++	$(CONFIGURE) \
++	--prefix=/usr \
++	--enable-echo --enable-const --disable-overwrite --disable-rpath --without-ada \
++	$(if $(RTCONFIG_BCMARM),--enable-widec,) \
++	--without-debug --without-manpages --without-profile --without-tests \
++	--disable-home-terminfo --with-normal --with-shared --with-build-cppflags=-D_GNU_SOURCE \
++	--enable-pc-files --with-pkg-config="/usr/lib/pkgconfig" \
++	--enable-termcap --with-fallbacks="xterm,vt100,vt200,linux,ansi,xterm-256color" \
++	--with-default-terminfo-dir=/usr/share/terminfo --with-terminfo-dirs=/usr/share/terminfo \
++	--with-install-prefix="$(STAGEDIR)" --with-pkg-config-libdir="/usr/lib/pkgconfig"
++
++ncurses-6.0: ncurses-6.0-unpack ncurses-6.0/Makefile
++	@$(SEP)
++#	cd ncurses-6.0 && $(MAKE) -C ncurses && $(MAKE) -C misc pc-files && $(MAKE) install DESTDIR="$(STAGEDIR)"
++	cd ncurses-6.0 && \
++	$(MAKE) DESTDIR="$(STAGEDIR)" && \
++	$(MAKE) install DESTDIR="$(STAGEDIR)"
  
- phddns/stamp-h1:
- 	cd phddns && $(CONFIGURE) --prefix="" \
+ ncurses-6.0-clean:
+-	[ ! -f ncurses-6.0/Makefile ] || $(MAKE) -C ncurses-6.0 distclean
++	-@$(MAKE) -C ncurses-6.0 distclean
++	@rm -f ncurses-6.0/Makefile
+ 
+-ncurses-6.0-install: ncurses-6.0
++ncurses-6.0-install:
+ ifeq ($(RTCONFIG_BCMARM),y)
+ 	install -D ncurses-6.0/lib/libncursesw.so.6.0 $(INSTALLDIR)/ncurses-6.0/usr/lib/libncursesw.so.6.0
+-	cd $(INSTALLDIR)/ncurses-6.0/usr/lib && \
+-		ln -sf libncursesw.so.6.0 libncursesw.so.6 &&\
+-		ln -sf libncursesw.so.6.0 libncursesw.so
+ else
+ 	install -D ncurses-6.0/lib/libncurses.so.6.0 $(INSTALLDIR)/ncurses-6.0/usr/lib/libncurses.so.6.0
+-	cd $(INSTALLDIR)/ncurses-6.0/usr/lib && \
+-		ln -sf libncurses.so.6.0 libncurses.so.6 &&\
+-		ln -sf libncurses.so.6.0 libncurses.so
+ endif
++
+ 	$(STRIP) $(INSTALLDIR)/ncurses-6.0/usr/lib/*.so.*
+ 
++ifeq ($(RTCONFIG_BCMARM),y)
++	cd $(INSTALLDIR)/ncurses-6.0/usr/lib && ln -sf libncursesw.so.6.0 libncursesw.so.6
++else
++	cd $(INSTALLDIR)/ncurses-6.0/usr/lib && ln -sf libncurses.so.6.0 libncurses.so.6
++endif
++
+ # Start merlin components
+ nano/Makefile:
+ 	cd nano && \
+ 	autoreconf -i -f && $(CONFIGURE) --prefix=$(INSTALLDIR)/nano/usr \
+-		CFLAGS="$(EXTRACFLAGS) -Os -I$(TOP)/ncurses-6.0/include -ffunction-sections -fdata-sections" \
++		CFLAGS="$(EXTRACFLAGS) -Os -I$(TOP)/ncurses-6.0/include -I$(STAGEDIR)/usr/include -ffunction-sections -fdata-sections" \
+ 		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+ 		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
+ 		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
+@@ -6977,12 +9116,19 @@
+ 	@$(SEP)
+ 	$(MAKE) -C $@
+ 
+-nettle/stamp-h1:
++nettle/stamp-h1: nettle-unpack
+ 	@cd nettle && \
+-	CPPFLAGS="-I$(TOP)/gmp" \
+-	CFLAGS="-O2 -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
+-	LDFLAGS="-L$(TOP)/gmp/.libs -ffunction-sections -fdata-sections -Wl,--gc-sections -fPIC" \
+-	$(CONFIGURE) prefix=$(TOP)/nettle --enable-mini-gmp --disable-documentation --disable-shared
++	PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
++	CFLAGS="$(CFLAGS) $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include -I$(STAGEDIR)/usr/include/nettle -I$(TOP)/gmp" \
++	CXXFLAGS="$(CXXFLAGS) $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include -I$(STAGEDIR)/usr/include/nettle -I$(TOP)/gmp" \
++	CPPFLAGS="$(CPPFLAGS) $(EXTRACFLAGS) -I$(STAGEDIR)/usr/include -I$(STAGEDIR)/usr/include/nettle -I$(TOP)/gmp" \
++	LDFLAGS="$(LDFLAGS) -L$(STAGEDIR)/usr/lib -L$(TOP)/gmp/.libs" \
++	$(CONFIGURE) \
++	--prefix="$(STAGEDIR)/usr" \
++	--disable-shared \
++	--enable-static \
++	--enable-mini-gmp \
++	--disable-documentation
+ 	@touch nettle/stamp-h1
+ 
+ nettle: nettle/stamp-h1
+@@ -7301,7 +9447,7 @@
+ 
+ #aaews: wb
+ 
+-#wb: shared nvram curl-7.21.7 openssl libxml2 asusnatnl
++#wb: shared nvram curl openssl libxml2 asusnatnl
+ aaews: wb
+ 	cd aaews && \
+ 	CC=$(CC) CXX=$(CXX) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
 --- a/release/src/router/rc/Makefile
 +++ b/release/src/router/rc/Makefile
-@@ -708,10 +708,12 @@
+@@ -1057,10 +1057,12 @@
  ate-broadcom.o:
  	@-cp -f ./prebuild/ate-broadcom.o .
  endif
@@ -11095,50 +8323,12 @@
  	@-cp -f ./prebuild/ate.o .
  endif
 +endif
- ifeq ($(BUILD_NAME), RT-AC68U)
+ ifeq ($(BUILD_NAME),$(filter $(BUILD_NAME),RT-AC68U RT-AC3200))
  ifneq ($(wildcard ./prebuild/cfe.o),)
  cfe.o:
-@@ -754,12 +756,12 @@
- endif
- endif
- 
--ifeq ($(and $(CONFIG_BCMWL5),$(RTCONFIG_DUALWAN)),y)
--ifneq ($(wildcard ./prebuild/dualwan.o),)
--dualwan.o:
--	@-cp -f ./prebuild/dualwan.o .
--endif
--endif
-+#ifeq ($(and $(CONFIG_BCMWL5),$(RTCONFIG_DUALWAN)),y)
-+#ifneq ($(wildcard ./prebuild/dualwan.o),)
-+#dualwan.o:
-+#	@-cp -f ./prebuild/dualwan.o .
-+#endif
-+#endif
- 
- %.o: %.c
- 	@echo " [rc] CC $@"
---- a/release/src/router/rc/openvpn.c
-+++ b/release/src/router/rc/openvpn.c
-@@ -1496,11 +1496,11 @@
- 		fprintf(fp, "#!/bin/sh\n");
- 		sprintf(&buffer[0], "vpn_server%d_proto", serverNum);
- 		strncpy(&buffer[0], nvram_safe_get(&buffer[0]), BUF_SIZE);
--		fprintf(fp, "iptables -t nat -I PREROUTING -p %s ", strtok(&buffer[0], "-"));
--		sprintf(&buffer[0], "vpn_server%d_port", serverNum);
--		fprintf(fp, "--dport %d -j ACCEPT\n", nvram_get_int(&buffer[0]));
--		sprintf(&buffer[0], "vpn_server%d_proto", serverNum);
--		strncpy(&buffer[0], nvram_safe_get(&buffer[0]), BUF_SIZE);
-+//		fprintf(fp, "iptables -t nat -I PREROUTING -p %s ", strtok(&buffer[0], "-"));
-+//		sprintf(&buffer[0], "vpn_server%d_port", serverNum);
-+//		fprintf(fp, "--dport %d -j ACCEPT\n", nvram_get_int(&buffer[0]));
-+//		sprintf(&buffer[0], "vpn_server%d_proto", serverNum);
-+//		strncpy(&buffer[0], nvram_safe_get(&buffer[0]), BUF_SIZE);
- 		fprintf(fp, "iptables -I INPUT -p %s ", strtok(&buffer[0], "-"));
- 		sprintf(&buffer[0], "vpn_server%d_port", serverNum);
- 		fprintf(fp, "--dport %d -j ACCEPT\n", nvram_get_int(&buffer[0]));
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -9901,12 +9901,11 @@
+@@ -13619,12 +13619,11 @@
  	remove("/tmp/torlog");
  
  #if (defined(RTCONFIG_JFFS2)||defined(RTCONFIG_BRCM_NAND_JFFS2))
@@ -11156,7 +8346,7 @@
  #endif
  }
  
-@@ -9930,22 +9929,6 @@
+@@ -13648,22 +13647,6 @@
  	if ((fp = fopen("/tmp/torrc", "w")) == NULL)
  		return;
  
@@ -11179,7 +8369,7 @@
  	if ((Socksport = nvram_get("Tor_socksport")) == NULL)	Socksport = "9050";
  	if ((Transport = nvram_get("Tor_transport")) == NULL)   Transport = "9040";
  	if ((Dnsport = nvram_get("Tor_dnsport")) == NULL)   	Dnsport = "9053";
-@@ -9966,6 +9949,18 @@
+@@ -13684,6 +13667,18 @@
  	use_custom_config("torrc", "/tmp/torrc");
  	run_postconf("torrc", "/tmp/torrc");
  
@@ -11200,9 +8390,9 @@
  #endif
 --- a/release/src/router/rc/wan.c
 +++ b/release/src/router/rc/wan.c
-@@ -3346,8 +3346,16 @@
- #endif
+@@ -3411,8 +3411,16 @@
  
+ #ifndef RT4GAC68U
  #if LINUX_KERNEL_VERSION >= KERNEL_VERSION(2,6,36)
 -	f_write_string("/proc/sys/net/bridge/bridge-nf-call-iptables", "0", 0, 0);
 -	f_write_string("/proc/sys/net/bridge/bridge-nf-call-ip6tables", "0", 0, 0);
@@ -11217,195 +8407,8 @@
 +		f_write_string("/proc/sys/net/bridge/bridge-nf-call-ip6tables", "0", 0, 0);
 +	#endif
  #endif
- 
- 	/* Report stats */
---- a/release/src/router/shared/misc.c
-+++ b/release/src/router/shared/misc.c
-@@ -2001,7 +2001,7 @@
- }
  #endif
  
--#ifdef RTCONFIG_BWDPI
-+//#ifdef RTCONFIG_BWDPI
- /*
- 	usage in rc or bwdpi for checking service
- */
-@@ -2034,7 +2034,7 @@
- 
- 	return enabled;
- }
--#endif
-+//#endif
- 
- /*
- 	transfer timestamp into date
---- a/release/src/router/shared/notify_rc.c
-+++ b/release/src/router/shared/notify_rc.c
-@@ -0,0 +1,164 @@
-+/*
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License as
-+ * published by the Free Software Foundation; either version 2 of
-+ * the License, or (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU General Public License
-+ * along with this program; if not, write to the Free Software
-+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
-+ * MA 02111-1307 USA
-+ */
-+/*
-+ * This is the implementation of a routine to notify the rc driver that it
-+ * should take some action.
-+ *
-+ * Copyright 2004, ASUSTeK Inc.
-+ * All Rights Reserved.
-+ *
-+ * This is UNPUBLISHED PROPRIETARY SOURCE CODE of ASUSTeK Inc.;
-+ * the contents of this file may not be disclosed to third parties, copied
-+ * or duplicated in any form, in whole or in part, without the prior
-+ * written permission of ASUSTeK Inc..
-+ */
-+
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <errno.h>
-+#include <string.h>
-+#include <sys/types.h>
-+#include <signal.h>
-+#include <unistd.h>
-+#include <typedefs.h>
-+#include <bcmnvram.h>
-+#include "shutils.h"
-+#include "shared.h"
-+#include "notify_rc.h"
-+
-+static int notify_rc_internal(const char *event_name, bool do_wait, int wait);
-+
-+int notify_rc(const char *event_name)
-+{
-+	return notify_rc_internal(event_name, FALSE, 15);
-+}
-+
-+int notify_rc_after_wait(const char *event_name)
-+{
-+	return notify_rc_internal(event_name, FALSE, 30);
-+}
-+
-+int notify_rc_after_period_wait(const char *event_name, int wait)
-+{
-+	return notify_rc_internal(event_name, FALSE, wait);
-+}
-+
-+int notify_rc_and_wait(const char *event_name)
-+{
-+	return notify_rc_internal(event_name, TRUE, 10);
-+}
-+
-+int notify_rc_and_wait_1min(const char *event_name)
-+{
-+	return notify_rc_internal(event_name, TRUE, 60);
-+}
-+
-+int notify_rc_and_wait_2min(const char *event_name)
-+{
-+	return notify_rc_internal(event_name, TRUE, 120);
-+}
-+
-+int notify_rc_and_period_wait(const char *event_name, int wait)
-+{
-+	return notify_rc_internal(event_name, TRUE, wait);
-+}
-+
-+/*
-+ * int wait_rc_service(int wait)
-+ * wait: seconds to wait and check
-+ *
-+ * @return:
-+ * 0: no  right
-+ * 1: get right
-+ */
-+int wait_rc_service(int wait)
-+{
-+	int i=wait;
-+	int first_try = 1;
-+	char p1[16];
-+
-+	psname(nvram_get_int("rc_service_pid"), p1, sizeof(p1));
-+
-+	while (*nvram_safe_get("rc_service")) {
-+		if(--i < 0) {
-+			/* now the dead go peace */
-+			if(!*p1)
-+				nvram_set("rc_service", "");
-+			return 0;
-+		}
-+
-+		if(first_try){
-+			logmessage_normal("rc_service", "waitting \"%s\" via %s ...", nvram_safe_get("rc_service"), p1);
-+			first_try = 0;
-+		}
-+
-+		_dprintf("%d: wait for previous script(%d/%d): %s %d %s.\n", getpid(), i, wait, nvram_safe_get("rc_service"), nvram_get_int("rc_service_pid"), p1);
-+		sleep(1);
-+	}
-+
-+	return 1;
-+}
-+
-+
-+/* @return:
-+ * 	0:	success
-+ *     -1:	invalid parameter
-+ *      1:	wait pending rc_service timeout
-+ */
-+static int notify_rc_internal(const char *event_name, bool do_wait, int wait)
-+{
-+	int i;
-+	char p2[16];
-+
-+	if (!event_name || wait < 0)
-+		return -1;
-+
-+	psname(getpid(), p2, sizeof(p2));
-+	_dprintf("<rc_service> [i:%s] %d:notify_rc %s", p2, getpid(), event_name);
-+	logmessage_normal("rc_service", "%s %d:notify_rc %s", p2, getpid(), event_name);
-+
-+	// finish the last rc_service as soon as possibly.
-+	if(strstr(event_name, "reboot")){
-+		_dprintf("%s: kill the shell scripts for reboot.\n", event_name);
-+		eval("killall", "sh");
-+	}
-+
-+	if (!wait_rc_service(wait)) {
-+		logmessage_normal("rc_service", "skip the event: %s.", event_name);
-+		_dprintf("rc_service: skip the event: %s.\n", event_name);
-+		return 1;
-+	}
-+
-+	nvram_set("rc_service", event_name);
-+	nvram_set_int("rc_service_pid", getpid());
-+	kill(1, SIGUSR1);
-+
-+	if(do_wait)
-+	{
-+		i = wait;
-+		while((nvram_match("rc_service", (char *)event_name))&&(i-- > 0)) {
-+			_dprintf("%s %d: waiting after %d/%d.\n", event_name, getpid(), i, wait);
-+			sleep(1);
-+		}
-+		if(i == 0 && nvram_match("rc_service", (char *)event_name))
-+			return 2;
-+	}
-+
-+	return 0;
-+}
-+
-+
 --- a/release/src/router/busybox/config_base
 +++ b/release/src/router/busybox/config_base
 @@ -110,7 +110,7 @@
@@ -11528,7 +8531,7 @@
  # CONFIG_SLATTACH is not set
 --- a/release/src/router/busybox/include/libbb.h
 +++ b/release/src/router/busybox/include/libbb.h
-@@ -1566,6 +1566,7 @@
+@@ -1567,6 +1567,7 @@
   */
  int read_line_input(line_input_t *st, const char *prompt, char *command, int maxsize, int timeout) FAST_FUNC;
  void show_history(const line_input_t *st) FAST_FUNC;

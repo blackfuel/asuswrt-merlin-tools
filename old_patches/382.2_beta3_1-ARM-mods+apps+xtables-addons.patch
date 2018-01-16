@@ -19853,33 +19853,59 @@
  		echo "CONFIG_NET_SCH_HTB=y" >>$(1); \
 --- a/release/src-rt/target.mak
 +++ b/release/src-rt/target.mak
-@@ -2,17 +2,17 @@
+@@ -2,33 +2,33 @@
  # Broadcom SDK 6.37 ARM platform
  #
+ export RT-AC56U := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y ROMCCODE=y \
+-		SAMBA3=3.6.x MEDIASRV=y MODEM=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
+-		WEBDAV=y USB="USB" GRO=y APP="network" BUILD_NAME="RT-AC56U" PROXYSTA=y HD_SPINDOWN=y \
+-		SMARTSYNCBASE=y SYSSTATE=y SW_HW_AUTH=y LINUX_MTD="64" BCM4352_5G=y LANWAN_LED=y \
++		SAMBA3=3.6.x MEDIASRV=n MODEM=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
++		WEBDAV=n USB="USB" GRO=y APP="network" BUILD_NAME="RT-AC56U" PROXYSTA=y HD_SPINDOWN=y \
++		SMARTSYNCBASE=n SYSSTATE=y SW_HW_AUTH=y LINUX_MTD="64" BCM4352_5G=y LANWAN_LED=y \
+ 		DNSMQ=y SHP=y NVRAM_64K=y RTAC56U=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y \
+-		BTN_WIFITOG=y OPTIMIZE_XBOX=y ODMPID=y ROG=y EMAIL=y XHCIMODE=y LED_ALL=y \
++		BTN_WIFITOG=y OPTIMIZE_XBOX=y ODMPID=y ROG=y EMAIL=n XHCIMODE=y LED_ALL=y \
+ 		BCMSMP=y XHCI=y SSH=y NFS=y OPENVPN=y NEW_USER_LOW_RSSI=y \
+-		TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=y \
+-		DUMP_OOPS_MSG=y TEMPROOTFS=y DEBUGFS=y SNMPD=y TOR=y \
++		TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n \
++		DUMP_OOPS_MSG=y TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
+ 		MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
+-		BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y REBOOT_SCHEDULE=y DPSTA=y \
+-		LETSENCRYPT=y \
+-		TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=y UPNPIGD2=n \
++		BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n REBOOT_SCHEDULE=y DPSTA=y \
++		LETSENCRYPT=n \
++		TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=n UPNPIGD2=n \
+ 		DNSSEC=y NANO=y
+ 
  export RT-AC68U_BASE := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y \
--			SAMBA3=3.6.x MEDIASRV=y MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
+-			SAMBA3=3.6.x MEDIASRV=y MODEM=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y STAINFO=y \
 -			WEBDAV=y USB="USB" GRO=y APP="network" PROXYSTA=y NOTIFICATION_CENTER=y HD_SPINDOWN=y \
 -			SMARTSYNCBASE=y SYSSTATE=y NATNL_AICLOUD=y NATNL_AIHOME=y SW_HW_AUTH=y \
-+			SAMBA3=3.6.x MEDIASRV=n MODEM=y MODEMPIN=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
++			SAMBA3=3.6.x MEDIASRV=n MODEM=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y STAINFO=y \
 +			WEBDAV=n USB="USB" GRO=y APP="network" PROXYSTA=y NOTIFICATION_CENTER=n HD_SPINDOWN=y \
 +			SMARTSYNCBASE=n SYSSTATE=y NATNL_AICLOUD=n NATNL_AIHOME=n SW_HW_AUTH=y \
  			DNSMQ=y SHP=y NVRAM_64K=y RTAC68U=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y \
 -			BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=y \
 +			BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=n \
- 			BCMSMP=y XHCI=y SSH=y JFFS2=y NFS=y OPENVPN=y NEW_USER_LOW_RSSI=y \
+ 			BCMSMP=y XHCI=y SSH=y NFS=y OPENVPN=y NEW_USER_LOW_RSSI=y \
 -			TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=y HSPOT=y \
 -			DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=y TOR=y \
 +			TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n HSPOT=n \
 +			DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
  			MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
 -			BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y REBOOT_SCHEDULE=y DPSTA=y \
+-			LETSENCRYPT=y \
 -			TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=y UPNPIGD2=n \
 +			BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n REBOOT_SCHEDULE=y DPSTA=y \
++			LETSENCRYPT=n \
 +			TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=n UPNPIGD2=n \
  			DNSSEC=y NANO=y
  
  export RT-AC68U := $(RT-AC68U_BASE) FAKEHDR=y FORCE_SN=380 FORCE_EN=1031
-@@ -26,35 +26,35 @@
+@@ -42,35 +42,35 @@
  export RT-AC86U := $(HND-94908_BASE)
  export RT-AC86U += BUILD_NAME="RT-AC86U" NVSIZE="128" DHDAP=y DPSTA=y LACP=n WTFAST=y REPEATER=y \
  				DISABLE_REPEATER_UI=n IPV6SUPP=y HTTPS=y ARM=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y \
@@ -19944,7 +19970,7 @@
  # RTCONFIG_FBT is not set
 --- a/release/src/router/Makefile
 +++ b/release/src/router/Makefile
-@@ -715,11 +715,143 @@
+@@ -715,11 +715,145 @@
  obj-y += iproute2-3.15.0
  endif
  
@@ -19952,15 +19978,15 @@
 +#
 +# Blackfuel addons
 +#
-+ASUSWRT_DIR="`readlink -f $(TOP)`/../../.."
-+BLACKFUEL_ADDON="blackfuel-addon"
-+BLACKFUEL_DIR="$(ASUSWRT_DIR)/$(BLACKFUEL_ADDON)"
++ASUSWRT_DIR := "`readlink -f $(TOP)`/../../.."
++BLACKFUEL_ADDON := "blackfuel-addon"
++BLACKFUEL_DIR := "$(ASUSWRT_DIR)/$(BLACKFUEL_ADDON)"
 +
 +obj-y += mbedtls curl
 +
-+RTCONFIG_APCUPSD=y
++RTCONFIG_APCUPSD := y
 +ifeq ($(RTCONFIG_APCUPSD),y)
-+RTCONFIG_APCUPSD_CGI=y
++RTCONFIG_APCUPSD_CGI := y
 +obj-y += apcupsd
 +obj-y += libgd
 +obj-y += freetype
@@ -19971,12 +19997,12 @@
 +obj-y += zlib
 +endif
 +
-+RTCONFIG_POWSTATD=y
++RTCONFIG_POWSTATD := y
 +ifeq ($(RTCONFIG_POWSTATD),y)
 +obj-y += powstatd
 +endif
 +
-+RTCONFIG_TRANSMISSION=openssl
++RTCONFIG_TRANSMISSION := openssl
 +ifeq ($(RTCONFIG_TRANSMISSION),openssl)
 +obj-y += transmission-openssl
 +else
@@ -19986,7 +20012,7 @@
 +endif
 +endif
 +
-+RTCONFIG_CRYPTSETUP=gcrypt
++RTCONFIG_CRYPTSETUP := gcrypt
 +ifeq ($(RTCONFIG_CRYPTSETUP),gcrypt)
 +obj-y += cryptsetup-gcrypt
 +obj-y += libgcrypt
@@ -20017,18 +20043,18 @@
 +endif
 +endif
 +
-+RTCONFIG_RTLENTROPY=y
++RTCONFIG_RTLENTROPY := y
 +ifeq ($(RTCONFIG_RTLENTROPY),y)
 +obj-y += rtl-entropy
 +
-+LIBS_DL=`$(if $(RTCONFIG_BCMARM),arm-brcm-linux-uclibcgnueabi-gcc -print-file-name=,mipsel-linux-uclibc-cpp -print-file-name=)libdl.a`
-+LIBS_PTHREAD=`$(if $(RTCONFIG_BCMARM),arm-brcm-linux-uclibcgnueabi-gcc -print-file-name=,mipsel-linux-uclibc-cpp -print-file-name=)libpthread.a`
-+LIBS_M=`$(if $(RTCONFIG_BCMARM),arm-brcm-linux-uclibcgnueabi-gcc -print-file-name=,mipsel-linux-uclibc-cpp -print-file-name=)libm.a`
-+LIBS_RT=`$(if $(RTCONFIG_BCMARM),arm-brcm-linux-uclibcgnueabi-gcc -print-file-name=,mipsel-linux-uclibc-cpp -print-file-name=)librt.a`
-+LIBS_C=`$(if $(RTCONFIG_BCMARM),arm-brcm-linux-uclibcgnueabi-gcc -print-file-name=,mipsel-linux-uclibc-cpp -print-file-name=)libc.a`
++LIBS_DL := `$(CC) -print-file-name=libdl.a`
++LIBS_PTHREAD := `$(CC) -print-file-name=libpthread.a`
++LIBS_M := `$(CC) -print-file-name=libm.a`
++LIBS_RT := `$(CC) -print-file-name=librt.a`
++LIBS_C := `$(CC) -print-file-name=libc.a`
 +endif
 +
-+RTCONFIG_NTP=y
++RTCONFIG_NTP := y
 +ifeq ($(RTCONFIG_NTP),y)
 +obj-y += ntp
 +obj-y += libcap
@@ -20037,44 +20063,46 @@
 +obj-y += setserial
 +endif
 +
-+RTCONFIG_FINDUTILS=y
++RTCONFIG_FINDUTILS := y
 +ifeq ($(RTCONFIG_FINDUTILS),y)
 +obj-y += findutils
 +endif
 +
-+RTCONFIG_WHOIS=y
++RTCONFIG_WHOIS := y
 +ifeq ($(RTCONFIG_WHOIS),y)
 +obj-y += whois
 +endif
 +
-+RTCONFIG_WIPE=y
++RTCONFIG_WIPE := y
 +ifeq ($(RTCONFIG_WIPE),y)
 +obj-y += wipe
 +endif
 +
-+RTCONFIG_DNSCRYPT=y
++RTCONFIG_DNSCRYPT := y
 +ifeq ($(RTCONFIG_DNSCRYPT),y)
 +obj-y += dnscrypt
 +obj-y += libsodium
 +endif
 +
-+RTCONFIG_HAVEGED=y
++RTCONFIG_HAVEGED := y
 +ifeq ($(RTCONFIG_HAVEGED),y)
 +obj-y += haveged
 +endif
 +
-+RTCONFIG_DIEHARDER=y
++RTCONFIG_DIEHARDER := y
 +ifeq ($(RTCONFIG_DIEHARDER),y)
 +obj-y += dieharder
 +obj-y += gsl
 +endif
 +
-+RTCONFIG_RNGTOOLS=y
++RTCONFIG_RNGTOOLS := y
 +ifeq ($(RTCONFIG_RNGTOOLS),y)
 +obj-y += rng-tools
 +obj-y += libgcrypt
 +obj-y += libgpg-error
++ifneq ($(HND_ROUTER),y)
 +obj-y += argp-standalone
++endif
 +endif
 +
 +
@@ -20089,7 +20117,7 @@
  
  obj-$(RTCONFIG_BWDPI) += sqlite
  obj-$(RTCONFIG_BWDPI) += bwdpi_source
-@@ -1050,7 +1182,7 @@
+@@ -1050,7 +1184,7 @@
  #add by gauss for cloudsync
  obj-$(RTCONFIG_CLOUDSYNC) += openssl
  obj-$(RTCONFIG_CLOUDSYNC) += libxml2
@@ -20098,7 +20126,7 @@
  obj-$(RTCONFIG_CLOUDSYNC) += smartsync_api
  obj-$(RTCONFIG_CLOUDSYNC) += asuswebstorage
  obj-$(RTCONFIG_CLOUDSYNC) += inotify
-@@ -1068,7 +1200,7 @@
+@@ -1068,7 +1202,7 @@
  
  #aaews,asusnatnl related
  obj-$(RTCONFIG_TUNNEL) += libxml2
@@ -20107,7 +20135,7 @@
  obj-$(RTCONFIG_TUNNEL) += wb
  obj-$(RTCONFIG_TUNNEL) += aaews
  obj-$(RTCONFIG_TUNNEL) += mastiff
-@@ -1111,7 +1243,7 @@
+@@ -1111,7 +1245,7 @@
  obj-$(RTCONFIG_FREERADIUS) += sqlite pcre-8.31
  obj-$(RTCONFIG_FREERADIUS) += talloc-2.1.1
  obj-$(RTCONFIG_FREERADIUS) += freeradius-server-3.0.0
@@ -20116,7 +20144,7 @@
  obj-$(RTCONFIG_CAPTIVE_PORTAL) += samba-3.5.8
  
  obj-$(RTCONFIG_FBWIFI) += fb_wifi
-@@ -1257,8 +1389,6 @@
+@@ -1257,8 +1391,6 @@
  
  obj-$(RTCONFIG_GEOIP) += GeoIP-1.6.2
  
@@ -20125,7 +20153,7 @@
  # Begin merlin add-ons
  obj-$(RTCONFIG_NANO) += ncurses-6.0
  obj-$(RTCONFIG_NANO) += nano
-@@ -1286,6 +1416,9 @@
+@@ -1286,6 +1418,9 @@
  obj-y += openssl
  obj-y += zlib
  obj-y += libevent-2.0.21
@@ -20135,7 +20163,7 @@
  obj-y += tor
  endif
  
-@@ -1843,6 +1976,7 @@
+@@ -1843,6 +1978,7 @@
  	@echo ---
  else
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}.sh
@@ -20143,7 +20171,7 @@
  	@echo ---
  endif
  
-@@ -1904,7 +2038,7 @@
+@@ -1904,7 +2040,7 @@
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/scsi/sr_mod.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/scanner.*o $(PLATFORMDIR)/extras/ || true
  
@@ -20152,7 +20180,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1919,9 +2053,9 @@
+@@ -1919,9 +2055,9 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
@@ -20164,7 +20192,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/audio.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ov51*.*o $(PLATFORMDIR)/extras/ || true
-@@ -1934,16 +2068,14 @@
+@@ -1934,16 +2070,14 @@
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/drivers/sound || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/sound/* $(PLATFORMDIR)/extras/ || true
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/sound || true
@@ -20185,10 +20213,21 @@
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp1251.*o $(PLATFORMDIR)/extras/ || true
-@@ -2201,6 +2333,58 @@
+@@ -2185,7 +2319,7 @@
+ # cleaners
+ #
+ 
+-clean: clean-build $(obj-clean)
++clean: clean-blackfuel clean-build $(obj-clean)
+ 	rm -rf layer7/squished
+ 	make -C config clean
+ 
+@@ -2202,6 +2336,61 @@
  	rm -rf kernel_header
  endif
  
++clean-blackfuel:
++	@$(SEP)
 +	# Blackfuel packages and updates
 +	if [ ! -d "$(BLACKFUEL_DIR)" ]; then \
 +		ln -sf ../$(BLACKFUEL_ADDON) "$(BLACKFUEL_DIR)"; \
@@ -20215,7 +20254,7 @@
 +		rm -rf "$(TOP)/util-linux"; \
 +		rm -rf "$(TOP)/lvm2"; \
 +		rm -rf "$(TOP)/libgcrypt"; \
-+		rm -rf "$(TOP)/cryptsetup-gcrypt $(TOP)/cryptsetup-openssl $(TOP)/cryptsetup-nettle $(TOP)/cryptsetup-kernel"; \
++		rm -rf "$(TOP)/cryptsetup-gcrypt" "$(TOP)/cryptsetup-openssl" "$(TOP)/cryptsetup-nettle" "$(TOP)/cryptsetup-kernel"; \
 +		rm -rf "$(TOP)/pps-tools"; \
 +		rm -rf "$(TOP)/setserial"; \
 +		rm -rf "$(TOP)/ntp"; \
@@ -20224,7 +20263,7 @@
 +		rm -rf "$(TOP)/rtl-sdr"; \
 +		rm -rf "$(TOP)/rtl-entropy"; \
 +		rm -rf "$(TOP)/ncurses-6.0"; \
-+		rm -rf "$(TOP)/transmission-openssl $(TOP)/transmission-mbedtls"; \
++		rm -rf "$(TOP)/transmission-openssl" "$(TOP)/transmission-mbedtls"; \
 +		rm -rf "$(TOP)/mbedtls"; \
 +		rm -rf "$(TOP)/wget"; \
 +		rm -rf "$(TOP)/apcupsd"; \
@@ -20238,13 +20277,27 @@
 +		rm -rf "$(TOP)/zlib"; \
 +		rm -rf "$(TOP)/lzo"; \
 +		rm -rf "$(TOP)/liblz4"; \
++		rm -rf "$(TOP)/json-c"; \
 +		true; \
 +	fi
 +
  distclean: clean
  ifneq ($(INSIDE_MAK),1)
  	$(MAKE) -C $(SRCBASE) $@ INSIDE_MAK=1
-@@ -2449,11 +2633,17 @@
+@@ -2323,10 +2512,10 @@
+ 	chmod 4755 $(INSTALLDIR)/$(BUSYBOX)/bin/busybox
+ 
+ busybox-clean:
+-	$(MAKE) -C $(BUSYBOX_DIR) distclean
++	-@$(MAKE) -C $(BUSYBOX_DIR) distclean
+ 
+ busybox-%-clean:
+-	$(MAKE) -C $(BUSYBOX_DIR) distclean
++	-@$(MAKE) -C $(BUSYBOX_DIR) distclean
+ 
+ busybox-config:
+ 	$(MAKE) -C $(BUSYBOX_DIR) menuconfig
+@@ -2450,11 +2639,17 @@
  	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
@@ -20262,7 +20315,7 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -2577,7 +2767,7 @@
+@@ -2578,7 +2773,7 @@
  mssl-install:
  	$(MAKE) -C mssl INSTALLDIR=$(INSTALLDIR)/mssl install
  
@@ -20271,7 +20324,7 @@
  
  wb-install:
  	$(MAKE) -C wb INSTALLDIR=$(INSTALLDIR)/wb install
-@@ -2758,11 +2948,11 @@
+@@ -2759,11 +2954,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -20286,7 +20339,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
-@@ -2934,14 +3124,14 @@
+@@ -2935,14 +3130,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -20304,7 +20357,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -3099,7 +3289,8 @@
+@@ -3100,7 +3295,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -20314,7 +20367,7 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -3250,7 +3441,7 @@
+@@ -3251,7 +3447,7 @@
  	( cd lsof ; ./Configure -clean )
  	@rm -f lsof/Makefile
  
@@ -20323,7 +20376,7 @@
  ifeq ($(ALPINE)$(LANTIQ),y)
  	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
  		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
-@@ -3269,45 +3460,6 @@
+@@ -3270,45 +3466,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -20369,7 +20422,7 @@
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -3334,20 +3486,23 @@
+@@ -3335,20 +3492,23 @@
  6relayd-clean:
  	-@$(MAKE) -C 6relayd clean
  
@@ -20391,14 +20444,15 @@
 +	LDFLAGS="$(LDFLAGS) -L$(STAGEDIR)/usr/lib" \
 +	LIBS="-luuid -L$(STAGEDIR)/usr/lib" \
  	$(CONFIGURE) --prefix=/usr --sysconfdir=/etc --enable-elf-shlibs \
- 		--disable-rpath --disable-nls --disable-tls \
+-		--disable-rpath --disable-nls --disable-tls \
++		--disable-rpath --disable-nls $(if $(HND_ROUTER),,--disable-tls) \
  		--disable-jbd-debug --disable-blkid-debug --disable-testio-debug \
 -		--enable-libuuid --enable-libblkid \
 +		--disable-libuuid --disable-libblkid \
  		--disable-backtrace --disable-debugfs \
  		--disable-imager --disable-resizer --disable-defrag \
  		--disable-e2initrd-helper --disable-uuidd \
-@@ -3355,21 +3510,13 @@
+@@ -3356,21 +3516,13 @@
  		ac_cv_lib_dl_dlopen=no \
  		ac_cv_have_decl_fgets_unlocked=yes
  
@@ -20420,7 +20474,7 @@
  		ln -sf libcom_err.so.2.1 libcom_err.so.2 && ln -sf libcom_err.so.2.1 libcom_err.so && \
  		ln -sf libe2p.so.2.3 libe2p.so.2 && ln -sf libe2p.so.2.3 libe2p.so && \
  		ln -sf libext2fs.so.2.4 libext2fs.so.2 && ln -sf libext2fs.so.2.4 libext2fs.so
-@@ -4012,20 +4159,2062 @@
+@@ -4013,20 +4165,2148 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -20444,9 +20498,9 @@
 +xzutils-configure:
 +	@[ ! -d xzutils ] || [ -f "$(STAGEDIR)/usr/lib/liblzma.so" ] || ( cd xzutils ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
@@ -20486,9 +20540,9 @@
 +		DESTDIR="" \
 +		LIBDIR="$(STAGEDIR)/usr/lib" \
 +		INCLUDEDIR="$(STAGEDIR)/usr/include" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
 +		$(MAKE) -C zstd $(PARALLEL_BUILD) install
 +
@@ -20515,9 +20569,9 @@
 +findutils-configure:
 +	@[ ! -d findutils ] || [ -f "$(STAGEDIR)/usr/bin/find" ] || ( cd findutils ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
@@ -20559,10 +20613,11 @@
 +libsodium-configure:
 +	@[ ! -d libsodium ] || [ -f "$(STAGEDIR)/usr/lib/libsodium.so" ] || ( cd libsodium ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
++		ac_cv_tls=none \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--disable-static \
@@ -20601,9 +20656,9 @@
 +dnscrypt-configure:
 +	@[ ! -d dnscrypt ] || [ -f "$(STAGEDIR)/usr/sbin/dnscrypt-proxy" ] || ( cd dnscrypt ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
@@ -20643,16 +20698,14 @@
 +
 +wipe-configure:
 +	@[ ! -d wipe ] || [ -f "$(STAGEDIR)/usr/bin/wipe" ] || ( cd wipe ; \
-+		CC="arm-brcm-linux-uclibcgnueabi-gcc" \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
 +		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
 +		CXXFLAGS="$(CXXFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -I$(STAGEDIR)/usr/include" \
 +		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
-+		$(CONFIGURE) \
-+		--host=arm-linux \
-+		--build=x86_64-linux \
++		./configure \
++		--host=`X=$${CC##*/};echo $${X%-*}` \
 +		--prefix=$(STAGEDIR)/usr \
 +		--mandir=$(STAGEDIR)/usr/share/man \
 +		--enable-static \
@@ -20661,7 +20714,7 @@
 +wipe-stage:
 +	@echo wipe
 +	@[ ! -d wipe ] || ( cd wipe ; \
-+		$(MAKE) $(PARALLEL_BUILD) ; \
++		$(MAKE); \
 +		install -d $(STAGEDIR)/usr/bin ; \
 +		install -D wipe $(STAGEDIR)/usr/bin/ ; \
 +		$(STRIP) $(STAGEDIR)/usr/bin/wipe ; \
@@ -20696,9 +20749,9 @@
 +haveged-configure:
 +	@[ ! -d haveged ] || [ -f "$(STAGEDIR)/usr/sbin/haveged" ] || ( cd haveged ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-static \
@@ -20740,9 +20793,9 @@
 +gsl-configure:
 +	@[ ! -d gsl ] || [ -f "$(STAGEDIR)/usr/lib/libgsl.so" ] || ( cd gsl ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-static \
@@ -20786,9 +20839,9 @@
 +dieharder-configure:
 +	@[ ! -d dieharder ] || [ -f "$(STAGEDIR)/usr/bin/dieharder" ] || ( cd dieharder ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		ac_cv_c_endian=little \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
@@ -20820,11 +20873,11 @@
 +whois-stage:
 +	@echo whois
 +	@[ ! -d whois ] || [ -f "$(STAGEDIR)/usr/bin/whois" ] || ( cd whois ; \
-+		CC="arm-brcm-linux-uclibcgnueabi-gcc" \
++		CC="$(CC)" \
 +		BASEDIR="$(STAGEDIR)/usr" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
 +		$(MAKE) $(PARALLEL_BUILD) ; \
 +		install -d $(STAGEDIR)/usr/bin/ ; \
@@ -20856,9 +20909,9 @@
 +argp-standalone-configure:
 +	@[ ! -d argp-standalone ] || [ -f "$(STAGEDIR)/usr/lib/libargp.a" ] || ( cd argp-standalone ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" )
 +
@@ -20894,9 +20947,9 @@
 +libgpg-error-configure:
 +	@[ ! -d libgpg-error ] || [ -f "$(STAGEDIR)/usr/lib/libgpg-error.so" ] || ( cd libgpg-error ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -20922,7 +20975,7 @@
 +
 +### libgcrypt
 +
-+libgcrypt: libgpg-error libgcrypt/Makefile
++libgcrypt: libcap libgpg-error libgcrypt/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +libgcrypt/Makefile: libgcrypt-unpack libgcrypt/configure
@@ -20934,16 +20987,19 @@
 +libgcrypt-configure:
 +	@[ ! -d libgcrypt ] || [ -f "$(STAGEDIR)/usr/lib/libgcrypt.so" ] || ( cd libgcrypt ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
 +		--enable-static \
++		--disable-silent-rules \
 +		--disable-amd64-as-feature-detection \
-+		--with-gpg-error-prefix="$(STAGEDIR)/usr" )
++		--with-gpg-error-prefix="$(STAGEDIR)/usr" \
++		--with-capabilities \
++		)
 +
 +libgcrypt-stage:
 +	@echo libgcrypt
@@ -20963,7 +21019,7 @@
 +
 +### rng-tools
 +
-+rng-tools: argp-standalone libgpg-error libgcrypt rng-tools/Makefile
++rng-tools: $(if $(HND_ROUTER),,argp-standalone) libgpg-error libgcrypt rng-tools/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +rng-tools/Makefile: rng-tools-unpack rng-tools/configure
@@ -20975,10 +21031,10 @@
 +rng-tools-configure:
 +	@[ ! -d rng-tools ] || [ -f "$(STAGEDIR)/usr/bin/rngtest" ] || ( cd rng-tools ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
-+		LIBS="-largp" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		LIBS="$(if $(HND_ROUTER),,-largp)" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--disable-silent-rules )
@@ -21014,9 +21070,9 @@
 +popt-configure:
 +	@[ ! -d popt ] || [ -f "$(STAGEDIR)/usr/lib/libpopt.so" ] || ( cd popt ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -21055,14 +21111,15 @@
 +	@[ ! -d util-linux ] || [ -f "$(STAGEDIR)/usr/lib/libuuid.so" ] || ( \
 +		cd util-linux ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fno-data-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -lm" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fno-data-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -lm" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fno-data-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 $(if $(HND_ROUTER),,-DHAVE_POSIX_FALLOCATE=1) -D_GNU_SOURCE -I$(STAGEDIR)/usr/include -lm" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 $(if $(HND_ROUTER),,-DHAVE_POSIX_FALLOCATE=1) -D_GNU_SOURCE -I$(STAGEDIR)/usr/include -lm" \
++		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lm $(if $(RTCONFIG_BCMARM),-lncursesw,-lncurses) -L$(STAGEDIR)/usr/lib" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
 +		--enable-static \
++		$(if $(HND_ROUTER),,--disable-tls) \
 +		--disable-rpath \
 +		--disable-silent-rules \
 +		--disable-bash-completion \
@@ -21126,11 +21183,11 @@
 +lvm2-configure:
 +	@[ ! -d lvm2 ] || [ -f "$(STAGEDIR)/usr/lib/libdevmapper.so" ] || ( cd lvm2 ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CXXFLAGS="$(CXXFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CXXFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
 +		BLKID_CFLAGS="$(BLKID_CFLAGS) -I$(STAGEDIR)/usr/include/blkid -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L../libdm/ioctl -L$(STAGEDIR)/usr/lib" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L../libdm/ioctl -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread -luuid -lm -L../libdm/ioctl -L$(STAGEDIR)/usr/lib" \
 +		BLKID_LIBS="-lblkid -L$(STAGEDIR)/usr/lib" \
 +		ac_cv_func_malloc_0_nonnull=yes ac_cv_func_realloc_0_nonnull=yes \
@@ -21176,7 +21233,7 @@
 +
 +### cryptsetup-gcrypt
 +
-+cryptsetup-gcrypt: popt util-linux lvm2 libgpg-error libgcrypt cryptsetup-gcrypt/Makefile
++cryptsetup-gcrypt: json-c popt util-linux lvm2 libgpg-error libgcrypt cryptsetup-gcrypt/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +cryptsetup-gcrypt/Makefile: cryptsetup-gcrypt-unpack cryptsetup-gcrypt/configure
@@ -21187,17 +21244,18 @@
 +
 +cryptsetup-gcrypt-configure:
 +	@[ ! -d cryptsetup-gcrypt ] || [ -f "$(STAGEDIR)/usr/lib/libcryptsetup.so" ] || ( cd cryptsetup-gcrypt ; \
-+		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/linux/if_alg.h"; \
++		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/files/linux/if_alg.h"; \
 +		STAGEDIR_INCLUDE_LINUX="$(STAGEDIR)/usr/include/linux"; \
 +		if [ -f "$$IF_ALG_H" ]; then \
 +		  mkdir -p "$$STAGEDIR_INCLUDE_LINUX"; \
 +		  cp -pn "$$IF_ALG_H" "$$STAGEDIR_INCLUDE_LINUX"; \
 +		fi; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
-+		LIBS="-lpthread -lgpg-error -luuid -lblkid -ldl -lgcrypt -L$(STAGEDIR)/usr/lib" \
++		LIBS="-lpthread -lgpg-error -luuid -lblkid -ldl -lcap -lgcrypt -L$(STAGEDIR)/usr/lib" \
++		$(if $(HND_ROUTER),,ac_cv_func_posix_fallocate=yes) \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -21234,7 +21292,7 @@
 +
 +### cryptsetup-openssl
 +
-+cryptsetup-openssl: popt util-linux lvm2 openssl cryptsetup-openssl/Makefile
++cryptsetup-openssl: json-c popt util-linux lvm2 openssl cryptsetup-openssl/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +cryptsetup-openssl/Makefile: cryptsetup-openssl-unpack cryptsetup-openssl/configure
@@ -21245,17 +21303,18 @@
 +
 +cryptsetup-openssl-configure:
 +	@[ ! -d cryptsetup-openssl ] || [ -f "$(STAGEDIR)/usr/lib/libcryptsetup.so" ] || ( cd cryptsetup-openssl ; \
-+		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/linux/if_alg.h"; \
++		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/files/linux/if_alg.h"; \
 +		STAGEDIR_INCLUDE_LINUX="$(STAGEDIR)/usr/include/linux"; \
 +		if [ -f "$$IF_ALG_H" ]; then \
 +		  mkdir -p "$$STAGEDIR_INCLUDE_LINUX"; \
 +		  cp -pn "$$IF_ALG_H" "$$STAGEDIR_INCLUDE_LINUX"; \
 +		fi; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread -lssl -lcrypto -lz -luuid -lblkid -ldl -L$(STAGEDIR)/usr/lib" \
++		$(if $(HND_ROUTER),,ac_cv_func_posix_fallocate=yes) \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -21291,7 +21350,7 @@
 +
 +### cryptsetup-nettle
 +
-+cryptsetup-nettle: popt util-linux lvm2 nettle cryptsetup-nettle/Makefile
++cryptsetup-nettle: json-c popt util-linux lvm2 nettle cryptsetup-nettle/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +cryptsetup-nettle/Makefile: cryptsetup-nettle-unpack cryptsetup-nettle/configure
@@ -21302,17 +21361,18 @@
 +
 +cryptsetup-nettle-configure:
 +	@[ ! -d cryptsetup-nettle ] || [ -f "$(STAGEDIR)/usr/lib/libcryptsetup.so" ] || ( cd cryptsetup-nettle ; \
-+		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/linux/if_alg.h"; \
++		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/files/linux/if_alg.h"; \
 +		STAGEDIR_INCLUDE_LINUX="$(STAGEDIR)/usr/include/linux"; \
 +		if [ -f "$$IF_ALG_H" ]; then \
 +		  mkdir -p "$$STAGEDIR_INCLUDE_LINUX"; \
 +		  cp -pn "$$IF_ALG_H" "$$STAGEDIR_INCLUDE_LINUX"; \
 +		fi; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread -luuid -lblkid -ldl -lnettle -L$(STAGEDIR)/usr/lib" \
++		$(if $(HND_ROUTER),,ac_cv_func_posix_fallocate=yes) \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -21348,7 +21408,7 @@
 +
 +### cryptsetup-kernel
 +
-+cryptsetup-kernel: popt util-linux lvm2 cryptsetup-kernel/Makefile
++cryptsetup-kernel: json-c popt util-linux lvm2 cryptsetup-kernel/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +cryptsetup-kernel/Makefile: cryptsetup-kernel-unpack cryptsetup-kernel/configure
@@ -21359,17 +21419,18 @@
 +
 +cryptsetup-kernel-configure:
 +	@[ ! -d cryptsetup-kernel ] || [ -f "$(STAGEDIR)/usr/lib/libcryptsetup.so" ] || ( cd cryptsetup-kernel ; \
-+		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/linux/if_alg.h"; \
++		IF_ALG_H="$(BLACKFUEL_DIR)/packages/cryptsetup/files/linux/if_alg.h"; \
 +		STAGEDIR_INCLUDE_LINUX="$(STAGEDIR)/usr/include/linux"; \
 +		if [ -f "$$IF_ALG_H" ]; then \
 +		  mkdir -p "$$STAGEDIR_INCLUDE_LINUX"; \
 +		  cp -pn "$$IF_ALG_H" "$$STAGEDIR_INCLUDE_LINUX"; \
 +		fi; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -DCLOCK_MONOTONIC_RAW=4 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		LIBS="-lpthread -luuid -lblkid -ldl -L$(STAGEDIR)/usr/lib" \
++		$(if $(HND_ROUTER),,ac_cv_func_posix_fallocate=yes) \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -21411,9 +21472,9 @@
 +pps-tools-stage:
 +	@echo pps-tools
 +	@[ ! -d pps-tools ] || [ -f "$(STAGEDIR)/usr/bin/ppsctl" ] || ( cd pps-tools ; \
-+		CC="arm-brcm-linux-uclibcgnueabi-gcc" \
-+		CFLAGS="$(CFLAGS) -DN_PPS=18 -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CC="$(CC)" \
++		CFLAGS="-DN_PPS=18 -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		DESTDIR="$(STAGEDIR)" \
 +		$(MAKE) install && \
 +		[ -f "$(STAGEDIR)/usr/include/timepps.h" ] || \
@@ -21450,13 +21511,11 @@
 +setserial-configure:
 +	@[ ! -d setserial ] || [ -f "$(STAGEDIR)/usr/bin/setserial" ] || ( cd setserial ; \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+		CC="arm-brcm-linux-uclibcgnueabi-gcc" \
-+		STRIP="arm-brcm-linux-uclibcgnueabi-strip" \
-+		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		CC="$(CC)" \
++		STRIP="$(STRIP)" \
++		CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		$(CONFIGURE) \
-+		--host=arm-linux \
-+		--build=x86_64-linux \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--mandir="$(STAGEDIR)/usr/share/man" )
 +
@@ -21498,9 +21557,9 @@
 +			false; \
 +		else \
 +			PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
-+			CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+			CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+			LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++			CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++			CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++			LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +			LIBS="-lpthread" \
 +			ac_cv_header_md5_h=no ac_cv_lib_rt_sched_setscheduler=no ac_cv_header_dns_sd_h=no hw_cv_func_snprintf_c99=yes hw_cv_func_vsnprintf_c99=yes ac_cv_make_ntptime=yes \
 +			$(CONFIGURE) \
@@ -21572,9 +21631,9 @@
 +		$(MAKE) install \
 +		DESTDIR="$(STAGEDIR)/usr" \
 +		prefix="" \
-+		CC="arm-brcm-linux-uclibcgnueabi-gcc" \
-+		AR="arm-brcm-linux-uclibcgnueabi-ar" \
-+		RANLIB="arm-brcm-linux-uclibcgnueabi-ranlib" \
++		CC="$(CC)" \
++		AR="$(AR)" \
++		RANLIB="$(RANLIB)" \
 +		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$$PWD/libcap/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(LIBS_DL) $(LIBS_DL) -L$(LIBS_PTHREAD) $(LIBS_PTHREAD) -L$(LIBS_M) $(LIBS_M) -L$(LIBS_RT) $(LIBS_RT) -L$(LIBS_C) $(LIBS_C) -L$(STAGEDIR)/usr/lib" \
 +		BUILD_CC="gcc" \
@@ -21643,21 +21702,20 @@
 +		STATIC_LIBS_RTLENTROPY="-L$(STAGEDIR)/usr/lib/libcap.a $(STAGEDIR)/usr/lib/libcap.a -L$(STAGEDIR)/usr/lib/librtlsdr.a $(STAGEDIR)/usr/lib/librtlsdr.a -L$(STAGEDIR)/usr/lib/libusb-1.0.a $(STAGEDIR)/usr/lib/libusb-1.0.a  -L$(STAGEDIR)/usr/lib/libssl.a $(STAGEDIR)/usr/lib/libssl.a  -L$(STAGEDIR)/usr/lib/libcrypto.a $(STAGEDIR)/usr/lib/libcrypto.a -L$(LIBS_DL) $(LIBS_DL) -L$(LIBS_PTHREAD) $(LIBS_PTHREAD) -L$(LIBS_M) $(LIBS_M) -L$(LIBS_RT) $(LIBS_RT) -L$(LIBS_C) $(LIBS_C) -L$(STAGEDIR)/usr/lib"; \
 +		ARM_COMPILER_FLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99"; \
 +		ARM_LINKER_FLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections $$STATIC_LIBS_RTLENTROPY"; \
-+		ARM_LINK_EXECUTABLE="arm-brcm-linux-uclibcgnueabi-gcc  -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -O3 -DNDEBUG  -ffunction-sections -fdata-sections -Wl,--gc-sections CMakeFiles/rtlentropylib.dir/fips.c.o CMakeFiles/rtlentropylib.dir/log.c.o CMakeFiles/rtlentropylib.dir/util.c.o CMakeFiles/rtl_entropy.dir/rtl_entropy.c.o  -o rtl_entropy -rdynamic $$STATIC_LIBS_RTLENTROPY"; \
++		ARM_LINK_EXECUTABLE="$(CC) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -O3 -DNDEBUG  -ffunction-sections -fdata-sections -Wl,--gc-sections CMakeFiles/rtlentropylib.dir/fips.c.o CMakeFiles/rtlentropylib.dir/log.c.o CMakeFiles/rtlentropylib.dir/util.c.o CMakeFiles/rtl_entropy.dir/rtl_entropy.c.o  -o rtl_entropy -rdynamic $$STATIC_LIBS_RTLENTROPY"; \
 +		cmake \
 +		-DCMAKE_SYSTEM_NAME="Linux" \
-+		-DCMAKE_SYSTEM_VERSION="2.6.36.4brcmarm" \
-+		-DCMAKE_SYSTEM_VERSION="arm" \
++		-DCMAKE_SYSTEM_VERSION="$(LINUX_KERNEL)" \
 +		-DCMAKE_FIND_ROOT_PATH="$(STAGEDIR)/usr" \
 +		-DCMAKE_INSTALL_PREFIX="$(STAGEDIR)/usr" \
 +		-DCMAKE_PREFIX_PATH="$(STAGEDIR)/usr" \
 +		-DOPENSSL_LIBRARIES="$(STAGEDIR)/usr/lib" \
 +		-DOPENSSL_INCLUDE_DIRS="$(STAGEDIR)/usr/include" \
-+		-DCMAKE_C_COMPILER="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-gcc" \
-+		-DCMAKE_CXX_COMPILER="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-g++" \
-+		-DCMAKE_AR="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-ar" \
-+		-DCMAKE_RANLIB="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-ranlib" \
-+		-DCMAKE_STRIP="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-strip" \
++		-DCMAKE_C_COMPILER="$(CC)" \
++		-DCMAKE_CXX_COMPILER="$(CXX)" \
++		-DCMAKE_AR="$(AR)" \
++		-DCMAKE_RANLIB="$(RANLIB)" \
++		-DCMAKE_STRIP="$(STRIP)" \
 +		-DCMAKE_C_FLAGS="$$ARM_COMPILER_FLAGS" \
 +		-DCMAKE_SHARED_LINKER_FLAGS="$$ARM_LINKER_FLAGS" \
 +		-DCMAKE_EXE_LINKER_FLAGS="$$ARM_LINKER_FLAGS" \
@@ -21683,6 +21741,48 @@
 +	install -d $(INSTALLDIR)/rtl-entropy/usr/bin/
 +	install -D $(STAGEDIR)/usr/bin/rtl_entropy $(INSTALLDIR)/rtl-entropy/usr/bin/
 +	$(STRIP) $(INSTALLDIR)/rtl-entropy/usr/bin/rtl_entropy
++
++### curl
++
++curl: openssl mbedtls curl/Makefile
++	@$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
++
++curl/Makefile: curl-unpack curl/configure
++	@[ ! -d curl ] || [ -f "$(STAGEDIR)/usr/lib/libcurl.so" ] || ( \
++	cd curl && \
++	$(CONFIGURE) \
++	CC=$(CC) \
++	CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99" \
++	CXXFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
++	CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
++	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib -L$(TOP)/openssl" \
++	LIBS="-lcrypto -lssl -ldl -lmbedx509 -lmbedcrypto -lmbedtls" \
++	--prefix=/usr \
++	--bindir=/usr/sbin \
++	--libdir=/usr/lib \
++	--enable-http \
++	--with-ssl=$(TOP)/openssl \
++	$(if $(RTCONFIG_IPV6),--enable-ipv6) \
++	--disable-gopher \
++	--disable-dict \
++	--disable-telnet \
++	--disable-manual \
++	--disable-libcurl-option \
++	--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
++	)
++
++curl-install:
++	@$(SEP)
++	install -d $(INSTALLDIR)/curl/usr/lib/
++	cp -df curl/lib/.libs/libcurl.so* $(INSTALLDIR)/curl/usr/lib/
++	chmod u+w $(INSTALLDIR)/curl/usr/lib/*
++	$(STRIP) $(INSTALLDIR)/curl/usr/lib/libcurl.so*
++	install -D curl/src/.libs/curl $(INSTALLDIR)/curl/usr/sbin/curl
++	$(STRIP) $(INSTALLDIR)/curl/usr/sbin/curl
++
++curl-clean:
++	[ ! -f curl/Makefile ] || $(MAKE) -C curl clean
++	@rm -f curl/Makefile
 +
 +### transmission-openssl
 +
@@ -21713,8 +21813,8 @@
 +		ZLIB_CFLAGS="-I$(STAGEDIR)/usr/include" \
 +		ZLIB_LIBS="-L$(STAGEDIR)/usr/lib -lz" \
 +		./autogen.sh \
-+		--host=arm-brcm-linux-uclibcgnueabi \
-+		--build=x86_64-linux-gnu \
++		$(if $(HND_ROUTER),,ac_cv_func_posix_fallocate=yes) \
++		--host=`X=$${CC##*/};echo $${X%-*}` \
 +		--prefix=/usr \
 +		--disable-nls \
 +		--disable-silent-rules \
@@ -21775,8 +21875,7 @@
 +		ZLIB_CFLAGS="-I$(STAGEDIR)/usr/include" \
 +		ZLIB_LIBS="-L$(STAGEDIR)/usr/lib -lz" \
 +		./autogen.sh \
-+		--host=arm-brcm-linux-uclibcgnueabi \
-+		--build=x86_64-linux-gnu \
++		$(if $(HND_ROUTER),,ac_cv_func_posix_fallocate=yes) \
 +		--prefix=/usr \
 +		--disable-nls \
 +		--disable-silent-rules \
@@ -21822,16 +21921,15 @@
 +		ARM_LINKER_FLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections"; \
 +		cmake \
 +		-DCMAKE_SYSTEM_NAME="Linux" \
-+		-DCMAKE_SYSTEM_VERSION="2.6.36.4brcmarm" \
-+		-DCMAKE_SYSTEM_VERSION="arm" \
++		-DCMAKE_SYSTEM_VERSION="$(LINUX_KERNEL)" \
 +		-DCMAKE_FIND_ROOT_PATH="$(STAGEDIR)/usr" \
 +		-DCMAKE_INSTALL_PREFIX="$(STAGEDIR)/usr" \
 +		-DCMAKE_PREFIX_PATH="$(STAGEDIR)/usr" \
-+		-DCMAKE_C_COMPILER="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-gcc" \
-+		-DCMAKE_CXX_COMPILER="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-g++" \
-+		-DCMAKE_AR="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-ar" \
-+		-DCMAKE_RANLIB="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-ranlib" \
-+		-DCMAKE_STRIP="/opt/brcm-arm/bin/arm-brcm-linux-uclibcgnueabi-strip" \
++		-DCMAKE_C_COMPILER="$(CC)" \
++		-DCMAKE_CXX_COMPILER="$(CXX)" \
++		-DCMAKE_AR="$(AR)" \
++		-DCMAKE_RANLIB="$(RANLIB)" \
++		-DCMAKE_STRIP="$(STRIP)" \
 +		-DCMAKE_C_FLAGS="$$ARM_COMPILER_FLAGS" \
 +		-DCMAKE_SHARED_LINKER_FLAGS="$$ARM_LINKER_FLAGS" \
 +		-DCMAKE_EXE_LINKER_FLAGS="$$ARM_LINKER_FLAGS" \
@@ -21879,7 +21977,7 @@
 +		CXXFLAGS="$(CXXFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -D_GNU_SOURCE" \
 +		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -D_GNU_SOURCE -I$(TOP)/libusb-0.1.12 -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(TOP)/libusb-0.1.12/.libs -L$(STAGEDIR)/usr/lib" \
-+		LIBS="-lpthread -lusb -ljpeg -lpng -ltiff -lfreetype -lgd" \
++		LIBS="-lpthread -lusb -lz -ljpeg -lpng -ltiff -lfreetype -lgd" \
 +		$(CONFIGURE) \
 +		--prefix=/usr \
 +		--sbindir=/usr/sbin \
@@ -21948,7 +22046,7 @@
 +		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include -I$(STAGEDIR)/usr/include/freetype2" \
 +		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -D_GNU_SOURCE -I$(STAGEDIR)/usr/include -I$(STAGEDIR)/usr/include/freetype2" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
-+		LIBS="-ljpeg -lpng -ltiff -lfreetype" \
++		LIBS="-lz -ljpeg -lpng -ltiff -lfreetype" \
 +		$(CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
@@ -22022,7 +22120,7 @@
 +
 +### libpng
 +
-+libpng: libpng/Makefile
++libpng: zlib libpng/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +libpng/Makefile: libpng-unpack
@@ -22132,8 +22230,6 @@
 +		CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		$(CONFIGURE) \
-+		--host=arm-brcm-linux-uclibcgnueabi \
-+		--build='' \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--enable-shared \
 +		--enable-static \
@@ -22168,17 +22264,17 @@
 +	@[ ! -d bzip2 ] || [ -f "$(STAGEDIR)/usr/lib/libbz2.a" ] || ( cd bzip2 ; \
 +		$(MAKE) $(PARALLEL_BUILD) \
 +		PREFIX="$(STAGEDIR)/usr" \
-+		CC="arm-brcm-linux-uclibcgnueabi-gcc" \
-+		AR="arm-brcm-linux-uclibcgnueabi-ar" \
-+		RANLIB="arm-brcm-linux-uclibcgnueabi-ranlib" \
++		CC="$(CC)" \
++		AR="$(AR)" \
++		RANLIB="$(RANLIB)" \
 +		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		install ; \
 +		$(MAKE) $(PARALLEL_BUILD) -f Makefile-libbz2_so \
 +		PREFIX="$(STAGEDIR)/usr" \
-+		CC="arm-brcm-linux-uclibcgnueabi-gcc" \
-+		AR="arm-brcm-linux-uclibcgnueabi-ar" \
-+		RANLIB="arm-brcm-linux-uclibcgnueabi-ranlib" \
++		CC="$(CC)" \
++		AR="$(AR)" \
++		RANLIB="$(RANLIB)" \
 +		CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		all ; \
@@ -22207,9 +22303,9 @@
 +		PFSCR="$(STAGEDIR)/usr/sbin/powerfail" \
 +		MANDIR="$(STAGEDIR)/usr/share/man/man8" \
 +		CFGDIR="/usr/local/etc" \
-+		CC="arm-brcm-linux-uclibcgnueabi-gcc" \
++		CC="$(CC)" \
 +		CFLGS="-Os -Wall -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -fPIC -std=gnu99 -D_GNU_SOURCE -I$(TOP)/shared -ffunction-sections -fdata-sections" \
-+		LIB="-lgcc_s -L$(TOP)/nvram$(BCMEX) -lnvram -L$(TOP)/shared -lshared $(if $(RTCONFIG_QTN),-L$(TOP)/libqcsapi_client -lqcsapi_client) -ffunction-sections -fdata-sections -Wl,--gc-sections" )
++		LIB="-lgcc_s -L$(TOP)/nvram$(BCMEX)$(EX7) -lnvram $(shell if [[ "$(HND_ROUTER)" = "y" ]] ; then echo "-L$(TOP)/wlcsm -lwlcsm"; else echo ""; fi) -L$(TOP)/shared -lshared $(if $(RTCONFIG_QTN),-L$(TOP)/libqcsapi_client -lqcsapi_client) -ffunction-sections -fdata-sections -Wl,--gc-sections" )
 +
 +powstatd-clean:
 +	-@$(MAKE) -C powstatd clean
@@ -22286,6 +22382,41 @@
 +	chmod u+w $(INSTALLDIR)/liblz4/usr/lib/*
 +	$(STRIP) $(INSTALLDIR)/liblz4/usr/lib/*
 +
++### json-c
++
++json-c: json-c/stamp-h1
++	@[ ! -f json-c/stamp-h1 ] || ( $(SEP); \
++		[ -f "$(STAGEDIR)/usr/lib/libjson-c.so" ] || ( \
++			$(MAKE) -C json-c $(PARALLEL_BUILD) && $(MAKE) -C json-c install \
++			) \
++		)
++
++json-c/stamp-h1: json-c-unpack
++	cd json-c ; \
++	PKG_CONFIG_PATH="$(STAGEDIR)/usr/lib/pkgconfig" \
++	CFLAGS="$(CFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++	CPPFLAGS="$(CPPFLAGS) -ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++	LDFLAGS="$(LDFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++	LIBS="-lm" \
++	ac_cv_func_realloc_0_nonnull=yes \
++	ac_cv_func_malloc_0_nonnull=yes \
++	$(CONFIGURE) \
++	--prefix="$(STAGEDIR)/usr" \
++	--enable-shared \
++	--enable-static \
++	--disable-silent-rules
++	touch $@
++
++json-c-clean:
++	[ ! -f json-c/stamp-h1 ] || $(MAKE) -C json-c clean
++	@rm -f json-c/stamp-h1
++
++json-c-install:
++	install -d $(INSTALLDIR)/json-c/usr/lib/
++	cp -df $(STAGEDIR)/usr/lib/libjson-c.so* $(INSTALLDIR)/json-c/usr/lib/
++	chmod u+w $(INSTALLDIR)/json-c/usr/lib/*
++	$(STRIP) $(INSTALLDIR)/json-c/usr/lib/*
++
 +
 +### package download and patches
 +
@@ -22293,12 +22424,14 @@
 +	PACKAGE_DIR="$*"; \
 +	if [ ! -d "$$PACKAGE_DIR" ]; then \
 +		PACKAGE_NAME="$$PACKAGE_DIR"; \
++		VERSION=""; \
++		SOURCE_VERSION=""; \
 +		if [ "$$PACKAGE_DIR" = "xzutils" ]; then \
 +			URL="https://tukaani.org/xz/xz-5.2.3.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "zstd" ]; then \
-+			URL="https://github.com/facebook/zstd/archive/v1.3.2.tar.gz"; \
++			URL="https://github.com/facebook/zstd/archive/v1.3.3.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "tor" ]; then \
-+			URL="https://www.torproject.org/dist/tor-0.3.1.9.tar.gz"; \
++			URL="https://www.torproject.org/dist/tor-0.3.2.9.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "nettle" ]; then \
 +			URL="https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "curl" ]; then \
@@ -22306,11 +22439,11 @@
 +		elif [ "$$PACKAGE_DIR" = "findutils" ]; then \
 +			URL="https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "whois" ]; then \
-+			URL="http://ftp.debian.org/debian/pool/main/w/whois/whois_5.2.18.tar.xz"; \
++			URL="http://ftp.debian.org/debian/pool/main/w/whois/whois_5.2.20.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "libsodium" ]; then \
 +			URL="https://download.libsodium.org/libsodium/releases/libsodium-1.0.16.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "dnscrypt" ]; then \
-+			URL="https://download.dnscrypt.org/dnscrypt-proxy/dnscrypt-proxy-1.9.5.tar.bz2"; \
++			URL="http://http.debian.net/debian/pool/main/d/dnscrypt-proxy/dnscrypt-proxy_1.9.5.orig.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "haveged" ]; then \
 +			URL="http://www.issihosts.com/haveged/haveged-1.9.1.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "wipe" ]; then \
@@ -22324,16 +22457,16 @@
 +		elif [ "$$PACKAGE_DIR" = "libgpg-error" ]; then \
 +			URL="https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.27.tar.bz2"; \
 +		elif [ "$$PACKAGE_DIR" = "util-linux" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.31/util-linux-2.31.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.31/util-linux-2.31.1.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "lvm2" ]; then \
-+			URL="https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.02.176.tgz"; \
++			URL="https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.02.177.tgz"; \
 +		elif [ "$$PACKAGE_DIR" = "libgcrypt" ]; then \
-+			URL="https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.1.tar.bz2"; \
++			URL="https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.2.tar.bz2"; \
 +		elif [ "$$PACKAGE_DIR" = "cryptsetup-gcrypt" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-nettle" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-kernel" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v1.7/cryptsetup-1.7.5.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.0.tar.xz"; \
 +			PACKAGE_NAME="cryptsetup"; \
 +		elif [ "$$PACKAGE_DIR" = "pps-tools" ]; then \
 +			URL="https://github.com/redlab-i/pps-tools/archive/v1.0.1.tar.gz"; \
@@ -22349,16 +22482,19 @@
 +			URL="https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.25.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "rtl-sdr" ]; then \
 +			URL="git://git.osmocom.org/rtl-sdr.git"; \
-+			VERSION="b04c2f9f035c5aede43d731e5d58e4725d2f8bb4"; \
++			VERSION="0.5.3+git"; \
++			SOURCE_VERSION="b04c2f9f035c5aede43d731e5d58e4725d2f8bb4"; \
 +		elif [ "$$PACKAGE_DIR" = "rtl-entropy" ]; then \
 +			URL="git://github.com/pwarren/rtl-entropy.git"; \
-+			VERSION="142df23630ea6216c17e00dada85d1cd245bc22f"; \
++			VERSION="0.1.2+git"; \
++			SOURCE_VERSION="142df23630ea6216c17e00dada85d1cd245bc22f"; \
 +		elif [ "$$PACKAGE_DIR" = "ncurses-6.0" ]; then \
 +			URL="https://ftp.gnu.org/gnu/ncurses/ncurses-6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "transmission-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "transmission-mbedtls" ]; then \
 +			URL="git://github.com/transmission/transmission.git"; \
-+			VERSION="35fea28d1a37875ef7480ac061754df617805b19"; \
++			VERSION="2.92+git"; \
++			SOURCE_VERSION="5b29fe15561d40c40cbee635446df6b33e18d2c2"; \
 +			PACKAGE_NAME="transmission"; \
 +		elif [ "$$PACKAGE_DIR" = "mbedtls" ]; then \
 +			URL="https://tls.mbed.org/download/mbedtls-2.6.0-gpl.tgz"; \
@@ -22386,6 +22522,8 @@
 +			URL="http://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "liblz4" ]; then \
 +			URL="https://github.com/lz4/lz4/archive/v1.8.0.tar.gz"; \
++		elif [ "$$PACKAGE_DIR" = "json-c" ]; then \
++			URL="http://http.debian.net/debian/pool/main/j/json-c/json-c_0.12.1.orig.tar.gz"; \
 +		else \
 +			URL="/$$PACKAGE_DIR-MISSING-URL"; \
 +		fi; \
@@ -22394,34 +22532,37 @@
 +		DL_FILE="$${URL##*/}"; \
 +		DL_PATH="$$DL_DIR/$$DL_FILE"; \
 +		if [ "$${DL_FILE%.git*}" != "$$DL_FILE" ]; then \
-+			DL_NAME="$$PACKAGE_NAME"; \
-+			[ -z "$$VERSION" ] && VERSION="master"; \
-+			DL_FILE="$${DL_NAME}-$${VERSION}.tar.gz"; \
++			[ -z "$$VERSION" ] && DL_NAME="$$PACKAGE_NAME" || DL_NAME="$$PACKAGE_NAME-$$VERSION"; \
++			[ -z "$$SOURCE_VERSION" ] && SOURCE_VERSION="master"; \
++			DL_FILE="$${DL_NAME}-$${SOURCE_VERSION}.tar.xz"; \
 +			DL_PATH="$$DL_DIR/$$DL_FILE"; \
 +			if [ ! -f "$$DL_PATH" ]; then \
 +				git clone $$URL $$DL_DIR/temp/$$DL_NAME; \
 +				while [ $$? -ne 0 ]; do \
 +					sleep 10; git clone $$URL $$DL_DIR/temp/$$DL_NAME; \
 +				done; \
-+				ORIGDIR=$$PWD; \
-+				cd $$DL_DIR/temp/$$DL_NAME; \
-+				git checkout $$VERSION; \
++				ORIGDIR="$$PWD"; \
++				cd "$$DL_DIR/temp/$$DL_NAME"; \
++				git checkout $$SOURCE_VERSION; \
 +				while [ $$? -ne 0 ]; do \
-+					sleep 10; git checkout $$VERSION; \
++					sleep 10; git checkout $$SOURCE_VERSION; \
 +				done; \
 +				git submodule update --init --recursive; \
 +				while [ $$? -ne 0 ]; do \
 +					sleep 10; git submodule update --init --recursive; \
 +				done; \
-+				cd $$ORIGDIR; \
-+				tar czvf $$DL_PATH -C $$DL_DIR/temp $$DL_NAME; \
++				TAR_TIMESTAMP="`git log -1 --format='@%ct'`"; \
++				rm -rf .git; \
++				cd "$$ORIGDIR"; \
++				chmod -R g-w,o-w "$$DL_DIR/temp/$$DL_NAME"; \
++				tar --numeric-owner --owner=0 --group=0 --sort=name --mtime="$$TAR_TIMESTAMP" -cv -C "$$DL_DIR/temp" "$$DL_NAME" | xz -zc -7e > "$$DL_PATH"; \
 +			fi; \
 +		elif [ ! -f "$$DL_PATH" ]; then \
-+			wget --tries=9999 --retry-connrefused --waitretry=5 --directory-prefix="$$DL_DIR" "$$URL"; \
++			wget --tries=9 --retry-connrefused --waitretry=5 --directory-prefix="$$DL_DIR" "$$URL"; \
 +			while [ $$? -ne 0 ]; do \
 +				sleep 10; \
 +				[ ! -f "$$DL_PATH" ] || break; \
-+				wget --tries=9999 --retry-connrefused --waitretry=5 --directory-prefix="$$DL_DIR" "$$URL"; \
++				wget --tries=9 --retry-connrefused --waitretry=5 --directory-prefix="$$DL_DIR" "$$URL"; \
 +			done; \
 +			rm -rf "$$PACKAGE_DIR" || true; \
 +		fi; \
@@ -22455,7 +22596,6 @@
 +
 +#######################################################################################
 +
-+
 +tor: openssl zlib libevent-2.0.21 zstd tor/Makefile
  	@$(SEP)
  	$(MAKE) -C $@ $(PARALLEL_BUILD)
@@ -22487,7 +22627,7 @@
  
  tor-clean:
  	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
-@@ -4301,25 +6490,6 @@
+@@ -4302,25 +6582,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -22513,7 +22653,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4341,33 +6511,6 @@
+@@ -4342,33 +6603,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -22547,7 +22687,16 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4885,7 +7028,7 @@
+@@ -4443,7 +6677,7 @@
+ 		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
+ 	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
+ 		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
+-		-L$(TOP)/zlib -L$(TOP)/sqlite/.libs -L$(TOP)/jpeg -L$(TOP)/libvorbis/lib/.libs \
++		-L$(TOP)/zlib -L$(TOP)/sqlite/.libs -L$(TOP)/jpeg/.libs -L$(TOP)/libvorbis/lib/.libs \
+ 		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
+ 		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
+ 		-L$(TOP)/libid3tag/.libs" \
+@@ -4886,7 +7120,7 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -22556,16 +22705,22 @@
  	cd lzo && \
  	CFLAGS="-O3 -Wall $(EXTRACFLAGS)" $(CONFIGURE) --enable-shared --enable-static \
  		--prefix=/usr \
-@@ -5114,7 +7257,7 @@
+@@ -5115,7 +7349,13 @@
  endif
  	@touch $@
  
 -lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
 +lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
- 	@mkdir -p lighttpd-1.4.39/src/.libs
- ifeq ($(HND_ROUTER),y)
- 	@cp lighttpd-1.4.39/prebuild_hnd/*.so lighttpd-1.4.39/src/.libs/
-@@ -5334,7 +7477,7 @@
++	@mkdir -p lighttpd-1.4.39/src/.libs
++ifeq ($(HND_ROUTER),y)
++	@cp lighttpd-1.4.39/prebuild_hnd/*.so lighttpd-1.4.39/src/.libs/
++else
++	@cp lighttpd-1.4.39/prebuild/*.so lighttpd-1.4.39/src/.libs/
++endif
+ 	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
+ 
+ lighttpd-1.4.39-install:
+@@ -5329,7 +7569,7 @@
  	--enable-cmd --enable-eap-tls --enable-libipsec --disable-static \
  	CFLAGS="-O3 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include $(if $(RTCONFIG_HND_ROUTER),-DHND_ROUTER,)" \
  	LDFLAGS="$(if $(RTCONFIG_HND_ROUTER), -L$(TOP)/strongswan-5.2.1, -L$(STAGEDIR)/usr/lib -L$(TOP)/openssl)" \
@@ -22574,7 +22729,7 @@
  	touch $@
  
  strongswan-5.2.1: strongswan-5.2.1/stamp-h1
-@@ -5434,7 +7577,7 @@
+@@ -5429,7 +7669,7 @@
  fb_wifi/stamp-h1:
  	touch $@
  
@@ -22583,15 +22738,13 @@
  	@$(MAKE) -C fb_wifi
  
  fb_wifi-install: fb_wifi
-@@ -5452,35 +7595,46 @@
+@@ -5447,35 +7687,35 @@
  
  #add by gauss
  #add install libcurl
 -curl-7.21.7: curl-7.21.7/Makefile
 -	@$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage && sed 's|/usr/lib|$(STAGEDIR)/usr/lib|g' -i $(STAGEDIR)/usr/lib/libcurl.la
-+curl: openssl mbedtls curl/Makefile
-+	@$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
- 
+-
 -curl-7.21.7/Makefile: curl/configure
 -	@cd curl && $(CONFIGURE) CC=$(CC) \
 -		CFLAGS="-Os -Wall -ffunction-sections -fdata-sections" \
@@ -22606,55 +22759,60 @@
 -
 -curl-7.21.7-install: curl-7.21.7
 -	@$(SEP)
--	install -D curl-7.21.7/lib/.libs/libcurl.so.4.4.0 $(INSTALLDIR)/curl-7.21.7/usr/lib/libcurl.so.4.4.0
--	$(STRIP) $(INSTALLDIR)/curl-7.21.7/usr/lib/libcurl.so.4.4.0
--	cd $(INSTALLDIR)/curl-7.21.7/usr/lib && ln -sf libcurl.so.4.4.0 libcurl.so && ln -sf libcurl.so.4.4.0 libcurl.so.4
-+curl/Makefile: curl-unpack curl/configure
-+	@cd curl && \
-+	$(CONFIGURE) \
-+	CC=$(CC) \
-+	CFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
-+	CXXFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
-+	CPPFLAGS="-ffunction-sections -fdata-sections -O3 -pipe -march=armv7-a -mtune=cortex-a9 -fno-caller-saves -mfloat-abi=soft -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include" \
-+	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib -L$(TOP)/openssl" \
-+	LIBS="-lcrypto -lssl -ldl -lmbedx509 -lmbedcrypto -lmbedtls" \
-+	--prefix=/usr \
-+	--bindir=/usr/sbin \
-+	--libdir=/usr/lib \
-+	--enable-http \
-+	--with-ssl=$(TOP)/openssl \
-+	$(if $(RTCONFIG_IPV6),--enable-ipv6) \
-+	--disable-gopher \
-+	--disable-dict \
-+	--disable-telnet \
-+	--disable-manual \
-+	--disable-libcurl-option \
-+	--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
-+
-+curl-install:
-+	@$(SEP)
-+	install -d $(INSTALLDIR)/curl/usr/lib/
-+	cp -df curl/lib/.libs/libcurl.so* $(INSTALLDIR)/curl/usr/lib/
-+	chmod u+w $(INSTALLDIR)/curl/usr/lib/*
-+	$(STRIP) $(INSTALLDIR)/curl/usr/lib/libcurl.so*
- #ifeq ($(RTCONFIG_SPEEDTEST),y)
- 	# for speedtest
+-	install -D curl-7.21.7/lib/.libs/libcurl.so.4.5.0 $(INSTALLDIR)/curl-7.21.7/usr/lib/libcurl.so.4.5.0
+-	$(STRIP) $(INSTALLDIR)/curl-7.21.7/usr/lib/libcurl.so.4.5.0
+-	cd $(INSTALLDIR)/curl-7.21.7/usr/lib && ln -sf libcurl.so.4.5.0 libcurl.so && ln -sf libcurl.so.4.5.0 libcurl.so.4
+-#ifeq ($(RTCONFIG_SPEEDTEST),y)
+-	# for speedtest
 -	install -D curl-7.21.7/src/.libs/curl $(INSTALLDIR)/curl-7.21.7/usr/sbin/curl
 -	$(STRIP) $(INSTALLDIR)/curl-7.21.7/usr/sbin/curl
-+	install -D curl/src/.libs/curl $(INSTALLDIR)/curl/usr/sbin/curl
-+	$(STRIP) $(INSTALLDIR)/curl/usr/sbin/curl
- #endif
- 
+-#endif
+-
 -curl-7.21.7-clean:
 -	[ ! -f curl-7.21.7/Makefile ] || $(MAKE) -C curl-7.21.7 clean
 -	@rm -f curl-7.21.7/Makefile
-+curl-clean:
-+	[ ! -f curl/Makefile ] || $(MAKE) -C curl clean
-+	@rm -f curl/Makefile
++#curl-7.21.7: curl-7.21.7/Makefile
++#	@$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage && sed 's|/usr/lib|$(STAGEDIR)/usr/lib|g' -i $(STAGEDIR)/usr/lib/libcurl.la
++#
++#curl-7.21.7/Makefile: curl/configure
++#	@cd curl && $(CONFIGURE) CC=$(CC) \
++#		CFLAGS="-Os -Wall -ffunction-sections -fdata-sections" \
++#		--prefix=/usr --bindir=/usr/sbin --libdir=/usr/lib \
++#		--enable-http --with-ssl=$(TOP)/openssl/ssl \
++#		$(if $(RTCONFIG_IPV6),--enable-ipv6) \
++#		--disable-gopher --disable-dict --disable-telnet \
++#		--disable-proxy --disable-manual --disable-libcurl-option \
++#		CPPFLAGS='-I$(TOP)/openssl/include' \
++#		LDFLAGS='$(LDFLAGS) -L$(TOP)/openssl' LIBS='-lcrypto -lssl -ldl' \
++#		--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
++#
++#curl-7.21.7-install: curl-7.21.7
++#	@$(SEP)
++#	install -D curl-7.21.7/lib/.libs/libcurl.so.4.5.0 $(INSTALLDIR)/curl-7.21.7/usr/lib/libcurl.so.4.5.0
++#	$(STRIP) $(INSTALLDIR)/curl-7.21.7/usr/lib/libcurl.so.4.5.0
++#	cd $(INSTALLDIR)/curl-7.21.7/usr/lib && ln -sf libcurl.so.4.5.0 libcurl.so && ln -sf libcurl.so.4.5.0 libcurl.so.4
++##ifeq ($(RTCONFIG_SPEEDTEST),y)
++#	# for speedtest
++#	install -D curl-7.21.7/src/.libs/curl $(INSTALLDIR)/curl-7.21.7/usr/sbin/curl
++#	$(STRIP) $(INSTALLDIR)/curl-7.21.7/usr/sbin/curl
++##endif
++#
++#curl-7.21.7-clean:
++#	[ ! -f curl-7.21.7/Makefile ] || $(MAKE) -C curl-7.21.7 clean
++#	@rm -f curl-7.21.7/Makefile
  
  #snmp
  net-snmp-5.7.2/stamp-h1:
-@@ -6274,30 +8428,6 @@
+@@ -5889,7 +8129,7 @@
+ 	cd tftp && CC=$(CC) && $(MAKE)
+ 
+ tftp-clean:
+-	cd tftp && $(MAKE) clean
++	-@cd tftp && $(MAKE) clean
+ 
+ tftp-install:
+ 	# TPTP server
+@@ -6269,30 +8509,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -22685,7 +22843,7 @@
  wget/Makefile.in: wget/Makefile.am
  	cd wget && autoreconf -fi
  
-@@ -6310,7 +8440,7 @@
+@@ -6305,7 +8521,7 @@
  		CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -I$(TOP)/openssl/include -I$(TOP)/zlib" \
  		LDFLAGS="$(EXTRALDFLAGS) -Wl,--gc-sections -L$(TOP)/openssl -lssl -lcrypto -L$(TOP)/zlib -lz"
  
@@ -22694,7 +22852,16 @@
  	$(MAKE) -C $@
  
  wget-clean:
-@@ -6919,46 +9049,55 @@
+@@ -6606,7 +8822,7 @@
+ 	$(MAKE) -C $@
+ 
+ i2c-tools-2013-12-15-clean:
+-	$(MAKE) -C i2c-tools-2013-12-15 clean
++	-@$(MAKE) -C i2c-tools-2013-12-15 clean
+ 
+ i2c-tools-2013-12-15-install: i2c-tools-2013-12-15
+ 	install -D i2c-tools-2013-12-15/tools/i2cdump $(INSTALLDIR)/i2c-tools-2013-12-15/usr/bin/i2cdump
+@@ -6914,46 +9130,56 @@
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2.0 &&\
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2
  
@@ -22723,6 +22890,7 @@
 +	CPPFLAGS="$(CPPFLAGS) $(EXTRACFLAGS) -Os -I$(STAGEDIR)/usr/include" \
 +	LDFLAGS="$(LDFLAGS) -L$(STAGEDIR)/usr/lib" \
 +	$(CONFIGURE) \
++	$(if $(HND_ROUTER),CPPFLAGS="-P",) \
 +	--prefix=/usr \
 +	--enable-echo --enable-const --disable-overwrite --disable-rpath --without-ada \
 +	$(if $(RTCONFIG_BCMARM),--enable-widec,) \
@@ -22776,7 +22944,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6977,12 +9116,19 @@
+@@ -6972,12 +9198,19 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -22801,7 +22969,7 @@
  	@touch nettle/stamp-h1
  
  nettle: nettle/stamp-h1
-@@ -7301,7 +9447,7 @@
+@@ -7296,7 +9529,7 @@
  
  #aaews: wb
  
@@ -22810,6 +22978,73 @@
  aaews: wb
  	cd aaews && \
  	CC=$(CC) CXX=$(CXX) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
+@@ -7345,36 +9578,36 @@
+ 	install -D amas-utils/amas-utils-cli $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
+ 	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
+ 
+-json-c/stamp-h1:
+-ifeq ($(RTCONFIG_LANTIQ),y)
+-	cd $(TOP)/json-c && \
+-	$(CONFIGURE) --enable-shared --disable-static \
+-	ac_cv_func_realloc_0_nonnull=yes ac_cv_func_malloc_0_nonnull=yes ac_cv_have_decl__isnan=no \
+-	CFLAGS="-Os -Wno-error $(EXTRACFLAGS)" \
+-	LDFLAGS="$(EXTRALDFLAGS) -Wl,--as-needed -lm"
+-	touch $@
+-else
+-	cd $(TOP)/json-c && \
+-	$(CONFIGURE) --enable-shared --disable-static \
+-	ac_cv_func_realloc_0_nonnull=yes ac_cv_func_malloc_0_nonnull=yes \
+-	CFLAGS="-Os -Wno-error $(EXTRACFLAGS)" \
+-	LDFLAGS="$(EXTRALDFLAGS) -Wl,--as-needed -lm"
+-	touch $@
+-endif
+-
+-json-c: json-c/stamp-h1
+-	$(MAKE) -C $@
+-
+-json-c-install:
+-	install -D json-c/.libs/libjson-c.so.2.0.2 $(INSTALLDIR)/json-c/usr/lib/libjson-c.so.2.0.2
+-	$(STRIP) $(INSTALLDIR)/json-c/usr/lib/libjson-c.so.2.0.2
+-	cd $(INSTALLDIR)/json-c/usr/lib && \
+-		ln -sf libjson-c.so.2.0.2 libjson-c.so && \
+-		ln -sf libjson-c.so.2.0.2 libjson-c.so.2
+-
+-json-c-clean:
+-	-@[ ! -f json-c/Makefile ] || $(MAKE) -C json-c clean
+-	-@rm -f json-c/stamp-h1
++#json-c/stamp-h1:
++#ifeq ($(RTCONFIG_LANTIQ),y)
++#	cd $(TOP)/json-c && \
++#	$(CONFIGURE) --enable-shared --disable-static \
++#	ac_cv_func_realloc_0_nonnull=yes ac_cv_func_malloc_0_nonnull=yes ac_cv_have_decl__isnan=no \
++#	CFLAGS="-Os -Wno-error $(EXTRACFLAGS)" \
++#	LDFLAGS="$(EXTRALDFLAGS) -Wl,--as-needed -lm"
++#	touch $@
++#else
++#	cd $(TOP)/json-c && \
++#	$(CONFIGURE) --enable-shared --disable-static \
++#	ac_cv_func_realloc_0_nonnull=yes ac_cv_func_malloc_0_nonnull=yes \
++#	CFLAGS="-Os -Wno-error $(EXTRACFLAGS)" \
++#	LDFLAGS="$(EXTRALDFLAGS) -Wl,--as-needed -lm"
++#	touch $@
++#endif
++#
++#json-c: json-c/stamp-h1
++#	$(MAKE) -C $@
++#
++#json-c-install:
++#	install -D json-c/.libs/libjson-c.so.2.0.2 $(INSTALLDIR)/json-c/usr/lib/libjson-c.so.2.0.2
++#	$(STRIP) $(INSTALLDIR)/json-c/usr/lib/libjson-c.so.2.0.2
++#	cd $(INSTALLDIR)/json-c/usr/lib && \
++#		ln -sf libjson-c.so.2.0.2 libjson-c.so && \
++#		ln -sf libjson-c.so.2.0.2 libjson-c.so.2
++#
++#json-c-clean:
++#	-@[ ! -f json-c/Makefile ] || $(MAKE) -C json-c clean
++#	-@rm -f json-c/stamp-h1
+ 
+ phddns/stamp-h1:
+ ifeq ($(HND_ROUTER),y)
 --- a/release/src/router/rc/Makefile
 +++ b/release/src/router/rc/Makefile
 @@ -1057,10 +1057,12 @@
@@ -22827,7 +23062,7 @@
  cfe.o:
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -13619,12 +13619,11 @@
+@@ -13612,12 +13612,11 @@
  	remove("/tmp/torlog");
  
  #if (defined(RTCONFIG_JFFS2)||defined(RTCONFIG_BRCM_NAND_JFFS2))
@@ -22845,7 +23080,7 @@
  #endif
  }
  
-@@ -13648,22 +13647,6 @@
+@@ -13641,22 +13640,6 @@
  	if ((fp = fopen("/tmp/torrc", "w")) == NULL)
  		return;
  
@@ -22868,7 +23103,7 @@
  	if ((Socksport = nvram_get("Tor_socksport")) == NULL)	Socksport = "9050";
  	if ((Transport = nvram_get("Tor_transport")) == NULL)   Transport = "9040";
  	if ((Dnsport = nvram_get("Tor_dnsport")) == NULL)   	Dnsport = "9053";
-@@ -13684,6 +13667,18 @@
+@@ -13677,6 +13660,18 @@
  	use_custom_config("torrc", "/tmp/torrc");
  	run_postconf("torrc", "/tmp/torrc");
  

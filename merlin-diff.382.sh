@@ -61,6 +61,13 @@ diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/libbb/linee
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/shell/ash.c ./${MERLIN_TARGET}/release/src/router/busybox/shell/ash.c >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/busybox/shell/hush.c ./${MERLIN_TARGET}/release/src/router/busybox/shell/hush.c >> merlin-diff.patch
 
+diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/httpd/httpd.h ./${MERLIN_TARGET}/release/src/router/httpd/httpd.h >> merlin-diff.patch
+diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/httpd/httpd.c ./${MERLIN_TARGET}/release/src/router/httpd/httpd.c >> merlin-diff.patch
+diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/httpd/web.c ./${MERLIN_TARGET}/release/src/router/httpd/web.c >> merlin-diff.patch
+
+diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/hostTools/Makefile ./${MERLIN_TARGET}/release/src-rt-5.02hnd/hostTools/Makefile >> merlin-diff.patch
+diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch ./${MERLIN_TARGET}/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch >> merlin-diff.patch
+
 # strip file times, root folder names and diff comments
 sed -r -i 's/^(---) ([^\/ ]*\/){2}(release\/[^ \t]*).*/\1 a\/\3/g;s/^(\+\+\+) ([^\/ ]*\/){2}(release\/[^ \t]*).*/\1 b\/\3/g;s/^diff .*//g' merlin-diff.patch
 
