@@ -91,6 +91,10 @@ cd $HOME/blackfuel
 rm -rf asuswrt-merlin.382
 tar xzvf /mnt/hgfs/sandbox/382.2-beta3-23e16cb.tar.gz
 mv asuswrt-merlin.382-master asuswrt-merlin.382
+rm -rf ~/asuswrt-merlin.382/release/src-rt-6.x.4708/toolchains
+ln -s ~/am-toolchains/brcm-arm-sdk ~/asuswrt-merlin.382/release/src-rt-6.x.4708/toolchains
+rm -rf ~/asuswrt-merlin.382/tools
+ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin.382/tools
 cd asuswrt-merlin.382
 patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/382.2_beta3_4-ARM-mods+apps+xtables-addons.patch
 
@@ -377,6 +381,8 @@ cd $HOME/blackfuel
 rm -rf asuswrt-merlin.382
 tar xzvf /mnt/hgfs/sandbox/382.2-beta3-23e16cb.tar.gz
 mv asuswrt-merlin.382-master asuswrt-merlin.382
+rm -rf ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
+ln -s ~/am-toolchains/brcm-arm-hnd ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
 cd asuswrt-merlin.382
 patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/382.2_beta3_4-ARM-mods+apps+xtables-addons.patch
 
