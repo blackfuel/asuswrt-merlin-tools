@@ -26188,16 +26188,17 @@
 +		SMARTSYNCBASE=n SYSSTATE=y SW_HW_AUTH=y LINUX_MTD="64" BCM4352_5G=y LANWAN_LED=y \
  		DNSMQ=y SHP=y NVRAM_64K=y RTAC56U=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y \
 -		BTN_WIFITOG=y OPTIMIZE_XBOX=y ODMPID=y ROG=y EMAIL=y XHCIMODE=y LED_ALL=y \
-+		BTN_WIFITOG=y OPTIMIZE_XBOX=y ODMPID=y ROG=y EMAIL=n XHCIMODE=y LED_ALL=y \
++		BTN_WIFITOG=y OPTIMIZE_XBOX=n ODMPID=y ROG=n EMAIL=n XHCIMODE=y LED_ALL=y \
  		BCMSMP=y XHCI=y SSH=y NFS=y OPENVPN=y NEW_USER_LOW_RSSI=y \
 -		TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=y \
 -		DUMP_OOPS_MSG=y TEMPROOTFS=y DEBUGFS=y SNMPD=y TOR=y \
-+		TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n \
-+		DUMP_OOPS_MSG=y TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
- 		MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
+-		MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
 -		BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y REBOOT_SCHEDULE=y DPSTA=y \
 -		LETSENCRYPT=y \
 -		TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=y UPNPIGD2=n \
++		TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n \
++		DUMP_OOPS_MSG=y TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
++		MULTICASTIPTV=n QUAGGA=n BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
 +		BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n REBOOT_SCHEDULE=y DPSTA=y \
 +		LETSENCRYPT=n \
 +		TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=n UPNPIGD2=n \
@@ -26212,45 +26213,51 @@
 +			SMARTSYNCBASE=n SYSSTATE=y NATNL_AICLOUD=n NATNL_AIHOME=n SW_HW_AUTH=y \
  			DNSMQ=y SHP=y NVRAM_64K=y RTAC68U=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y DISK_MONITOR=y \
 -			BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=y \
-+			BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y ROG=y SSD=n EMAIL=n \
++			BTN_WIFITOG=y LOGO_LED=y OPTIMIZE_XBOX=n ODMPID=y LED_BTN=y ROG=n SSD=n EMAIL=n \
  			BCMSMP=y XHCI=y SSH=y NFS=y OPENVPN=y NEW_USER_LOW_RSSI=y \
 -			TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=y HSPOT=y \
 -			DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=y TOR=y \
-+			TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n HSPOT=n \
-+			DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
- 			MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
+-			MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
 -			BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=y REBOOT_SCHEDULE=y DPSTA=y \
 -			LETSENCRYPT=y \
 -			TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=y UPNPIGD2=n \
++			TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n HSPOT=n \
++			DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
++			MULTICASTIPTV=n QUAGGA=n BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
 +			BCM5301X_TRAFFIC_MONITOR=n CLOUDCHECK=n REBOOT_SCHEDULE=y DPSTA=y \
 +			LETSENCRYPT=n \
 +			TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=n UPNPIGD2=n \
  			DNSSEC=y NANO=y
  
  export RT-AC68U := $(RT-AC68U_BASE) FAKEHDR=y FORCE_SN=380 FORCE_EN=1031
-@@ -42,35 +42,35 @@
+@@ -40,46 +40,46 @@
+ #
+ export HND-94908_BASE := HND_ROUTER=y PROFILE="94908HND"
  export RT-AC86U := $(HND-94908_BASE)
- export RT-AC86U += BUILD_NAME="RT-AC86U" NVSIZE="128" DHDAP=y DPSTA=y LACP=n WTFAST=y REPEATER=y \
+-export RT-AC86U += BUILD_NAME="RT-AC86U" NVSIZE="128" DHDAP=y DPSTA=y LACP=n WTFAST=y REPEATER=y \
++export RT-AC86U += BUILD_NAME="RT-AC86U" NVSIZE="128" DHDAP=y DPSTA=y LACP=n WTFAST=n REPEATER=y \
  				DISABLE_REPEATER_UI=n IPV6SUPP=y HTTPS=y ARM=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y \
 -				EBTABLES=y SAMBA3=3.6.x MEDIASRV=y MODEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y \
 -				SMARTSYNCBASE=y USB="USB" APP="installed" PROXYSTA=y DNSMQ=y SHP=n BCMWL6=y BCMWL6A=y \
-+				EBTABLES=y SAMBA3=3.6.x MEDIASRV=n MODEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n \
-+				SMARTSYNCBASE=n USB="USB" APP="installed" PROXYSTA=y DNSMQ=y SHP=n BCMWL6=y BCMWL6A=y \
- 				TUNEK="n" DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y BCMSMP=y \
+-				TUNEK="n" DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y ODMPID=y LED_BTN=y BCMSMP=y \
 -				XHCI=y DUALWAN=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y MDNS=y VPNC=y \
 -				BRCM_NAND_JFFS2=y JFFS2LOG=y BWDPI=y DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y \
 -				TEMPROOTFS=n SSH=y EMAIL=y SYSSTATE=y ROG=y STAINFO=y CLOUDCHECK=y NATNL_AICLOUD=y \
+-				REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y WLCLMLOAD=n BCM_MUMIMO=y \
++				EBTABLES=y SAMBA3=3.6.x MEDIASRV=n MODEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n \
++				SMARTSYNCBASE=n USB="USB" APP="installed" PROXYSTA=y DNSMQ=y SHP=n BCMWL6=y BCMWL6A=y \
++				TUNEK="n" DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=n ODMPID=y LED_BTN=y BCMSMP=y \
 +				XHCI=y DUALWAN=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n MDNS=n VPNC=y \
 +				BRCM_NAND_JFFS2=y JFFS2LOG=y BWDPI=n DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y \
-+				TEMPROOTFS=n SSH=y EMAIL=n SYSSTATE=y ROG=y STAINFO=y CLOUDCHECK=n NATNL_AICLOUD=n \
- 				REBOOT_SCHEDULE=y MULTICASTIPTV=y QUAGGA=y WLCLMLOAD=n BCM_MUMIMO=y \
++				TEMPROOTFS=n SSH=y EMAIL=n SYSSTATE=y ROG=n STAINFO=y CLOUDCHECK=n NATNL_AICLOUD=n \
++				REBOOT_SCHEDULE=y MULTICASTIPTV=n QUAGGA=n WLCLMLOAD=n BCM_MUMIMO=y \
  				LAN50=y ATCOVER=y GETREALIP=y CFEZ=y TFAT=y NTFS="tuxera" HFS="tuxera" \
  				NEWSSID_REV2=y LAN4WAN_LED=y NEW_APP_ARM=y NETOOL=y TRACEROUTE=y FORCE_AUTO_UPGRADE=n \
 -				HD_SPINDOWN=y SW_HW_AUTH=y NATNL_AIHOME=y ASPMD=n BCM_MEVENT=y \
 +				HD_SPINDOWN=y SW_HW_AUTH=y NATNL_AIHOME=n ASPMD=n BCM_MEVENT=y \
  				BCMEVENTD=y BCM_APPEVENTD=y JFFS_NVRAM=y \
 -				VISUALIZATION=y NFS=y DNSFILTER=y SNMPD=y TOR=y UPNPIGD2=n DNSSEC=y NANO=y
-+				VISUALIZATION=y NFS=y DNSFILTER=n SNMPD=n TOR=y UPNPIGD2=n DNSSEC=y NANO=y
++				VISUALIZATION=n NFS=y DNSFILTER=n SNMPD=n TOR=y UPNPIGD2=n DNSSEC=y NANO=y
  
  #
  # Broadcom SDK7 ARM platform
@@ -26262,15 +26269,17 @@
 +		MODEM=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n \
 +		NETOOL=y SW_HW_AUTH=y IFTTT=n ALEXA=n LETSENCRYPT=n IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
  		USB="USB" GRO=y APP="network" DNSMQ=y SHP=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y \
- 		DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y LED_BTN=y ODMPID=y BCMSMP=y XHCI=y \
+-		DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y LED_BTN=y ODMPID=y BCMSMP=y XHCI=y \
 -		DUALWAN=y REPEATER=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y \
-+		DUALWAN=y REPEATER=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y \
- 		REBOOT_SCHEDULE=y FORCE_AUTO_UPGRADE=n FAKEID=n MULTICASTIPTV=y QUAGGA=y HD_SPINDOWN=y \
+-		REBOOT_SCHEDULE=y FORCE_AUTO_UPGRADE=n FAKEID=n MULTICASTIPTV=y QUAGGA=y HD_SPINDOWN=y \
 -		JFFS2LOG=y BWDPI=y DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
 -		EMAIL=y ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
 -		BCM_RECVFILE=y TFAT=y NTFS="tuxera" HFS="tuxera" CFEZ=y ERPTEST=n CLOUDCHECK=y \
++		DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=n LED_BTN=y ODMPID=y BCMSMP=y XHCI=y \
++		DUALWAN=y REPEATER=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y \
++		REBOOT_SCHEDULE=y FORCE_AUTO_UPGRADE=n FAKEID=n MULTICASTIPTV=n QUAGGA=n HD_SPINDOWN=y \
 +		JFFS2LOG=y BWDPI=n DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
-+		EMAIL=n ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
++		EMAIL=n ROG=n SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=n PROXYSTA=y \
 +		BCM_RECVFILE=y TFAT=y NTFS="tuxera" HFS="tuxera" CFEZ=y ERPTEST=n CLOUDCHECK=n \
  		ASPMD=n BCMEVENTD=n WLCLMLOAD=n BCM_MUMIMO=y LAN50=y ATCOVER=y GETREALIP=y \
 -		NOTIFICATION_CENTER=y NATNL_AICLOUD=y SYSSTATE=y SMARTSYNCBASE=y \
@@ -26280,6 +26289,17 @@
  
  export RT-AC88U := $(RT-AC88U_BASE)
  export RT-AC88U += BUILD_NAME="RT-AC88U" RGMII_BRCM5301X=y SWITCH2="RTL8365MB" BCM_MMC=n BCM_7114=y \
+ 		ETLAN_LED=y ROMCFE=n NVSIZE="128" DHDAP=y DPSTA=y USB_DEBUG=n BCMFA=n GMAC3=y \
+-		LACP=y RESET_SWITCH=n WTFAST=y FORCE_SN="380" FORCE_EN="664" DISABLE_REPEATER_UI=n \
++		LACP=y RESET_SWITCH=n WTFAST=n FORCE_SN="380" FORCE_EN="664" DISABLE_REPEATER_UI=n \
+ 		NEWSSID_REV2=y
+ 
+ export RT-AC3100 := $(RT-AC88U_BASE)
+ export RT-AC3100 += BUILD_NAME="RT-AC3100" SWITCH2="" BCM_MMC=n BCM_7114=y NOWLALL=n ETLAN_LED=y ROMCFE=n \
+-		NVSIZE="128" NOWL=y DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=y \
++		NVSIZE="128" NOWL=y DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=n \
+ 		FORCE_SN="380" FORCE_EN="664" DISABLE_REPEATER_UI=n NEWSSID_REV2=y
+ 
 --- a/release/src/router/config_base
 +++ b/release/src/router/config_base
 @@ -345,7 +345,7 @@
@@ -26486,15 +26506,34 @@
  obj-y += tor
  endif
  
-@@ -1843,6 +1978,7 @@
+@@ -1623,6 +1758,7 @@
+ 	done
+ 
+ 	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}${EX7}.sh
++	[ ! -d "$(BLACKFUEL_DIR)/staging" ] || cp -afv "$(BLACKFUEL_DIR)/staging/"* "$(TARGETDIR)/"
+ 	@echo ---
+ 
+ 	# extra install in case build-process skip them
+@@ -1672,8 +1808,8 @@
+ 	rm -rf $(INSTALLDIR)/rom/rom/etc
+ 
+ 	# strip size for tmp
+-	#rm -rf $(INSTALLDIR)/rom/*.ipk
+-	#rm -rf $(INSTALLDIR)/rom/*.tgz
++	rm -rf $(INSTALLDIR)/rom/*.ipk
++	rm -rf $(INSTALLDIR)/rom/*.tgz
+ 	#rm -rf $(INSTALLDIR)/usr/lighttpd/css
+ 	#rm -rf $(INSTALLDIR)/usr/lighttpd/js
+ 	#rm -rf $(INSTALLDIR)/www/images/New_ui
+@@ -1843,6 +1979,7 @@
  	@echo ---
  else
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}.sh
-+	[ ! -d $(BLACKFUEL_DIR)/staging ] || cp -afv $(BLACKFUEL_DIR)/staging/* $(TARGETDIR)
++	[ ! -d $(BLACKFUEL_DIR)/staging ] || cp -afv $(BLACKFUEL_DIR)/staging/* $(TARGETDIR)/
  	@echo ---
  endif
  
-@@ -1904,7 +2040,7 @@
+@@ -1904,7 +2041,7 @@
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/scsi/sr_mod.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/scanner.*o $(PLATFORMDIR)/extras/ || true
  
@@ -26503,7 +26542,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1919,9 +2055,9 @@
+@@ -1919,9 +2056,9 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
@@ -26515,7 +26554,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/audio.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ov51*.*o $(PLATFORMDIR)/extras/ || true
-@@ -1934,16 +2070,14 @@
+@@ -1934,16 +2071,14 @@
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/drivers/sound || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/sound/* $(PLATFORMDIR)/extras/ || true
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/sound || true
@@ -26536,7 +26575,7 @@
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp1251.*o $(PLATFORMDIR)/extras/ || true
-@@ -2201,6 +2335,62 @@
+@@ -2201,6 +2336,62 @@
  	rm -rf $(PLATFORMDIR)/extras
  	rm -rf kernel_header
  endif
@@ -26599,7 +26638,7 @@
  
  distclean: clean
  ifneq ($(INSIDE_MAK),1)
-@@ -2323,10 +2513,10 @@
+@@ -2323,10 +2514,10 @@
  	chmod 4755 $(INSTALLDIR)/$(BUSYBOX)/bin/busybox
  
  busybox-clean:
@@ -26612,7 +26651,7 @@
  
  busybox-config:
  	$(MAKE) -C $(BUSYBOX_DIR) menuconfig
-@@ -2450,11 +2640,17 @@
+@@ -2450,11 +2641,17 @@
  	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
@@ -26630,7 +26669,7 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -2578,7 +2774,7 @@
+@@ -2578,7 +2775,7 @@
  mssl-install:
  	$(MAKE) -C mssl INSTALLDIR=$(INSTALLDIR)/mssl install
  
@@ -26639,7 +26678,7 @@
  
  wb-install:
  	$(MAKE) -C wb INSTALLDIR=$(INSTALLDIR)/wb install
-@@ -2759,11 +2955,11 @@
+@@ -2759,11 +2956,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -26654,7 +26693,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
-@@ -2935,14 +3131,14 @@
+@@ -2935,14 +3132,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -26672,7 +26711,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -3100,7 +3296,8 @@
+@@ -3100,7 +3297,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -26682,7 +26721,7 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -3251,7 +3448,7 @@
+@@ -3251,7 +3449,7 @@
  	( cd lsof ; ./Configure -clean )
  	@rm -f lsof/Makefile
  
@@ -26691,7 +26730,7 @@
  ifeq ($(ALPINE)$(LANTIQ),y)
  	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
  		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
-@@ -3270,45 +3467,6 @@
+@@ -3270,45 +3468,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -26737,7 +26776,7 @@
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -3335,20 +3493,23 @@
+@@ -3335,20 +3494,23 @@
  6relayd-clean:
  	-@$(MAKE) -C 6relayd clean
  
@@ -26767,7 +26806,7 @@
  		--disable-backtrace --disable-debugfs \
  		--disable-imager --disable-resizer --disable-defrag \
  		--disable-e2initrd-helper --disable-uuidd \
-@@ -3356,21 +3517,13 @@
+@@ -3356,21 +3518,13 @@
  		ac_cv_lib_dl_dlopen=no \
  		ac_cv_have_decl_fgets_unlocked=yes
  
@@ -26789,7 +26828,7 @@
  		ln -sf libcom_err.so.2.1 libcom_err.so.2 && ln -sf libcom_err.so.2.1 libcom_err.so && \
  		ln -sf libe2p.so.2.3 libe2p.so.2 && ln -sf libe2p.so.2.3 libe2p.so && \
  		ln -sf libext2fs.so.2.4 libext2fs.so.2 && ln -sf libext2fs.so.2.4 libext2fs.so
-@@ -3633,19 +3786,19 @@
+@@ -3633,19 +3787,19 @@
  
  quagga-install:
  	install -d $(INSTALLDIR)/quagga/usr/lib
@@ -26814,7 +26853,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -4013,20 +4166,2155 @@
+@@ -4013,20 +4167,2157 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -27018,10 +27057,10 @@
 +
 +dnscrypt-install:
 +	install -d $(INSTALLDIR)/dnscrypt/usr/bin/
-+	install -d $(INSTALLDIR)/dnscrypt/usr/share/dnscrypt-proxy/
++	install -d $(INSTALLDIR)/dnscrypt/usr/local/dnscrypt-proxy/
 +	install -D $(STAGEDIR)/usr/sbin/dnscrypt-proxy $(INSTALLDIR)/dnscrypt/usr/bin/
 +	install -D $(STAGEDIR)/usr/bin/hostip $(INSTALLDIR)/dnscrypt/usr/bin/
-+	install -D $(STAGEDIR)/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv $(INSTALLDIR)/dnscrypt/usr/share/dnscrypt-proxy/
++	install -D $(STAGEDIR)/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv $(INSTALLDIR)/dnscrypt/usr/local/dnscrypt-proxy/
 +	$(STRIP) $(INSTALLDIR)/dnscrypt/usr/bin/dnscrypt-proxy
 +	$(STRIP) $(INSTALLDIR)/dnscrypt/usr/bin/hostip
 +
@@ -28159,6 +28198,7 @@
 +		$(if $(RTCONFIG_HND_ROUTER),,ac_cv_func_posix_fallocate=yes) \
 +		--host=`X=$${CC##*/};echo $${X%-*}` \
 +		--prefix=/usr \
++		--datarootdir=/usr/local \
 +		--disable-nls \
 +		--disable-silent-rules \
 +		--enable-daemon \
@@ -28181,14 +28221,14 @@
 +
 +transmission-openssl-install:
 +	install -d $(INSTALLDIR)/transmission-openssl/usr/bin/
-+	install -d $(INSTALLDIR)/transmission-openssl/usr/share/
++	install -d $(INSTALLDIR)/transmission-openssl/usr/local/
 +	install -D $(STAGEDIR)/usr/bin/transmission-daemon $(INSTALLDIR)/transmission-openssl/usr/bin/Transmission-daemon
 +	install -D $(STAGEDIR)/usr/bin/transmission-remote $(INSTALLDIR)/transmission-openssl/usr/bin/Transmission-remote
 +	#install -D $(STAGEDIR)/usr/bin/transmission-cli $(INSTALLDIR)/transmission-openssl/usr/bin/Transmission-cli
 +	#install -D $(STAGEDIR)/usr/bin/transmission-create $(INSTALLDIR)/transmission-openssl/usr/bin/Transmission-create
 +	#install -D $(STAGEDIR)/usr/bin/transmission-edit $(INSTALLDIR)/transmission-openssl/usr/bin/Transmission-edit
 +	#install -D $(STAGEDIR)/usr/bin/transmission-show $(INSTALLDIR)/transmission-openssl/usr/bin/Transmission-show
-+	cp -af $(STAGEDIR)/usr/share/transmission $(INSTALLDIR)/transmission-openssl/usr/share/
++	cp -af $(STAGEDIR)/usr/local/transmission $(INSTALLDIR)/transmission-openssl/usr/local/
 +	$(STRIP) $(INSTALLDIR)/transmission-openssl/usr/bin/*
 +
 +### transmission-mbedtls
@@ -28220,6 +28260,7 @@
 +		./autogen.sh \
 +		$(if $(RTCONFIG_HND_ROUTER),,ac_cv_func_posix_fallocate=yes) \
 +		--prefix=/usr \
++		--datarootdir=/usr/local \
 +		--disable-nls \
 +		--disable-silent-rules \
 +		--enable-daemon \
@@ -28242,14 +28283,14 @@
 +
 +transmission-mbedtls-install:
 +	install -d $(INSTALLDIR)/transmission-mbedtls/usr/bin/
-+	install -d $(INSTALLDIR)/transmission-mbedtls/usr/share/
++	install -d $(INSTALLDIR)/transmission-mbedtls/usr/local/
 +	install -D $(STAGEDIR)/usr/bin/transmission-daemon $(INSTALLDIR)/transmission-mbedtls/usr/bin/Transmission-daemon
 +	install -D $(STAGEDIR)/usr/bin/transmission-remote $(INSTALLDIR)/transmission-mbedtls/usr/bin/Transmission-remote
 +	#install -D $(STAGEDIR)/usr/bin/transmission-cli $(INSTALLDIR)/transmission-mbedtls/usr/bin/Transmission-cli
 +	#install -D $(STAGEDIR)/usr/bin/transmission-create $(INSTALLDIR)/transmission-mbedtls/usr/bin/Transmission-create
 +	#install -D $(STAGEDIR)/usr/bin/transmission-edit $(INSTALLDIR)/transmission-mbedtls/usr/bin/Transmission-edit
 +	#install -D $(STAGEDIR)/usr/bin/transmission-show $(INSTALLDIR)/transmission-mbedtls/usr/bin/Transmission-show
-+	cp -af $(STAGEDIR)/usr/share/transmission $(INSTALLDIR)/transmission-mbedtls/usr/share/
++	cp -af $(STAGEDIR)/usr/local/transmission $(INSTALLDIR)/transmission-mbedtls/usr/local/
 +	$(STRIP) $(INSTALLDIR)/transmission-mbedtls/usr/bin/*
 +
 +### mbedtls
@@ -28330,7 +28371,7 @@
 +		--sbindir=/usr/sbin \
 +		--sysconfdir=/usr/local/etc/apcupsd \
 +		--with-cgi-bin=/usr/local/etc/apcupsd \
-+		--datarootdir=/usr/share \
++		--datarootdir=/usr/local \
 +		--with-distname=unknown \
 +		--with-upstype=usb \
 +		--with-upscable=usb \
@@ -28371,8 +28412,8 @@
 +	install -D $(BLACKFUEL_DIR)/packages/apcupsd/files/onbattery $(INSTALLDIR)/apcupsd/usr/local/etc/apcupsd/
 +	install -D $(BLACKFUEL_DIR)/packages/apcupsd/files/apccontrol $(INSTALLDIR)/apcupsd/usr/local/etc/apcupsd/
 +ifeq ($(RTCONFIG_APCUPSD_CGI),y)
-+	install -d $(INSTALLDIR)/apcupsd/www/cgi-bin/apcupsd
-+	cp -pf $(STAGEDIR)/usr/local/etc/apcupsd/*.cgi $(INSTALLDIR)/apcupsd/www/cgi-bin/apcupsd/
++	install -d $(INSTALLDIR)/apcupsd/usr/local/etc/apcupsd/www/cgi-bin
++	cp -pf $(STAGEDIR)/usr/local/etc/apcupsd/*.cgi $(INSTALLDIR)/apcupsd/usr/local/etc/apcupsd/www/cgi-bin/
 +	install -D $(STAGEDIR)/usr/local/etc/apcupsd/apcupsd.css $(INSTALLDIR)/apcupsd/usr/local/etc/apcupsd/
 +	install -D $(STAGEDIR)/usr/local/etc/apcupsd/hosts.conf $(INSTALLDIR)/apcupsd/usr/local/etc/apcupsd/
 +	install -D $(STAGEDIR)/usr/local/etc/apcupsd/multimon.conf $(INSTALLDIR)/apcupsd/usr/local/etc/apcupsd/
@@ -28974,7 +29015,7 @@
  
  tor-clean:
  	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
-@@ -4302,25 +6590,6 @@
+@@ -4302,25 +6593,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -29000,7 +29041,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4342,33 +6611,6 @@
+@@ -4342,33 +6614,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -29034,7 +29075,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4443,7 +6685,7 @@
+@@ -4443,7 +6688,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -29043,7 +29084,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4886,7 +7128,7 @@
+@@ -4886,7 +7131,7 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -29052,7 +29093,7 @@
  	cd lzo && \
  	CFLAGS="-O3 -Wall $(EXTRACFLAGS)" $(CONFIGURE) --enable-shared --enable-static \
  		--prefix=/usr \
-@@ -5115,7 +7357,13 @@
+@@ -5115,7 +7360,13 @@
  endif
  	@touch $@
  
@@ -29067,7 +29108,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5329,7 +7577,7 @@
+@@ -5329,7 +7580,7 @@
  	--enable-cmd --enable-eap-tls --enable-libipsec --disable-static \
  	CFLAGS="-O3 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include $(if $(RTCONFIG_HND_ROUTER),-DHND_ROUTER,)" \
  	LDFLAGS="$(if $(RTCONFIG_HND_ROUTER), -L$(TOP)/strongswan-5.2.1, -L$(STAGEDIR)/usr/lib -L$(TOP)/openssl)" \
@@ -29076,7 +29117,7 @@
  	touch $@
  
  strongswan-5.2.1: strongswan-5.2.1/stamp-h1
-@@ -5429,7 +7677,7 @@
+@@ -5429,7 +7680,7 @@
  fb_wifi/stamp-h1:
  	touch $@
  
@@ -29085,7 +29126,7 @@
  	@$(MAKE) -C fb_wifi
  
  fb_wifi-install: fb_wifi
-@@ -5447,35 +7695,35 @@
+@@ -5447,35 +7698,35 @@
  
  #add by gauss
  #add install libcurl
@@ -29150,7 +29191,7 @@
  
  #snmp
  net-snmp-5.7.2/stamp-h1:
-@@ -5889,7 +8137,7 @@
+@@ -5889,7 +8140,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -29159,7 +29200,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6269,30 +8517,6 @@
+@@ -6269,30 +8520,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -29190,7 +29231,7 @@
  wget/Makefile.in: wget/Makefile.am
  	cd wget && autoreconf -fi
  
-@@ -6305,7 +8529,7 @@
+@@ -6305,7 +8532,7 @@
  		CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -I$(TOP)/openssl/include -I$(TOP)/zlib" \
  		LDFLAGS="$(EXTRALDFLAGS) -Wl,--gc-sections -L$(TOP)/openssl -lssl -lcrypto -L$(TOP)/zlib -lz"
  
@@ -29199,7 +29240,7 @@
  	$(MAKE) -C $@
  
  wget-clean:
-@@ -6606,7 +8830,7 @@
+@@ -6606,7 +8833,7 @@
  	$(MAKE) -C $@
  
  i2c-tools-2013-12-15-clean:
@@ -29208,7 +29249,7 @@
  
  i2c-tools-2013-12-15-install: i2c-tools-2013-12-15
  	install -D i2c-tools-2013-12-15/tools/i2cdump $(INSTALLDIR)/i2c-tools-2013-12-15/usr/bin/i2cdump
-@@ -6914,46 +9138,56 @@
+@@ -6914,46 +9141,56 @@
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2.0 &&\
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2
  
@@ -29291,7 +29332,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6972,12 +9206,19 @@
+@@ -6972,12 +9209,19 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -29316,7 +29357,7 @@
  	@touch nettle/stamp-h1
  
  nettle: nettle/stamp-h1
-@@ -7053,7 +9294,7 @@
+@@ -7053,7 +9297,7 @@
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
  	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
  	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
@@ -29325,7 +29366,7 @@
  	touch ipset_arm/stamp-h1
  
  ipset_arm: ipset_arm/stamp-h1
-@@ -7296,7 +9537,7 @@
+@@ -7296,7 +9540,7 @@
  
  #aaews: wb
  
@@ -29334,7 +29375,7 @@
  aaews: wb
  	cd aaews && \
  	CC=$(CC) CXX=$(CXX) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -7345,36 +9586,36 @@
+@@ -7345,36 +9589,36 @@
  	install -D amas-utils/amas-utils-cli $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  
@@ -29718,7 +29759,7 @@
  extern int wave_app_flag;
 --- a/release/src/router/httpd/httpd.c
 +++ b/release/src/router/httpd/httpd.c
-@@ -2326,3 +2326,68 @@
+@@ -2326,3 +2326,70 @@
  	return _check_ip_is_lan_or_wan(target_ip, nvram_safe_get("lan_ipaddr"), nvram_safe_get("lan_netmask"));
  }
  
@@ -29727,14 +29768,16 @@
 +int dump_dpi_support(int index)
 +{
 +	int retval = 0;
++/*
 +	logmessage("httpd", "dump_dpi_support(%d) called from $(TOP)/httpd/prebuild/web_hook.o, returning %d", index, retval);
++*/
 +	return retval;
 +}
 +
 +int ej_get_ui_support_hook(int eid, webs_t wp, int argc, char **argv)
 +{
 +	int retval = ej_get_ui_support(eid, wp, argc, argv);
-+
++/*
 +	if (argc == 0)
 +		logmessage("httpd", "ej_get_ui_support(%d, 0x%08x, %d) returned %d", eid, wp, argc, retval);
 +	else if (argc == 1)
@@ -29759,7 +29802,7 @@
 +		logmessage("httpd", "ej_get_ui_support(%d, 0x%08x, %d, \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\") returned %d", eid, wp, argc, argv[0], argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], argv[7], argv[8], argv[9], retval);
 +	else
 +		logmessage("httpd", "ej_get_ui_support(%d, 0x%08x, %d, \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", ...) returned %d", eid, wp, argc, argv[0], argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], argv[7], argv[8], argv[9], retval);
-+
++*/
 +	return retval;
 +}
 +#endif
@@ -29787,20 +29830,6 @@
 +}
 +#endif
 +
---- a/release/src/router/httpd/web.c
-+++ b/release/src/router/httpd/web.c
-@@ -22294,7 +22294,11 @@
- 	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
- 	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
- 	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
-+#if defined(RTCONFIG_BWDPI)
- 	{ "get_ui_support", ej_get_ui_support},
-+#else
-+	{ "get_ui_support", ej_get_ui_support_hook},
-+#endif
- #ifdef RTCONFIG_DBLOG
- 	{ "generate_trans_id", ej_generate_trans_id},
- #endif
 --- a/release/src-rt-5.02hnd/hostTools/Makefile
 +++ b/release/src-rt-5.02hnd/hostTools/Makefile
 @@ -203,6 +203,7 @@
@@ -29870,3 +29899,334 @@
 + {
 +   INT_STRUCT_STAT st;
 +   int r;
+--- a/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a
++++ b/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a
+@@ -1174,7 +1174,29 @@
+ # CONFIG_SCSI_DH is not set
+ # CONFIG_SCSI_OSD_INITIATOR is not set
+ # CONFIG_ATA is not set
+-# CONFIG_MD is not set
++CONFIG_MD=y
++# CONFIG_BLK_DEV_MD is not set
++# CONFIG_BCACHE is not set
++CONFIG_BLK_DEV_DM_BUILTIN=y
++CONFIG_BLK_DEV_DM=m
++# CONFIG_DM_MQ_DEFAULT is not set
++# CONFIG_DM_DEBUG is not set
++CONFIG_DM_BUFIO=m
++CONFIG_DM_CRYPT=m
++# CONFIG_DM_SNAPSHOT is not set
++# CONFIG_DM_THIN_PROVISIONING is not set
++# CONFIG_DM_CACHE is not set
++# CONFIG_DM_ERA is not set
++# CONFIG_DM_MIRROR is not set
++# CONFIG_DM_RAID is not set
++# CONFIG_DM_ZERO is not set
++# CONFIG_DM_MULTIPATH is not set
++# CONFIG_DM_DELAY is not set
++# CONFIG_DM_UEVENT is not set
++# CONFIG_DM_FLAKEY is not set
++CONFIG_DM_VERITY=m
++# CONFIG_DM_SWITCH is not set
++# CONFIG_DM_LOG_WRITES is not set
+ # CONFIG_TARGET_CORE is not set
+ # CONFIG_FUSION is not set
+ 
+@@ -1484,7 +1506,16 @@
+ #
+ # PPS support
+ #
+-# CONFIG_PPS is not set
++CONFIG_PPS=m
++# CONFIG_PPS_DEBUG is not set
++CONFIG_NTP_PPS=y
++
++#
++# PPS clients support
++#
++CONFIG_PPS_CLIENT_KTIMER=m
++CONFIG_PPS_CLIENT_LDISC=m
++CONFIG_PPS_CLIENT_GPIO=m
+ 
+ #
+ # PPS generators support
+@@ -1681,6 +1712,98 @@
+ # CONFIG_BACKLIGHT_LCD_SUPPORT is not set
+ # CONFIG_VGASTATE is not set
+ # CONFIG_SOUND is not set
++
++#
++# HID support
++#
++CONFIG_HID=m
++# CONFIG_HID_BATTERY_STRENGTH is not set
++CONFIG_HIDRAW=y
++# CONFIG_UHID is not set
++CONFIG_HID_GENERIC=m
++
++#
++# Special HID drivers
++#
++# CONFIG_HID_A4TECH is not set
++# CONFIG_HID_ACRUX is not set
++# CONFIG_HID_APPLE is not set
++# CONFIG_HID_APPLEIR is not set
++# CONFIG_HID_AUREAL is not set
++# CONFIG_HID_BELKIN is not set
++# CONFIG_HID_BETOP_FF is not set
++# CONFIG_HID_CHERRY is not set
++# CONFIG_HID_CHICONY is not set
++# CONFIG_HID_CYPRESS is not set
++# CONFIG_HID_DRAGONRISE is not set
++# CONFIG_HID_EMS_FF is not set
++# CONFIG_HID_ELECOM is not set
++# CONFIG_HID_ELO is not set
++# CONFIG_HID_EZKEY is not set
++# CONFIG_HID_HOLTEK is not set
++# CONFIG_HID_GT683R is not set
++# CONFIG_HID_KEYTOUCH is not set
++# CONFIG_HID_KYE is not set
++# CONFIG_HID_UCLOGIC is not set
++# CONFIG_HID_WALTOP is not set
++# CONFIG_HID_GYRATION is not set
++# CONFIG_HID_ICADE is not set
++# CONFIG_HID_TWINHAN is not set
++# CONFIG_HID_KENSINGTON is not set
++# CONFIG_HID_LCPOWER is not set
++# CONFIG_HID_LENOVO is not set
++# CONFIG_HID_LOGITECH is not set
++# CONFIG_HID_MAGICMOUSE is not set
++# CONFIG_HID_MICROSOFT is not set
++# CONFIG_HID_MONTEREY is not set
++# CONFIG_HID_MULTITOUCH is not set
++# CONFIG_HID_NTRIG is not set
++# CONFIG_HID_ORTEK is not set
++# CONFIG_HID_PANTHERLORD is not set
++# CONFIG_HID_PENMOUNT is not set
++# CONFIG_HID_PETALYNX is not set
++# CONFIG_HID_PICOLCD is not set
++# CONFIG_HID_PLANTRONICS is not set
++# CONFIG_HID_PRIMAX is not set
++# CONFIG_HID_ROCCAT is not set
++# CONFIG_HID_SAITEK is not set
++# CONFIG_HID_SAMSUNG is not set
++# CONFIG_HID_SONY is not set
++# CONFIG_HID_SPEEDLINK is not set
++# CONFIG_HID_STEELSERIES is not set
++# CONFIG_HID_SUNPLUS is not set
++# CONFIG_HID_RMI is not set
++# CONFIG_HID_GREENASIA is not set
++# CONFIG_HID_SMARTJOYPLUS is not set
++# CONFIG_HID_TIVO is not set
++# CONFIG_HID_TOPSEED is not set
++# CONFIG_HID_THINGM is not set
++# CONFIG_HID_THRUSTMASTER is not set
++# CONFIG_HID_WACOM is not set
++# CONFIG_HID_WIIMOTE is not set
++# CONFIG_HID_XINMO is not set
++# CONFIG_HID_ZEROPLUS is not set
++# CONFIG_HID_ZYDACRON is not set
++# CONFIG_HID_SENSOR_HUB is not set
++
++#
++# USB HID support
++#
++CONFIG_USB_HID=m
++# CONFIG_HID_PID is not set
++CONFIG_USB_HIDDEV=y
++
++#
++# USB HID Boot Protocol drivers
++#
++# CONFIG_USB_KBD is not set
++# CONFIG_USB_MOUSE is not set
++
++#
++# I2C HID support
++#
++# CONFIG_I2C_HID is not set
++
+ CONFIG_USB_OHCI_LITTLE_ENDIAN=y
+ CONFIG_USB_SUPPORT=y
+ CONFIG_USB_COMMON=m
+@@ -1777,13 +1900,13 @@
+ # CONFIG_USB_SERIAL_AIRCABLE is not set
+ # CONFIG_USB_SERIAL_ARK3116 is not set
+ # CONFIG_USB_SERIAL_BELKIN is not set
+-# CONFIG_USB_SERIAL_CH341 is not set
++CONFIG_USB_SERIAL_CH341=m
+ # CONFIG_USB_SERIAL_WHITEHEAT is not set
+ # CONFIG_USB_SERIAL_DIGI_ACCELEPORT is not set
+-# CONFIG_USB_SERIAL_CP210X is not set
++CONFIG_USB_SERIAL_CP210X=m
+ # CONFIG_USB_SERIAL_CYPRESS_M8 is not set
+ # CONFIG_USB_SERIAL_EMPEG is not set
+-# CONFIG_USB_SERIAL_FTDI_SIO is not set
++CONFIG_USB_SERIAL_FTDI_SIO=m
+ # CONFIG_USB_SERIAL_VISOR is not set
+ # CONFIG_USB_SERIAL_IPAQ is not set
+ # CONFIG_USB_SERIAL_IR is not set
+@@ -1803,7 +1926,7 @@
+ # CONFIG_USB_SERIAL_MOS7840 is not set
+ # CONFIG_USB_SERIAL_MXUPORT is not set
+ # CONFIG_USB_SERIAL_NAVMAN is not set
+-# CONFIG_USB_SERIAL_PL2303 is not set
++CONFIG_USB_SERIAL_PL2303=m
+ # CONFIG_USB_SERIAL_OTI6858 is not set
+ # CONFIG_USB_SERIAL_QCAUX is not set
+ # CONFIG_USB_SERIAL_QUALCOMM is not set
+@@ -2051,8 +2174,11 @@
+ #
+ # CD-ROM/DVD Filesystems
+ #
+-# CONFIG_ISO9660_FS is not set
+-# CONFIG_UDF_FS is not set
++CONFIG_ISO9660_FS=m
++CONFIG_JOLIET=y
++CONFIG_ZISOFS=y
++CONFIG_UDF_FS=m
++CONFIG_UDF_NLS=y
+ 
+ #
+ # DOS/FAT/NT Filesystems
+@@ -2113,7 +2239,7 @@
+ # CONFIG_SQUASHFS_LZ4 is not set
+ # CONFIG_SQUASHFS_LZO is not set
+ CONFIG_SQUASHFS_XZ=y
+-# CONFIG_SQUASHFS_4K_DEVBLK_SIZE is not set
++CONFIG_SQUASHFS_4K_DEVBLK_SIZE=y
+ CONFIG_SQUASHFS_EMBEDDED=y
+ CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=1
+ # CONFIG_VXFS_FS is not set
+@@ -2373,11 +2499,11 @@
+ #
+ CONFIG_CRYPTO_CBC=y
+ CONFIG_CRYPTO_CTR=y
+-# CONFIG_CRYPTO_CTS is not set
++CONFIG_CRYPTO_CTS=m
+ CONFIG_CRYPTO_ECB=y
+ # CONFIG_CRYPTO_LRW is not set
+ # CONFIG_CRYPTO_PCBC is not set
+-# CONFIG_CRYPTO_XTS is not set
++CONFIG_CRYPTO_XTS=m
+ 
+ #
+ # Hash modes
+@@ -2391,60 +2517,87 @@
+ # Digest
+ #
+ CONFIG_CRYPTO_CRC32C=y
+-# CONFIG_CRYPTO_CRC32 is not set
+-# CONFIG_CRYPTO_CRCT10DIF is not set
++CONFIG_CRYPTO_CRC32=m
++# CONFIG_CRYPTO_CRC32_PCLMUL is not set
++CONFIG_CRYPTO_CRCT10DIF=m
+ CONFIG_CRYPTO_GHASH=y
+ CONFIG_CRYPTO_MD4=y
+ CONFIG_CRYPTO_MD5=y
+ # CONFIG_CRYPTO_MICHAEL_MIC is not set
+-# CONFIG_CRYPTO_RMD128 is not set
+-# CONFIG_CRYPTO_RMD160 is not set
+-# CONFIG_CRYPTO_RMD256 is not set
+-# CONFIG_CRYPTO_RMD320 is not set
++CONFIG_CRYPTO_RMD128=m
++CONFIG_CRYPTO_RMD160=m
++CONFIG_CRYPTO_RMD256=m
++CONFIG_CRYPTO_RMD320=m
+ CONFIG_CRYPTO_SHA1=y
++# CONFIG_CRYPTO_SHA1_MB is not set
+ CONFIG_CRYPTO_SHA256=y
+ CONFIG_CRYPTO_SHA512=y
+-# CONFIG_CRYPTO_TGR192 is not set
+-# CONFIG_CRYPTO_WP512 is not set
++CONFIG_CRYPTO_TGR192=m
++CONFIG_CRYPTO_WP512=m
+ 
+ #
+ # Ciphers
+ #
+ CONFIG_CRYPTO_AES=y
+-# CONFIG_CRYPTO_ANUBIS is not set
+-# CONFIG_CRYPTO_ARC4 is not set
+-# CONFIG_CRYPTO_BLOWFISH is not set
+-# CONFIG_CRYPTO_CAMELLIA is not set
+-# CONFIG_CRYPTO_CAST5 is not set
+-# CONFIG_CRYPTO_CAST6 is not set
++CONFIG_CRYPTO_ANUBIS=m
++CONFIG_CRYPTO_ARC4=y
++CONFIG_CRYPTO_BLOWFISH=m
++CONFIG_CRYPTO_BLOWFISH_COMMON=m
++CONFIG_CRYPTO_CAMELLIA=m
++CONFIG_CRYPTO_CAST_COMMON=m
++CONFIG_CRYPTO_CAST5=m
++CONFIG_CRYPTO_CAST6=m
+ CONFIG_CRYPTO_DES=y
+-# CONFIG_CRYPTO_FCRYPT is not set
+-# CONFIG_CRYPTO_KHAZAD is not set
+-# CONFIG_CRYPTO_SALSA20 is not set
+-# CONFIG_CRYPTO_SEED is not set
+-# CONFIG_CRYPTO_SERPENT is not set
+-# CONFIG_CRYPTO_TEA is not set
+-# CONFIG_CRYPTO_TWOFISH is not set
++CONFIG_CRYPTO_FCRYPT=m
++CONFIG_CRYPTO_KHAZAD=m
++CONFIG_CRYPTO_SALSA20=m
++CONFIG_CRYPTO_SEED=m
++CONFIG_CRYPTO_SERPENT=m
++CONFIG_CRYPTO_TEA=m
++CONFIG_CRYPTO_TWOFISH=m
++CONFIG_CRYPTO_TWOFISH_COMMON=m
+ 
+ #
+ # Compression
+ #
+ CONFIG_CRYPTO_DEFLATE=y
+-# CONFIG_CRYPTO_ZLIB is not set
++CONFIG_CRYPTO_ZLIB=m
+ CONFIG_CRYPTO_LZO=y
+-# CONFIG_CRYPTO_LZ4 is not set
+-# CONFIG_CRYPTO_LZ4HC is not set
++CONFIG_CRYPTO_LZ4=m
++CONFIG_CRYPTO_LZ4HC=m
+ 
+ #
+ # Random Number Generation
+ #
+-# CONFIG_CRYPTO_ANSI_CPRNG is not set
+-# CONFIG_CRYPTO_DRBG_MENU is not set
+-# CONFIG_CRYPTO_USER_API_HASH is not set
+-# CONFIG_CRYPTO_USER_API_SKCIPHER is not set
+-# CONFIG_CRYPTO_USER_API_RNG is not set
++CONFIG_CRYPTO_ANSI_CPRNG=m
++CONFIG_CRYPTO_DRBG_MENU=m
++CONFIG_CRYPTO_DRBG_HMAC=y
++CONFIG_CRYPTO_DRBG_HASH=y
++CONFIG_CRYPTO_DRBG_CTR=y
++CONFIG_CRYPTO_DRBG=m
++CONFIG_CRYPTO_USER_API=m
++CONFIG_CRYPTO_USER_API_HASH=m
++CONFIG_CRYPTO_USER_API_SKCIPHER=m
++CONFIG_CRYPTO_USER_API_RNG=m
++CONFIG_CRYPTO_HASH_INFO=y
+ # CONFIG_CRYPTO_HW is not set
+-# CONFIG_ARM64_CRYPTO is not set
++CONFIG_ARM64_CRYPTO=y
++CONFIG_CRYPTO_SHA1_ARM64_CE=m
++CONFIG_CRYPTO_SHA2_ARM64_CE=m
++CONFIG_CRYPTO_GHASH_ARM64_CE=m
++CONFIG_CRYPTO_AES_ARM64_CE=m
++CONFIG_CRYPTO_AES_ARM64_CE_CCM=m
++CONFIG_CRYPTO_AES_ARM64_CE_BLK=m
++CONFIG_CRYPTO_AES_ARM64_NEON_BLK=m
++CONFIG_CRYPTO_CRC32_ARM64=m
++CONFIG_ASYMMETRIC_KEY_TYPE=m
++CONFIG_ASYMMETRIC_PUBLIC_KEY_SUBTYPE=m
++CONFIG_PUBLIC_KEY_ALGO_RSA=m
++CONFIG_X509_CERTIFICATE_PARSER=m
++CONFIG_PKCS7_MESSAGE_PARSER=m
++CONFIG_PKCS7_TEST_KEY=m
++CONFIG_HAVE_KVM=y
++# CONFIG_VIRTUALIZATION is not set
+ # CONFIG_BINARY_PRINTF is not set
+ 
+ #
