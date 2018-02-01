@@ -20,7 +20,8 @@ make_clean() {
 make_clean_2() {
 	cd $HOME/blackfuel
 	rm -rf asuswrt-merlin.382
-	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-13bf17a.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-13bf17a.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-d90542f.tar.gz
 	mv asuswrt-merlin.ng-master asuswrt-merlin.382
 #	mv asuswrt-merlin.382-master asuswrt-merlin.382
 	get_version_info
@@ -35,7 +36,8 @@ make_clean_2() {
 make_clean_3() {
 	cd $HOME/blackfuel
 	rm -rf asuswrt-merlin.382
-	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-13bf17a.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-13bf17a.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-d90542f.tar.gz
 	mv asuswrt-merlin.ng-master asuswrt-merlin.382
 #	mv asuswrt-merlin.382-master asuswrt-merlin.382
 	get_version_info
@@ -45,7 +47,11 @@ make_clean_3() {
 	ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin.382/tools
 	cd asuswrt-merlin.382
 	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/384.3_alpha2_X-ARM-mods+apps+xtables-addons+nofiles.patch
-	ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
+#	ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
+	# change existing target settings
+	sed -r -i 's/MEDIASRV=y/MEDIASRV=n/g;s/PARENTAL2=y/PARENTAL2=n/g;s/WEBDAV=y/WEBDAV=n/g;s/CLOUDSYNC=y/CLOUDSYNC=n/g;s/DROPBOXCLIENT=y/DROPBOXCLIENT=n/g;s/TIMEMACHINE=y/TIMEMACHINE=n/g;s/MDNS=y/MDNS=n/g;s/BWDPI=y/BWDPI=n/g;s/SWEBDAVCLIENT=y/SWEBDAVCLIENT=n/g;s/SNMPD=y/SNMPD=n/g;s/CLOUDCHECK=y/CLOUDCHECK=n/g;s/DNSFILTER=y/DNSFILTER=n/g;s/HSPOT=y/HSPOT=n/g;s/SMARTSYNCBASE=y/SMARTSYNCBASE=n/g;s/EMAIL=y/EMAIL=n/g;s/NOTIFICATION_CENTER=y/NOTIFICATION_CENTER=n/g;s/NATNL_AICLOUD=y/NATNL_AICLOUD=n/g;s/NATNL_AIHOME=y/NATNL_AIHOME=n/g;s/IFTTT=y/IFTTT=n/g;s/ALEXA=y/ALEXA=n/g;s/LETSENCRYPT=y/LETSENCRYPT=n/g;s/VISUALIZATION=y/VISUALIZATION=n/g;s/WTFAST=y/WTFAST=n/g;s/ROG=y/ROG=n/g;s/MULTICASTIPTV=y/MULTICASTIPTV=n/g;s/QUAGGA=y/QUAGGA=n/g;s/OPTIMIZE_XBOX=y/OPTIMIZE_XBOX=n/g;s/AMAS=y/AMAS=n/g' release/src-rt/target.mak
+	# append new target settings
+	sed -r -i 's/ARM=y\s+\(?!USBRESET=y\)/ARM=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n/g' release/src-rt/target.mak
 
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox-1.24.1/busybox-1.24.1/config_base release/src/router/busybox-1.24.1/busybox-1.24.1/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/config/config.in release/src/router/config/
