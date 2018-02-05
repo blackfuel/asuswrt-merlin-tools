@@ -51,12 +51,11 @@ make_clean_3() {
 	# change existing target settings
 	sed -r -i 's/MEDIASRV=y/MEDIASRV=n/g;s/PARENTAL2=y/PARENTAL2=n/g;s/WEBDAV=y/WEBDAV=n/g;s/CLOUDSYNC=y/CLOUDSYNC=n/g;s/DROPBOXCLIENT=y/DROPBOXCLIENT=n/g;s/TIMEMACHINE=y/TIMEMACHINE=n/g;s/MDNS=y/MDNS=n/g;s/BWDPI=y/BWDPI=n/g;s/SWEBDAVCLIENT=y/SWEBDAVCLIENT=n/g;s/SNMPD=y/SNMPD=n/g;s/CLOUDCHECK=y/CLOUDCHECK=n/g;s/DNSFILTER=y/DNSFILTER=n/g;s/HSPOT=y/HSPOT=n/g;s/SMARTSYNCBASE=y/SMARTSYNCBASE=n/g;s/EMAIL=y/EMAIL=n/g;s/NOTIFICATION_CENTER=y/NOTIFICATION_CENTER=n/g;s/NATNL_AICLOUD=y/NATNL_AICLOUD=n/g;s/NATNL_AIHOME=y/NATNL_AIHOME=n/g;s/IFTTT=y/IFTTT=n/g;s/ALEXA=y/ALEXA=n/g;s/LETSENCRYPT=y/LETSENCRYPT=n/g;s/VISUALIZATION=y/VISUALIZATION=n/g;s/WTFAST=y/WTFAST=n/g;s/ROG=y/ROG=n/g;s/MULTICASTIPTV=y/MULTICASTIPTV=n/g;s/QUAGGA=y/QUAGGA=n/g;s/OPTIMIZE_XBOX=y/OPTIMIZE_XBOX=n/g;s/AMAS=y/AMAS=n/g' release/src-rt/target.mak
 	# append new target settings
-	sed -r -i 's/ARM=y\s+\(?!USBRESET=y\)/ARM=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n/g' release/src-rt/target.mak
+	perl -pi -e 's/ARM=y(?!\s+STRACE=y)/ARM=y STRACE=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n/g' release/src-rt/target.mak
 
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox-1.24.1/busybox-1.24.1/config_base release/src/router/busybox-1.24.1/busybox-1.24.1/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/config/config.in release/src/router/config/
-#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
-#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/Makefile release/src-rt/
+	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/Makefile release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/rc.c release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/init.c release/src/router/rc/
@@ -66,7 +65,11 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/web.c release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.c release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.h release/src/router/httpd/
-#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a release/src-rt-5.02hnd/kernel/linux-4.1/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/Makefile release/src-rt/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/make.hndrt release/src-rt-5.02hnd/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/hostTools/Makefile release/src-rt-5.02hnd/hostTools/
+	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile release/src-rt-5.02hnd/hostTools/libcreduction/
+	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a release/src-rt-5.02hnd/kernel/linux-4.1/
 
 	$HOME/blackfuel/asuswrt-merlin-tools/merlin-diff.382.sh
 	mv -f $HOME/merlin-diff.patch $HOME/${BUILD_VER}_X-ARM-mods+apps+xtables-addons+nofiles.patch
@@ -367,12 +370,12 @@ tar czvf ${BUILD_MODEL}_${BUILD_VER}_image.tar.gz -C targets 94908HND
 cd targets/94908HND
 mkdir -p ${BUILD_MODEL}
 mv ../../${BUILD_MODEL}_${BUILD_VER}_image.tar.gz ${BUILD_MODEL}
-sha256sum ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w > sha256sum.txt
+sha256sum ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w > ${BUILD_MODEL}/sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w sha256sum.txt
 mv ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w ${BUILD_MODEL}
 mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}
-cat sha256sum.txt >>"${DST}/sha256sums.txt"
-mv sha256sum.txt ${BUILD_MODEL}
+mkdir -p ${DST}
+cat ${BUILD_MODEL}/sha256sum.txt >>"${DST}/sha256sums.txt"
 mv -vf ${BUILD_MODEL} ${DST}/
 cd ${BUILD_FOLDER}
 fi
