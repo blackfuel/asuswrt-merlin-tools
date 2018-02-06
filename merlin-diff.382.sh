@@ -5,7 +5,7 @@ cd
 #make clean
 cd
 rm -f merlin-diff.patch
-for KERNEL_FOLDER in "src-rt-6.x.4708" "src-rt-7.14.114.x/src"; do
+for KERNEL_FOLDER in "src-rt-6.x.4708" "src-rt-7.14.114.x/src" "src-rt-7.x.main/src"; do
   diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/config_base.6a ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/config_base.6a >> merlin-diff.patch
   diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/usb/serial/ftdi_sio.c >> merlin-diff.patch
   diff -u -B -N ./${MERLIN_TARGET}-original/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/usb/serial/generic.c ./${MERLIN_TARGET}/release/${KERNEL_FOLDER}/linux/linux-2.6.36/drivers/usb/serial/generic.c >> merlin-diff.patch
@@ -73,6 +73,7 @@ diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/httpd/web.c ./${MER
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/config/config.in ./${MERLIN_TARGET}/release/src/router/config/config.in >> merlin-diff.patch
 
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/hostTools/Makefile ./${MERLIN_TARGET}/release/src-rt-5.02hnd/hostTools/Makefile >> merlin-diff.patch
+diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile ./${MERLIN_TARGET}/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch ./${MERLIN_TARGET}/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a ./${MERLIN_TARGET}/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a >> merlin-diff.patch
 
