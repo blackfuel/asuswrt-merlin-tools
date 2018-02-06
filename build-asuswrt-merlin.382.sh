@@ -162,27 +162,28 @@ fi
 BUILD_SDK="HND"
 
 #---
-
 if [ "$BUILD_SDK" == "ARM" ]; then
-
-make_clean_3
-
-export PATH="$ORIG_PATH"
-export LD_LIBRARY_PATH=
-export TOOLCHAIN_BASE=
-echo $PATH | grep -qF /opt/brcm-arm/bin || export PATH=$PATH:/opt/brcm-arm/bin
-echo $PATH | grep -qF /opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin || export PATH=$PATH:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin
-echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-linux/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin
-echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-uclibc/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-uclibc/bin
+#---
 
 BUILD_MODEL="RT-AC68U"
 BUILD_MODEL_2="rt-ac68u"
 SDK_FOLDER="src-rt-6.x.4708"
 BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
 if [ ! -d "$DST/$BUILD_MODEL" ]; then
+
+make_clean_3
+
+export PATH="$ORIG_PATH"
+export LD_LIBRARY_PATH=
+export TOOLCHAIN_BASE=
+echo $PATH | grep -qF /opt/brcm-arm/bin || export PATH=$PATH:/opt/brcm-arm/bin
+echo $PATH | grep -qF /opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin || export PATH=$PATH:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-linux/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-uclibc/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-uclibc/bin
+
 cd ${HOME}/asuswrt-merlin.382/release/src/router
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
@@ -210,25 +211,26 @@ cd ${BUILD_FOLDER}
 fi
 
 #---
-
-make_clean_3
-
-export PATH="$ORIG_PATH"
-export LD_LIBRARY_PATH=
-export TOOLCHAIN_BASE=
-echo $PATH | grep -qF /opt/brcm-arm/bin || export PATH=$PATH:/opt/brcm-arm/bin
-echo $PATH | grep -qF /opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin || export PATH=$PATH:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin
-echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-linux/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin
-echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-uclibc/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-uclibc/bin
 
 BUILD_MODEL="RT-AC56U"
 BUILD_MODEL_2="rt-ac56u"
 SDK_FOLDER="src-rt-6.x.4708"
 BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
 if [ ! -d "$DST/$BUILD_MODEL" ]; then
+
+make_clean_3
+
+export PATH="$ORIG_PATH"
+export LD_LIBRARY_PATH=
+export TOOLCHAIN_BASE=
+echo $PATH | grep -qF /opt/brcm-arm/bin || export PATH=$PATH:/opt/brcm-arm/bin
+echo $PATH | grep -qF /opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin || export PATH=$PATH:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-linux/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-uclibc/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-uclibc/bin
+
 cd ${HOME}/asuswrt-merlin.382/release/src/router
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
@@ -256,52 +258,12 @@ cd ${BUILD_FOLDER}
 fi
 
 #---
-
-make_clean_3
-
-export PATH="$ORIG_PATH"
-export LD_LIBRARY_PATH=
-export TOOLCHAIN_BASE=
-echo $PATH | grep -qF /opt/brcm-arm/bin || export PATH=$PATH:/opt/brcm-arm/bin
-echo $PATH | grep -qF /opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin || export PATH=$PATH:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin
-echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-linux/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin
-echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-uclibc/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-uclibc/bin
 
 BUILD_MODEL="RT-AC88U"
 BUILD_MODEL_2="rt-ac88u"
 SDK_FOLDER="src-rt-7.14.114.x/src"
 BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
 if [ ! -d "$DST/$BUILD_MODEL" ]; then
-cd ${HOME}/asuswrt-merlin.382/release/src/router
-cd ${BUILD_FOLDER}
-make_clean
-make ${BUILD_MODEL_2}
-pushd .
-cd image
-mkdir -p ${BUILD_MODEL}/router
-mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
-cp -p ../.config ${BUILD_MODEL}
-cp -p ../router/config_${BUILD_MODEL_2} ${BUILD_MODEL}/router
-cp -p ../linux/linux-2.6.36/config_${BUILD_MODEL_2} ${BUILD_MODEL}/linux/linux-2.6.36
-cp -p ../linux/linux-2.6.36/Module.symvers ${BUILD_MODEL}/linux/linux-2.6.36
-pushd .
-cd ${PWD%%/release*}/release/src/router
-tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
-tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
-popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
-sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
-mv *.trx ${BUILD_MODEL}
-mv *.zip ${BUILD_MODEL}
-cat sha256sum.txt >>"${DST}/sha256sums.txt"
-mv sha256sum.txt ${BUILD_MODEL}
-mv -vf ${BUILD_MODEL} ${DST}/
-cd ${BUILD_FOLDER}
-#make_clean
-fi
-
-#---
 
 make_clean_3
 
@@ -313,14 +275,9 @@ echo $PATH | grep -qF /opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin || export P
 echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-linux/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin
 echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-uclibc/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-uclibc/bin
 
-BUILD_MODEL="RT-AC3100"
-BUILD_MODEL_2="rt-ac3100"
-SDK_FOLDER="src-rt-7.14.114.x/src"
-BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
-if [ ! -d "$DST/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin.382/release/src/router
 cd ${BUILD_FOLDER}
-make_clean
+#make_clean
 make ${BUILD_MODEL_2}
 pushd .
 cd image
@@ -347,11 +304,160 @@ cd ${BUILD_FOLDER}
 #make_clean
 fi
 
+#---
+
+BUILD_MODEL="RT-AC3100"
+BUILD_MODEL_2="rt-ac3100"
+SDK_FOLDER="src-rt-7.14.114.x/src"
+BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
+
+make_clean_3
+
+export PATH="$ORIG_PATH"
+export LD_LIBRARY_PATH=
+export TOOLCHAIN_BASE=
+echo $PATH | grep -qF /opt/brcm-arm/bin || export PATH=$PATH:/opt/brcm-arm/bin
+echo $PATH | grep -qF /opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin || export PATH=$PATH:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-linux/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-uclibc/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-uclibc/bin
+
+cd ${HOME}/asuswrt-merlin.382/release/src/router
+cd ${BUILD_FOLDER}
+#make_clean
+make ${BUILD_MODEL_2}
+pushd .
+cd image
+mkdir -p ${BUILD_MODEL}/router
+mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
+cp -p ../.config ${BUILD_MODEL}
+cp -p ../router/config_${BUILD_MODEL_2} ${BUILD_MODEL}/router
+cp -p ../linux/linux-2.6.36/config_${BUILD_MODEL_2} ${BUILD_MODEL}/linux/linux-2.6.36
+cp -p ../linux/linux-2.6.36/Module.symvers ${BUILD_MODEL}/linux/linux-2.6.36
+pushd .
+cd ${PWD%%/release*}/release/src/router
+tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
+tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
+popd
+mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+sha256sum *.trx > sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+mv *.trx ${BUILD_MODEL}
+mv *.zip ${BUILD_MODEL}
+cat sha256sum.txt >>"${DST}/sha256sums.txt"
+mv sha256sum.txt ${BUILD_MODEL}
+mv -vf ${BUILD_MODEL} ${DST}/
+cd ${BUILD_FOLDER}
+#make_clean
 fi
 
 #---
 
+if [ 1 == 0 ]; then
+BUILD_MODEL="RT-AC5300"
+BUILD_MODEL_2="rt-ac5300"
+SDK_FOLDER="src-rt-7.14.114.x/src"
+BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
+
+make_clean_3
+
+export PATH="$ORIG_PATH"
+export LD_LIBRARY_PATH=
+export TOOLCHAIN_BASE=
+echo $PATH | grep -qF /opt/brcm-arm/bin || export PATH=$PATH:/opt/brcm-arm/bin
+echo $PATH | grep -qF /opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin || export PATH=$PATH:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-linux/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-uclibc/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-uclibc/bin
+
+cd ${HOME}/asuswrt-merlin.382/release/src/router
+cd ${BUILD_FOLDER}
+#make_clean
+make ${BUILD_MODEL_2}
+pushd .
+cd image
+mkdir -p ${BUILD_MODEL}/router
+mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
+cp -p ../.config ${BUILD_MODEL}
+cp -p ../router/config_${BUILD_MODEL_2} ${BUILD_MODEL}/router
+cp -p ../linux/linux-2.6.36/config_${BUILD_MODEL_2} ${BUILD_MODEL}/linux/linux-2.6.36
+cp -p ../linux/linux-2.6.36/Module.symvers ${BUILD_MODEL}/linux/linux-2.6.36
+pushd .
+cd ${PWD%%/release*}/release/src/router
+tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
+tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
+popd
+mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+sha256sum *.trx > sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+mv *.trx ${BUILD_MODEL}
+mv *.zip ${BUILD_MODEL}
+cat sha256sum.txt >>"${DST}/sha256sums.txt"
+mv sha256sum.txt ${BUILD_MODEL}
+mv -vf ${BUILD_MODEL} ${DST}/
+cd ${BUILD_FOLDER}
+#make_clean
+fi
+fi
+
+#---
+
+BUILD_MODEL="RT-AC3200"
+BUILD_MODEL_2="rt-ac3200"
+SDK_FOLDER="src-rt-7.x.main/src"
+BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
+
+make_clean_3
+
+export PATH="$ORIG_PATH"
+export LD_LIBRARY_PATH=
+export TOOLCHAIN_BASE=
+echo $PATH | grep -qF /opt/brcm-arm/bin || export PATH=$PATH:/opt/brcm-arm/bin
+echo $PATH | grep -qF /opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin || export PATH=$PATH:/opt/brcm-arm/arm-brcm-linux-uclibcgnueabi/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-linux/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-linux/bin
+echo $PATH | grep -qF /opt/brcm/hndtools-mipsel-uclibc/bin || export PATH=$PATH:/opt/brcm/hndtools-mipsel-uclibc/bin
+
+cd ${HOME}/asuswrt-merlin.382/release/src/router
+cd ${BUILD_FOLDER}
+#make_clean
+make ${BUILD_MODEL_2}
+pushd .
+cd image
+mkdir -p ${BUILD_MODEL}/router
+mkdir -p ${BUILD_MODEL}/linux/linux-2.6.36
+cp -p ../.config ${BUILD_MODEL}
+cp -p ../router/config_${BUILD_MODEL_2} ${BUILD_MODEL}/router
+cp -p ../linux/linux-2.6.36/config_${BUILD_MODEL_2} ${BUILD_MODEL}/linux/linux-2.6.36
+cp -p ../linux/linux-2.6.36/Module.symvers ${BUILD_MODEL}/linux/linux-2.6.36
+pushd .
+cd ${PWD%%/release*}/release/src/router
+tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
+tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
+popd
+mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+sha256sum *.trx > sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+mv *.trx ${BUILD_MODEL}
+mv *.zip ${BUILD_MODEL}
+cat sha256sum.txt >>"${DST}/sha256sums.txt"
+mv sha256sum.txt ${BUILD_MODEL}
+mv -vf ${BUILD_MODEL} ${DST}/
+cd ${BUILD_FOLDER}
+#make_clean
+fi
+
+#---
+fi
+#---
+
 if [ "$BUILD_SDK" == "HND" ]; then
+
+BUILD_MODEL="RT-AC86U"
+BUILD_MODEL_2="rt-ac86u"
+SDK_FOLDER="src-rt-5.02hnd"
+BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
+if [ ! -d "$DST/$BUILD_MODEL" ]; then
 
 export PATH="$ORIG_PATH"
 export LD_LIBRARY_PATH=/opt/toolchains/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/lib
@@ -361,11 +467,6 @@ echo $PATH | grep -qF /opt/toolchains/crosstools-aarch64-gcc-5.3-linux-4.1-glibc
 
 make_clean_3
 
-BUILD_MODEL="RT-AC86U"
-BUILD_MODEL_2="rt-ac86u"
-SDK_FOLDER="src-rt-5.02hnd"
-BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
-if [ ! -d "$DST/$BUILD_MODEL" ]; then
 cd ${HOME}/asuswrt-merlin.382/release/src/router
 cd ${BUILD_FOLDER}
 #make_clean
@@ -384,7 +485,12 @@ mv -vf ${BUILD_MODEL} ${DST}/
 cd ${BUILD_FOLDER}
 fi
 
+#---
 fi
+#---
+
+sort --key=2 ${DST}/sha256sums.txt >${DST}/_sha256sums.txt
+mv -f ${DST}/_sha256sums.txt ${DST}/sha256sums.txt
 
 #---
 
