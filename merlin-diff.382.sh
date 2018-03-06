@@ -44,6 +44,7 @@ diff -u -B -N -r -x targets4.man -x targets6.man -x matches4.man -x matches6.man
 
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt/Makefile ./${MERLIN_TARGET}/release/src-rt/Makefile >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt/target.mak ./${MERLIN_TARGET}/release/src-rt/target.mak >> merlin-diff.patch
+diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt/platform.mak ./${MERLIN_TARGET}/release/src-rt/platform.mak >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/config_base ./${MERLIN_TARGET}/release/src/router/config_base >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/Makefile ./${MERLIN_TARGET}/release/src/router/Makefile >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src/router/rc/Makefile ./${MERLIN_TARGET}/release/src/router/rc/Makefile >> merlin-diff.patch
@@ -76,6 +77,7 @@ diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/hostTools/Makef
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile ./${MERLIN_TARGET}/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch ./${MERLIN_TARGET}/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch >> merlin-diff.patch
 diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a ./${MERLIN_TARGET}/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a >> merlin-diff.patch
+diff -u -B -N ./${MERLIN_TARGET}-original/release/src-rt-5.02hnd/targets/94908HND/94908HND.RT-AC86U ./${MERLIN_TARGET}/release/src-rt-5.02hnd/targets/94908HND/94908HND.RT-AC86U >> merlin-diff.patch
 
 # strip file times, root folder names and diff comments
 sed -r -i 's/^(---) ([^\/ ]*\/){2}(release\/[^ \t]*).*/\1 a\/\3/g;s/^(\+\+\+) ([^\/ ]*\/){2}(release\/[^ \t]*).*/\1 b\/\3/g;s/^diff .*//g' merlin-diff.patch

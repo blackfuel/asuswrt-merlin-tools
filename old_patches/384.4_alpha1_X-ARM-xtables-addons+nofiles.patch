@@ -1,0 +1,2843 @@
+--- a/release/src/router/iptables-1.4.x/extensions/compat_user.h
++++ b/release/src/router/iptables-1.4.x/extensions/compat_user.h
+@@ -0,0 +1,12 @@
++/*
++ *	Userspace-level compat hacks
++ */
++#ifndef _XTABLES_COMPAT_USER_H
++#define _XTABLES_COMPAT_USER_H 1
++
++/* linux-glibc-devel 2.6.34 header screwup */
++#ifndef ALIGN
++#	define ALIGN(s, n) (((s) + ((n) - 1)) & ~((n) - 1))
++#endif
++
++#endif /* _XTABLES_COMPAT_USER_H */
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_CHAOS.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_CHAOS.c
+@@ -0,0 +1,113 @@
++/*
++ *	"CHAOS" target extension for iptables
++ *	Copyright © Jan Engelhardt <jengelh [at] medozas de>, 2006 - 2008
++ *
++ *	This program is free software; you can redistribute it and/or
++ *	modify it under the terms of the GNU General Public License; either
++ *	version 2 of the License, or any later version, as published by the
++ *	Free Software Foundation.
++ */
++#include <getopt.h>
++#include <stdbool.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <string.h>
++
++#include <xtables.h>
++#include <linux/netfilter/x_tables.h>
++#include "xt_CHAOS.h"
++#include "compat_user.h"
++
++enum {
++	F_DELUDE = 1 << 0,
++	F_TARPIT = 1 << 1,
++};
++
++static const struct option chaos_tg_opts[] = {
++	{.name = "delude", .has_arg = false, .val = 'd'},
++	{.name = "tarpit", .has_arg = false, .val = 't'},
++	{NULL},
++};
++
++static void chaos_tg_help(void)
++{
++	printf(
++		"CHAOS target options:\n"
++		"  --delude    Enable DELUDE processing for TCP\n"
++		"  --tarpit    Enable TARPIT processing for TCP\n");
++}
++
++static int chaos_tg_parse(int c, char **argv, int invert, unsigned int *flags,
++    const void *entry, struct xt_entry_target **target)
++{
++	struct xt_chaos_tginfo *info = (void *)((*target)->data);
++
++	switch (c) {
++	case 'd':
++		info->variant = XTCHAOS_DELUDE;
++		*flags |= F_DELUDE;
++		return true;
++	case 't':
++		info->variant = XTCHAOS_TARPIT;
++		*flags |= F_TARPIT;
++		return true;
++	}
++	return false;
++}
++
++static void chaos_tg_check(unsigned int flags)
++{
++	if (flags == (F_DELUDE | F_TARPIT))
++		/* If flags == 0x03, both were specified, which should not be. */
++		xtables_error(PARAMETER_PROBLEM,
++		           "CHAOS: only one of --tarpit or --delude "
++		           "may be specified");
++}
++
++static void chaos_tg_print(const void *ip,
++    const struct xt_entry_target *target, int numeric)
++{
++	const struct xt_chaos_tginfo *info = (const void *)target->data;
++
++	switch (info->variant) {
++	case XTCHAOS_DELUDE:
++		printf(" DELUDE ");
++		break;
++	case XTCHAOS_TARPIT:
++		printf(" TARPIT ");
++		break;
++	}
++}
++
++static void chaos_tg_save(const void *ip, const struct xt_entry_target *target)
++{
++	const struct xt_chaos_tginfo *info = (const void *)target->data;
++
++	switch (info->variant) {
++	case XTCHAOS_DELUDE:
++		printf(" --delude ");
++		break;
++	case XTCHAOS_TARPIT:
++		printf(" --tarpit ");
++		break;
++	}
++}
++
++static struct xtables_target chaos_tg_reg = {
++	.version       = XTABLES_VERSION,
++	.name          = "CHAOS",
++	.family        = NFPROTO_IPV4,
++	.size          = XT_ALIGN(sizeof(struct xt_chaos_tginfo)),
++	.userspacesize = XT_ALIGN(sizeof(struct xt_chaos_tginfo)),
++	.help          = chaos_tg_help,
++	.parse         = chaos_tg_parse,
++	.final_check   = chaos_tg_check,
++	.print         = chaos_tg_print,
++	.save          = chaos_tg_save,
++	.extra_opts    = chaos_tg_opts,
++};
++
++static __attribute__((constructor)) void chaos_tg_ldr(void)
++{
++	xtables_register_target(&chaos_tg_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_CHAOS.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_CHAOS.man
+@@ -0,0 +1,21 @@
++Causes confusion on the other end by doing odd things with incoming packets.
++CHAOS will randomly reply (or not) with one of its configurable subtargets:
++.TP
++\fB\-\-delude\fP
++Use the REJECT and DELUDE targets as a base to do a sudden or deferred
++connection reset, fooling some network scanners to return non-deterministic
++(randomly open/closed) results, and in case it is deemed open, it is actually
++closed/filtered.
++.TP
++\fB\-\-tarpit\fP
++Use the REJECT and TARPIT target as a base to hold the connection until it
++times out. This consumes conntrack entries when connection tracking is loaded
++(which usually is on most machines), and routers inbetween you and the Internet
++may fail to do their connection tracking if they have to handle more
++connections than they can.
++.PP
++The randomness factor of not replying vs. replying can be set during load-time
++of the xt_CHAOS module or during runtime in /sys/modules/xt_CHAOS/parameters.
++.PP
++See http://jengelh.medozas.de/projects/chaostables/ for more information
++about CHAOS, DELUDE and lscan.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_DELUDE.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_DELUDE.c
+@@ -0,0 +1,46 @@
++/*
++ *	"DELUDE" target extension for iptables
++ *	Copyright © Jan Engelhardt <jengelh [at] medozas de>, 2006 - 2008
++ *
++ *	This program is free software; you can redistribute it and/or
++ *	modify it under the terms of the GNU General Public License; either
++ *	version 2 of the License, or any later version, as published by the
++ *	Free Software Foundation.
++ */
++#include <getopt.h>
++#include <stdio.h>
++#include <string.h>
++
++#include <xtables.h>
++#include <linux/netfilter/x_tables.h>
++#include "compat_user.h"
++
++static void delude_tg_help(void)
++{
++	printf("DELUDE takes no options\n");
++}
++
++static int delude_tg_parse(int c, char **argv, int invert, unsigned int *flags,
++    const void *entry, struct xt_entry_target **target)
++{
++	return 0;
++}
++
++static void delude_tg_check(unsigned int flags)
++{
++}
++
++static struct xtables_target delude_tg_reg = {
++	.version       = XTABLES_VERSION,
++	.name          = "DELUDE",
++	.revision      = 0,
++	.family        = NFPROTO_IPV4,
++	.help          = delude_tg_help,
++	.parse         = delude_tg_parse,
++	.final_check   = delude_tg_check,
++};
++
++static __attribute__((constructor)) void delude_tg_ldr(void)
++{
++	xtables_register_target(&delude_tg_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_DELUDE.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_DELUDE.man
+@@ -0,0 +1,4 @@
++The DELUDE target will reply to a SYN packet with SYN-ACK, and to all other
++packets with an RST. This will terminate the connection much like REJECT, but
++network scanners doing TCP half-open discovery can be spoofed to make them
++belive the port is open rather than closed/filtered.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_fuzzy.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_fuzzy.c
+@@ -0,0 +1,122 @@
++/*
++ *	"fuzzy" match extension for iptables
++ *	Hime Aguiar e Oliveira Jr. <hime@engineer.com>, 2002 - 2003
++ *
++ *	This program is free software; you can redistribute it and/or
++ *	modify it under the terms of the GNU General Public License;
++ *	either version 2 of the License, or any later version, as
++ *	published by the Free Software Foundation.
++ */
++#include <getopt.h>
++#include <netdb.h>
++#include <stddef.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <xtables.h>
++#include "xt_fuzzy.h"
++#include "compat_user.h"
++
++static void fuzzy_mt_help(void)
++{
++	printf(
++"fuzzy match options:\n"
++"  --lower-limit number (in packets per second)\n"
++"  --upper-limit number\n");
++};
++
++static const struct option fuzzy_mt_opts[] = {
++	{.name = "lower-limit", .has_arg = true, .val = '1'},
++	{.name = "upper-limit", .has_arg = true, .val = '2'},
++	{NULL},
++};
++
++/* Initialize data structures */
++static void fuzzy_mt_init(struct xt_entry_match *m)
++{
++	struct xt_fuzzy_mtinfo *info = (void *)m->data;
++
++	/*
++	 * Default rates (I will improve this very soon with something based
++	 * on real statistics of the running machine).
++	 */
++	info->minimum_rate = 1000;
++	info->maximum_rate = 2000;
++}
++
++#define IPT_FUZZY_OPT_MINIMUM	0x01
++#define IPT_FUZZY_OPT_MAXIMUM	0x02
++
++static int fuzzy_mt_parse(int c, char **argv, int invert, unsigned int *flags,
++                          const void *entry, struct xt_entry_match **match)
++{
++	struct xt_fuzzy_mtinfo *info = (void *)(*match)->data;
++	uint32_t num;
++
++	switch (c) {
++	case '1':
++		if (invert)
++			xtables_error(PARAMETER_PROBLEM,"Can't specify ! --lower-limit");
++		if (*flags & IPT_FUZZY_OPT_MINIMUM)
++			xtables_error(PARAMETER_PROBLEM,"Can't specify --lower-limit twice");
++		if (!xtables_strtoui(optarg, NULL, &num, 1, FUZZY_MAX_RATE) || num < 1)
++			xtables_error(PARAMETER_PROBLEM,"BAD --lower-limit");
++		info->minimum_rate = num;
++		*flags |= IPT_FUZZY_OPT_MINIMUM;
++		return true;
++
++	case '2':
++		if (invert)
++			xtables_error(PARAMETER_PROBLEM,"Can't specify ! --upper-limit");
++		if (*flags & IPT_FUZZY_OPT_MAXIMUM)
++			xtables_error(PARAMETER_PROBLEM,"Can't specify --upper-limit twice");
++		if (!xtables_strtoui(optarg, NULL, &num, 1, FUZZY_MAX_RATE) || num < 1)
++			xtables_error(PARAMETER_PROBLEM,"BAD --upper-limit");
++		info->maximum_rate = num;
++		*flags |= IPT_FUZZY_OPT_MAXIMUM;
++		return true;
++	}
++	return false;
++}
++
++static void fuzzy_mt_check(unsigned int flags)
++{
++}
++
++static void fuzzy_mt_print(const void *ip, const struct xt_entry_match *match,
++                           int numeric)
++{
++	const struct xt_fuzzy_mtinfo *info = (const void *)match->data;
++
++	printf(" fuzzy: lower limit = %u pps - upper limit = %u pps ",
++	       info->minimum_rate, info->maximum_rate);
++}
++
++static void fuzzy_mt_save(const void *ip, const struct xt_entry_match *match)
++{
++	const struct xt_fuzzy_mtinfo *info = (const void *)match->data;
++
++	printf(" --lower-limit %u ", info->minimum_rate);
++	printf(" --upper-limit %u ", info->maximum_rate);
++}
++
++static struct xtables_match fuzzy_mt_reg = {
++	.name          = "fuzzy",
++	.revision      = 1,
++	.version       = XTABLES_VERSION,
++	.family        = NFPROTO_UNSPEC,
++	.size          = XT_ALIGN(sizeof(struct xt_fuzzy_mtinfo)),
++	.userspacesize = offsetof(struct xt_fuzzy_mtinfo, packets_total),
++	.help          = fuzzy_mt_help,
++	.init          = fuzzy_mt_init,
++	.parse         = fuzzy_mt_parse,
++	.final_check   = fuzzy_mt_check,
++	.print         = fuzzy_mt_print,
++	.save          = fuzzy_mt_save,
++	.extra_opts    = fuzzy_mt_opts,
++};
++
++static __attribute__((constructor)) void fuzzy_mt_ldr(void)
++{
++	xtables_register_match(&fuzzy_mt_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_fuzzy.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_fuzzy.man
+@@ -0,0 +1,7 @@
++This module matches a rate limit based on a fuzzy logic controller (FLC).
++.TP
++\fB\-\-lower\-limit\fP \fInumber\fP
++Specifies the lower limit, in packets per second.
++.TP
++\fB\-\-upper\-limit\fP \fInumber\fP
++Specifies the upper limit, also in packets per second.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_iface.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_iface.c
+@@ -0,0 +1,247 @@
++/*
++ * Shared library add-on to iptables to add interface state matching
++ * support.
++ *
++ * (C) 2008 Gáspár Lajos <gaspar.lajos@glsys.eu>
++ *
++ * This program is released under the terms of GNU GPL version 2.
++ */
++
++#include <getopt.h>
++#include <stdbool.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++
++#include <xtables.h>
++#include "xt_iface.h"
++#include "compat_user.h"
++
++enum {
++	XT_IFACE_IFACE = 1 << 16,
++};
++
++static const struct option iface_mt_opts[] = {
++	{.name = "iface",        .has_arg = true,  .val = 'i'},
++	{.name = "dev-in",       .has_arg = false, .val = 'I'},
++	{.name = "dev-out",      .has_arg = false, .val = 'O'},
++	{.name = "up",           .has_arg = false, .val = 'u'},
++	{.name = "down",         .has_arg = false, .val = 'U'}, /* not up */
++	{.name = "broadcast",    .has_arg = false, .val = 'b'},
++	{.name = "loopback",     .has_arg = false, .val = 'l'},
++	{.name = "pointopoint",  .has_arg = false, .val = 'p'},
++	{.name = "pointtopoint", .has_arg = false, .val = 'p'}, /* eq pointopoint */
++	{.name = "running",      .has_arg = false, .val = 'r'},
++	{.name = "noarp",        .has_arg = false, .val = 'n'},
++	{.name = "arp",          .has_arg = false, .val = 'N'}, /* not noarp */
++	{.name = "promisc",      .has_arg = false, .val = 'o'},
++	{.name = "multicast",    .has_arg = false, .val = 'm'},
++	{.name = "dynamic",      .has_arg = false, .val = 'd'},
++	{.name = "lower-up",     .has_arg = false, .val = 'w'},
++	{.name = "dormant",      .has_arg = false, .val = 'a'},
++	{NULL},
++};
++
++static void iface_print_opt(const struct xt_iface_mtinfo *info,
++    const unsigned int option, const char *command)
++{
++	if (info->flags & option)
++		printf(" %s%s", (info->invflags & option) ? "! " : "", command);
++}
++
++static void iface_setflag(struct xt_iface_mtinfo *info,
++    unsigned int *flags, int invert, u_int16_t flag, const char *command)
++{
++	if (*flags & flag)
++		xtables_error(PARAMETER_PROBLEM,
++			"iface: \"--%s\" flag already specified", command);
++	info->flags |= flag;
++	if (invert)
++		info->invflags |= flag;
++	*flags |= flag;
++}
++
++static bool iface_valid_name(const char *name)
++{
++	static const char invalid_chars[] = ".+!*";
++
++	return strlen(name) < IFNAMSIZ && strpbrk(name, invalid_chars) == NULL;
++}
++
++static void iface_mt_help(void)
++{
++	printf(
++	"iface match options:\n"
++	"    --iface interface     Name of interface\n"
++	"    --dev-in / --dev-out  Use incoming/outgoing interface instead\n"
++	"[!] --up / --down         match if UP flag (not) set\n"
++	"[!] --broadcast           match if BROADCAST flag (not) set\n"
++	"[!] --loopback            match if LOOPBACK flag (not) set\n"
++	"[!] --pointopoint\n"
++	"[!] --pointtopoint        match if POINTOPOINT flag (not) set\n"
++	"[!] --running             match if RUNNING flag (not) set\n"
++	"[!] --noarp / --arp       match if NOARP flag (not) set\n"
++	"[!] --promisc             match if PROMISC flag (not) set\n"
++	"[!] --multicast           match if MULTICAST flag (not) set\n"
++	"[!] --dynamic             match if DYNAMIC flag (not) set\n"
++	"[!] --lower-up            match if LOWER_UP flag (not) set\n"
++	"[!] --dormant             match if DORMANT flag (not) set\n");
++}
++
++static int iface_mt_parse(int c, char **argv, int invert, unsigned int *flags,
++    const void *entry, struct xt_entry_match **match)
++{
++	struct xt_iface_mtinfo *info = (void *)(*match)->data;
++
++	switch (c) {
++	case 'U':
++		c = 'u';
++		invert = !invert;
++		break;
++	case 'N':
++		c = 'n';
++		invert = !invert;
++		break;
++	}
++
++	switch (c) {
++	case 'i': /* interface name */
++		if (*flags & XT_IFACE_IFACE)
++			xtables_error(PARAMETER_PROBLEM,
++				"iface: Interface name already specified");
++		if (!iface_valid_name(optarg))
++			xtables_error(PARAMETER_PROBLEM,
++				"iface: Invalid interface name!");
++		strcpy(info->ifname, optarg);
++		*flags |= XT_IFACE_IFACE;
++		return true;
++	case 'I': /* --dev-in */
++		xtables_param_act(XTF_ONLY_ONCE, "iface", "--dev-in",
++			*flags & XT_IFACE_IFACE);
++		*flags |= XT_IFACE_IFACE;
++		iface_setflag(info, flags, invert, XT_IFACE_DEV_IN, "dev-in");
++		return true;
++	case 'O': /* --dev-out */
++		xtables_param_act(XTF_ONLY_ONCE, "iface", "--dev-out",
++			*flags & XT_IFACE_IFACE);
++		*flags |= XT_IFACE_IFACE;
++		iface_setflag(info, flags, invert, XT_IFACE_DEV_OUT, "dev-out");
++		return true;
++	case 'u': /* UP */
++		iface_setflag(info, flags, invert, XT_IFACE_UP, "up");
++		return true;
++	case 'b': /* BROADCAST */
++		iface_setflag(info, flags, invert, XT_IFACE_BROADCAST, "broadcast");
++		return true;
++	case 'l': /* LOOPBACK */
++		iface_setflag(info, flags, invert, XT_IFACE_LOOPBACK, "loopback");
++		return true;
++	case 'p': /* POINTOPOINT */
++		iface_setflag(info, flags, invert, XT_IFACE_POINTOPOINT, "pointopoint");
++		return true;
++	case 'r': /* RUNNING */
++		iface_setflag(info, flags, invert, XT_IFACE_RUNNING, "running");
++		return true;
++	case 'n': /* NOARP */
++		iface_setflag(info, flags, invert, XT_IFACE_NOARP, "noarp");
++		return true;
++	case 'o': /* PROMISC */
++		iface_setflag(info, flags, invert, XT_IFACE_PROMISC, "promisc");
++		return true;
++	case 'm': /* MULTICAST */
++		iface_setflag(info, flags, invert, XT_IFACE_MULTICAST, "multicast");
++		return true;
++	case 'd': /* DYNAMIC */
++		iface_setflag(info, flags, invert, XT_IFACE_DYNAMIC, "dynamic");
++		return true;
++	case 'w': /* LOWER_UP */
++		iface_setflag(info, flags, invert, XT_IFACE_LOWER_UP, "lower_up");
++		return true;
++	case 'a': /* DORMANT */
++		iface_setflag(info, flags, invert, XT_IFACE_DORMANT, "dormant");
++		return true;
++	}
++	return false;
++}
++
++static void iface_mt_check(unsigned int flags)
++{
++	if (!(flags & XT_IFACE_IFACE))
++		xtables_error(PARAMETER_PROBLEM,
++			"iface: You must specify an interface");
++	if ((flags & ~(XT_IFACE_IFACE | XT_IFACE_DEV_IN |
++	    XT_IFACE_DEV_OUT)) == 0)
++		xtables_error(PARAMETER_PROBLEM,
++			"iface: You must specify at least one option");
++}
++
++static void iface_mt_print(const void *ip, const struct xt_entry_match *match,
++    int numeric)
++{
++	const struct xt_iface_mtinfo *info = (const void *)match->data;
++
++	printf(" iface: ");
++	if (info->flags & XT_IFACE_DEV_IN)
++		printf("(in)");
++	else if (info->flags & XT_IFACE_DEV_OUT)
++		printf("(out)");
++	else
++		printf("%s", info->ifname);
++	printf(" [state:");
++	iface_print_opt(info, XT_IFACE_UP,          "up");
++	iface_print_opt(info, XT_IFACE_BROADCAST,   "broadcast");
++	iface_print_opt(info, XT_IFACE_LOOPBACK,    "loopback");
++	iface_print_opt(info, XT_IFACE_POINTOPOINT, "pointopoint");
++	iface_print_opt(info, XT_IFACE_RUNNING,     "running");
++	iface_print_opt(info, XT_IFACE_NOARP,       "noarp");
++	iface_print_opt(info, XT_IFACE_PROMISC,     "promisc");
++	iface_print_opt(info, XT_IFACE_MULTICAST,   "multicast");
++	iface_print_opt(info, XT_IFACE_DYNAMIC,     "dynamic");
++	iface_print_opt(info, XT_IFACE_LOWER_UP,    "lower_up");
++	iface_print_opt(info, XT_IFACE_DORMANT,     "dormant");
++	printf("] ");
++}
++
++static void iface_mt_save(const void *ip, const struct xt_entry_match *match)
++{
++	const struct xt_iface_mtinfo *info = (const void *)match->data;
++
++	if (info->flags & XT_IFACE_DEV_IN)
++		printf(" --dev-in");
++	else if (info->flags & XT_IFACE_DEV_OUT)
++		printf(" --dev-out");
++	else
++		printf(" --iface %s", info->ifname);
++	iface_print_opt(info, XT_IFACE_UP,          "--up");
++	iface_print_opt(info, XT_IFACE_BROADCAST,   "--broadcast");
++	iface_print_opt(info, XT_IFACE_LOOPBACK,    "--loopback");
++	iface_print_opt(info, XT_IFACE_POINTOPOINT, "--pointopoint");
++	iface_print_opt(info, XT_IFACE_RUNNING,     "--running");
++	iface_print_opt(info, XT_IFACE_NOARP,       "--noarp");
++	iface_print_opt(info, XT_IFACE_PROMISC,     "--promisc");
++	iface_print_opt(info, XT_IFACE_MULTICAST,   "--multicast");
++	iface_print_opt(info, XT_IFACE_DYNAMIC,     "--dynamic");
++	iface_print_opt(info, XT_IFACE_LOWER_UP,    "--lower_up");
++	iface_print_opt(info, XT_IFACE_DORMANT,     "--dormant");
++	printf(" ");
++}
++
++static struct xtables_match iface_mt_reg = {
++	.version	= XTABLES_VERSION,
++	.name		= "iface",
++	.revision	= 0,
++	.family		= NFPROTO_UNSPEC,
++	.size		= XT_ALIGN(sizeof(struct xt_iface_mtinfo)),
++	.userspacesize	= XT_ALIGN(sizeof(struct xt_iface_mtinfo)),
++	.help		= iface_mt_help,
++	.parse		= iface_mt_parse,
++	.final_check	= iface_mt_check,
++	.print		= iface_mt_print,
++	.save		= iface_mt_save,
++	.extra_opts	= iface_mt_opts,
++};
++
++static __attribute__((constructor)) void iface_mt_ldr(void)
++{
++	xtables_register_match(&iface_mt_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_iface.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_iface.man
+@@ -0,0 +1,50 @@
++Allows you to check interface states. First, an interface needs to be selected
++for comparison. Exactly one option of the following three must be specified:
++.TP
++\fB\-\-iface\fP \fIname\fP
++Check the states on the given interface.
++.TP
++\fB\-\-dev\-in\fP
++Check the states on the interface on which the packet came in. If the input
++device is not set, because for example you are using \-m iface in the OUTPUT
++chain, this submatch returns false.
++.TP
++\fB\-\-dev\-out\fP
++Check the states on the interface on which the packet will go out. If the
++output device is not set, because for example you are using \-m iface in the
++INPUT chain, this submatch returns false.
++.PP
++Following that, one can select the interface properties to check for:
++.TP
++[\fB!\fP] \fB\-\-up\fP, [\fB!\fP] \fB\-\-down\fP
++Check the UP flag.
++.TP
++[\fB!\fP] \fB\-\-broadcast\fP
++Check the BROADCAST flag.
++.TP
++[\fB!\fP] \fB\-\-loopback\fP
++Check the LOOPBACK flag.
++.TP
++[\fB!\fP] \fB\-\-pointtopoint\fP
++Check the POINTTOPOINT flag.
++.TP
++[\fB!\fP] \fB\-\-running\fP
++Check the RUNNING flag. Do NOT rely on it!
++.TP
++[\fB!\fP] \fB\-\-noarp\fP, [\fB!\fP] \fB\-\-arp\fP
++Check the NOARP flag.
++.TP
++[\fB!\fP] \fB\-\-promisc\fP
++Check the PROMISC flag.
++.TP
++[\fB!\fP] \fB\-\-multicast\fP
++Check the MULTICAST flag.
++.TP
++[\fB!\fP] \fB\-\-dynamic\fP
++Check the DYNAMIC flag.
++.TP
++[\fB!\fP] \fB\-\-lower\-up\fP
++Check the LOWER_UP flag.
++.TP
++[\fB!\fP] \fB\-\-dormant\fP
++Check the DORMANT flag.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_ipv4options.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_ipv4options.c
+@@ -0,0 +1,178 @@
++/*
++ *	"ipv4options" match extension for iptables
++ *	Copyright © Jan Engelhardt, 2009
++ *
++ *	This program is free software; you can redistribute it and/or
++ *	modify it under the terms of the GNU General Public License; either
++ *	version 2 of the License, or any later version, as published by the
++ *	Free Software Foundation.
++ */
++#include <getopt.h>
++#include <stdbool.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include "xt_ipv4options.h"
++#include "compat_user.h"
++
++/*
++ * Overview from http://www.networksorcery.com/enp/protocol/ip.htm
++ * Not providing strings for options that seem to be most distant in the past.
++ */
++static const char *const v4opt_names[32] = {
++	[ 1] = "nop",
++	[ 2] = "security",     /* RFC 1108 */
++	[ 3] = "lsrr",         /* RFC 791 */
++	[ 4] = "timestamp",    /* RFC 781, 791 */
++	[ 7] = "record-route", /* RFC 791 */
++	[ 9] = "ssrr",         /* RFC 791 */
++	[11] = "mtu-probe",    /* RFC 1063 */
++	[12] = "mtu-reply",    /* RFC 1063 */
++	[18] = "traceroute",   /* RFC 1393 */
++	[20] = "router-alert", /* RFC 2113 */
++};
++
++static void ipv4options_mt_help(void)
++{
++	printf(
++"ipv4options match options:\n"
++"--flags [!]symbol[,...]    Match presence/absence (!) of option\n"
++"                           (either by name or number)\n"
++"--any                      Interpret --flags as OR-combined\n\n");
++}
++
++static const struct option ipv4options_mt_opts[] = {
++	{.name = "flags", .has_arg = true,  .val = 'f'},
++	{.name = "any",   .has_arg = false, .val = 'a'},
++	{NULL},
++};
++
++static void ipv4options_parse_flagspec(struct xt_ipv4options_mtinfo1 *info,
++    char *arg)
++{
++	unsigned int i, opt;
++	bool inv;
++	char *p;
++
++	while (true) {
++		p = strchr(arg, ',');
++		if (p != NULL)
++			*p = '\0';
++
++		inv = false;
++		opt = 0;
++		if (*arg == '!') {
++			inv = true;
++			++arg;
++		}
++
++		for (i = 1; i < 32;++i)
++			if (v4opt_names[i] != NULL &&
++			    strcmp(v4opt_names[i], arg) == 0) {
++				opt = i;
++				break;
++			}
++
++		if (opt == 0 &&
++		    !xtables_strtoui(arg, NULL, &opt, 0, UINT8_MAX))
++			xtables_error(PARAMETER_PROBLEM,
++				"ipv4options: Bad option value \"%s\"", arg);
++
++		if (opt == 0)
++			xtables_error(PARAMETER_PROBLEM,
++				"ipv4options: Option value may not be zero");
++
++		info->map |= (1 << opt);
++		if (inv)
++			info->invert |= (1 << opt);
++		if (p == NULL)
++			break;
++		arg = p + 1;
++	}
++}
++
++static int ipv4options_mt_parse(int c, char **argv, int invert,
++    unsigned int *flags, const void *entry, struct xt_entry_match **match)
++{
++	struct xt_ipv4options_mtinfo1 *info = (void *)(*match)->data;
++
++	switch (c) {
++	case 'a': /* --any */
++		xtables_param_act(XTF_NO_INVERT, "ipv4options", "--any", invert);
++		info->flags |= XT_V4OPTS_ANY;
++		return true;
++	case 'f': /* --flags */
++		xtables_param_act(XTF_NO_INVERT, "ipv4options", "--flags", invert);
++		ipv4options_parse_flagspec(info, optarg);
++		return true;
++	}
++
++	return false;
++}
++
++/* no checking of *flags - no IPv4 options is also valid */
++
++static void ipv4options_print_flags(const struct xt_ipv4options_mtinfo1 *info,
++    bool numeric)
++{
++	uint32_t tmp = info->map;
++	unsigned int i;
++
++	for (i = 1; i < 32; ++i)
++		if (tmp & (1 << i)) {
++			if (info->invert & (1 << i))
++				printf("!");
++			if (!numeric && v4opt_names[i] != NULL)
++				printf("%s", v4opt_names[i]);
++			else
++				printf("%u", i);
++			tmp &= ~(1 << i);
++			if (tmp)
++				printf(",");
++		}
++}
++
++static void ipv4options_mt_print(const void *ip,
++    const struct xt_entry_match *match, int numeric)
++{
++	const struct xt_ipv4options_mtinfo1 *info = (void *)match->data;
++
++	printf(" ipv4options %s ",
++	       (info->flags & XT_V4OPTS_ANY) ? "any-of" : "all-of");
++	ipv4options_print_flags(info, numeric);
++	printf(" ");
++}
++
++static void ipv4options_mt_save(const void *ip,
++    const struct xt_entry_match *match)
++{
++	const struct xt_ipv4options_mtinfo1 *info = (void *)match->data;
++
++	if (info->map != 0) {
++		printf(" --flags ");
++		ipv4options_print_flags(info, true);
++	}
++	if (info->flags & XT_V4OPTS_ANY)
++		printf(" --any");
++	printf(" ");
++}
++
++static struct xtables_match ipv4options_mt_reg = {
++	.version       = XTABLES_VERSION,
++	.name          = "ipv4options",
++	.revision      = 1,
++	.family        = NFPROTO_IPV4,
++	.size          = XT_ALIGN(sizeof(struct xt_ipv4options_mtinfo1)),
++	.userspacesize = XT_ALIGN(sizeof(struct xt_ipv4options_mtinfo1)),
++	.help          = ipv4options_mt_help,
++	.parse         = ipv4options_mt_parse,
++	.print         = ipv4options_mt_print,
++	.save          = ipv4options_mt_save,
++	.extra_opts    = ipv4options_mt_opts,
++};
++
++static __attribute__((constructor)) void ipv4options_mt_ldr(void)
++{
++	xtables_register_match(&ipv4options_mt_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_ipv4options.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_ipv4options.man
+@@ -0,0 +1,47 @@
++The "ipv4options" module allows to match against a set of IPv4 header options.
++.TP
++\fB\-\-flags\fP [\fB!\fP]\fIsymbol\fP[\fB,\fP[\fB!\fP]\fIsymbol...\fP]
++Specify the options that shall appear or not appear in the header. Each
++symbol specification is delimited by a comma, and a '!' can be prefixed to
++a symbol to negate its presence. Symbols are either the name of an IPv4 option
++or its number. See examples below.
++.TP
++\fB\-\-any\fP
++By default, all of the flags specified must be present/absent, that is, they
++form an AND condition. Use the \-\-any flag instead to use an OR condition
++where only at least one symbol spec must be true.
++.PP
++Known symbol names (and their number):
++.PP
++1 \(em \fBnop\fP
++.PP
++2 \(em \fBsecurity\fP \(em RFC 1108
++.PP
++3 \(em \fBlsrr\fP \(em Loose Source Routing, RFC 791
++.PP
++4 \(em \fBtimestamp\fP \(em RFC 781, 791
++.PP
++7 \(em \fBrecord\-route\fP \(em RFC 791
++.PP
++9 \(em \fBssrr\fP \(em Strict Source Routing, RFC 791
++.PP
++11 \(em \fBmtu\-probe\fP \(em RFC 1063
++.PP
++12 \(em \fBmtu\-reply\fP \(em RFC 1063
++.PP
++18 \(em \fBtraceroute\fP \(em RFC 1393
++.PP
++20 \(em \fBrouter-alert\fP \(em RFC 2113
++.PP
++Examples:
++.PP
++Match packets that have both Timestamp and NOP:
++\-m ipv4options \-\-flags nop,timestamp
++.PP
++~ that have either of Timestamp or NOP, or both:
++\-\-flags nop,timestamp \-\-any
++.PP
++~ that have Timestamp and no NOP: \-\-flags '!nop,timestamp'
++.PP
++~ that have either no NOP or a timestamp (or both conditions):
++\-\-flags '!nop,timestamp' \-\-any
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_lscan.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_lscan.c
+@@ -0,0 +1,123 @@
++/*
++ *	LSCAN match extension for iptables
++ *	Copyright © Jan Engelhardt <jengelh [at] medozas de>, 2006 - 2009
++ *
++ *	This program is free software; you can redistribute it and/or
++ *	modify it under the terms of the GNU General Public License; either
++ *	version 2 of the License, or any later version, as published by the
++ *	Free Software Foundation.
++ */
++#include <stdbool.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++#include <getopt.h>
++
++#include <xtables.h>
++#include <linux/netfilter/x_tables.h>
++#include "xt_lscan.h"
++#include "compat_user.h"
++
++static const struct option lscan_mt_opts[] = {
++	{.name = "stealth", .has_arg = false, .val = 'x'},
++	{.name = "synscan", .has_arg = false, .val = 's'},
++	{.name = "cnscan",  .has_arg = false, .val = 'c'},
++	{.name = "grscan",  .has_arg = false, .val = 'g'},
++	{NULL},
++};
++
++static void lscan_mt_help(void)
++{
++	printf(
++		"lscan match options:\n"
++		"(Combining them will make them match by OR-logic)\n"
++		"  --stealth    Match TCP Stealth packets\n"
++		"  --synscan    Match TCP SYN scans\n"
++		"  --cnscan     Match TCP Connect scans\n"
++		"  --grscan     Match Banner Grabbing scans\n");
++}
++
++static int lscan_mt_parse(int c, char **argv, int invert,
++    unsigned int *flags, const void *entry, struct xt_entry_match **match)
++{
++	struct xt_lscan_mtinfo *info = (void *)((*match)->data);
++
++	switch (c) {
++	case 'c':
++		info->match_cn = true;
++		return true;
++	case 'g':
++		info->match_gr = true;
++		return true;
++	case 's':
++		info->match_syn = true;
++		return true;
++	case 'x':
++		info->match_stealth = true;
++		return true;
++	}
++	return false;
++}
++
++static void lscan_mt_check(unsigned int flags)
++{
++}
++
++static void lscan_mt_print(const void *ip,
++    const struct xt_entry_match *match, int numeric)
++{
++	const struct xt_lscan_mtinfo *info = (const void *)(match->data);
++	const char *s = "";
++
++	printf(" lscan ");
++	if (info->match_stealth) {
++		printf("STEALTH");
++		s = ",";
++	}
++	if (info->match_syn) {
++		printf("%sSYNSCAN", s);
++		s = ",";
++	}
++	if (info->match_cn) {
++		printf("%sCNSCAN", s);
++		s = ",";
++	}
++	if (info->match_gr)
++		printf("%sGRSCAN", s);
++	printf(" ");
++}
++
++static void lscan_mt_save(const void *ip, const struct xt_entry_match *match)
++{
++	const struct xt_lscan_mtinfo *info = (const void *)(match->data);
++
++	if (info->match_stealth)
++		printf(" --stealth ");
++	if (info->match_syn)
++		printf(" --synscan ");
++	if (info->match_cn)
++		printf(" --cnscan ");
++	if (info->match_gr)
++		printf(" --grscan ");
++}
++
++static struct xtables_match lscan_mt_reg = {
++	.version       = XTABLES_VERSION,
++	.name          = "lscan",
++	.revision      = 0,
++	.family        = NFPROTO_IPV4,
++	.size          = XT_ALIGN(sizeof(struct xt_lscan_mtinfo)),
++	.userspacesize = XT_ALIGN(sizeof(struct xt_lscan_mtinfo)),
++	.help          = lscan_mt_help,
++	.parse         = lscan_mt_parse,
++	.final_check   = lscan_mt_check,
++	.print         = lscan_mt_print,
++	.save          = lscan_mt_save,
++	.extra_opts    = lscan_mt_opts,
++};
++
++static __attribute__((constructor)) void lscan_mt_ldr(void)
++{
++	xtables_register_match(&lscan_mt_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_lscan.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_lscan.man
+@@ -0,0 +1,32 @@
++Detects simple low-level scan attemps based upon the packet's contents.
++(This is
++different from other implementations, which also try to match the rate of new
++connections.) Note that an attempt is only discovered after it has been carried
++out, but this information can be used in conjunction with other rules to block
++the remote host's future connections. So this match module will match on the
++(probably) last packet the remote side will send to your machine.
++.TP
++\fB\-\-stealth\fR
++Match if the packet did not belong to any known TCP connection
++(Stealth/FIN/XMAS/NULL scan).
++.TP
++\fB\-\-synscan\fR
++Match if the connection was a TCP half-open discovery (SYN scan), i.e. the
++connection was torn down after the 2nd packet in the 3-way handshake.
++.TP
++\fB\-\-cnscan\fR
++Match if the connection was a TCP full open discovery (connect scan), i.e. the
++connection was torn down after completion of the 3-way handshake.
++.TP
++\fB\-\-grscan\fR
++Match if data in the connection only flew in the direction of the remote side,
++e.g. if the connection was terminated after a locally running daemon sent its
++identification. (E.g. openssh, smtp, ftpd.) This may falsely trigger on
++warranted single-direction data flows, usually bulk data transfers such as
++FTP DATA connections or IRC DCC. Grab Scan Detection should only be used on
++ports where a protocol runs that is guaranteed to do a bidirectional exchange
++of bytes.
++.PP
++NOTE: Some clients (Windows XP for example) may do what looks like a SYN scan,
++so be advised to carefully use xt_lscan in conjunction with blocking rules,
++as it may lock out your very own internal network.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_pknock.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_pknock.c
+@@ -0,0 +1,344 @@
++/*
++ * Shared library add-on to iptables to add Port Knocking and SPA matching
++ * support.
++ *
++ * (C) 2006-2009 J. Federico Hernandez <fede.hernandez@gmail.com>
++ * (C) 2006 Luis Floreani <luis.floreani@gmail.com>
++ *
++ * This program is released under the terms of GNU GPL version 2.
++ */
++#include <getopt.h>
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++
++#include <xtables.h>
++#include <linux/netfilter.h>
++#include <linux/netfilter_ipv4/ip_tables.h>
++#include "xt_pknock.h"
++#include "compat_user.h"
++
++static const struct option pknock_mt_opts[] = {
++	/* .name, .has_arg, .flag, .val */
++	{.name = "knockports",  .has_arg = true,  .val = 'k'},
++	{.name = "time",        .has_arg = true,  .val = 't'},
++	{.name = "autoclose",   .has_arg = true,  .val = 'a'},
++	{.name = "name",        .has_arg = true,  .val = 'n'},
++	{.name = "opensecret",  .has_arg = true,  .val = 'o'},
++	{.name = "closesecret", .has_arg = true,  .val = 'z'},
++	{.name = "strict",      .has_arg = false, .val = 'x'},
++	{.name = "checkip",     .has_arg = false, .val = 'c'},
++	{NULL},
++};
++
++static void pknock_mt_help(void)
++{
++	printf("pknock match options:\n"
++		" --knockports port[,port,port,...]	"
++			"Matches destination port(s).\n"
++		" --time seconds\n"
++			"Max allowed time between knocks.\n"
++		" --autoclose minutes\n"
++			"Time after which to automatically close opened\n"
++			"\t\t\t\t\tport(s).\n"
++		" --strict				"
++			"Knocks sequence must be exact.\n"
++		" --name rule_name			"
++			"Rule name.\n"
++		" --checkip				"
++			"Matches if the source ip is in the list.\n"
++		);
++}
++
++static unsigned int
++parse_ports(const char *portstring, uint16_t *ports, const char *proto)
++{
++	char *buffer, *cp, *next;
++	unsigned int i;
++
++	buffer = strdup(portstring);
++	if (buffer == NULL)
++		xtables_error(OTHER_PROBLEM, "strdup failed");
++
++	for (cp = buffer, i = 0; cp != NULL && i < XT_PKNOCK_MAX_PORTS; cp = next, ++i)
++	{
++		next=strchr(cp, ',');
++		if (next != NULL)
++			*next++ = '\0';
++		ports[i] = xtables_parse_port(cp, proto);
++	}
++
++	if (cp != NULL)
++		xtables_error(PARAMETER_PROBLEM, "too many ports specified");
++
++	free(buffer);
++	return i;
++}
++
++static char *
++proto_to_name(uint8_t proto)
++{
++	switch (proto) {
++	case IPPROTO_TCP:
++		return "tcp";
++	case IPPROTO_UDP:
++		return "udp";
++	default:
++		return NULL;
++	}
++}
++
++static const char *
++check_proto(uint16_t pnum, uint8_t invflags)
++{
++	char *proto;
++
++	if (invflags & XT_INV_PROTO)
++		xtables_error(PARAMETER_PROBLEM, PKNOCK "only works with TCP and UDP.");
++
++	if ((proto = proto_to_name(pnum)) != NULL)
++		return proto;
++	else if (pnum == 0)
++		xtables_error(PARAMETER_PROBLEM, PKNOCK "needs `-p tcp' or `-p udp'");
++	else
++		xtables_error(PARAMETER_PROBLEM, PKNOCK "only works with TCP and UDP.");
++}
++
++static int
++__pknock_parse(int c, char **argv, int invert, unsigned int *flags,
++		struct xt_entry_match **match, uint16_t pnum,
++		uint16_t invflags)
++{
++	const char *proto;
++	struct xt_pknock_mtinfo *info = (void *)(*match)->data;
++	unsigned int tmp;
++
++	switch (c) {
++	case 'k': /* --knockports */
++		if (*flags & XT_PKNOCK_KNOCKPORT)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot use --knockports twice.\n");
++		proto = check_proto(pnum, invflags);
++
++		info->ports_count = parse_ports(optarg, info->port, proto);
++		info->option |= XT_PKNOCK_KNOCKPORT;
++		*flags |= XT_PKNOCK_KNOCKPORT;
++#if DEBUG
++		printf("ports_count: %d\n", info->ports_count);
++#endif
++		break;
++
++	case 't': /* --time */
++		if (*flags & XT_PKNOCK_TIME)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot use --time twice.\n");
++		info->max_time = atoi(optarg);
++		if (info->max_time == 0)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"--time number must be > 0.\n");
++		info->option |= XT_PKNOCK_TIME;
++		*flags |= XT_PKNOCK_TIME;
++		break;
++
++        case 'a': /* --autoclose */
++		if (*flags & XT_PKNOCK_AUTOCLOSE)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot use --autoclose twice.\n");
++		if (!xtables_strtoui(optarg, NULL, &tmp, 0, ~0U))
++			xtables_param_act(XTF_BAD_VALUE, PKNOCK,
++				"--autoclose", optarg);
++                info->autoclose_time = tmp;
++                info->option |= XT_PKNOCK_AUTOCLOSE;
++                *flags |= XT_PKNOCK_AUTOCLOSE;
++                break;
++
++	case 'n': /* --name */
++		if (*flags & XT_PKNOCK_NAME)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot use --name twice.\n");
++		memset(info->rule_name, 0, sizeof(info->rule_name));
++		strncpy(info->rule_name, optarg, sizeof(info->rule_name) - 1);
++
++		info->rule_name_len = strlen(info->rule_name);
++		info->option |= XT_PKNOCK_NAME;
++		*flags |= XT_PKNOCK_NAME;
++#if DEBUG
++		printf("info->rule_name: %s\n", info->rule_name);
++#endif
++		break;
++
++	case 'o': /* --opensecret */
++		if (*flags & XT_PKNOCK_OPENSECRET)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot use --opensecret twice.\n");
++		memset(info->open_secret, 0, sizeof(info->open_secret));
++		strncpy(info->open_secret, optarg, sizeof(info->open_secret) - 1);
++
++		info->open_secret_len = strlen(info->open_secret);
++		info->option |= XT_PKNOCK_OPENSECRET;
++		*flags |= XT_PKNOCK_OPENSECRET;
++		break;
++
++	case 'z': /* --closesecret */
++		if (*flags & XT_PKNOCK_CLOSESECRET)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot use --closesecret twice.\n");
++		memset(info->close_secret, 0, sizeof(info->close_secret));
++		strncpy(info->close_secret, optarg, sizeof(info->close_secret) - 1);
++
++		info->close_secret_len = strlen(info->close_secret);
++		info->option |= XT_PKNOCK_CLOSESECRET;
++		*flags |= XT_PKNOCK_CLOSESECRET;
++		break;
++
++	case 'c': /* --checkip */
++		if (*flags & XT_PKNOCK_CHECKIP)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot use --checkip twice.\n");
++		info->option |= XT_PKNOCK_CHECKIP;
++		*flags |= XT_PKNOCK_CHECKIP;
++		break;
++
++	case 'x': /* --strict */
++		if (*flags & XT_PKNOCK_STRICT)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot use --strict twice.\n");
++		info->option |= XT_PKNOCK_STRICT;
++		*flags |= XT_PKNOCK_STRICT;
++		break;
++
++	default:
++		return 0;
++	}
++
++	if (invert)
++		xtables_error(PARAMETER_PROBLEM, PKNOCK "does not support invert.");
++
++	return 1;
++}
++
++static int pknock_mt_parse(int c, char **argv, int invert, unsigned int *flags,
++                		const void *e, struct xt_entry_match **match)
++{
++	const struct ipt_entry *entry = e;
++	return __pknock_parse(c, argv, invert, flags, match,
++			entry->ip.proto, entry->ip.invflags);
++}
++
++static void pknock_mt_check(unsigned int flags)
++{
++	if (!(flags & XT_PKNOCK_NAME))
++		xtables_error(PARAMETER_PROBLEM, PKNOCK
++			"--name option is required.\n");
++
++	if (flags & XT_PKNOCK_KNOCKPORT) {
++		if (flags & XT_PKNOCK_CHECKIP)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot specify --knockports with --checkip.\n");
++		if ((flags & XT_PKNOCK_OPENSECRET)
++			&& !(flags & XT_PKNOCK_CLOSESECRET))
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"--opensecret must go with --closesecret.\n");
++		if ((flags & XT_PKNOCK_CLOSESECRET)
++			&& !(flags & XT_PKNOCK_OPENSECRET))
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"--closesecret must go with --opensecret.\n");
++	}
++
++	if (flags & XT_PKNOCK_CHECKIP) {
++		if (flags & XT_PKNOCK_KNOCKPORT)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot specify --checkip with --knockports.\n");
++		if ((flags & XT_PKNOCK_OPENSECRET)
++			|| (flags & XT_PKNOCK_CLOSESECRET))
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot specify --opensecret and"
++				" --closesecret with --checkip.\n");
++		if (flags & XT_PKNOCK_TIME)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot specify --time with --checkip.\n");
++		if (flags & XT_PKNOCK_AUTOCLOSE)
++			xtables_error(PARAMETER_PROBLEM, PKNOCK
++				"cannot specify --autoclose with --checkip.\n");
++	} else if (!(flags & (XT_PKNOCK_OPENSECRET | XT_PKNOCK_TIME))) {
++		xtables_error(PARAMETER_PROBLEM, PKNOCK
++			"you must specify --time.\n");
++	}
++}
++
++static void pknock_mt_print(const void *ip,
++						const struct xt_entry_match *match, int numeric)
++{
++	const struct xt_pknock_mtinfo *info = (void *)match->data;
++	int i;
++
++	printf(" pknock ");
++	if (info->option & XT_PKNOCK_KNOCKPORT) {
++		printf("knockports ");
++		for (i = 0; i < info->ports_count; ++i)
++			printf("%s%d", i ? "," : "", info->port[i]);
++		printf(" ");
++	}
++	if (info->option & XT_PKNOCK_TIME)
++		printf("time %ld ", (long)info->max_time);
++	if (info->option & XT_PKNOCK_AUTOCLOSE)
++		printf("autoclose %lu ", (unsigned long)info->autoclose_time);
++	if (info->option & XT_PKNOCK_NAME)
++		printf("name %s ", info->rule_name);
++	if (info->option & XT_PKNOCK_OPENSECRET)
++		printf("opensecret ");
++	if (info->option & XT_PKNOCK_CLOSESECRET)
++		printf("closesecret ");
++	if (info->option & XT_PKNOCK_STRICT)
++		printf("strict ");
++	if (info->option & XT_PKNOCK_CHECKIP)
++		printf("checkip ");
++}
++
++static void pknock_mt_save(const void *ip, const struct xt_entry_match *match)
++{
++	int i;
++	const struct xt_pknock_mtinfo *info = (void *)match->data;
++
++	if (info->option & XT_PKNOCK_KNOCKPORT) {
++		printf(" --knockports ");
++		for (i = 0; i < info->ports_count; ++i)
++			printf("%s%d", i ? "," : "", info->port[i]);
++		printf(" ");
++	}
++	if (info->option & XT_PKNOCK_TIME)
++		printf(" --time %ld ", (long)info->max_time);
++	if (info->option & XT_PKNOCK_AUTOCLOSE)
++		printf(" --autoclose %lu ",
++		       (unsigned long)info->autoclose_time);
++	if (info->option & XT_PKNOCK_NAME)
++		printf(" --name %s ", info->rule_name);
++	if (info->option & XT_PKNOCK_OPENSECRET)
++		printf(" --opensecret ");
++	if (info->option & XT_PKNOCK_CLOSESECRET)
++		printf(" --closesecret ");
++	if (info->option & XT_PKNOCK_STRICT)
++		printf(" --strict ");
++	if (info->option & XT_PKNOCK_CHECKIP)
++		printf(" --checkip ");
++}
++
++static struct xtables_match pknock_mt_reg = {
++	.name		= "pknock",
++	.version	= XTABLES_VERSION,
++	.revision      = 1,
++	.family        = NFPROTO_IPV4,
++	.size          = XT_ALIGN(sizeof(struct xt_pknock_mtinfo)),
++	.userspacesize = XT_ALIGN(sizeof(struct xt_pknock_mtinfo)),
++	.help          = pknock_mt_help,
++	.parse         = pknock_mt_parse,
++	.final_check   = pknock_mt_check,
++	.print         = pknock_mt_print,
++	.save          = pknock_mt_save,
++	.extra_opts    = pknock_mt_opts,
++};
++
++static __attribute__((constructor)) void pknock_mt_ldr(void)
++{
++	xtables_register_match(&pknock_mt_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_pknock.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_pknock.man
+@@ -0,0 +1,113 @@
++Pknock match implements so-called "port knocking", a stealthy system
++for network authentication: a client sends packets to selected
++ports in a specific sequence (= simple mode, see example 1 below), or a HMAC
++payload to a single port (= complex mode, see example 2 below),
++to a target machine that has pknock rule(s) installed. The target machine
++then decides whether to unblock or block (again) the pknock-protected port(s).
++This can be used, for instance, to avoid brute force
++attacks on ssh or ftp services.
++.PP
++Example prerequisites:
++.IP
++modprobe cn
++.IP
++modprobe xt_pknock
++.PP
++Example 1 (TCP mode, manual closing of opened port not possible):
++.IP
++iptables -P INPUT DROP
++.IP
++iptables -A INPUT -p tcp -m pknock --knockports 4002,4001,4004 --strict
++--name SSH --time 10 --autoclose 60 --dport 22 -j ACCEPT
++.PP
++The rule will allow tcp port 22 for the attempting IP address after the successful reception of TCP SYN packets
++to ports 4002, 4001 and 4004, in this order (a.k.a. port-knocking).
++Port numbers in the connect sequence must follow the exact specification, no
++other ports may be "knocked" inbetween. The rule is named '\fBSSH\fP' \(em a file of
++the same name for tracking port knocking states will be created in
++\fB/proc/net/xt_pknock\fP .
++Successive port knocks must occur with delay of at most 10 seconds. Port 22 (from the example) will
++be automatiaclly dropped after 60 minutes after it was previously allowed.
++.PP
++Example 2 (UDP mode \(em non-replayable and non-spoofable, manual closing
++of opened port possible, secure, also called "SPA" = Secure Port
++Authorization):
++.IP
++iptables -A INPUT -p udp -m pknock --knockports 4000 --name FTP
++--opensecret foo --closesecret bar --autoclose 240 -j DROP
++.IP
++iptables -A INPUT -p tcp -m pknock --checkip --name FTP --dport 21 -j ACCEPT
++.PP
++The first rule will create an "ALLOWED" record in /proc/net/xt_pknock/FTP after
++the successful reception of an UDP packet to port 4000. The packet payload must be
++constructed as a HMAC256 using "foo" as a key. The HMAC content is the particular client's IP address as a 32-bit network byteorder quantity,
++plus the number of minutes since the Unix epoch, also as a 32-bit value.
++(This is known as Simple Packet Authorization, also called "SPA".)
++In such case, any subsequent attempt to connect to port 21 from the client's IP
++address will cause such packets to be accepted in the second rule.
++.PP
++Similarly, upon reception of an UDP packet constructed the same way, but with
++the key "bar", the first rule will remove a previously installed "ALLOWED" state
++record from /proc/net/xt_pknock/FTP, which means that the second rule will
++stop matching for subsequent connection attempts to port 21.
++In case no close-secret packet is received within 4 hours, the first rule
++will remove "ALLOWED" record from /proc/net/xt_pknock/FTP itself.
++.PP
++Things worth noting:
++.PP
++\fBGeneral\fP:
++.PP
++Specifying \fB--autoclose 0\fP means that no automatic close will be performed at all.
++.PP
++xt_pknock is capable of sending information about successful matches
++via a netlink socket to userspace, should you need to implement your own
++way of receiving and handling portknock notifications.
++Be sure to read the documentation in the doc/pknock/ directory,
++or visit the original site \(em http://portknocko.berlios.de/ .
++.PP
++\fBTCP mode\fP:
++.PP
++This mode is not immune against eavesdropping, spoofing and
++replaying of the port knock sequence by someone else (but its use may still
++be sufficient for scenarios where these factors are not necessarily
++this important, such as bare shielding of the SSH port from brute-force attacks).
++However, if you need these features, you should use UDP mode.
++.PP
++It is always wise to specify three or more ports that are not monotonically
++increasing or decreasing with a small stepsize (e.g. 1024,1025,1026)
++to avoid accidentally triggering
++the rule by a portscan.
++.PP
++Specifying the inter-knock timeout with \fB--time\fP is mandatory in TCP mode,
++to avoid permanent denial of services by clogging up the peer knock-state tracking table
++that xt_pknock internally keeps, should there be a DDoS on the
++first-in-row knock port from more hostile IP addresses than what the actual size
++of this table is (defaults to 16, can be changed via the "peer_hasht_ents" module parameter).
++It is also wise to use as short a time as possible (1 second) for \fB--time\fP
++for this very reason. You may also consider increasing the size
++of the peer knock-state tracking table. Using \fB--strict\fP also helps,
++as it requires the knock sequence to be exact. This means that if the
++hostile client sends more knocks to the same port, xt_pknock will
++mark such attempt as failed knock sequence and will forget it immediately.
++To completely thwart this kind of DDoS, knock-ports would need to have
++an additional rate-limit protection. Or you may consider using UDP mode.
++.PP
++\fBUDP mode\fP:
++.PP
++This mode is immune against eavesdropping, replaying and spoofing attacks.
++It is also immune against DDoS attack on the knockport.
++.PP
++For this mode to work, the clock difference on the client and on the server
++must be below 1 minute. Synchronizing time on both ends by means
++of NTP or rdate is strongly suggested.
++.PP
++There is a rate limiter built into xt_pknock which blocks any subsequent
++open attempt in UDP mode should the request arrive within less than one
++minute since the first successful open. This is intentional;
++it thwarts eventual spoofing attacks.
++.PP
++Because the payload value of an UDP knock packet is influenced by client's IP address,
++UDP mode cannot be used across NAT.
++.PP
++For sending UDP "SPA" packets, you may use either \fBknock.sh\fP or
++\fBknock-orig.sh\fP. These may be found in doc/pknock/util.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_psd.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_psd.c
+@@ -0,0 +1,161 @@
++/*
++  Shared library add-on to iptables to add PSD support
++
++  Copyright (C) 2000,2001 astaro AG
++
++  This file is distributed under the terms of the GNU General Public
++  License (GPL). Copies of the GPL can be obtained from:
++     ftp://prep.ai.mit.edu/pub/gnu/GPL
++
++  2000-05-04 Markus Hennig <hennig@astaro.de> : initial
++  2000-08-18 Dennis Koslowski <koslowski@astaro.de> : first release
++  2000-12-01 Dennis Koslowski <koslowski@astaro.de> : UDP scans detection added
++  2001-02-04 Jan Rekorajski <baggins@pld.org.pl> : converted from target to match
++  2003-03-02 Harald Welte <laforge@netfilter.org>: fix 'storage' bug
++  2008-04-03 Mohd Nawawi <nawawi@tracenetworkcorporation.com>: update to 2.6.24 / 1.4 code
++  2008-06-24 Mohd Nawawi <nawawi@tracenetworkcorporation.com>: update to 2.6.24 / 1.4.1 code
++  2009-08-07 Mohd Nawawi Mohamad Jamili <nawawi@tracenetworkcorporation.com> : ported to xtables-addons
++*/
++
++#include <stdbool.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <netdb.h>
++#include <string.h>
++#include <stdlib.h>
++#include <syslog.h>
++#include <getopt.h>
++#include <xtables.h>
++#include <linux/netfilter/x_tables.h>
++#include "xt_psd.h"
++#include "compat_user.h"
++
++#define SCAN_DELAY_THRESHOLD		300
++
++/* Function which prints out usage message. */
++static void psd_mt_help(void) {
++	printf(
++		"psd match options:\n"
++		" --psd-weight-threshold threshhold  Portscan detection weight threshold\n"
++		" --psd-delay-threshold  delay       Portscan detection delay threshold\n"
++		" --psd-lo-ports-weight  lo          Privileged ports weight\n"
++		" --psd-hi-ports-weight  hi          High ports weight\n\n");
++}
++
++static const struct option psd_mt_opts[] = {
++	{.name = "psd-weight-threshold", .has_arg = true, .val = '1'},
++	{.name = "psd-delay-threshold", .has_arg = true, .val = '2'},
++	{.name = "psd-lo-ports-weight", .has_arg = true, .val = '3'},
++	{.name = "psd-hi-ports-weight", .has_arg = true, .val = '4'},
++	{NULL}
++};
++
++/* Initialize the target. */
++static void psd_mt_init(struct xt_entry_match *match) {
++	struct xt_psd_info *psdinfo = (struct xt_psd_info *)match->data;
++	psdinfo->weight_threshold = SCAN_WEIGHT_THRESHOLD;
++	psdinfo->delay_threshold = SCAN_DELAY_THRESHOLD;
++	psdinfo->lo_ports_weight = PORT_WEIGHT_PRIV;
++	psdinfo->hi_ports_weight = PORT_WEIGHT_HIGH;
++}
++
++#define XT_PSD_OPT_CTRESH 0x01
++#define XT_PSD_OPT_DTRESH 0x02
++#define XT_PSD_OPT_LPWEIGHT 0x04
++#define XT_PSD_OPT_HPWEIGHT 0x08
++
++static int psd_mt_parse(int c, char **argv, int invert, unsigned int *flags,
++                     const void *entry, struct xt_entry_match **match)
++{
++	struct xt_psd_info *psdinfo = (struct xt_psd_info *)(*match)->data;
++	unsigned int num;
++
++	switch (c) {
++		/* PSD-weight-threshold */
++		case '1':
++			if (*flags & XT_PSD_OPT_CTRESH)
++				xtables_error(PARAMETER_PROBLEM,"Can't specify --psd-weight-threshold twice");
++			if (!xtables_strtoui(optarg, NULL, &num, 0, PSD_MAX_RATE))
++				xtables_error(PARAMETER_PROBLEM, "bad --psd-weight-threshold '%s'", optarg);
++			psdinfo->weight_threshold = num;
++			*flags |= XT_PSD_OPT_CTRESH;
++			return true;
++
++		/* PSD-delay-threshold */
++		case '2':
++			if (*flags & XT_PSD_OPT_DTRESH)
++				xtables_error(PARAMETER_PROBLEM, "Can't specify --psd-delay-threshold twice");
++			if (!xtables_strtoui(optarg, NULL, &num, 0, PSD_MAX_RATE))
++				xtables_error(PARAMETER_PROBLEM, "bad --psd-delay-threshold '%s'", optarg);
++			psdinfo->delay_threshold = num;
++			*flags |= XT_PSD_OPT_DTRESH;
++			return true;
++
++		/* PSD-lo-ports-weight */
++		case '3':
++			if (*flags & XT_PSD_OPT_LPWEIGHT)
++				xtables_error(PARAMETER_PROBLEM, "Can't specify --psd-lo-ports-weight twice");
++			if (!xtables_strtoui(optarg, NULL, &num, 0, PSD_MAX_RATE))
++				xtables_error(PARAMETER_PROBLEM, "bad --psd-lo-ports-weight '%s'", optarg);
++			psdinfo->lo_ports_weight = num;
++			*flags |= XT_PSD_OPT_LPWEIGHT;
++			return true;
++
++		/* PSD-hi-ports-weight */
++		case '4':
++			if (*flags & XT_PSD_OPT_HPWEIGHT)
++				xtables_error(PARAMETER_PROBLEM, "Can't specify --psd-hi-ports-weight twice");
++			if (!xtables_strtoui(optarg, NULL, &num, 0, PSD_MAX_RATE))
++				xtables_error(PARAMETER_PROBLEM, "bad --psd-hi-ports-weight '%s'", optarg);
++			psdinfo->hi_ports_weight = num;
++			*flags |= XT_PSD_OPT_HPWEIGHT;
++			return true;
++	}
++	return false;
++}
++
++/* Final check; nothing. */
++static void psd_mt_final_check(unsigned int flags) {}
++
++/* Prints out the targinfo. */
++static void psd_mt_print(const void *ip, const struct xt_entry_match *match, int numeric)
++{
++	const struct xt_psd_info *psdinfo = (const struct xt_psd_info *)match->data;
++	printf(" psd ");
++	printf("weight-threshold: %u ", psdinfo->weight_threshold);
++	printf("delay-threshold: %u ", psdinfo->delay_threshold);
++	printf("lo-ports-weight: %u ", psdinfo->lo_ports_weight);
++	printf("hi-ports-weight: %u ", psdinfo->hi_ports_weight);
++}
++
++/* Saves the union ipt_targinfo in parsable form to stdout. */
++static void psd_mt_save(const void *ip, const struct xt_entry_match *match)
++{
++	const struct xt_psd_info *psdinfo = (const struct xt_psd_info *)match->data;
++	printf(" --psd-weight-threshold %u ", psdinfo->weight_threshold);
++	printf("--psd-delay-threshold %u ", psdinfo->delay_threshold);
++	printf("--psd-lo-ports-weight %u ", psdinfo->lo_ports_weight);
++	printf("--psd-hi-ports-weight %u ", psdinfo->hi_ports_weight);
++}
++
++static struct xtables_match psd_mt_reg = {
++	.name           = "psd",
++	.version        = XTABLES_VERSION,
++	.revision       = 1,
++	.family         = NFPROTO_UNSPEC,
++	.size           = XT_ALIGN(sizeof(struct xt_psd_info)),
++	.userspacesize	= XT_ALIGN(sizeof(struct xt_psd_info)),
++	.help           = psd_mt_help,
++	.init           = psd_mt_init,
++	.parse          = psd_mt_parse,
++	.final_check    = psd_mt_final_check,
++	.print          = psd_mt_print,
++	.save           = psd_mt_save,
++	.extra_opts     = psd_mt_opts,
++};
++
++static __attribute__((constructor)) void psd_mt_ldr(void)
++{
++	xtables_register_match(&psd_mt_reg);
++}
++
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_psd.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_psd.man
+@@ -0,0 +1,18 @@
++Attempt to detect TCP and UDP port scans. This match was derived from
++Solar Designer's scanlogd.
++.TP
++\fB\-\-psd\-weight\-threshold\fP \fIthreshold\fP
++Total weight of the latest TCP/UDP packets with different
++destination ports coming from the same host to be treated as port
++scan sequence.
++.TP
++\fB\-\-psd\-delay\-threshold\fP \fIdelay\fP
++Delay (in hundredths of second) for the packets with different
++destination ports coming from the same host to be treated as
++possible port scan subsequence.
++.TP
++\fB\-\-psd\-lo\-ports\-weight\fP \fIweight\fP
++Weight of the packet with privileged (<=1024) destination port.
++.TP
++\fB\-\-psd\-hi\-ports\-weight\fP \fIweight\fP
++Weight of the packet with non-priviliged destination port.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_quota2.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_quota2.c
+@@ -0,0 +1,153 @@
++/*
++ *	"quota2" match extension for iptables
++ *	Sam Johnston <samj [at] samj net>
++ *	Jan Engelhardt <jengelh [at] medozas de>, 2008
++ *
++ *	This program is free software; you can redistribute it and/or
++ *	modify it under the terms of the GNU General Public License; either
++ *	version 2 of the License, or any later version, as published by the
++ *	Free Software Foundation.
++ */
++#include <getopt.h>
++#include <stddef.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <xtables.h>
++#include "xt_quota2.h"
++#include "compat_user.h"
++
++enum {
++	FL_QUOTA     = 1 << 0,
++	FL_NAME      = 1 << 1,
++	FL_GROW      = 1 << 2,
++	FL_PACKET    = 1 << 3,
++	FL_NO_CHANGE = 1 << 4,
++};
++
++static const struct option quota_mt2_opts[] = {
++	{.name = "grow",      .has_arg = false, .val = 'g'},
++	{.name = "no-change", .has_arg = false, .val = 'c'},
++	{.name = "name",      .has_arg = true,  .val = 'n'},
++	{.name = "quota",     .has_arg = true,  .val = 'q'},
++	{.name = "packets",   .has_arg = false, .val = 'p'},
++	{NULL},
++};
++
++static void quota_mt2_help(void)
++{
++	printf(
++	"quota match options:\n"
++	"    --grow           provide an increasing counter\n"
++	"    --no-change      never change counter/quota value for matching packets\n"
++	"    --name name      name for the file in sysfs\n"
++	"[!] --quota quota    initial quota (bytes or packets)\n"
++	"    --packets        count packets instead of bytes\n"
++	);
++}
++
++static int
++quota_mt2_parse(int c, char **argv, int invert, unsigned int *flags,
++	        const void *entry, struct xt_entry_match **match)
++{
++	struct xt_quota_mtinfo2 *info = (void *)(*match)->data;
++	char *end;
++
++	switch (c) {
++	case 'g':
++		xtables_param_act(XTF_ONLY_ONCE, "quota", "--grow", *flags & FL_GROW);
++		xtables_param_act(XTF_NO_INVERT, "quota", "--grow", invert);
++		info->flags |= XT_QUOTA_GROW;
++		*flags |= FL_GROW;
++		return true;
++	case 'c': /* no-change */
++		xtables_param_act(XTF_ONLY_ONCE, "quota", "--no-change", *flags & FL_NO_CHANGE);
++		xtables_param_act(XTF_NO_INVERT, "quota", "--no-change", invert);
++		info->flags |= XT_QUOTA_NO_CHANGE;
++		*flags |= FL_NO_CHANGE;
++		return true;
++	case 'n':
++		/* zero termination done on behalf of the kernel module */
++		xtables_param_act(XTF_ONLY_ONCE, "quota", "--name", *flags & FL_NAME);
++		xtables_param_act(XTF_NO_INVERT, "quota", "--name", invert);
++		strncpy(info->name, optarg, sizeof(info->name));
++		*flags |= FL_NAME;
++		return true;
++	case 'p':
++		xtables_param_act(XTF_ONLY_ONCE, "quota", "--packets", *flags & FL_PACKET);
++		xtables_param_act(XTF_NO_INVERT, "quota", "--packets", invert);
++		info->flags |= XT_QUOTA_PACKET;
++		*flags |= FL_PACKET;
++		return true;
++	case 'q':
++		xtables_param_act(XTF_ONLY_ONCE, "quota", "--quota", *flags & FL_QUOTA);
++		if (invert)
++			info->flags |= XT_QUOTA_INVERT;
++		info->quota = strtoull(optarg, &end, 0);
++		if (*end != '\0')
++			xtables_error(PARAMETER_PROBLEM, "quota match: "
++			           "invalid value for --quota");
++		*flags |= FL_QUOTA;
++		return true;
++	}
++	return false;
++}
++
++static void
++quota_mt2_save(const void *ip, const struct xt_entry_match *match)
++{
++	const struct xt_quota_mtinfo2 *q = (void *)match->data;
++
++	if (q->flags & XT_QUOTA_INVERT)
++		printf(" !");
++	if (q->flags & XT_QUOTA_GROW)
++		printf(" --grow ");
++	if (q->flags & XT_QUOTA_NO_CHANGE)
++		printf(" --no-change ");
++	if (q->flags & XT_QUOTA_PACKET)
++		printf(" --packets ");
++	if (*q->name != '\0')
++		printf(" --name %s ", q->name);
++	printf(" --quota %llu ", (unsigned long long)q->quota);
++}
++
++static void quota_mt2_print(const void *ip, const struct xt_entry_match *match,
++                            int numeric)
++{
++	const struct xt_quota_mtinfo2 *q = (const void *)match->data;
++
++	if (q->flags & XT_QUOTA_INVERT)
++		printf(" !");
++	if (q->flags & XT_QUOTA_GROW)
++		printf(" counter");
++	else
++		printf(" quota");
++	if (*q->name != '\0')
++		printf(" %s:", q->name);
++	printf(" %llu ", (unsigned long long)q->quota);
++	if (q->flags & XT_QUOTA_PACKET)
++		printf("packets ");
++	else
++		printf("bytes ");
++	if (q->flags & XT_QUOTA_NO_CHANGE)
++		printf("(no-change mode) ");
++}
++
++static struct xtables_match quota_mt2_reg = {
++	.family        = NFPROTO_UNSPEC,
++	.revision      = 3,
++	.name          = "quota2",
++	.version       = XTABLES_VERSION,
++	.size          = XT_ALIGN(sizeof (struct xt_quota_mtinfo2)),
++	.userspacesize = offsetof(struct xt_quota_mtinfo2, quota),
++	.help          = quota_mt2_help,
++	.parse         = quota_mt2_parse,
++	.print         = quota_mt2_print,
++	.save          = quota_mt2_save,
++	.extra_opts    = quota_mt2_opts,
++};
++
++static __attribute__((constructor)) void quota2_mt_ldr(void)
++{
++	xtables_register_match(&quota_mt2_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_quota2.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_quota2.man
+@@ -0,0 +1,37 @@
++The "quota2" implements a named counter which can be increased or decreased
++on a per-match basis. Available modes are packet counting or byte counting.
++The value of the counter can be read and reset through procfs, thereby making
++this match a minimalist accounting tool.
++.PP
++When counting down from the initial quota, the counter will stop at 0 and
++the match will return false, just like the original "quota" match. In growing
++(upcounting) mode, it will always return true.
++.TP
++\fB\-\-grow\fP
++Count upwards instead of downwards.
++.TP
++\fB\-\-no\-change\fP
++Makes it so the counter or quota amount is never changed by packets matching
++this rule. This is only really useful in "quota" mode, as it will allow you to
++use complex prerouting rules in association with the quota system, without
++counting a packet twice.
++.TP
++\fB\-\-name\fP \fIname\fP
++Assign the counter a specific name. This option must be present, as an empty
++name is not allowed. Names starting with a dot or names containing a slash are
++prohibited.
++.TP
++[\fB!\fP] \fB\-\-quota\fP \fIiq\fP
++Specify the initial quota for this counter. If the counter already exists,
++it is not reset. An "!" may be used to invert the result of the match. The
++negation has no effect when \fB\-\-grow\fP is used.
++.TP
++\fB\-\-packets\fP
++Count packets instead of bytes that passed the quota2 match.
++.PP
++Because counters in quota2 can be shared, you can combine them for various
++purposes, for example, a bytebucket filter that only lets as much traffic go
++out as has come in:
++.PP
++\-A INPUT \-p tcp \-\-dport 6881 \-m quota \-\-name bt \-\-grow;
++\-A OUTPUT \-p tcp \-\-sport 6881 \-m quota \-\-name bt;
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_RAWDNAT.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_RAWDNAT.c
+@@ -0,0 +1,189 @@
++/*
++ *	"RAWNAT" target extension for iptables
++ *	Copyright © Jan Engelhardt, 2008 - 2009
++ *
++ *	This program is free software; you can redistribute it and/or
++ *	modify it under the terms of the GNU General Public License; either
++ *	version 2 of the License, or any later version, as published by the
++ *	Free Software Foundation.
++ */
++#include <netinet/in.h>
++#include <getopt.h>
++#include <stdbool.h>
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter.h>
++#include "xt_RAWNAT.h"
++#include "compat_user.h"
++
++enum {
++	FLAGS_TO = 1 << 0,
++};
++
++static const struct option rawdnat_tg_opts[] = {
++	{.name = "to-destination", .has_arg = true, .val = 't'},
++	{},
++};
++
++static void rawdnat_tg_help(void)
++{
++	printf(
++"RAWDNAT target options:\n"
++"    --to-destination addr[/mask]    Address or network to map to\n"
++);
++}
++
++static int
++rawdnat_tg4_parse(int c, char **argv, int invert, unsigned int *flags,
++                  const void *entry, struct xt_entry_target **target)
++{
++	struct xt_rawnat_tginfo *info = (void *)(*target)->data;
++	struct in_addr *a;
++	unsigned int mask;
++	char *end;
++
++	switch (c) {
++	case 't':
++		info->mask = 32;
++		end = strchr(optarg, '/');
++		if (end != NULL) {
++			*end++ = '\0';
++			if (!xtables_strtoui(end, NULL, &mask, 0, 32))
++				xtables_param_act(XTF_BAD_VALUE, "RAWDNAT",
++					"--to-destination", optarg);
++			info->mask = mask;
++		}
++		a = xtables_numeric_to_ipaddr(optarg);
++		if (a == NULL)
++			xtables_param_act(XTF_BAD_VALUE, "RAWDNAT",
++				"--to-destination", optarg);
++		memcpy(&info->addr.in, a, sizeof(*a));
++		*flags |= FLAGS_TO;
++		return true;
++	}
++	return false;
++}
++
++static int
++rawdnat_tg6_parse(int c, char **argv, int invert, unsigned int *flags,
++                  const void *entry, struct xt_entry_target **target)
++{
++	struct xt_rawnat_tginfo *info = (void *)(*target)->data;
++	struct in6_addr *a;
++	unsigned int mask;
++	char *end;
++
++	switch (c) {
++	case 't':
++		info->mask = 128;
++		end = strchr(optarg, '/');
++		if (end != NULL) {
++			*end++ = '\0';
++			if (!xtables_strtoui(end, NULL, &mask, 0, 128))
++				xtables_param_act(XTF_BAD_VALUE, "RAWDNAT",
++					"--to-destination", optarg);
++			info->mask = mask;
++		}
++		a = xtables_numeric_to_ip6addr(optarg);
++		if (a == NULL)
++			xtables_param_act(XTF_BAD_VALUE, "RAWDNAT",
++				"--to-destination", optarg);
++		memcpy(&info->addr.in6, a, sizeof(*a));
++		*flags |= FLAGS_TO;
++		return true;
++	}
++	return false;
++}
++
++static void rawdnat_tg_check(unsigned int flags)
++{
++	if (!(flags & FLAGS_TO))
++		xtables_error(PARAMETER_PROBLEM, "RAWDNAT: "
++			"\"--to-destination\" is required.");
++}
++
++static void
++rawdnat_tg4_print(const void *entry, const struct xt_entry_target *target,
++                  int numeric)
++{
++	const struct xt_rawnat_tginfo *info = (const void *)target->data;
++
++	if (!numeric && info->mask == 32)
++		printf(" to-destination %s ",
++		       xtables_ipaddr_to_anyname(&info->addr.in));
++	else
++		printf(" to-destination %s/%u ",
++		       xtables_ipaddr_to_numeric(&info->addr.in), info->mask);
++}
++
++static void
++rawdnat_tg6_print(const void *entry, const struct xt_entry_target *target,
++                  int numeric)
++{
++	const struct xt_rawnat_tginfo *info = (const void *)target->data;
++
++	if (!numeric && info->mask == 128)
++		printf(" to-destination %s ",
++		       xtables_ip6addr_to_anyname(&info->addr.in6));
++	else
++		printf(" to-destination %s/%u ",
++		       xtables_ip6addr_to_numeric(&info->addr.in6), info->mask);
++}
++
++static void
++rawdnat_tg4_save(const void *entry, const struct xt_entry_target *target)
++{
++	const struct xt_rawnat_tginfo *info = (const void *)target->data;
++
++	printf(" --to-destination %s/%u ",
++	       xtables_ipaddr_to_numeric(&info->addr.in),
++	       info->mask);
++}
++
++static void
++rawdnat_tg6_save(const void *entry, const struct xt_entry_target *target)
++{
++	const struct xt_rawnat_tginfo *info = (const void *)target->data;
++
++	printf(" --to-destination %s/%u ",
++	       xtables_ip6addr_to_numeric(&info->addr.in6),
++	       info->mask);
++}
++
++static struct xtables_target rawdnat_tg_reg[] = {
++	{
++		.version       = XTABLES_VERSION,
++		.name          = "RAWDNAT",
++		.revision      = 0,
++		.family        = NFPROTO_IPV4,
++		.size          = XT_ALIGN(sizeof(struct xt_rawnat_tginfo)),
++		.userspacesize = XT_ALIGN(sizeof(struct xt_rawnat_tginfo)),
++		.help          = rawdnat_tg_help,
++		.parse         = rawdnat_tg4_parse,
++		.final_check   = rawdnat_tg_check,
++		.print         = rawdnat_tg4_print,
++		.save          = rawdnat_tg4_save,
++		.extra_opts    = rawdnat_tg_opts,
++	},
++	{
++		.version       = XTABLES_VERSION,
++		.name          = "RAWDNAT",
++		.revision      = 0,
++		.family        = NFPROTO_IPV6,
++		.size          = XT_ALIGN(sizeof(struct xt_rawnat_tginfo)),
++		.userspacesize = XT_ALIGN(sizeof(struct xt_rawnat_tginfo)),
++		.help          = rawdnat_tg_help,
++		.parse         = rawdnat_tg6_parse,
++		.final_check   = rawdnat_tg_check,
++		.print         = rawdnat_tg6_print,
++		.save          = rawdnat_tg6_save,
++		.extra_opts    = rawdnat_tg_opts,
++	},
++};
++
++static __attribute__((constructor)) void rawdnat_tg_ldr(void)
++{
++	xtables_register_targets(rawdnat_tg_reg,
++		sizeof(rawdnat_tg_reg) / sizeof(*rawdnat_tg_reg));
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_RAWDNAT.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_RAWDNAT.man
+@@ -0,0 +1,10 @@
++The \fBRAWDNAT\fR target will rewrite the destination address in the IP header,
++much like the \fBNETMAP\fR target.
++.TP
++\fB\-\-to\-destination\fR \fIaddr\fR[\fB/\fR\fImask\fR]
++Network address to map to. The resulting address will be constructed the
++following way: All 'one' bits in the \fImask\fR are filled in from the new
++\fIaddress\fR. All bits that are zero in the mask are filled in from the
++original address.
++.PP
++See the \fBRAWSNAT\fR help entry for examples and constraints.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_RAWSNAT.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_RAWSNAT.c
+@@ -0,0 +1,189 @@
++/*
++ *	"RAWNAT" target extension for iptables
++ *	Copyright © Jan Engelhardt, 2008 - 2009
++ *
++ *	This program is free software; you can redistribute it and/or
++ *	modify it under the terms of the GNU General Public License; either
++ *	version 2 of the License, or any later version, as published by the
++ *	Free Software Foundation.
++ */
++#include <netinet/in.h>
++#include <getopt.h>
++#include <stdbool.h>
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter.h>
++#include "xt_RAWNAT.h"
++#include "compat_user.h"
++
++enum {
++	FLAGS_TO = 1 << 0,
++};
++
++static const struct option rawsnat_tg_opts[] = {
++	{.name = "to-source", .has_arg = true, .val = 't'},
++	{},
++};
++
++static void rawsnat_tg_help(void)
++{
++	printf(
++"RAWSNAT target options:\n"
++"    --to-source addr[/mask]    Address or network to map to\n"
++);
++}
++
++static int
++rawsnat_tg4_parse(int c, char **argv, int invert, unsigned int *flags,
++                  const void *entry, struct xt_entry_target **target)
++{
++	struct xt_rawnat_tginfo *info = (void *)(*target)->data;
++	struct in_addr *a;
++	unsigned int mask;
++	char *end;
++
++	switch (c) {
++	case 't':
++		info->mask = 32;
++		end = strchr(optarg, '/');
++		if (end != NULL) {
++			*end++ = '\0';
++			if (!xtables_strtoui(end, NULL, &mask, 0, 32))
++				xtables_param_act(XTF_BAD_VALUE, "RAWSNAT",
++					"--to-source", optarg);
++			info->mask = mask;
++		}
++		a = xtables_numeric_to_ipaddr(optarg);
++		if (a == NULL)
++			xtables_param_act(XTF_BAD_VALUE, "RAWSNAT",
++				"--to-source", optarg);
++		memcpy(&info->addr.in, a, sizeof(*a));
++		*flags |= FLAGS_TO;
++		return true;
++	}
++	return false;
++}
++
++static int
++rawsnat_tg6_parse(int c, char **argv, int invert, unsigned int *flags,
++                  const void *entry, struct xt_entry_target **target)
++{
++	struct xt_rawnat_tginfo *info = (void *)(*target)->data;
++	struct in6_addr *a;
++	unsigned int mask;
++	char *end;
++
++	switch (c) {
++	case 't':
++		info->mask = 128;
++		end = strchr(optarg, '/');
++		if (end != NULL) {
++			*end++ = '\0';
++			if (!xtables_strtoui(end, NULL, &mask, 0, 128))
++				xtables_param_act(XTF_BAD_VALUE, "RAWSNAT",
++					"--to-source", optarg);
++			info->mask = mask;
++		}
++		a = xtables_numeric_to_ip6addr(optarg);
++		if (a == NULL)
++			xtables_param_act(XTF_BAD_VALUE, "RAWSNAT",
++				"--to-source", optarg);
++		memcpy(&info->addr.in6, a, sizeof(*a));
++		*flags |= FLAGS_TO;
++		return true;
++	}
++	return false;
++}
++
++static void rawsnat_tg_check(unsigned int flags)
++{
++	if (!(flags & FLAGS_TO))
++		xtables_error(PARAMETER_PROBLEM, "RAWSNAT: "
++			"\"--to-source\" is required.");
++}
++
++static void
++rawsnat_tg4_print(const void *entry, const struct xt_entry_target *target,
++                  int numeric)
++{
++	const struct xt_rawnat_tginfo *info = (const void *)target->data;
++
++	if (!numeric && info->mask == 32)
++		printf(" to-source %s ",
++		       xtables_ipaddr_to_anyname(&info->addr.in));
++	else
++		printf(" to-source %s/%u ",
++		       xtables_ipaddr_to_numeric(&info->addr.in), info->mask);
++}
++
++static void
++rawsnat_tg6_print(const void *entry, const struct xt_entry_target *target,
++                  int numeric)
++{
++	const struct xt_rawnat_tginfo *info = (const void *)target->data;
++
++	if (!numeric && info->mask == 128)
++		printf(" to-source %s ",
++		       xtables_ip6addr_to_anyname(&info->addr.in6));
++	else
++		printf(" to-source %s/%u ",
++		       xtables_ip6addr_to_numeric(&info->addr.in6), info->mask);
++}
++
++static void
++rawsnat_tg4_save(const void *entry, const struct xt_entry_target *target)
++{
++	const struct xt_rawnat_tginfo *info = (const void *)target->data;
++
++	printf(" --to-source %s/%u ",
++	       xtables_ipaddr_to_numeric(&info->addr.in),
++	       info->mask);
++}
++
++static void
++rawsnat_tg6_save(const void *entry, const struct xt_entry_target *target)
++{
++	const struct xt_rawnat_tginfo *info = (const void *)target->data;
++
++	printf(" --to-source %s/%u ",
++	       xtables_ip6addr_to_numeric(&info->addr.in6),
++	       info->mask);
++}
++
++static struct xtables_target rawsnat_tg_reg[] = {
++	{
++		.version       = XTABLES_VERSION,
++		.name          = "RAWSNAT",
++		.revision      = 0,
++		.family        = NFPROTO_IPV4,
++		.size          = XT_ALIGN(sizeof(struct xt_rawnat_tginfo)),
++		.userspacesize = XT_ALIGN(sizeof(struct xt_rawnat_tginfo)),
++		.help          = rawsnat_tg_help,
++		.parse         = rawsnat_tg4_parse,
++		.final_check   = rawsnat_tg_check,
++		.print         = rawsnat_tg4_print,
++		.save          = rawsnat_tg4_save,
++		.extra_opts    = rawsnat_tg_opts,
++	},
++	{
++		.version       = XTABLES_VERSION,
++		.name          = "RAWSNAT",
++		.revision      = 0,
++		.family        = NFPROTO_IPV6,
++		.size          = XT_ALIGN(sizeof(struct xt_rawnat_tginfo)),
++		.userspacesize = XT_ALIGN(sizeof(struct xt_rawnat_tginfo)),
++		.help          = rawsnat_tg_help,
++		.parse         = rawsnat_tg6_parse,
++		.final_check   = rawsnat_tg_check,
++		.print         = rawsnat_tg6_print,
++		.save          = rawsnat_tg6_save,
++		.extra_opts    = rawsnat_tg_opts,
++	},
++};
++
++static __attribute__((constructor)) void rawsnat_tg_ldr(void)
++{
++	xtables_register_targets(rawsnat_tg_reg,
++		sizeof(rawsnat_tg_reg) / sizeof(*rawsnat_tg_reg));
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_RAWSNAT.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_RAWSNAT.man
+@@ -0,0 +1,38 @@
++The \fBRAWSNAT\fR and \fBRAWDNAT\fP targets provide stateless network address
++translation.
++.PP
++The \fBRAWSNAT\fR target will rewrite the source address in the IP header, much
++like the \fBNETMAP\fP target. \fBRAWSNAT\fP (and \fBRAWDNAT\fP) may only be
++used in the \fBraw\fP or \fBrawpost\fP tables, but can be used in all chains,
++which makes it possible to change the source address either when the packet
++enters the machine or when it leaves it. The reason for this table constraint
++is that RAWNAT must happen outside of connection tracking.
++.TP
++\fB\-\-to\-source\fR \fIaddr\fR[\fB/\fR\fImask\fR]
++Network address to map to. The resulting address will be constructed the
++following way: All 'one' bits in the \fImask\fR are filled in from the new
++\fIaddress\fR. All bits that are zero in the mask are filled in from the
++original address.
++.PP
++As an example, changing the destination for packets forwarded from an internal
++LAN to the internet:
++.IP
++\-t raw \-A PREROUTING \-i lan0 \-d 212.201.100.135 \-j RAWDNAT \-\-to\-destination 199.181.132.250;
++\-t rawpost \-A POSTROUTING \-o lan0 \-s 199.181.132.250 \-j RAWSNAT \-\-to\-source 212.201.100.135;
++.PP
++Note that changing addresses may influence the route selection! Specifically,
++it statically NATs packets, not connections, like the normal DNAT/SNAT targets
++would do. Also note that it can transform already-NATed connections \(em as
++said, it is completely external to Netfilter's connection tracking/NAT.
++.PP
++If the machine itself generates packets that are to be rawnat'ed, you need a
++rule in the OUTPUT chain instead, just like you would with the stateful NAT
++targets.
++.PP
++It may be necessary that in doing so, you also need an extra RAWSNAT rule, to
++override the automatic source address selection that the routing code does
++before passing packets to iptables. If the connecting socket has not been
++explicitly bound to an address, as is the common mode of operation, the address
++that will be chosen is the primary address of the device through which the
++packet would be routed with its initial destination address - the address as
++seen before any RAWNAT takes place.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_STEAL.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_STEAL.c
+@@ -0,0 +1,32 @@
++#include <stdio.h>
++#include <xtables.h>
++#include "compat_user.h"
++
++static void steal_tg_help(void)
++{
++	printf("STEAL takes no options\n\n");
++}
++
++static int steal_tg_parse(int c, char **argv, int invert, unsigned int *flags,
++                          const void *entry, struct xt_entry_target **target)
++{
++	return 0;
++}
++
++static void steal_tg_check(unsigned int flags)
++{
++}
++
++static struct xtables_target steal_tg_reg = {
++	.version       = XTABLES_VERSION,
++	.name          = "STEAL",
++	.family        = NFPROTO_UNSPEC,
++	.help          = steal_tg_help,
++	.parse         = steal_tg_parse,
++	.final_check   = steal_tg_check,
++};
++
++static __attribute__((constructor)) void steal_tg_ldr(void)
++{
++	xtables_register_target(&steal_tg_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_STEAL.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_STEAL.man
+@@ -0,0 +1,2 @@
++Like the DROP target, but does not throw an error like DROP when used in the
++\fBOUTPUT\fP chain.
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_TARPIT.c
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_TARPIT.c
+@@ -0,0 +1,123 @@
++/*
++ *	"TARPIT" target extension to iptables
++ *
++ *	This program is free software; you can redistribute it and/or
++ *	modify it under the terms of the GNU General Public License; either
++ *	version 2 of the License, or any later version, as published by the
++ *	Free Software Foundation.
++ */
++#include <stdbool.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <getopt.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/x_tables.h>
++#include "xt_TARPIT.h"
++#include "compat_user.h"
++
++enum {
++	F_TARPIT   = 1 << 0,
++	F_HONEYPOT = 1 << 1,
++	F_RESET    = 1 << 2,
++};
++
++static const struct option tarpit_tg_opts[] = {
++	{.name = "tarpit",   .has_arg = false, .val = 't'},
++	{.name = "honeypot", .has_arg = false, .val = 'h'},
++	{.name = "reset",    .has_arg = false, .val = 'r'},
++	{NULL},
++};
++
++static void tarpit_tg_help(void)
++{
++	printf(
++		"TARPIT target options:\n"
++		"  --tarpit      Enable classic 0-window tarpit (default)\n"
++		"  --honeypot    Enable honeypot option\n"
++		"  --reset       Enable inline resets\n");
++}
++
++static int tarpit_tg_parse(int c, char **argv, int invert, unsigned int *flags,
++                           const void *entry, struct xt_entry_target **target)
++{
++	struct xt_tarpit_tginfo *info = (void *)(*target)->data;
++
++	switch (c) {
++	case 't':
++		info->variant = XTTARPIT_TARPIT;
++		*flags |= F_TARPIT;
++		return true;
++	case 'h':
++		info->variant = XTTARPIT_HONEYPOT;
++		*flags |= F_HONEYPOT;
++		return true;
++	case 'r':
++		info->variant = XTTARPIT_RESET;
++		*flags |= F_RESET;
++		return true;
++	}
++	return false;
++}
++
++static void tarpit_tg_check(unsigned int flags)
++{
++	if (flags == (F_TARPIT | F_HONEYPOT | F_RESET))
++		xtables_error(PARAMETER_PROBLEM,
++			"TARPIT: only one action can be used at a time");
++}
++
++static void tarpit_tg_print(const void *ip,
++    const struct xt_entry_target *target, int numeric)
++{
++	const struct xt_tarpit_tginfo *info = (void *)target->data;
++
++	switch (info->variant) {
++	case XTTARPIT_HONEYPOT:
++		printf(" honeypot mode ");
++		break;
++	case XTTARPIT_RESET:
++		printf(" reset mode ");
++		break;
++	default:
++		printf(" tarpit mode ");
++		break;
++	}
++}
++
++static void tarpit_tg_save(const void *ip,
++    const struct xt_entry_target *target)
++{
++	const struct xt_tarpit_tginfo *info = (const void *)target->data;
++
++	switch (info->variant) {
++	case XTTARPIT_TARPIT:
++		printf(" --tarpit ");
++		break;
++	case XTTARPIT_HONEYPOT:
++		printf(" --honeypot ");
++		break;
++	case XTTARPIT_RESET:
++		printf(" --reset ");
++		break;
++	}
++}
++
++static struct xtables_target tarpit_tg_reg = {
++	.version       = XTABLES_VERSION,
++	.name          = "TARPIT",
++	.family        = NFPROTO_UNSPEC,
++	.size          = XT_ALIGN(sizeof(struct xt_tarpit_tginfo)),
++	.userspacesize = XT_ALIGN(sizeof(struct xt_tarpit_tginfo)),
++	.help          = tarpit_tg_help,
++	.parse         = tarpit_tg_parse,
++	.final_check   = tarpit_tg_check,
++	.print         = tarpit_tg_print,
++	.save          = tarpit_tg_save,
++	.extra_opts    = tarpit_tg_opts,
++};
++
++static __attribute__((constructor)) void tarpit_tg_ldr(void)
++{
++	xtables_register_target(&tarpit_tg_reg);
++}
+
+--- a/release/src/router/iptables-1.4.x/extensions/libxt_TARPIT.man
++++ b/release/src/router/iptables-1.4.x/extensions/libxt_TARPIT.man
+@@ -0,0 +1,59 @@
++Captures and holds incoming TCP connections using no local per-connection
++resources.
++.PP
++TARPIT only works at the TCP level, and is totally application agnostic. This
++module will answer a TCP request and play along like a listening server, but
++aside from sending an ACK or RST, no data is sent. Incoming packets are ignored
++and dropped. The attacker will terminate the session eventually. This module
++allows the initial packets of an attack to be captured by other software for
++inspection. In most cases this is sufficient to determine the nature of the
++attack.
++.PP
++This offers similar functionality to LaBrea
++<http://www.hackbusters.net/LaBrea/> but does not require dedicated hardware or
++IPs. Any TCP port that you would normally DROP or REJECT can instead become a
++tarpit.
++.TP
++\fB\-\-tarpit\fP
++This mode completes a connection with the attacker but limits the window size
++to 0, thus keeping the attacker waiting long periods of time. While he is
++maintaining state of the connection and trying to continue every 60-240
++seconds, we keep none, so it is very lightweight. Attempts to close the
++connection are ignored, forcing the remote side to time out the connection in
++12-24 minutes. This mode is the default.
++.TP
++\fB\-\-honeypot\fP
++This mode completes a connection with the attacker, but signals a normal window
++size, so that the remote side will attempt to send data, often with some very
++nasty exploit attempts. We can capture these packets for decoding and further
++analysis. The module does not send any data, so if the remote expects an
++application level response, the game is up.
++.TP
++\fB\-\-reset\fP
++This mode is handy because we can send an inline RST (reset). It has no other
++function.
++.PP
++To tarpit connections to TCP port 80 destined for the current machine:
++.IP
++\-A INPUT \-p tcp \-m tcp \-\-dport 80 \-j TARPIT
++.PP
++To significantly slow down Code Red/Nimda-style scans of unused address space,
++forward unused ip addresses to a Linux box not acting as a router (e.g. "ip
++route 10.0.0.0 255.0.0.0 ip.of.linux.box" on a Cisco), enable IP forwarding on
++the Linux box, and add:
++.IP
++\-A FORWARD \-p tcp \-j TARPIT
++.IP
++\-A FORWARD \-j DROP
++.PP
++NOTE:
++If you use the conntrack module while you are using TARPIT, you should also use
++unset tracking on the packet, or the kernel will unnecessarily allocate
++resources for each TARPITted connection. To TARPIT incoming connections to the
++standard IRC port while using conntrack, you could:
++.IP
++\-t raw \-A PREROUTING \-p tcp \-\-dport 6667 \-j CT \-\-notrack
++.IP
++\-A INPUT \-p tcp \-\-dport 6667 \-j NFLOG
++.IP
++\-A INPUT \-p tcp \-\-dport 6667 \-j TARPIT
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_CHAOS.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_CHAOS.h
+@@ -0,0 +1,14 @@
++#ifndef _LINUX_NETFILTER_XT_CHAOS_H
++#define _LINUX_NETFILTER_XT_CHAOS_H 1
++
++enum xt_chaos_target_variant {
++	XTCHAOS_NORMAL,
++	XTCHAOS_TARPIT,
++	XTCHAOS_DELUDE,
++};
++
++struct xt_chaos_tginfo {
++	uint8_t variant;
++};
++
++#endif /* _LINUX_NETFILTER_XT_CHAOS_H */
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_fuzzy.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_fuzzy.h
+@@ -0,0 +1,20 @@
++#ifndef _LINUX_NETFILTER_XT_FUZZY_H
++#define _LINUX_NETFILTER_XT_FUZZY_H 1
++
++enum {
++	FUZZY_MIN_RATE = 3,
++	FUZZY_MAX_RATE = 10000000,
++};
++
++struct xt_fuzzy_mtinfo {
++	uint32_t minimum_rate;
++	uint32_t maximum_rate;
++	uint32_t packets_total;
++	uint32_t bytes_total;
++	uint32_t previous_time;
++	uint32_t present_time;
++	uint32_t mean_rate;
++	uint8_t acceptance_rate;
++};
++
++#endif /* _LINUX_NETFILTER_XT_FUZZY_H */
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_iface.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_iface.h
+@@ -0,0 +1,26 @@
++#ifndef _LINUX_NETFILTER_XT_IFACE_H
++#define _LINUX_NETFILTER_XT_IFACE_H 1
++
++enum {
++	XT_IFACE_UP          = 1 << 0,
++	XT_IFACE_BROADCAST   = 1 << 1,
++	XT_IFACE_LOOPBACK    = 1 << 2,
++	XT_IFACE_POINTOPOINT = 1 << 3,
++	XT_IFACE_RUNNING     = 1 << 4,
++	XT_IFACE_NOARP       = 1 << 5,
++	XT_IFACE_PROMISC     = 1 << 6,
++	XT_IFACE_MULTICAST   = 1 << 7,
++	XT_IFACE_DYNAMIC     = 1 << 8,
++	XT_IFACE_LOWER_UP    = 1 << 9,
++	XT_IFACE_DORMANT     = 1 << 10,
++	XT_IFACE_DEV_IN      = 1 << 11,
++	XT_IFACE_DEV_OUT     = 1 << 12,
++};
++
++struct xt_iface_mtinfo {
++	char ifname[IFNAMSIZ];
++	__u16 flags;
++	__u16 invflags;
++};
++
++#endif
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_ipv4options.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_ipv4options.h
+@@ -0,0 +1,26 @@
++#ifndef _LINUX_NETFILTER_XT_IPV4OPTIONS_H
++#define _LINUX_NETFILTER_XT_IPV4OPTIONS_H 1
++
++/* IPv4 allows for a 5-bit option number - 32 options */
++
++/**
++ * %XT_V4OPTS_ALL:	all options in @map must be present (respecting @invert)
++ * %XT_V4OPTS_ANY:	any of the option in @map
++ */
++enum xt_ipv4options_flags {
++	XT_V4OPTS_ALL = 1 << 0,
++	XT_V4OPTS_ANY = 1 << 1,
++};
++
++/**
++ * @map:	bitmask of options that should appear
++ * @invert:	inversion map
++ * @flags:	see above
++ */
++struct xt_ipv4options_mtinfo1 {
++	__u32 map;
++	__u32 invert;
++	__u8 flags;
++};
++
++#endif /* _LINUX_NETFILTER_XT_IPV4OPTIONS_H */
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_lscan.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_lscan.h
+@@ -0,0 +1,8 @@
++#ifndef _LINUX_NETFILTER_XT_LSCAN_H
++#define _LINUX_NETFILTER_XT_LSCAN_H 1
++
++struct xt_lscan_mtinfo {
++	uint8_t match_stealth, match_syn, match_cn, match_gr;
++};
++
++#endif /* _LINUX_NETFILTER_XT_LSCAN_H */
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_pknock.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_pknock.h
+@@ -0,0 +1,53 @@
++/*
++ * Kernel module to implement Port Knocking and SPA matching support.
++ *
++ * (C) 2006-2008 J. Federico Hernandez <fede.hernandez@gmail.com>
++ * (C) 2006 Luis Floreani <luis.floreani@gmail.com>
++ *
++ * $Id$
++ *
++ * This program is released under the terms of GNU GPL version 2.
++ */
++#ifndef _XT_PKNOCK_H
++#define _XT_PKNOCK_H
++
++#define PKNOCK "xt_pknock: "
++
++enum {
++	XT_PKNOCK_KNOCKPORT   = 1 << 0,
++	XT_PKNOCK_TIME        = 1 << 1,
++	XT_PKNOCK_NAME        = 1 << 2,
++	XT_PKNOCK_STRICT      = 1 << 3,
++	XT_PKNOCK_CHECKIP     = 1 << 4,
++	XT_PKNOCK_OPENSECRET  = 1 << 5,
++	XT_PKNOCK_CLOSESECRET = 1 << 6,
++	XT_PKNOCK_AUTOCLOSE   = 1 << 7,
++
++	/* Can never change these, as they are make up the user protocol. */
++	XT_PKNOCK_MAX_PORTS      = 15,
++	XT_PKNOCK_MAX_BUF_LEN    = 31,
++	XT_PKNOCK_MAX_PASSWD_LEN = 31,
++};
++
++#define DEBUG 1
++
++struct xt_pknock_mtinfo {
++	char rule_name[XT_PKNOCK_MAX_BUF_LEN+1];
++	uint32_t			rule_name_len;
++	char open_secret[XT_PKNOCK_MAX_PASSWD_LEN+1];
++	uint32_t			open_secret_len;
++	char close_secret[XT_PKNOCK_MAX_PASSWD_LEN+1];
++	uint32_t			close_secret_len;
++	uint8_t	option;		/* --time, --knock-port, ... */
++	uint8_t	ports_count;	/* number of ports */
++	uint16_t	port[XT_PKNOCK_MAX_PORTS]; /* port[,port,port,...] */
++	uint32_t	max_time;	/* max matching time between ports */
++	uint32_t autoclose_time;
++};
++
++struct xt_pknock_nl_msg {
++	char rule_name[XT_PKNOCK_MAX_BUF_LEN+1];
++	__be32 peer_ip;
++};
++
++#endif /* _XT_PKNOCK_H */
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_psd.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_psd.h
+@@ -0,0 +1,30 @@
++#ifndef _LINUX_NETFILTER_XT_PSD_H
++#define _LINUX_NETFILTER_XT_PSD_H 1
++
++#include <linux/param.h>
++#include <linux/types.h>
++
++/*
++ * High port numbers have a lower weight to reduce the frequency of false
++ * positives, such as from passive mode FTP transfers.
++ */
++#define PORT_WEIGHT_PRIV		3
++#define PORT_WEIGHT_HIGH		1
++#define	PSD_MAX_RATE			10000
++
++/*
++ * Port scan detection thresholds: at least COUNT ports need to be scanned
++ * from the same source, with no longer than DELAY ticks between ports.
++ */
++#define SCAN_MIN_COUNT			7
++#define SCAN_MAX_COUNT			(SCAN_MIN_COUNT * PORT_WEIGHT_PRIV)
++#define SCAN_WEIGHT_THRESHOLD		SCAN_MAX_COUNT
++
++struct xt_psd_info {
++	__u32 weight_threshold;
++	__u32 delay_threshold;
++	__u16 lo_ports_weight;
++	__u16 hi_ports_weight;
++};
++
++#endif /*_LINUX_NETFILTER_XT_PSD_H*/
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_quota2.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_quota2.h
+@@ -0,0 +1,25 @@
++#ifndef _XT_QUOTA_H
++#define _XT_QUOTA_H
++
++enum xt_quota_flags {
++	XT_QUOTA_INVERT    = 1 << 0,
++	XT_QUOTA_GROW      = 1 << 1,
++	XT_QUOTA_PACKET    = 1 << 2,
++	XT_QUOTA_NO_CHANGE = 1 << 3,
++	XT_QUOTA_MASK      = 0x0F,
++};
++
++struct xt_quota_counter;
++
++struct xt_quota_mtinfo2 {
++	char name[15];
++	u_int8_t flags;
++
++	/* Comparison-invariant */
++	aligned_u64 quota;
++
++	/* Used internally by the kernel */
++	struct xt_quota_counter *master __attribute__((aligned(8)));
++};
++
++#endif /* _XT_QUOTA_H */
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_RAWNAT.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_RAWNAT.h
+@@ -0,0 +1,9 @@
++#ifndef _LINUX_NETFILTER_XT_TARGET_RAWNAT
++#define _LINUX_NETFILTER_XT_TARGET_RAWNAT 1
++
++struct xt_rawnat_tginfo {
++	union nf_inet_addr addr;
++	__u8 mask;
++};
++
++#endif /* _LINUX_NETFILTER_XT_TARGET_RAWNAT */
+
+--- a/release/src/router/iptables-1.4.x/extensions/xt_TARPIT.h
++++ b/release/src/router/iptables-1.4.x/extensions/xt_TARPIT.h
+@@ -0,0 +1,14 @@
++#ifndef _LINUX_NETFILTER_XT_TARPIT_H
++#define _LINUX_NETFILTER_XT_TARPIT_H 1
++
++enum xt_tarpit_target_variant {
++	XTTARPIT_TARPIT,
++	XTTARPIT_HONEYPOT,
++	XTTARPIT_RESET,
++};
++
++struct xt_tarpit_tginfo {
++	uint8_t variant;
++};
++
++#endif /* _LINUX_NETFILTER_XT_TARPIT_H */
+

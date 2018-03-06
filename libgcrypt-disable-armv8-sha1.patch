@@ -1,0 +1,11 @@
+--- a/cipher/sha1.c
++++ b/cipher/sha1.c
+@@ -362,7 +362,7 @@
+     return _gcry_sha1_transform_amd64_ssse3 (&hd->h0, data, nblks)
+            + 4 * sizeof(void*) + ASM_EXTRA_STACK;
+ #endif
+-#ifdef USE_ARM_CE
++#ifdef USE_ARM_CE___BUGBUG
+   if (hd->use_arm_ce)
+     return _gcry_sha1_transform_armv8_ce (&hd->h0, data, nblks);
+ #endif

@@ -22,7 +22,10 @@ make_clean_2() {
 	rm -rf asuswrt-merlin.382
 #	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-13bf17a.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-d90542f.tar.gz
-	tar xzvf /mnt/hgfs/sandbox/384.3-beta1-9a7ccd4.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.3-beta1-9a7ccd4.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.3-beta3-d8ed90f.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.4-alpha1-7f087bf.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.4-beta2-86e369d.tar.gz
 
 	mv asuswrt-merlin.ng-master asuswrt-merlin.382
 #	mv asuswrt-merlin.382-master asuswrt-merlin.382
@@ -32,7 +35,7 @@ make_clean_2() {
 	rm -rf ~/asuswrt-merlin.382/tools
 	ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin.382/tools
 	cd asuswrt-merlin.382
-	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/384.3_beta1_X-ARM-mods+apps+xtables-addons.patch
+	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/384.4-alpha1_X-ARM-mods+apps.patch
 }
 
 make_clean_3() {
@@ -40,26 +43,32 @@ make_clean_3() {
 	rm -rf asuswrt-merlin.382
 #	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-13bf17a.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-d90542f.tar.gz
-	tar xzvf /mnt/hgfs/sandbox/384.3-beta1-9a7ccd4.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.3-beta1-9a7ccd4.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.3-beta3-d8ed90f.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.4-alpha1-7f087bf.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.4-beta2-86e369d.tar.gz
 
 	mv asuswrt-merlin.ng-master asuswrt-merlin.382
 #	mv asuswrt-merlin.382-master asuswrt-merlin.382
 	get_version_info
+	rm -rf ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
+	ln -s ~/am-toolchains/brcm-arm-hnd ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
 	rm -rf ~/asuswrt-merlin.382/release/src-rt-6.x.4708/toolchains
 	ln -s ~/am-toolchains/brcm-arm-sdk ~/asuswrt-merlin.382/release/src-rt-6.x.4708/toolchains
 	rm -rf ~/asuswrt-merlin.382/tools
 	ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin.382/tools
 	cd asuswrt-merlin.382
-	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/384.3_beta1_X-ARM-mods+apps+xtables-addons+nofiles.patch
-#	ed -s < ~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch
+	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/384.4_beta2_X-ARM-mods+apps+nofiles.patch
+
 	# change existing target settings
 	sed -r -i 's/MEDIASRV=y/MEDIASRV=n/g;s/PARENTAL2=y/PARENTAL2=n/g;s/WEBDAV=y/WEBDAV=n/g;s/CLOUDSYNC=y/CLOUDSYNC=n/g;s/DROPBOXCLIENT=y/DROPBOXCLIENT=n/g;s/TIMEMACHINE=y/TIMEMACHINE=n/g;s/MDNS=y/MDNS=n/g;s/BWDPI=y/BWDPI=n/g;s/SWEBDAVCLIENT=y/SWEBDAVCLIENT=n/g;s/SNMPD=y/SNMPD=n/g;s/CLOUDCHECK=y/CLOUDCHECK=n/g;s/DNSFILTER=y/DNSFILTER=n/g;s/HSPOT=y/HSPOT=n/g;s/SMARTSYNCBASE=y/SMARTSYNCBASE=n/g;s/EMAIL=y/EMAIL=n/g;s/NOTIFICATION_CENTER=y/NOTIFICATION_CENTER=n/g;s/NATNL_AICLOUD=y/NATNL_AICLOUD=n/g;s/NATNL_AIHOME=y/NATNL_AIHOME=n/g;s/IFTTT=y/IFTTT=n/g;s/ALEXA=y/ALEXA=n/g;s/LETSENCRYPT=y/LETSENCRYPT=n/g;s/VISUALIZATION=y/VISUALIZATION=n/g;s/WTFAST=y/WTFAST=n/g;s/ROG=y/ROG=n/g;s/MULTICASTIPTV=y/MULTICASTIPTV=n/g;s/QUAGGA=y/QUAGGA=n/g;s/OPTIMIZE_XBOX=y/OPTIMIZE_XBOX=n/g;s/AMAS=y/AMAS=n/g' release/src-rt/target.mak
 	# append new target settings
 	perl -pi -e 's/ARM=y(?!\s+STRACE=y)/ARM=y STRACE=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n/g' release/src-rt/target.mak
 
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox-1.24.1/busybox-1.24.1/config_base release/src/router/busybox-1.24.1/busybox-1.24.1/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox/Makefile release/src/router/busybox/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/config/config.in release/src/router/config/
-##	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/Makefile release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/rc.c release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/init.c release/src/router/rc/
@@ -70,19 +79,26 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.c release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.h release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/Makefile release/src-rt/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/platform.mak release/src-rt/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/make.common release/src-rt-5.02hnd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/make.hndrt release/src-rt-5.02hnd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/hostTools/Makefile release/src-rt-5.02hnd/hostTools/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile release/src-rt-5.02hnd/hostTools/libcreduction/
-##	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a release/src-rt-5.02hnd/kernel/linux-4.1/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/Makefile release/src-rt-5.02hnd/kernel/linux-4.1/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a release/src-rt-5.02hnd/kernel/linux-4.1/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/crypto/Makefile release/src-rt-5.02hnd/kernel/linux-4.1/crypto/
+#	cp -a $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/crypto/cryptodev-linux release/src-rt-5.02hnd/kernel/linux-4.1/crypto/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/drivers/crypto/Kconfig release/src-rt-5.02hnd/kernel/linux-4.1/drivers/crypto/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/drivers/crypto/Makefile release/src-rt-5.02hnd/kernel/linux-4.1/drivers/crypto/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/net/netfilter/Makefile release/src-rt-5.02hnd/kernel/linux-4.1/net/netfilter/
 
 	$HOME/blackfuel/asuswrt-merlin-tools/merlin-diff.382.sh
-	mv -f $HOME/merlin-diff.patch $HOME/${BUILD_VER}_X-ARM-mods+apps+xtables-addons+nofiles.patch
+	mv -f $HOME/merlin-diff.patch $HOME/${BUILD_VER}_X-ARM-mods+apps+nofiles.patch
 
-	cp -a $HOME/blackfuel/asuswrt-merlin-xtables-addons-1.47.1/release ./
 	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43_382.patch
 
 	$HOME/blackfuel/asuswrt-merlin-tools/merlin-diff.382.sh
-	mv -f $HOME/merlin-diff.patch $HOME/${BUILD_VER}_X-ARM-mods+apps+xtables-addons.patch
+	mv -f $HOME/merlin-diff.patch $HOME/${BUILD_VER}_X-ARM-mods+apps.patch
 }
 
 set -e
@@ -110,7 +126,7 @@ sudo ln -s ~/am-toolchains/brcm-mips-sdk/tools/brcm /opt/brcm
 
 [ ! -h /opt/brcm ] && sudo ln -sf $HOME/asuswrt-merlin/tools/brcm /opt/brcm
 
-if [ -d ~/asuswrt-merlin.382 ]; then
+if [ -d ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src ]; then
   rm -rf ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
   ln -s ~/am-toolchains/brcm-arm-hnd ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
 
@@ -121,7 +137,7 @@ if [ -d ~/asuswrt-merlin.382 ]; then
   ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin.382/tools
 fi
 
-if [ -d ~/asuswrt-merlin ]; then
+if [ -d ~/asuswrt-merlin/release/src-rt-6.x.4708 ]; then
   rm -rf ~/asuswrt-merlin/release/src-rt-6.x.4708/toolchains
   ln -s ~/am-toolchains/brcm-arm-sdk ~/asuswrt-merlin/release/src-rt-6.x.4708/toolchains
 
@@ -129,17 +145,15 @@ if [ -d ~/asuswrt-merlin ]; then
   ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin/tools
 fi
 
-sudo mkdir -p /projects/hnd/tools/linux
-sudo rm -rf /projects/hnd/tools/linux/hndtools-armeabi-2011.09
-sudo ln -s ~/am-toolchains/brcm-arm-sdk/hndtools-armeabi-2011.09 /projects/hnd/tools/linux/hndtools-armeabi-2011.09
-sudo rm -rf /projects/hnd/tools/linux/hndtools-armeabi-2013.11
-sudo ln -s ~/am-toolchains/brcm-arm-sdk/hndtools-armeabi-2013.11 /projects/hnd/tools/linux/hndtools-armeabi-2013.11
-sudo rm -rf /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3
-sudo ln -s ~/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3
+# sudo mkdir -p /projects/hnd/tools/linux
+# sudo rm -rf /projects/hnd/tools/linux/hndtools-armeabi-2011.09
+# sudo ln -s ~/am-toolchains/brcm-arm-sdk/hndtools-armeabi-2011.09 /projects/hnd/tools/linux/hndtools-armeabi-2011.09
+# sudo rm -rf /projects/hnd/tools/linux/hndtools-armeabi-2013.11
+# sudo ln -s ~/am-toolchains/brcm-arm-sdk/hndtools-armeabi-2013.11 /projects/hnd/tools/linux/hndtools-armeabi-2013.11
+# sudo rm -rf /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3
+# sudo ln -s ~/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3
 
-sudo rm -rf /bin/sh
-sudo ln -s bash /bin/sh
-#sudo ln -s dash /bin/sh
+sudo rm -f /bin/sh ; sudo ln -s bash /bin/sh
 
 ###
 
@@ -158,8 +172,8 @@ fi
 
 #---
 
-#BUILD_SDK="ARM"
-BUILD_SDK="HND"
+BUILD_SDK="ARM"
+#BUILD_SDK="HND"
 
 #---
 if [ "$BUILD_SDK" == "ARM" ]; then
@@ -508,7 +522,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.2.9, NTP 4.2.8p10, DNSCrypt 1.9.5, Curl 7.58.0, Wget 1.19.4, Cryptsetup 2.0.1, Wipe 2.3.1, Whois 5.3.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1\`" >>"$NOTES"
+echo "\`Tor 0.3.2.10, NTP 4.2.8p11, DNSCrypt 1.9.5, Curl 7.58.0, Wget 1.19.4, Cryptsetup 2.0.1, Wipe 2.3.1, Whois 5.3.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 
