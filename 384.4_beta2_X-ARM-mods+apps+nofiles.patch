@@ -18,17 +18,7 @@
  # CONFIG_NF_CT_PROTO_DCCP is not set
  CONFIG_NF_CT_PROTO_GRE=m
  # CONFIG_NF_CT_PROTO_SCTP is not set
-@@ -530,15 +530,23 @@
- # CONFIG_NETFILTER_XT_TARGET_RATEEST is not set
- # CONFIG_NETFILTER_XT_TARGET_TEE is not set
- # CONFIG_NETFILTER_XT_TARGET_TRACE is not set
-+# CONFIG_NETFILTER_XT_TARGET_ACCOUNT is not set
-+CONFIG_NETFILTER_XT_TARGET_CHAOS=m
-+CONFIG_NETFILTER_XT_TARGET_DELUDE=m
-+# CONFIG_NETFILTER_XT_TARGET_ECHO is not set
-+CONFIG_NETFILTER_XT_TARGET_RAWNAT=m
-+CONFIG_NETFILTER_XT_TARGET_STEAL=m
-+CONFIG_NETFILTER_XT_TARGET_TARPIT=m
+@@ -533,12 +533,13 @@
  CONFIG_NETFILTER_XT_TARGET_TCPMSS=y
  # CONFIG_NETFILTER_XT_TARGET_TCPOPTSTRIP is not set
  # CONFIG_NETFILTER_XT_MATCH_LAYER7 is not set
@@ -43,7 +33,7 @@
  CONFIG_NETFILTER_XT_MATCH_CONNBYTES=y
  CONFIG_NETFILTER_XT_MATCH_CONNLIMIT=y
  CONFIG_NETFILTER_XT_MATCH_CONNMARK=y
-@@ -567,7 +575,7 @@
+@@ -567,7 +568,7 @@
  # CONFIG_NETFILTER_XT_MATCH_SCTP is not set
  # CONFIG_NETFILTER_XT_MATCH_SOCKET is not set
  CONFIG_NETFILTER_XT_MATCH_STATE=y
@@ -52,21 +42,7 @@
  CONFIG_NETFILTER_XT_MATCH_STRING=y
  CONFIG_NETFILTER_XT_MATCH_TCPMSS=y
  CONFIG_NETFILTER_XT_MATCH_TIME=y
-@@ -575,6 +583,13 @@
- CONFIG_NETFILTER_XT_MATCH_WEBSTR=y
- CONFIG_NETFILTER_XT_MATCH_CONDITION=m
- CONFIG_NETFILTER_XT_MATCH_GEOIP=m
-+CONFIG_NETFILTER_XT_MATCH_FUZZY=m
-+CONFIG_NETFILTER_XT_MATCH_IFACE=m
-+CONFIG_NETFILTER_XT_MATCH_IPV4OPTIONS=m
-+CONFIG_NETFILTER_XT_MATCH_LSCAN=m
-+CONFIG_NETFILTER_XT_MATCH_PKNOCK=m
-+CONFIG_NETFILTER_XT_MATCH_PSD=m
-+CONFIG_NETFILTER_XT_MATCH_QUOTA2=m
- CONFIG_IP_SET=m
- CONFIG_IP_SET_MAX=256
- CONFIG_IP_SET_BITMAP_IP=m
-@@ -1032,7 +1047,28 @@
+@@ -1032,7 +1033,28 @@
  # CONFIG_SCSI_DH is not set
  # CONFIG_SCSI_OSD_INITIATOR is not set
  # CONFIG_ATA is not set
@@ -96,7 +72,7 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1247,7 +1283,10 @@
+@@ -1247,7 +1269,10 @@
  #
  # PPS support
  #
@@ -108,7 +84,7 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1280,14 +1319,14 @@
+@@ -1280,14 +1305,14 @@
  # CONFIG_SOUND is not set
  CONFIG_HID_SUPPORT=y
  CONFIG_HID=m
@@ -125,7 +101,7 @@
  
  #
  # USB HID Boot Protocol drivers
-@@ -1434,13 +1473,13 @@
+@@ -1434,13 +1459,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -142,7 +118,7 @@
  # CONFIG_USB_SERIAL_FUNSOFT is not set
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1459,7 +1498,7 @@
+@@ -1459,7 +1484,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MOTOROLA is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -151,7 +127,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1584,8 +1623,11 @@
+@@ -1584,8 +1609,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -165,7 +141,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1633,11 +1675,12 @@
+@@ -1633,11 +1661,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -179,7 +155,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
  # CONFIG_VXFS_FS is not set
-@@ -1830,7 +1873,7 @@
+@@ -1830,7 +1859,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -188,7 +164,7 @@
  
  #
  # Hash modes
-@@ -1847,41 +1890,42 @@
+@@ -1847,41 +1876,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -254,7 +230,7 @@
  
  #
  # Random Number Generation
-@@ -1889,9 +1933,17 @@
+@@ -1889,9 +1919,17 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -2088,17 +2064,8 @@
  # CONFIG_NF_CT_PROTO_DCCP is not set
  CONFIG_NF_CT_PROTO_GRE=m
  # CONFIG_NF_CT_PROTO_SCTP is not set
-@@ -545,8 +545,17 @@
- # CONFIG_NETFILTER_XT_TARGET_RATEEST is not set
- # CONFIG_NETFILTER_XT_TARGET_TEE is not set
+@@ -547,6 +547,8 @@
  # CONFIG_NETFILTER_XT_TARGET_TRACE is not set
-+# CONFIG_NETFILTER_XT_TARGET_ACCOUNT is not set
-+CONFIG_NETFILTER_XT_TARGET_CHAOS=m
-+CONFIG_NETFILTER_XT_TARGET_DELUDE=m
-+# CONFIG_NETFILTER_XT_TARGET_ECHO is not set
-+CONFIG_NETFILTER_XT_TARGET_RAWNAT=m
-+CONFIG_NETFILTER_XT_TARGET_STEAL=m
-+CONFIG_NETFILTER_XT_TARGET_TARPIT=m
  CONFIG_NETFILTER_XT_TARGET_TCPMSS=y
  # CONFIG_NETFILTER_XT_TARGET_TCPOPTSTRIP is not set
 +# CONFIG_NETFILTER_XT_MATCH_LAYER7 is not set
@@ -2106,7 +2073,7 @@
  
  #
  # Xtables matches
-@@ -581,7 +590,7 @@
+@@ -581,7 +583,7 @@
  # CONFIG_NETFILTER_XT_MATCH_SCTP is not set
  # CONFIG_NETFILTER_XT_MATCH_SOCKET is not set
  CONFIG_NETFILTER_XT_MATCH_STATE=y
@@ -2115,21 +2082,7 @@
  CONFIG_NETFILTER_XT_MATCH_STRING=y
  CONFIG_NETFILTER_XT_MATCH_TCPMSS=y
  CONFIG_NETFILTER_XT_MATCH_TIME=y
-@@ -589,6 +598,13 @@
- CONFIG_NETFILTER_XT_MATCH_WEBSTR=y
- CONFIG_NETFILTER_XT_MATCH_CONDITION=m
- CONFIG_NETFILTER_XT_MATCH_GEOIP=m
-+CONFIG_NETFILTER_XT_MATCH_FUZZY=m
-+CONFIG_NETFILTER_XT_MATCH_IFACE=m
-+CONFIG_NETFILTER_XT_MATCH_IPV4OPTIONS=m
-+CONFIG_NETFILTER_XT_MATCH_LSCAN=m
-+CONFIG_NETFILTER_XT_MATCH_PKNOCK=m
-+CONFIG_NETFILTER_XT_MATCH_PSD=m
-+CONFIG_NETFILTER_XT_MATCH_QUOTA2=m
- CONFIG_IP_SET=m
- CONFIG_IP_SET_MAX=256
- CONFIG_IP_SET_BITMAP_IP=m
-@@ -1060,7 +1076,28 @@
+@@ -1060,7 +1062,28 @@
  # CONFIG_SATA_INIC162X is not set
  # CONFIG_SATA_SIL24 is not set
  # CONFIG_ATA_SFF is not set
@@ -2159,7 +2112,7 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1277,7 +1314,10 @@
+@@ -1277,7 +1300,10 @@
  #
  # PPS support
  #
@@ -2171,7 +2124,7 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1310,14 +1350,14 @@
+@@ -1310,14 +1336,14 @@
  # CONFIG_SOUND is not set
  CONFIG_HID_SUPPORT=y
  CONFIG_HID=m
@@ -2188,7 +2141,7 @@
  
  #
  # USB HID Boot Protocol drivers
-@@ -1464,13 +1504,13 @@
+@@ -1464,13 +1490,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -2205,7 +2158,7 @@
  # CONFIG_USB_SERIAL_FUNSOFT is not set
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1489,7 +1529,7 @@
+@@ -1489,7 +1515,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MOTOROLA is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -2214,7 +2167,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1614,8 +1654,11 @@
+@@ -1614,8 +1640,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -2228,7 +2181,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1664,11 +1707,12 @@
+@@ -1664,11 +1693,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -2242,7 +2195,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
  # CONFIG_VXFS_FS is not set
-@@ -1861,7 +1905,7 @@
+@@ -1861,7 +1891,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -2251,7 +2204,7 @@
  
  #
  # Hash modes
-@@ -1878,41 +1922,42 @@
+@@ -1878,41 +1908,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -2317,7 +2270,7 @@
  
  #
  # Random Number Generation
-@@ -1920,9 +1965,17 @@
+@@ -1920,9 +1951,17 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -6229,7 +6182,7 @@
  	if [ "$(BWDPI)" = "y" ]; then \
  		sed -i "/CONFIG_NET_SCH_HTB/d" $(1); \
  		echo "CONFIG_NET_SCH_HTB=y" >>$(1); \
-@@ -3886,12 +3882,203 @@
+@@ -3886,11 +3882,218 @@
  	$(MAKE) -C router bboldconf
  	@echo done
  
@@ -6331,13 +6284,12 @@
 +# CryptodevSetup: this will enable /dev/crypto in Asuswrt firmwares
 +#
 +define CryptodevSetup
-+	$(eval ASUSWRT_DIR="`readlink -f $(SRC_ROOT)`/../..")
-+	$(eval ASUSWRT_ADDON_DIR="$(ASUSWRT_DIR)/../asuswrt-merlin-addon")
++	# CryptodevSetup
 +	$(eval KERNEL_CRYPTO_DIR=$(LINUXDIR)/crypto)
 +	$(eval CRYPTODEV_NAME=cryptodev-linux)
 +	$(eval CRYPTODEV_DIR=$(KERNEL_CRYPTO_DIR)/$(CRYPTODEV_NAME))
 +
-+	$(call PackageSetup,$(ASUSWRT_ADDON_DIR),$(KERNEL_CRYPTO_DIR),$(CRYPTODEV_NAME), \
++	$(call PackageSetup,$(BLACKFUEL_DIR),$(KERNEL_CRYPTO_DIR),$(CRYPTODEV_NAME), \
 +		https://github.com/cryptodev-linux/cryptodev-linux.git, 1.9+git)
 +
 +	# create required version.h in cryptodev-linux
@@ -6357,7 +6309,7 @@
 +#
 +# XtablesAddonsSetup: include the official xtables-addons kernel modules in Asuswrt firmwares
 +#
-+define IncludeXtablesKernelModule
++define InsertXtablesKernelModule
 +	$(eval KERNEL_MODULE_NAME=$(1))
 +	$(eval KERNEL_MODULE_BUILTIN=$(2))
 +	@if [ -f "$(XTABLES_EXTENSIONS_DIR)/$(KERNEL_MODULE_NAME).c" ]; then \
@@ -6376,9 +6328,8 @@
 +endef
 +
 +define XtablesAddonsSetup
++	# XtablesAddonsSetup
 +	$(eval XTABLES_ADDONS_VERSION=$(1))
-+	$(eval ASUSWRT_DIR="`readlink -f $(SRC_ROOT)`/../..")
-+	$(eval ASUSWRT_ADDON_DIR="$(ASUSWRT_DIR)/../asuswrt-merlin-addon")
 +	$(eval KERNEL_NETFILTER_DIR=$(LINUXDIR)/net/netfilter)
 +	$(eval XTABLES_ADDONS_NAME=xtables-addons)
 +	$(eval XTABLES_ADDONS_DIR=$(KERNEL_NETFILTER_DIR)/$(XTABLES_ADDONS_NAME))
@@ -6387,35 +6338,49 @@
 +
 +	# insert xtables-addons into the kernel build
 +	$(if ifeq ($(XTABLES_EXISTS), 0),
-+		$(call PackageSetup,$(ASUSWRT_ADDON_DIR),$(KERNEL_NETFILTER_DIR),$(XTABLES_ADDONS_NAME), \
++		$(call PackageSetup,$(BLACKFUEL_DIR),$(KERNEL_NETFILTER_DIR),$(XTABLES_ADDONS_NAME), \
 +			https://ufpr.dl.sourceforge.net/project/xtables-addons/Xtables-addons/xtables-addons-$(XTABLES_ADDONS_VERSION).tar.xz)
 +		@echo "" >>$(KERNEL_NETFILTER_DIR)/Makefile
 +		@echo "#" >>$(KERNEL_NETFILTER_DIR)/Makefile
 +		@echo "# $(XTABLES_ADDONS_NAME): https://xtables-addons.sourceforge.net" >>$(KERNEL_NETFILTER_DIR)/Makefile
 +		@echo "#" >>$(KERNEL_NETFILTER_DIR)/Makefile
-+		$(call IncludeXtablesKernelModule,compat_xtables,m)
-+		$(call IncludeXtablesKernelModule,ACCOUNT/xt_ACCOUNT,m)
-+		$(call IncludeXtablesKernelModule,xt_CHAOS,m)
-+		$(call IncludeXtablesKernelModule,xt_DELUDE,m)
-+		$(call IncludeXtablesKernelModule,xt_DHCPMAC,m)
-+		$(call IncludeXtablesKernelModule,xt_DNETMAP,m)
-+		$(call IncludeXtablesKernelModule,xt_ECHO,n)
-+		$(call IncludeXtablesKernelModule,xt_IPMARK,m)
-+		$(call IncludeXtablesKernelModule,xt_LOGMARK,m)
-+		$(call IncludeXtablesKernelModule,xt_SYSRQ,m)
-+		$(call IncludeXtablesKernelModule,xt_TARPIT,m)
-+		$(call IncludeXtablesKernelModule,xt_condition,m)
-+		$(call IncludeXtablesKernelModule,xt_fuzzy,m)
-+		$(call IncludeXtablesKernelModule,xt_geoip,m)
-+		$(call IncludeXtablesKernelModule,xt_iface,m)
-+		$(call IncludeXtablesKernelModule,xt_ipp2p,m)
-+		$(call IncludeXtablesKernelModule,xt_ipv4options,m)
-+		$(call IncludeXtablesKernelModule,xt_length2,m)
-+		$(call IncludeXtablesKernelModule,xt_lscan,m)
-+		$(call IncludeXtablesKernelModule,pknock/xt_pknock,m)
-+		$(call IncludeXtablesKernelModule,xt_psd,m)
-+		$(call IncludeXtablesKernelModule,xt_quota2,m)
++		$(call InsertXtablesKernelModule,compat_xtables,m)
++		$(call InsertXtablesKernelModule,ACCOUNT/xt_ACCOUNT,m)
++		$(call InsertXtablesKernelModule,xt_CHAOS,m)
++		$(call InsertXtablesKernelModule,xt_DELUDE,m)
++		$(call InsertXtablesKernelModule,xt_DHCPMAC,m)
++		$(call InsertXtablesKernelModule,xt_DNETMAP,m)
++		$(call InsertXtablesKernelModule,xt_ECHO,n)
++		$(call InsertXtablesKernelModule,xt_IPMARK,m)
++		$(call InsertXtablesKernelModule,xt_LOGMARK,m)
++		$(call InsertXtablesKernelModule,xt_SYSRQ,m)
++		$(call InsertXtablesKernelModule,xt_TARPIT,m)
++		$(call InsertXtablesKernelModule,xt_condition,m)
++		$(call InsertXtablesKernelModule,xt_fuzzy,m)
++		$(call InsertXtablesKernelModule,xt_geoip,m)
++		$(call InsertXtablesKernelModule,xt_iface,m)
++		$(call InsertXtablesKernelModule,xt_ipp2p,m)
++		$(call InsertXtablesKernelModule,xt_ipv4options,m)
++		$(call InsertXtablesKernelModule,xt_length2,m)
++		$(call InsertXtablesKernelModule,xt_lscan,m)
++		$(call InsertXtablesKernelModule,pknock/xt_pknock,m)
++		$(call InsertXtablesKernelModule,xt_psd,m)
++		$(call InsertXtablesKernelModule,xt_quota2,m)
 +	)
++endef
++
++define CreateBlackfuelDirectory
++	# CreateBlackfuelDirectory
++	@echo "PWD=$${PWD}"
++	$(eval ASUSWRT_DIR=$(shell echo "$${PWD%/release\/src*}";))
++	$(eval ASUSWRT_ADDON=../asuswrt-merlin-addon)
++	$(eval ASUSWRT_ADDON_DIR=$(ASUSWRT_DIR)/$(ASUSWRT_ADDON))
++	$(eval BLACKFUEL_DIR=$(ASUSWRT_DIR)/blackfuel-addon)
++	@echo "ASUSWRT_DIR=$(ASUSWRT_DIR)"
++	@echo "ASUSWRT_ADDON=$(ASUSWRT_ADDON)"
++	@echo "ASUSWRT_ADDON_DIR=$(ASUSWRT_ADDON_DIR)"
++	@echo "BLACKFUEL_DIR=$(BLACKFUEL_DIR)"
++	$(shell [ -d "$(BLACKFUEL_DIR)" ] || (mkdir -p $(ASUSWRT_ADDON_DIR) && rm -f "$(BLACKFUEL_DIR)" && ln -s $(ASUSWRT_ADDON) "$(BLACKFUEL_DIR)") )
 +endef
 +
  bin:
@@ -6423,16 +6388,19 @@
  	@echo $@" is not a valid target!"
  	@false
  endif
- ifeq ($(HND_ROUTER),y)
++### blackfuel
++ifeq ($(HND_ROUTER),y)
++	$(call CreateBlackfuelDirectory)
 +	$(call CryptodevSetup)
 +	$(call XtablesAddonsSetup,2.14)
 +else
++	$(call CreateBlackfuelDirectory)
 +	$(call XtablesAddonsSetup,1.47.1)
 +endif
-+ifeq ($(HND_ROUTER),y)
++### END blackfuel
+ ifeq ($(HND_ROUTER),y)
  	@echo BRCM_BOARD_ID=$(BRCM_BOARD_ID)
  	@rm -f bcmdrivers/broadcom/net/wl/bcm9$(BCM_CHIP) && ln -sf impl51 bcmdrivers/broadcom/net/wl/bcm9$(BCM_CHIP)
- 	@rm -f $(PROFILE_FILE_PUB) && ln -sf $(PROFILE_FILE) $(PROFILE_FILE_PUB)
 --- a/release/src-rt/target.mak
 +++ b/release/src-rt/target.mak
 @@ -1,122 +1,122 @@
@@ -6686,7 +6654,7 @@
  obj-y += $(BUSYBOX)
  obj-y += shared
  obj-y += nvram$(BCMEX)$(EX7)
-@@ -691,6 +691,185 @@
+@@ -691,6 +691,186 @@
  obj-y += iproute2-3.15.0
  endif
  
@@ -6694,9 +6662,10 @@
 +#
 +# Blackfuel addons
 +#
-+ASUSWRT_DIR:=`readlink -f $(TOP)`/../../..
-+BLACKFUEL_ADDON:=blackfuel-addon
-+BLACKFUEL_DIR:=$(ASUSWRT_DIR)/$(BLACKFUEL_ADDON)
++ASUSWRT_DIR:=`echo $${PWD%/release\/src*}`
++ASUSWRT_ADDON:=../asuswrt-merlin-addon
++ASUSWRT_ADDON_DIR:=$(ASUSWRT_DIR)/$(ASUSWRT_ADDON)
++BLACKFUEL_DIR:=$(ASUSWRT_DIR)/blackfuel-addon
 +BLACKFUEL_OPTIMIZED_ARMV7:=-march=armv7-a -mtune=cortex-a9 -fomit-frame-pointer -fno-caller-saves -mfloat-abi=soft
 +BLACKFUEL_OPTIMIZED_ARMV8_32:=-march=armv8-a+crc -mtune=cortex-a53 -mfpu=crypto-neon-fp-armv8 -fomit-frame-pointer -fno-caller-saves -DHND_ROUTER
 +BLACKFUEL_OPTIMIZED_ARMV8_64:=-march=armv8-a+crypto -fomit-frame-pointer -fno-caller-saves -DHND_ROUTER
@@ -6872,7 +6841,7 @@
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlite
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlCipher
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += PMS_DBapis
-@@ -1226,8 +1405,6 @@
+@@ -1226,8 +1406,6 @@
  
  obj-$(RTCONFIG_GEOIP) += GeoIP-1.6.2
  
@@ -6881,7 +6850,7 @@
  # Begin merlin add-ons
  obj-$(RTCONFIG_NANO) += ncurses-6.0
  obj-$(RTCONFIG_NANO) += nano
-@@ -1252,9 +1429,12 @@
+@@ -1252,9 +1430,12 @@
  # End merlin add-ons
  
  ifeq ($(RTCONFIG_TOR),y)
@@ -6897,7 +6866,7 @@
  obj-y += tor
  endif
  
-@@ -1591,6 +1771,8 @@
+@@ -1591,6 +1772,8 @@
  	done
  
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}${EX7}.sh
@@ -6906,7 +6875,7 @@
  	@echo ---
  
  	# extra install in case build-process skip them
-@@ -1608,10 +1790,28 @@
+@@ -1608,10 +1791,28 @@
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libpthread.so.0 $(INSTALLDIR)/lib/libpthread.so.0
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libdl.so.2 $(INSTALLDIR)/lib/libdl.so.2
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libgcc_s.so.1 $(INSTALLDIR)/lib/libgcc_s.so.1
@@ -6939,7 +6908,7 @@
  
  ifeq ($(RTCONFIG_CFEZ),y)
  	install -D $(TOP)/envram_bin/envram$(BCMEX)$(EX7)/envrams $(INSTALLDIR)/usr/sbin/envrams
-@@ -1640,8 +1840,8 @@
+@@ -1640,8 +1841,8 @@
  	rm -rf $(INSTALLDIR)/rom/rom/etc
  
  	# strip size for tmp
@@ -6950,7 +6919,7 @@
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/css
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/js
  	#rm -rf $(INSTALLDIR)/www/images/New_ui
-@@ -1811,6 +2011,8 @@
+@@ -1811,6 +2012,8 @@
  	@echo ---
  else
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}.sh
@@ -6959,7 +6928,7 @@
  	@echo ---
  endif
  
-@@ -1872,7 +2074,7 @@
+@@ -1872,7 +2075,7 @@
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/scsi/sr_mod.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/scanner.*o $(PLATFORMDIR)/extras/ || true
  
@@ -6968,7 +6937,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1887,9 +2089,9 @@
+@@ -1887,9 +2090,9 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
@@ -6980,7 +6949,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/audio.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ov51*.*o $(PLATFORMDIR)/extras/ || true
-@@ -1902,16 +2104,14 @@
+@@ -1902,16 +2105,14 @@
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/drivers/sound || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/sound/* $(PLATFORMDIR)/extras/ || true
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/sound || true
@@ -7001,16 +6970,14 @@
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp1251.*o $(PLATFORMDIR)/extras/ || true
-@@ -2259,7 +2459,68 @@
+@@ -2259,7 +2460,66 @@
  menuconfig mconf: rmconf kmconf
  
  oldconfig oldconf: koldconf roldconf bboldconf
 +	$(call CleanBlackfuel)
  
 +define CleanBlackfuel
-+	if [ ! -d "$(BLACKFUEL_DIR)" ]; then \
-+		ln -sf ../$(BLACKFUEL_ADDON) "$(BLACKFUEL_DIR)"; \
-+	fi; \
++	[ -d "$(BLACKFUEL_DIR)" ] || (mkdir -p $(ASUSWRT_ADDON_DIR) && rm -f "$(BLACKFUEL_DIR)" && ln -s $(ASUSWRT_ADDON) "$(BLACKFUEL_DIR)"); \
 +	if [ ! -d "$(BLACKFUEL_DIR)/packages" ]; then \
 +		echo "The blackfuel packages directory is missing: $(BLACKFUEL_DIR)/packages"; \
 +		false; \
@@ -7070,7 +7037,7 @@
  
  #
  # overrides and extra dependencies
-@@ -2283,7 +2544,8 @@
+@@ -2283,7 +2543,8 @@
  endef
  endif
  
@@ -7080,7 +7047,7 @@
  	$(call makeBusybox)
  
  busybox-install: dummy $(if $(RTCONFIG_PROTECTION_SERVER),protect_srv-stage,)
-@@ -2295,10 +2557,10 @@
+@@ -2295,10 +2556,10 @@
  	chmod 4755 $(INSTALLDIR)/$(BUSYBOX)/bin/busybox
  
  busybox-clean:
@@ -7093,7 +7060,7 @@
  
  busybox-config:
  	$(MAKE) -C $(BUSYBOX_DIR) menuconfig
-@@ -2422,11 +2684,17 @@
+@@ -2422,11 +2683,17 @@
  	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
@@ -7111,7 +7078,7 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -2471,6 +2739,7 @@
+@@ -2471,6 +2738,7 @@
  	./Configure $(HOSTCONFIG) --prefix=/usr --openssldir=/etc --cross-compile-prefix=' ' \
  	-ffunction-sections -fdata-sections -Wl,--gc-sections \
  	shared $(OPENSSL_CIPHERS) no-ssl2 no-ssl3
@@ -7119,7 +7086,7 @@
  #	no-sha0 no-smime no-camellia no-krb5 no-rmd160 no-ripemd \
  #	no-seed no-capieng no-cms no-gms no-gmp no-rfc3779 \
  #	no-ec no-ecdh no-ecdsa no-err no-hw no-jpake no-threads \
-@@ -2510,6 +2779,7 @@
+@@ -2510,6 +2778,7 @@
  else
  openssl: openssl/Makefile
  endif
@@ -7127,7 +7094,7 @@
  	$(MAKE) -C openssl && $(MAKE) $@-stage
  
  openssl-clean:
-@@ -2527,9 +2797,9 @@
+@@ -2527,9 +2796,9 @@
  	[ ! -f openssl/Makefile ] || $(STRIP) $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libcrypto.so.1.0.0
  	[ ! -f openssl/Makefile ] || cd $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib && rm -f libcrypto.so && ln -sf libcrypto.so.1.0.0 libcrypto.so
  
@@ -7140,7 +7107,7 @@
  
  ifeq ($(or $(RTCONFIG_WEBDAV),$(RTCONFIG_FTP_SSL),$(RTCONFIG_OPENVPN),$(RTCONFIG_HTTPS)),y)
  	[ ! -f openssl/Makefile ] || install -D openssl/libssl.so.1.0.0 $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libssl.so.1.0.0
-@@ -2557,7 +2827,7 @@
+@@ -2557,7 +2826,7 @@
  
  push_log: wb
  
@@ -7149,7 +7116,7 @@
  	@$(SEP)
  # Dig into our collection of prebuilt objects based on model
  	@-rm -f rc/prebuild/*.o || true
-@@ -2731,11 +3001,11 @@
+@@ -2731,11 +3000,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -7164,7 +7131,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
-@@ -2907,14 +3177,14 @@
+@@ -2907,14 +3176,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -7182,7 +7149,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -3072,7 +3342,8 @@
+@@ -3072,7 +3341,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -7192,7 +7159,7 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -3223,7 +3494,7 @@
+@@ -3223,7 +3493,7 @@
  	( cd lsof ; ./Configure -clean )
  	@rm -f lsof/Makefile
  
@@ -7201,7 +7168,7 @@
  ifeq ($(ALPINE)$(LANTIQ),y)
  	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
  		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
-@@ -3242,45 +3513,6 @@
+@@ -3242,45 +3512,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -7247,7 +7214,7 @@
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -3595,19 +3827,19 @@
+@@ -3595,19 +3826,19 @@
  
  quagga-install:
  	install -d $(INSTALLDIR)/quagga/usr/lib
@@ -7272,7 +7239,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3938,215 +4170,3364 @@
+@@ -3938,215 +4169,3376 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -9877,8 +9844,8 @@
 +	autoreconf -i -f && \
 +	$(BLACKFUEL_OPTIMIZED_TOOLCHAIN) \
 +	PKG_CONFIG_PATH="$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/pkgconfig" \
-+	CFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+	CPPFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
++	CFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -fPIC -I$(STAGEDIR)/usr/include" \
++	CPPFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -fPIC -I$(STAGEDIR)/usr/include" \
 +	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
 +	LIBS="-lssl -lcrypto -lpthread -ldl -lm" \
 +	$(BLACKFUEL_OPTIMIZED_CONFIGURE) \
@@ -9914,22 +9881,12 @@
 +	@rm -rf $(INSTALLDIR)/strongswan-5.2.1/usr/etc
 +	@rm -f $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/*.la
 +	@rm -f $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/plugins/*.la
-+ifeq ($(HND_ROUTER),y)
-+	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/*.so
-+	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/starter
-+	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/stroke
-+	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/scepclient
-+	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/charon
-+	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/plugins/*.so
-+else
-+	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/*.so
-+	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/starter
-+	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/stroke
-+	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/scepclient
-+	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/charon
-+	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/plugins/*.so
-+endif
-+
++	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/*.so
++	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/starter
++	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/stroke
++	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/scepclient
++	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/charon
++	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/plugins/*.so
 +	mv $(INSTALLDIR)/strongswan-5.2.1/etc $(INSTALLDIR)/strongswan-5.2.1/usr/
 +
 +strongswan-5.2.1-clean:
@@ -10034,7 +9991,29 @@
 +
 +xtables-addons-install:
 +	install -d $(INSTALLDIR)/xtables-addons/usr/lib/xtables
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_ACCOUNT.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_CHAOS.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_DELUDE.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_DHCPMAC.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_DNETMAP.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_ECHO.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_IPMARK.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_LOGMARK.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_SYSRQ.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
 +	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_TARPIT.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_condition.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_dhcpmac.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_fuzzy.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_geoip.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_gradm.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_iface.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_ipp2p.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_ipv4options.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_length2.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_lscan.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_pknock.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_psd.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
++	cp -df $(STAGEDIR)/usr/lib/xtables/libxt_quota2.so $(INSTALLDIR)/xtables-addons/usr/lib/xtables/
 +	chmod u+w $(INSTALLDIR)/xtables-addons/usr/lib/xtables/*
 +	$(STRIP) $(INSTALLDIR)/xtables-addons/usr/lib/xtables/*.so*
 +
@@ -10689,7 +10668,7 @@
 +		$(BLACKFUEL_OPTIMIZED_TOOLCHAIN) \
 +		CFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include $(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
 +		CPPFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include $(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
-+		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
 +		LIBS="$(if $(RTCONFIG_PROTECTION_SERVER),-lptcsrv)" \
 +		$(BLACKFUEL_OPTIMIZED_CONFIGURE) --disable-zlib --disable-pam \
 +		--enable-openpty --enable-syslog --enable-shadow --enable-bundled-libtom \
@@ -10703,7 +10682,7 @@
 +	@$(SEP)
 +	CFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include $(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
 +	CPPFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include $(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
-+	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
++	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
 +	LIBS="$(if $(RTCONFIG_PROTECTION_SERVER),-lptcsrv)" \
 +	$(MAKE) -C $@ PROGRAMS="dropbear dbclient dropbearkey scp" MULTI=1 $(PARALLEL_BUILD)
 +
@@ -10804,7 +10783,7 @@
  		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
  		--enable-pthreads --enable-small --disable-encoders --disable-filters \
  		--disable-muxers --disable-devices --disable-ffmpeg --disable-ffplay \
-@@ -4228,25 +7609,6 @@
+@@ -4228,25 +7620,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -10830,7 +10809,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4268,33 +7630,6 @@
+@@ -4268,33 +7641,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -10864,7 +10843,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4369,7 +7704,7 @@
+@@ -4369,7 +7715,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -10873,7 +10852,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4812,26 +8147,6 @@
+@@ -4812,26 +8158,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -10900,7 +10879,7 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4930,27 +8245,6 @@
+@@ -4930,27 +8256,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -10928,7 +10907,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5039,6 +8333,12 @@
+@@ -5039,6 +8344,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -10941,7 +10920,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5239,56 +8539,6 @@
+@@ -5239,56 +8550,6 @@
  	-@$(MAKE) -C usbclient clean
  	rm -rf usbclient/stamp-h1
  
@@ -10998,7 +10977,7 @@
  sw-hw-auth:
  	cd sw-hw-auth && \
  	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -5369,38 +8619,6 @@
+@@ -5369,38 +8630,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -11037,7 +11016,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5813,7 +9031,7 @@
+@@ -5813,7 +9042,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -11046,7 +11025,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6193,53 +9411,6 @@
+@@ -6193,53 +9422,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -11100,7 +11079,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6526,7 +9697,7 @@
+@@ -6526,7 +9708,7 @@
  	$(MAKE) -C $@
  
  i2c-tools-2013-12-15-clean:
@@ -11109,7 +11088,7 @@
  
  i2c-tools-2013-12-15-install: i2c-tools-2013-12-15
  	install -D i2c-tools-2013-12-15/tools/i2cdump $(INSTALLDIR)/i2c-tools-2013-12-15/usr/bin/i2cdump
-@@ -6810,46 +9981,11 @@
+@@ -6810,46 +9992,11 @@
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2.0 &&\
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2
  
@@ -11157,7 +11136,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6868,24 +10004,6 @@
+@@ -6868,24 +10015,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -11182,7 +11161,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -6949,7 +10067,7 @@
+@@ -6949,7 +10078,7 @@
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
  	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
  	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
@@ -11191,7 +11170,7 @@
  	touch ipset_arm/stamp-h1
  
  ipset_arm: ipset_arm/stamp-h1
-@@ -7246,37 +10364,6 @@
+@@ -7246,37 +10375,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  
