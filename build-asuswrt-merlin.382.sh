@@ -25,7 +25,8 @@ make_clean_2() {
 #	tar xzvf /mnt/hgfs/sandbox/384.3-beta1-9a7ccd4.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.3-beta3-d8ed90f.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.4-alpha1-7f087bf.tar.gz
-	tar xzvf /mnt/hgfs/sandbox/384.4-beta2-86e369d.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.4-beta2-86e369d.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.4-beta3-605b6df.tar.gz
 
 	mv asuswrt-merlin.ng-master asuswrt-merlin.382
 #	mv asuswrt-merlin.382-master asuswrt-merlin.382
@@ -46,7 +47,8 @@ make_clean_3() {
 #	tar xzvf /mnt/hgfs/sandbox/384.3-beta1-9a7ccd4.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.3-beta3-d8ed90f.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.4-alpha1-7f087bf.tar.gz
-	tar xzvf /mnt/hgfs/sandbox/384.4-beta2-86e369d.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.4-beta2-86e369d.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.4-beta3-605b6df.tar.gz
 
 	mv asuswrt-merlin.ng-master asuswrt-merlin.382
 #	mv asuswrt-merlin.382-master asuswrt-merlin.382
@@ -148,6 +150,19 @@ if [ -d ~/asuswrt-merlin/release/src-rt-6.x.4708 ]; then
   ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin/tools
 fi
 
+# unpack additional toolchains
+#sudo rm -rf /opt/entware
+#sudo ln -s ~/am-toolchains/entware /opt/entware
+#if [ ! -d ~/am-toolchains/entware/toolchain-arm_cortex-a9_gcc-7.3.0_glibc-2.23_eabi ] && [ -f ~/am-toolchains/entware/toolchain-arm_cortex-a9_gcc-7.3.0_glibc-2.23_eabi_2018-03-08.tar.xz ]; then
+#  tar xJvf ~/am-toolchains/entware/toolchain-arm_cortex-a9_gcc-7.3.0_glibc-2.23_eabi_2018-03-08.tar.xz -C ~/am-toolchains/entware/
+#fi
+#if [ ! -d ~/am-toolchains/entware/toolchain-arm_cortex-a9_gcc-7.3.0_glibc-2.27_eabi ] && [ -f ~/am-toolchains/entware/toolchain-arm_cortex-a9_gcc-7.3.0_glibc-2.27_eabi_2018-03-11.tar.xz ]; then
+#  tar xJvf ~/am-toolchains/entware/toolchain-arm_cortex-a9_gcc-7.3.0_glibc-2.27_eabi_2018-03-11.tar.xz -C ~/am-toolchains/entware/
+#fi
+#if [ ! -d ~/am-toolchains/entware/toolchain-aarch64_cortex-a53_gcc-7.3.0_glibc-2.27 ] && [ -f ~/am-toolchains/entware/toolchain-aarch64_cortex-a53_gcc-7.3.0_glibc-2.27_2018-03-10.tar.xz ]; then
+#  tar xJvf ~/am-toolchains/entware/toolchain-aarch64_cortex-a53_gcc-7.3.0_glibc-2.27_2018-03-10.tar.xz -C ~/am-toolchains/entware/
+#fi
+
 # sudo mkdir -p /projects/hnd/tools/linux
 # sudo rm -rf /projects/hnd/tools/linux/hndtools-armeabi-2011.09
 # sudo ln -s ~/am-toolchains/brcm-arm-sdk/hndtools-armeabi-2011.09 /projects/hnd/tools/linux/hndtools-armeabi-2011.09
@@ -175,8 +190,8 @@ fi
 
 #---
 
-#BUILD_SDK="ARM"
-BUILD_SDK="HND"
+BUILD_SDK="ARM"
+#BUILD_SDK="HND"
 
 #---
 if [ "$BUILD_SDK" == "ARM" ]; then
@@ -189,6 +204,10 @@ BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
 if [ ! -d "$DST/$BUILD_MODEL" ]; then
 
 make_clean_3
+
+rm -rf $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+mkdir -p $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+cp -a $HOME/blackfuel/asuswrt-merlin-addon/entware-armv7-2.6/entware/* $HOME/blackfuel/asuswrt-merlin-addon/staging/entware/
 
 export PATH="$ORIG_PATH"
 export LD_LIBRARY_PATH=
@@ -237,6 +256,10 @@ if [ ! -d "$DST/$BUILD_MODEL" ]; then
 
 make_clean_3
 
+rm -rf $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+mkdir -p $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+cp -a $HOME/blackfuel/asuswrt-merlin-addon/entware-armv7-2.6/entware/* $HOME/blackfuel/asuswrt-merlin-addon/staging/entware/
+
 export PATH="$ORIG_PATH"
 export LD_LIBRARY_PATH=
 export TOOLCHAIN_BASE=
@@ -283,6 +306,10 @@ BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
 if [ ! -d "$DST/$BUILD_MODEL" ]; then
 
 make_clean_3
+
+rm -rf $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+mkdir -p $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+cp -a $HOME/blackfuel/asuswrt-merlin-addon/entware-armv7-2.6/entware/* $HOME/blackfuel/asuswrt-merlin-addon/staging/entware/
 
 export PATH="$ORIG_PATH"
 export LD_LIBRARY_PATH=
@@ -331,6 +358,10 @@ if [ ! -d "$DST/$BUILD_MODEL" ]; then
 
 make_clean_3
 
+rm -rf $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+mkdir -p $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+cp -a $HOME/blackfuel/asuswrt-merlin-addon/entware-armv7-2.6/entware/* $HOME/blackfuel/asuswrt-merlin-addon/staging/entware/
+
 export PATH="$ORIG_PATH"
 export LD_LIBRARY_PATH=
 export TOOLCHAIN_BASE=
@@ -377,6 +408,10 @@ BUILD_FOLDER="${HOME}/asuswrt-merlin.382/release/$SDK_FOLDER"
 if [ ! -d "$DST/$BUILD_MODEL" ]; then
 
 make_clean_3
+
+rm -rf $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+mkdir -p $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+cp -a $HOME/blackfuel/asuswrt-merlin-addon/entware-armv7-2.6/entware/* $HOME/blackfuel/asuswrt-merlin-addon/staging/entware/
 
 export PATH="$ORIG_PATH"
 export LD_LIBRARY_PATH=
@@ -425,6 +460,10 @@ if [ ! -d "$DST/$BUILD_MODEL" ]; then
 
 make_clean_3
 
+rm -rf $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+mkdir -p $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+cp -a $HOME/blackfuel/asuswrt-merlin-addon/entware-armv7-2.6/entware/* $HOME/blackfuel/asuswrt-merlin-addon/staging/entware/
+
 export PATH="$ORIG_PATH"
 export LD_LIBRARY_PATH=
 export TOOLCHAIN_BASE=
@@ -472,6 +511,10 @@ if [ ! -d "$DST/$BUILD_MODEL" ]; then
 
 make_clean_3
 
+rm -rf $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+mkdir -p $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+cp -a $HOME/blackfuel/asuswrt-merlin-addon/entware-armv7-2.6/entware/* $HOME/blackfuel/asuswrt-merlin-addon/staging/entware/
+
 export PATH="$ORIG_PATH"
 export LD_LIBRARY_PATH=
 export TOOLCHAIN_BASE=
@@ -513,7 +556,7 @@ fi
 fi
 #---
 
-if [ "$BUILD_SDK" == "HND" ]; then
+#if [ "$BUILD_SDK" == "HND" ]; then
 
 BUILD_MODEL="RT-AC86U"
 BUILD_MODEL_2="rt-ac86u"
@@ -529,6 +572,10 @@ echo $PATH | grep -qF /opt/toolchains/crosstools-aarch64-gcc-5.3-linux-4.1-glibc
 
 make_clean_3
 
+rm -rf $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+mkdir -p $HOME/blackfuel/asuswrt-merlin-addon/staging/entware
+cp -a $HOME/blackfuel/asuswrt-merlin-addon/entware-aarch64-3.10/entware/* $HOME/blackfuel/asuswrt-merlin-addon/staging/entware/
+
 cd ${HOME}/asuswrt-merlin.382/release/src/router
 cd ${BUILD_FOLDER}
 #make_clean
@@ -537,14 +584,15 @@ tar czvf ${BUILD_MODEL}_${BUILD_VER}_image.tar.gz -C targets 94908HND
 cd targets/94908HND
 mkdir -p ${BUILD_MODEL}
 mv ../../${BUILD_MODEL}_${BUILD_VER}_image.tar.gz ${BUILD_MODEL}
-rm -f ${BUILD_MODEL}/sha256sum.txt
-sha256sum ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w >> ${BUILD_MODEL}/sha256sum.txt
-sha256sum ${BUILD_MODEL}_${BUILD_VER}_ubi.w >> ${BUILD_MODEL}/sha256sum.txt
+rm -f sha256sum.txt
+sha256sum ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w >> sha256sum.txt
+sha256sum ${BUILD_MODEL}_${BUILD_VER}_ubi.w >> sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_ubi.w
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}/sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip sha256sum.txt
 mv ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w ${BUILD_MODEL}
 mv ${BUILD_MODEL}_${BUILD_VER}_ubi.w ${BUILD_MODEL}
+mv sha256sum.txt ${BUILD_MODEL}
 mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}
 mkdir -p ${DST}
 cat ${BUILD_MODEL}/sha256sum.txt >>"${DST}/sha256sums.txt"
@@ -553,7 +601,7 @@ cd ${BUILD_FOLDER}
 fi
 
 #---
-fi
+#fi
 #---
 
 sort --key=2 ${DST}/sha256sums.txt >${DST}/_sha256sums.txt
@@ -575,7 +623,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.2.10, NTP 4.2.8p11, DNSCrypt 1.9.5, Curl 7.58.0, Wget 1.19.4, Cryptsetup 2.0.1, Wipe 2.3.1, Whois 5.3.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
+echo "\`Tor 0.3.2.10, NTP 4.2.8p11, DNSCrypt 1.9.5, Curl 7.58.0, Wget 1.19.4, Cryptsetup 2.0.2, Wipe 2.3.1, Whois 5.3.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 

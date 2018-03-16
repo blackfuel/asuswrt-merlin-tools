@@ -12577,11 +12577,11 @@
 +		mkdir -p "$$DL_DIR/temp"; \
 +		if [ "$${DL_FILE%.tar.gz*}" != "$$DL_FILE" ] || [ "$${DL_FILE%.tgz*}" != "$$DL_FILE" ]; then \
 +			tar xzvf "$$DL_PATH" -C "$$DL_DIR/temp"; \
-+		elif [ "$${DL_FILE%.tar.bz2*}" != "$$DL_FILE" ]; then \
++		elif [ "$${DL_FILE%.tar.bz2*}" != "$$DL_FILE" ] || [ "$${DL_FILE%.tbz*}" != "$$DL_FILE" ]; then \
 +			tar xjvf "$$DL_PATH" -C "$$DL_DIR/temp"; \
-+		elif [ "$${DL_FILE%.tar.xz*}" != "$$DL_FILE" ]; then \
++		elif [ "$${DL_FILE%.tar.xz*}" != "$$DL_FILE" ] || [ "$${DL_FILE%.txz*}" != "$$DL_FILE" ]; then \
 +			tar xJvf "$$DL_PATH" -C "$$DL_DIR/temp"; \
-+		elif [ "$${DL_FILE%.tar.lz*}" != "$$DL_FILE" ]; then \
++		elif [ "$${DL_FILE%.tar.lz*}" != "$$DL_FILE" ] || [ "$${DL_FILE%.tlz*}" != "$$DL_FILE" ]; then \
 +			tar xlvf "$$DL_PATH" -C "$$DL_DIR/temp"; \
 +		fi; \
 +		mv -f "$$DL_DIR/temp/"* "$$TARGET_DIR/$$PACKAGE_DIR"; \
@@ -12977,7 +12977,7 @@
  obj-y += $(BUSYBOX)
  obj-y += shared
  obj-y += nvram$(BCMEX)$(EX7)
-@@ -691,6 +691,186 @@
+@@ -691,6 +691,187 @@
  obj-y += iproute2-3.15.0
  endif
  
@@ -13011,6 +13011,7 @@
 +BLACKFUEL_OPTIMIZED_TOOLCHAIN:=CC="$(BLACKFUEL_OPTIMIZED_CC)" CXX="$(BLACKFUEL_OPTIMIZED_CXX)" CPP="$(BLACKFUEL_OPTIMIZED_CPP)" AR="$(BLACKFUEL_OPTIMIZED_AR)" AS="$(BLACKFUEL_OPTIMIZED_AS)" LD="$(BLACKFUEL_OPTIMIZED_LD)" NM="$(BLACKFUEL_OPTIMIZED_NM)" OBJCOPY="$(BLACKFUEL_OPTIMIZED_OBJCOPY)" OBJDUMP="$(BLACKFUEL_OPTIMIZED_OBJDUMP)" RANLIB="$(BLACKFUEL_OPTIMIZED_RANLIB)" SIZE="$(BLACKFUEL_OPTIMIZED_SIZE)" STRIP="$(BLACKFUEL_OPTIMIZED_STRIP)" $(BLACKFUEL_CURRENT_ARCH)
 +BLACKFUEL_OPTIMIZED_LIB:=$(if $(RTCONFIG_HND_ROUTER),lib64,lib)
 +BLACKFUEL_OPTIMIZED_SYSROOT:=$(if $(RTCONFIG_HND_ROUTER),/opt/toolchains/crosstools-aarch64-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/aarch64-buildroot-linux-gnu/sysroot,$(TOOLS)/bin/arm-brcm-linux-uclibcgnueabi/sysroot)
++BLACKFUEL_OPTIMIZED_HOST:=$(if $(RTCONFIG_HND_ROUTER),aarch64-buildroot-linux-gnu,arm-brcm-linux-uclibcgnueabi)
 +
 +obj-y += openssl$(if $(RTCONFIG_HND_ROUTER),-aarch64,)
 +obj-y += curl$(if $(RTCONFIG_HND_ROUTER),-aarch64,-7.21.7)
@@ -13164,7 +13165,7 @@
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlite
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlCipher
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += PMS_DBapis
-@@ -1226,8 +1406,6 @@
+@@ -1226,8 +1407,6 @@
  
  obj-$(RTCONFIG_GEOIP) += GeoIP-1.6.2
  
@@ -13173,7 +13174,7 @@
  # Begin merlin add-ons
  obj-$(RTCONFIG_NANO) += ncurses-6.0
  obj-$(RTCONFIG_NANO) += nano
-@@ -1252,9 +1430,12 @@
+@@ -1252,9 +1431,12 @@
  # End merlin add-ons
  
  ifeq ($(RTCONFIG_TOR),y)
@@ -13189,7 +13190,7 @@
  obj-y += tor
  endif
  
-@@ -1591,6 +1772,8 @@
+@@ -1591,6 +1773,8 @@
  	done
  
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}${EX7}.sh
@@ -13198,7 +13199,7 @@
  	@echo ---
  
  	# extra install in case build-process skip them
-@@ -1608,10 +1791,28 @@
+@@ -1608,10 +1792,28 @@
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libpthread.so.0 $(INSTALLDIR)/lib/libpthread.so.0
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libdl.so.2 $(INSTALLDIR)/lib/libdl.so.2
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libgcc_s.so.1 $(INSTALLDIR)/lib/libgcc_s.so.1
@@ -13231,7 +13232,7 @@
  
  ifeq ($(RTCONFIG_CFEZ),y)
  	install -D $(TOP)/envram_bin/envram$(BCMEX)$(EX7)/envrams $(INSTALLDIR)/usr/sbin/envrams
-@@ -1640,8 +1841,8 @@
+@@ -1640,8 +1842,8 @@
  	rm -rf $(INSTALLDIR)/rom/rom/etc
  
  	# strip size for tmp
@@ -13242,7 +13243,7 @@
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/css
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/js
  	#rm -rf $(INSTALLDIR)/www/images/New_ui
-@@ -1811,6 +2012,8 @@
+@@ -1811,6 +2013,8 @@
  	@echo ---
  else
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}.sh
@@ -13251,7 +13252,7 @@
  	@echo ---
  endif
  
-@@ -1872,7 +2075,7 @@
+@@ -1872,7 +2076,7 @@
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/scsi/sr_mod.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/scanner.*o $(PLATFORMDIR)/extras/ || true
  
@@ -13260,7 +13261,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1887,9 +2090,9 @@
+@@ -1887,9 +2091,9 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
@@ -13272,7 +13273,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/audio.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ov51*.*o $(PLATFORMDIR)/extras/ || true
-@@ -1902,16 +2105,14 @@
+@@ -1902,16 +2106,14 @@
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/drivers/sound || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/sound/* $(PLATFORMDIR)/extras/ || true
  	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/sound || true
@@ -13293,7 +13294,7 @@
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp1251.*o $(PLATFORMDIR)/extras/ || true
-@@ -2259,7 +2460,66 @@
+@@ -2259,7 +2461,66 @@
  menuconfig mconf: rmconf kmconf
  
  oldconfig oldconf: koldconf roldconf bboldconf
@@ -13360,7 +13361,7 @@
  
  #
  # overrides and extra dependencies
-@@ -2283,7 +2543,8 @@
+@@ -2283,7 +2544,8 @@
  endef
  endif
  
@@ -13370,7 +13371,7 @@
  	$(call makeBusybox)
  
  busybox-install: dummy $(if $(RTCONFIG_PROTECTION_SERVER),protect_srv-stage,)
-@@ -2295,10 +2556,10 @@
+@@ -2295,10 +2557,10 @@
  	chmod 4755 $(INSTALLDIR)/$(BUSYBOX)/bin/busybox
  
  busybox-clean:
@@ -13383,7 +13384,7 @@
  
  busybox-config:
  	$(MAKE) -C $(BUSYBOX_DIR) menuconfig
-@@ -2422,11 +2683,17 @@
+@@ -2422,11 +2684,17 @@
  	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
@@ -13401,7 +13402,7 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -2471,6 +2738,7 @@
+@@ -2471,6 +2739,7 @@
  	./Configure $(HOSTCONFIG) --prefix=/usr --openssldir=/etc --cross-compile-prefix=' ' \
  	-ffunction-sections -fdata-sections -Wl,--gc-sections \
  	shared $(OPENSSL_CIPHERS) no-ssl2 no-ssl3
@@ -13409,7 +13410,7 @@
  #	no-sha0 no-smime no-camellia no-krb5 no-rmd160 no-ripemd \
  #	no-seed no-capieng no-cms no-gms no-gmp no-rfc3779 \
  #	no-ec no-ecdh no-ecdsa no-err no-hw no-jpake no-threads \
-@@ -2510,6 +2778,7 @@
+@@ -2510,6 +2779,7 @@
  else
  openssl: openssl/Makefile
  endif
@@ -13417,7 +13418,7 @@
  	$(MAKE) -C openssl && $(MAKE) $@-stage
  
  openssl-clean:
-@@ -2527,9 +2796,9 @@
+@@ -2527,9 +2797,9 @@
  	[ ! -f openssl/Makefile ] || $(STRIP) $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libcrypto.so.1.0.0
  	[ ! -f openssl/Makefile ] || cd $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib && rm -f libcrypto.so && ln -sf libcrypto.so.1.0.0 libcrypto.so
  
@@ -13430,7 +13431,7 @@
  
  ifeq ($(or $(RTCONFIG_WEBDAV),$(RTCONFIG_FTP_SSL),$(RTCONFIG_OPENVPN),$(RTCONFIG_HTTPS)),y)
  	[ ! -f openssl/Makefile ] || install -D openssl/libssl.so.1.0.0 $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libssl.so.1.0.0
-@@ -2557,7 +2826,7 @@
+@@ -2557,7 +2827,7 @@
  
  push_log: wb
  
@@ -13439,7 +13440,7 @@
  	@$(SEP)
  # Dig into our collection of prebuilt objects based on model
  	@-rm -f rc/prebuild/*.o || true
-@@ -2731,11 +3000,11 @@
+@@ -2731,11 +3001,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -13454,7 +13455,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
-@@ -2907,14 +3176,14 @@
+@@ -2907,14 +3177,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -13472,7 +13473,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -3072,7 +3341,8 @@
+@@ -3072,7 +3342,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -13482,7 +13483,7 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -3223,7 +3493,7 @@
+@@ -3223,7 +3494,7 @@
  	( cd lsof ; ./Configure -clean )
  	@rm -f lsof/Makefile
  
@@ -13491,7 +13492,7 @@
  ifeq ($(ALPINE)$(LANTIQ),y)
  	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
  		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
-@@ -3242,45 +3512,6 @@
+@@ -3242,45 +3513,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -13537,7 +13538,7 @@
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -3595,19 +3826,19 @@
+@@ -3595,19 +3827,19 @@
  
  quagga-install:
  	install -d $(INSTALLDIR)/quagga/usr/lib
@@ -13562,7 +13563,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3938,215 +4169,3376 @@
+@@ -3938,215 +4170,3375 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -15233,8 +15234,7 @@
 +		ZLIB_LIBS="-L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB) -lz" \
 +		./autogen.sh \
 +		LD=$(BLACKFUEL_OPTIMIZED_LD) \
-+		--host=aarch64-buildroot-linux-gnu \
-+		$(if $(RTCONFIG_HND_ROUTER),,ac_cv_func_posix_fallocate=yes) \
++		--host=$(BLACKFUEL_OPTIMIZED_HOST) \
 +		--prefix=/usr \
 +		--libdir=/usr/$(BLACKFUEL_OPTIMIZED_LIB) \
 +		--datarootdir=/usr/local \
@@ -16744,10 +16744,10 @@
 +			[ "$$PACKAGE_DIR" = "cryptsetup-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-nettle" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-kernel" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.1.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.2.tar.xz"; \
 +			URL2="https://gitlab.com/cryptsetup/cryptsetup.git"; \
-+			VERSION="2.0.1+git"; \
-+			SOURCE_VERSION="cd65f6a84de1ca02c0827ecf5aa559bcec9fa1b3"; \
++			VERSION="2.0.2+git"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="cryptsetup"; \
 +		elif [ "$$PACKAGE_DIR" = "pps-tools" ]; then \
 +			URL="https://github.com/redlab-i/pps-tools/archive/v1.0.1.tar.gz"; \
@@ -16774,8 +16774,8 @@
 +		elif [ "$$PACKAGE_DIR" = "transmission-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "transmission-mbedtls" ]; then \
 +			URL="git://github.com/transmission/transmission.git"; \
-+			VERSION="2.92+git"; \
-+			SOURCE_VERSION="5b29fe15561d40c40cbee635446df6b33e18d2c2"; \
++			VERSION="2.93+git"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="transmission"; \
 +		elif [ "$$PACKAGE_DIR" = "mbedtls" ]; then \
 +			URL="https://tls.mbed.org/download/mbedtls-2.7.0-gpl.tgz"; \
@@ -16880,11 +16880,11 @@
 +		mkdir -p "$$DL_DIR/temp"; \
 +		if [ "$${DL_FILE%.tar.gz*}" != "$$DL_FILE" ] || [ "$${DL_FILE%.tgz*}" != "$$DL_FILE" ]; then \
 +			tar xzvf "$$DL_PATH" -C "$$DL_DIR/temp"; \
-+		elif [ "$${DL_FILE%.tar.bz2*}" != "$$DL_FILE" ]; then \
++		elif [ "$${DL_FILE%.tar.bz2*}" != "$$DL_FILE" ] || [ "$${DL_FILE%.tbz*}" != "$$DL_FILE" ]; then \
 +			tar xjvf "$$DL_PATH" -C "$$DL_DIR/temp"; \
-+		elif [ "$${DL_FILE%.tar.xz*}" != "$$DL_FILE" ]; then \
++		elif [ "$${DL_FILE%.tar.xz*}" != "$$DL_FILE" ] || [ "$${DL_FILE%.txz*}" != "$$DL_FILE" ]; then \
 +			tar xJvf "$$DL_PATH" -C "$$DL_DIR/temp"; \
-+		elif [ "$${DL_FILE%.tar.lz*}" != "$$DL_FILE" ]; then \
++		elif [ "$${DL_FILE%.tar.lz*}" != "$$DL_FILE" ] || [ "$${DL_FILE%.tlz*}" != "$$DL_FILE" ]; then \
 +			tar xlvf "$$DL_PATH" -C "$$DL_DIR/temp"; \
 +		fi; \
 +		mv -f "$$DL_DIR/temp/"* "$$PACKAGE_DIR"; \
@@ -17633,7 +17633,64 @@
  	kill(1, reboot ? SIGTERM : SIGQUIT);
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -13650,12 +13650,11 @@
+@@ -4118,8 +4118,6 @@
+ void
+ start_httpd(void)
+ {
+-	char tmp[100];
+-
+ 	char *httpd_argv[] = { "httpd",
+ 		NULL, NULL,	/* -i ifname */
+ 		NULL, NULL,	/* -p port */
+@@ -4162,13 +4160,11 @@
+ 	}
+ 
+ #ifdef RTCONFIG_HTTPS
+-	snprintf(tmp, sizeof(tmp), "cat %s %s > %s", HTTPD_CERT, HTTPD_KEY, LIGHTTPD_CERTKEY);
+ #ifdef RTCONFIG_LETSENCRYPT
+ 	if(nvram_match("le_enable", "1")) {
+ 		if(!is_le_cert(HTTPD_CERT) || !cert_key_match(HTTPD_CERT, HTTPD_KEY)) {
+ 			cp_le_cert(LE_FULLCHAIN, HTTPD_CERT);
+ 			cp_le_cert(LE_KEY, HTTPD_KEY);
+-			system(tmp);
+ 		}
+ 	}
+ 	else if(nvram_match("le_enable", "2")) {
+@@ -4177,14 +4173,12 @@
+                 if(f_exists(UPLOAD_CERT) && f_exists(UPLOAD_KEY)) {
+                         eval("cp", UPLOAD_CERT, HTTPD_CERT);
+                         eval("cp", UPLOAD_KEY, HTTPD_KEY);
+-			system(tmp);
+ 		}
+ 	}
+ #else
+ 	if(f_exists(UPLOAD_CERT) && f_exists(UPLOAD_KEY)){
+ 		eval("cp", UPLOAD_CERT, HTTPD_CERT);
+ 		eval("cp", UPLOAD_KEY, HTTPD_KEY);
+-		system(tmp);
+ 	}
+ #endif
+ 
+@@ -7691,6 +7685,8 @@
+ 
+ 	start_ecoguard();
+ 
++	run_custom_script("services-start", NULL);
++
+ //	start_upnp();
+ 
+ 	sanity_logs();
+@@ -7722,9 +7718,6 @@
+ 	start_dblog(0);
+ #endif /* RTCONFIG_DBLOG */
+ #endif /* RTCONFIG_PUSH_EMAIL */
+-
+-	run_custom_script("services-start", NULL);
+-
+ 	return 0;
+ }
+ 
+@@ -13657,12 +13650,11 @@
  	remove("/tmp/torlog");
  
  #if (defined(RTCONFIG_JFFS2)||defined(RTCONFIG_BRCM_NAND_JFFS2))
@@ -17651,7 +17708,7 @@
  #endif
  }
  
-@@ -13679,22 +13678,6 @@
+@@ -13686,22 +13678,6 @@
  	if ((fp = fopen("/tmp/torrc", "w")) == NULL)
  		return;
  
@@ -17674,7 +17731,7 @@
  	if ((Socksport = nvram_get("Tor_socksport")) == NULL)	Socksport = "9050";
  	if ((Transport = nvram_get("Tor_transport")) == NULL)   Transport = "9040";
  	if ((Dnsport = nvram_get("Tor_dnsport")) == NULL)   	Dnsport = "9053";
-@@ -13715,6 +13698,18 @@
+@@ -13722,6 +13698,18 @@
  	use_custom_config("torrc", "/tmp/torrc");
  	run_postconf("torrc", "/tmp/torrc");
  
@@ -18247,7 +18304,20 @@
  }
  
  #ifdef RTCONFIG_OPENVPN
-@@ -22603,7 +22615,11 @@
+@@ -19435,11 +19447,7 @@
+ 		mkdir(JFFS_USERICON, 0755);
+ 
+ 	//Write /jffs/usericon/ file count and list
+-	dirp = opendir(JFFS_USERICON);
+-	if (!dirp) {
+-		return 0;
+-	}
+-
++	dirp = opendir(JFFS_USERICON); /* There should be error handling after this */
+ 	while ((entry = readdir(dirp)) != NULL) {
+ 		if (entry->d_type == DT_REG) { /* If the entry is a regular file */
+ 			strcat(allMacList, entry->d_name);
+@@ -22607,7 +22615,11 @@
  	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
  	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
  	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
