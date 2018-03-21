@@ -7,6 +7,14 @@ get_version_info() {
 	BUILD_VER2="${SERIALNO}-${EXTENDNO}"
 }
 
+get_version_info_orig() {
+	VERSION_CONF_ORIG=$(cat $HOME/asuswrt-merlin.382-original/release/src-rt/version.conf)
+	eval $(/bin/echo $VERSION_CONF_ORIG | /bin/sed 's# #\n#g' | grep SERIALNO)
+	eval $(/bin/echo $VERSION_CONF_ORIG | /bin/sed 's# #\n#g' | grep EXTENDNO)
+	BUILD_VER_ORIG="${SERIALNO}_${EXTENDNO}"
+	BUILD_VER2_ORIG="${SERIALNO}-${EXTENDNO}"
+}
+
 make_clean() {
 	make clean
 	rm -f ${HOME}/asuswrt-merlin.382/release/src/router/rc/prebuild/*.o
@@ -20,13 +28,7 @@ make_clean() {
 make_clean_2() {
 	cd $HOME/blackfuel
 	rm -rf asuswrt-merlin.382
-#	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-13bf17a.tar.gz
-#	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-d90542f.tar.gz
-#	tar xzvf /mnt/hgfs/sandbox/384.3-beta1-9a7ccd4.tar.gz
-#	tar xzvf /mnt/hgfs/sandbox/384.3-beta3-d8ed90f.tar.gz
-#	tar xzvf /mnt/hgfs/sandbox/384.4-alpha1-7f087bf.tar.gz
-#	tar xzvf /mnt/hgfs/sandbox/384.4-beta2-86e369d.tar.gz
-	tar xzvf /mnt/hgfs/sandbox/384.4-beta3-605b6df.tar.gz
+	extract_source_code
 
 	mv asuswrt-merlin.ng-master asuswrt-merlin.382
 #	mv asuswrt-merlin.382-master asuswrt-merlin.382
@@ -39,20 +41,34 @@ make_clean_2() {
 	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/${BUILD_VER2}_X-ARM-mods+apps.patch
 }
 
-make_clean_3() {
-	cd $HOME/blackfuel
-	rm -rf asuswrt-merlin.382 asuswrt-merlin.ng-master
+extract_source_code() {
 #	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-13bf17a.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-d90542f.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.3-beta1-9a7ccd4.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.3-beta3-d8ed90f.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.4-alpha1-7f087bf.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.4-beta2-86e369d.tar.gz
-	tar xzvf /mnt/hgfs/sandbox/384.4-beta3-605b6df.tar.gz
+#	tar xzvf /mnt/hgfs/sandbox/384.4-beta3-605b6df.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.5-alpha1-de1f03e.tar.gz
+}
 
+make_clean_3() {
+	cd $HOME/blackfuel
+	rm -rf asuswrt-merlin.382 asuswrt-merlin.ng-master
+	extract_source_code
 	mv asuswrt-merlin.ng-master asuswrt-merlin.382
-#	mv asuswrt-merlin.382-master asuswrt-merlin.382
 	get_version_info
+
+	get_version_info_orig
+	if [ "$BUILD_VER" != "$BUILD_VER_ORIG" ]; then
+		pushd .
+		cd
+		rm -rf asuswrt-merlin.382-original asuswrt-merlin.ng-master
+		extract_source_code
+		mv asuswrt-merlin.ng-master asuswrt-merlin.382-original
+		popd
+	fi
+
 	rm -rf ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
 	ln -s ~/am-toolchains/brcm-arm-hnd ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
 	rm -rf ~/asuswrt-merlin.382/release/src-rt-6.x.4708/toolchains
@@ -70,7 +86,7 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox-1.24.1/busybox-1.24.1/config_base release/src/router/busybox-1.24.1/busybox-1.24.1/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox/Makefile release/src/router/busybox/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/config/config.in release/src/router/config/
-	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/Makefile release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/rc.c release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/init.c release/src/router/rc/
