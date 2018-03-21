@@ -36,12 +36,12 @@ make_clean_2() {
 	rm -rf ~/asuswrt-merlin.382/tools
 	ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin.382/tools
 	cd asuswrt-merlin.382
-	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/384.4-alpha1_X-ARM-mods+apps.patch
+	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/${BUILD_VER2}_X-ARM-mods+apps.patch
 }
 
 make_clean_3() {
 	cd $HOME/blackfuel
-	rm -rf asuswrt-merlin.382
+	rm -rf asuswrt-merlin.382 asuswrt-merlin.ng-master
 #	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-13bf17a.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.3-alpha2-d90542f.tar.gz
 #	tar xzvf /mnt/hgfs/sandbox/384.3-beta1-9a7ccd4.tar.gz
@@ -60,7 +60,7 @@ make_clean_3() {
 	rm -rf ~/asuswrt-merlin.382/tools
 	ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin.382/tools
 	cd asuswrt-merlin.382
-	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/384.4_beta2_X-ARM-mods+apps+nofiles.patch
+	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/${BUILD_VER2}_X-ARM-mods+apps+nofiles.patch
 
 	# change existing target settings
 	sed -r -i 's/MEDIASRV=y/MEDIASRV=n/g;s/PARENTAL2=y/PARENTAL2=n/g;s/WEBDAV=y/WEBDAV=n/g;s/CLOUDSYNC=y/CLOUDSYNC=n/g;s/DROPBOXCLIENT=y/DROPBOXCLIENT=n/g;s/TIMEMACHINE=y/TIMEMACHINE=n/g;s/MDNS=y/MDNS=n/g;s/BWDPI=y/BWDPI=n/g;s/SWEBDAVCLIENT=y/SWEBDAVCLIENT=n/g;s/SNMPD=y/SNMPD=n/g;s/CLOUDCHECK=y/CLOUDCHECK=n/g;s/DNSFILTER=y/DNSFILTER=n/g;s/HSPOT=y/HSPOT=n/g;s/SMARTSYNCBASE=y/SMARTSYNCBASE=n/g;s/EMAIL=y/EMAIL=n/g;s/NOTIFICATION_CENTER=y/NOTIFICATION_CENTER=n/g;s/NATNL_AICLOUD=y/NATNL_AICLOUD=n/g;s/NATNL_AIHOME=y/NATNL_AIHOME=n/g;s/IFTTT=y/IFTTT=n/g;s/ALEXA=y/ALEXA=n/g;s/LETSENCRYPT=y/LETSENCRYPT=n/g;s/VISUALIZATION=y/VISUALIZATION=n/g;s/WTFAST=y/WTFAST=n/g;s/ROG=y/ROG=n/g;s/MULTICASTIPTV=y/MULTICASTIPTV=n/g;s/QUAGGA=y/QUAGGA=n/g;s/OPTIMIZE_XBOX=y/OPTIMIZE_XBOX=n/g;s/AMAS=y/AMAS=n/g' release/src-rt/target.mak
@@ -70,7 +70,7 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox-1.24.1/busybox-1.24.1/config_base release/src/router/busybox-1.24.1/busybox-1.24.1/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox/Makefile release/src/router/busybox/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/config/config.in release/src/router/config/
-#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
+	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/Makefile release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/rc.c release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/init.c release/src/router/rc/
@@ -98,12 +98,12 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-5.02hnd/kernel/linux-4.1/net/netfilter/Makefile release/src-rt-5.02hnd/kernel/linux-4.1/net/netfilter/
 
 	$HOME/blackfuel/asuswrt-merlin-tools/merlin-diff.382.sh
-	mv -f $HOME/merlin-diff.patch $HOME/${BUILD_VER}_X-ARM-mods+apps+nofiles.patch
+	mv -f $HOME/merlin-diff.patch $HOME/${BUILD_VER2}_X-ARM-mods+apps+nofiles.patch
 
 	patch -p1 -i $HOME/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43_382.patch
 
 	$HOME/blackfuel/asuswrt-merlin-tools/merlin-diff.382.sh
-	mv -f $HOME/merlin-diff.patch $HOME/${BUILD_VER}_X-ARM-mods+apps.patch
+	mv -f $HOME/merlin-diff.patch $HOME/${BUILD_VER2}_X-ARM-mods+apps.patch
 }
 
 set -e
@@ -623,7 +623,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.2.10, NTP 4.2.8p11, DNSCrypt 1.9.5, Curl 7.58.0, Wget 1.19.4, Cryptsetup 2.0.2, Wipe 2.3.1, Whois 5.3.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
+echo "\`Tor 0.3.2.10, NTP 4.2.8p11, DNSCrypt 1.9.5, Curl 7.59.0, Wget 1.19.4, Cryptsetup 2.0.2, Wipe 2.3.1, Whois 5.3.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 

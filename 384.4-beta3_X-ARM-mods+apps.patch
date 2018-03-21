@@ -16663,10 +16663,10 @@
 +			if [ "$$PACKAGE_DIR" = "curl-7.21.7" ]; then \
 +				PACKAGE_DIR="curl"; \
 +			fi; \
-+			URL="https://github.com/curl/curl/releases/download/curl-7_58_0/curl-7.58.0.tar.xz"; \
++			URL="https://github.com/curl/curl/releases/download/curl-7_59_0/curl-7.59.0.tar.xz"; \
 +			URL2="https://github.com/curl/curl.git"; \
-+			VERSION="7.58.0+git"; \
-+			SOURCE_VERSION="d6c21c8eec597a925d2b647cff3d58ac69de01a0"; \
++			VERSION="7.59.0+git"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="curl"; \
 +		elif [ "$$PACKAGE_DIR" = "wget" ]; then \
 +			URL="https://ftp.gnu.org/gnu/wget/wget-1.19.4.tar.lz"; \
@@ -17633,64 +17633,7 @@
  	kill(1, reboot ? SIGTERM : SIGQUIT);
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -4118,8 +4118,6 @@
- void
- start_httpd(void)
- {
--	char tmp[100];
--
- 	char *httpd_argv[] = { "httpd",
- 		NULL, NULL,	/* -i ifname */
- 		NULL, NULL,	/* -p port */
-@@ -4162,13 +4160,11 @@
- 	}
- 
- #ifdef RTCONFIG_HTTPS
--	snprintf(tmp, sizeof(tmp), "cat %s %s > %s", HTTPD_CERT, HTTPD_KEY, LIGHTTPD_CERTKEY);
- #ifdef RTCONFIG_LETSENCRYPT
- 	if(nvram_match("le_enable", "1")) {
- 		if(!is_le_cert(HTTPD_CERT) || !cert_key_match(HTTPD_CERT, HTTPD_KEY)) {
- 			cp_le_cert(LE_FULLCHAIN, HTTPD_CERT);
- 			cp_le_cert(LE_KEY, HTTPD_KEY);
--			system(tmp);
- 		}
- 	}
- 	else if(nvram_match("le_enable", "2")) {
-@@ -4177,14 +4173,12 @@
-                 if(f_exists(UPLOAD_CERT) && f_exists(UPLOAD_KEY)) {
-                         eval("cp", UPLOAD_CERT, HTTPD_CERT);
-                         eval("cp", UPLOAD_KEY, HTTPD_KEY);
--			system(tmp);
- 		}
- 	}
- #else
- 	if(f_exists(UPLOAD_CERT) && f_exists(UPLOAD_KEY)){
- 		eval("cp", UPLOAD_CERT, HTTPD_CERT);
- 		eval("cp", UPLOAD_KEY, HTTPD_KEY);
--		system(tmp);
- 	}
- #endif
- 
-@@ -7691,6 +7685,8 @@
- 
- 	start_ecoguard();
- 
-+	run_custom_script("services-start", NULL);
-+
- //	start_upnp();
- 
- 	sanity_logs();
-@@ -7722,9 +7718,6 @@
- 	start_dblog(0);
- #endif /* RTCONFIG_DBLOG */
- #endif /* RTCONFIG_PUSH_EMAIL */
--
--	run_custom_script("services-start", NULL);
--
- 	return 0;
- }
- 
-@@ -13657,12 +13650,11 @@
+@@ -13657,12 +13657,11 @@
  	remove("/tmp/torlog");
  
  #if (defined(RTCONFIG_JFFS2)||defined(RTCONFIG_BRCM_NAND_JFFS2))
@@ -17708,7 +17651,7 @@
  #endif
  }
  
-@@ -13686,22 +13678,6 @@
+@@ -13686,22 +13685,6 @@
  	if ((fp = fopen("/tmp/torrc", "w")) == NULL)
  		return;
  
@@ -17731,7 +17674,7 @@
  	if ((Socksport = nvram_get("Tor_socksport")) == NULL)	Socksport = "9050";
  	if ((Transport = nvram_get("Tor_transport")) == NULL)   Transport = "9040";
  	if ((Dnsport = nvram_get("Tor_dnsport")) == NULL)   	Dnsport = "9053";
-@@ -13722,6 +13698,18 @@
+@@ -13722,6 +13705,18 @@
  	use_custom_config("torrc", "/tmp/torrc");
  	run_postconf("torrc", "/tmp/torrc");
  
