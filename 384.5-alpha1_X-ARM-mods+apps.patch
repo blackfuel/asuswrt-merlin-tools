@@ -12479,20 +12479,7 @@
  #define IPX_TYPE	1
 --- a/release/src-rt/Makefile
 +++ b/release/src-rt/Makefile
-@@ -51,8 +51,10 @@
- export HND_SRC := $(shell pwd | sed 's/\(.*src-rt-.*hnd\).*/\1/')
- export SRCBASE := $(shell pwd | sed 's/\(.*src-rt-.*hnd\).*/\1\/bcmdrivers\/broadcom\/net\/wl\/bcm9$(BCM_CHIP)\/main\/src/')
- export SRC_ROOT := $(HND_SRC)/../src
--export BUSYBOX := busybox-1.24.1
--export BUSYBOX_DIR := $(SRCBASE)/router/busybox-1.24.1/busybox-1.24.1
-+#export BUSYBOX := busybox-1.24.1
-+#export BUSYBOX_DIR := $(SRCBASE)/router/busybox-1.24.1/busybox-1.24.1
-+export BUSYBOX := busybox
-+export BUSYBOX_DIR := $(SRCBASE)/router/$(BUSYBOX)
- else
- export SRCBASE := $(shell pwd)
- ifeq ($(or $(BCM7),$(BCM_7114),$(BCM9)),y)
-@@ -3597,12 +3599,6 @@
+@@ -3597,12 +3597,6 @@
  	else \
  		echo "CONFIG_LINUX_MTD=$(LINUX_MTD)" >>$(1); \
  	fi; \
@@ -12505,7 +12492,7 @@
  	if [ "$(BWDPI)" = "y" ]; then \
  		sed -i "/CONFIG_NET_SCH_HTB/d" $(1); \
  		echo "CONFIG_NET_SCH_HTB=y" >>$(1); \
-@@ -3886,11 +3882,218 @@
+@@ -3886,11 +3880,218 @@
  	$(MAKE) -C router bboldconf
  	@echo done
  
@@ -12958,25 +12945,6 @@
  # RTCONFIG_FBT is not set
 --- a/release/src/router/Makefile
 +++ b/release/src/router/Makefile
-@@ -415,13 +415,13 @@
- #
- # standard packages
- #
--ifeq ($(HND_ROUTER),y)
--export BUSYBOX ?= busybox-1.24.1
--export BUSYBOX_DIR := busybox-1.24.1/busybox-1.24.1
--else
-+#ifeq ($(HND_ROUTER),y)
-+#export BUSYBOX ?= busybox-1.24.1
-+#export BUSYBOX_DIR := busybox-1.24.1/busybox-1.24.1
-+#else
- export BUSYBOX ?= busybox
- export BUSYBOX_DIR := $(BUSYBOX)
--endif
-+#endif
- obj-y += $(BUSYBOX)
- obj-y += shared
- obj-y += nvram$(BCMEX)$(EX7)
 @@ -691,6 +691,187 @@
  obj-y += iproute2-3.15.0
  endif
@@ -13361,17 +13329,7 @@
  
  #
  # overrides and extra dependencies
-@@ -2283,7 +2544,8 @@
- endef
- endif
- 
--busybox busybox-1.17.4 busybox-1.24.1: dummy $(if $(RTCONFIG_PROTECTION_SERVER),protect_srv-stage,)
-+#busybox busybox-1.17.4 busybox-1.24.1: dummy $(if $(RTCONFIG_PROTECTION_SERVER),protect_srv-stage,)
-+busybox: dummy $(if $(RTCONFIG_PROTECTION_SERVER),protect_srv-stage,)
- 	$(call makeBusybox)
- 
- busybox-install: dummy $(if $(RTCONFIG_PROTECTION_SERVER),protect_srv-stage,)
-@@ -2295,10 +2557,10 @@
+@@ -2295,10 +2556,10 @@
  	chmod 4755 $(INSTALLDIR)/$(BUSYBOX)/bin/busybox
  
  busybox-clean:
@@ -13384,7 +13342,7 @@
  
  busybox-config:
  	$(MAKE) -C $(BUSYBOX_DIR) menuconfig
-@@ -2422,11 +2684,17 @@
+@@ -2422,11 +2683,17 @@
  	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
@@ -13402,7 +13360,7 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -2471,6 +2739,7 @@
+@@ -2471,6 +2738,7 @@
  	./Configure $(HOSTCONFIG) --prefix=/usr --openssldir=/etc --cross-compile-prefix=' ' \
  	-ffunction-sections -fdata-sections -Wl,--gc-sections \
  	shared $(OPENSSL_CIPHERS) no-ssl2 no-ssl3
@@ -13410,7 +13368,7 @@
  #	no-sha0 no-smime no-camellia no-krb5 no-rmd160 no-ripemd \
  #	no-seed no-capieng no-cms no-gms no-gmp no-rfc3779 \
  #	no-ec no-ecdh no-ecdsa no-err no-hw no-jpake no-threads \
-@@ -2510,6 +2779,7 @@
+@@ -2510,6 +2778,7 @@
  else
  openssl: openssl/Makefile
  endif
@@ -13418,7 +13376,7 @@
  	$(MAKE) -C openssl && $(MAKE) $@-stage
  
  openssl-clean:
-@@ -2527,9 +2797,9 @@
+@@ -2527,9 +2796,9 @@
  	[ ! -f openssl/Makefile ] || $(STRIP) $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libcrypto.so.1.0.0
  	[ ! -f openssl/Makefile ] || cd $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib && rm -f libcrypto.so && ln -sf libcrypto.so.1.0.0 libcrypto.so
  
@@ -13431,7 +13389,7 @@
  
  ifeq ($(or $(RTCONFIG_WEBDAV),$(RTCONFIG_FTP_SSL),$(RTCONFIG_OPENVPN),$(RTCONFIG_HTTPS)),y)
  	[ ! -f openssl/Makefile ] || install -D openssl/libssl.so.1.0.0 $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libssl.so.1.0.0
-@@ -2557,7 +2827,7 @@
+@@ -2557,7 +2826,7 @@
  
  push_log: wb
  
@@ -13440,7 +13398,7 @@
  	@$(SEP)
  # Dig into our collection of prebuilt objects based on model
  	@-rm -f rc/prebuild/*.o || true
-@@ -2731,11 +3001,11 @@
+@@ -2731,11 +3000,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -13455,7 +13413,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
-@@ -2907,14 +3177,14 @@
+@@ -2907,14 +3176,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -13473,7 +13431,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -3072,7 +3342,8 @@
+@@ -3072,7 +3341,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -13483,7 +13441,7 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -3223,7 +3494,7 @@
+@@ -3223,7 +3493,7 @@
  	( cd lsof ; ./Configure -clean )
  	@rm -f lsof/Makefile
  
@@ -13492,7 +13450,7 @@
  ifeq ($(ALPINE)$(LANTIQ),y)
  	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
  		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
-@@ -3242,45 +3513,6 @@
+@@ -3242,45 +3512,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -13538,7 +13496,7 @@
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -3595,19 +3827,19 @@
+@@ -3595,19 +3826,19 @@
  
  quagga-install:
  	install -d $(INSTALLDIR)/quagga/usr/lib
@@ -13563,7 +13521,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3938,215 +4170,3375 @@
+@@ -3938,213 +4169,3377 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -15158,19 +15116,13 @@
 -                $(CONFIGURE) --prefix=/usr --enable-shared --enable-static \
 -                --disable-readline --disable-dynamic-extensions --enable-threadsafe \
 -                --disable-dependency-tracking --enable-tempstore=yes --disable-tcl
--	touch $@
 +curl-aarch64-clean:
 +	[ ! -f curl-aarch64/Makefile ] || $(MAKE) -C curl-aarch64 clean
 +	@rm -f curl-aarch64/Makefile
 +endif
- 
--sqlCipher: sqlCipher/stamp-h1
--	@$(MAKE) -C sqlCipher all
++
 +### libevent-2.0.21-aarch64
- 
--sqlCipher-clean:
--	-@$(MAKE) -C sqlCipher clean
--	@rm -f sqlCipher/stamp-h1
++
 +ifeq ($(HND_ROUTER),y)
 +libevent-2.0.21-aarch64: libevent-2.0.21-aarch64/Makefile
 +	$(MAKE) -C $@ $(PARALLEL_BUILD) && \
@@ -15189,11 +15141,7 @@
 +			--libdir=/usr/$(BLACKFUEL_OPTIMIZED_LIB) \
 +			--bindir=/usr/sbin \
 +	)
- 
--sqlCipher-install: sqlCipher
--	install -D sqlCipher/.libs/libsqlcipher.so.0.8.6 $(INSTALLDIR)/sqlCipher/usr/lib/libsqlcipher.so.0
--	$(STRIP) $(INSTALLDIR)/sqlCipher/usr/lib/libsqlcipher.so.0
--	@$(SEP)
++
 +libevent-2.0.21-aarch64-install: libevent-2.0.21-aarch64
 +	install -D $(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libevent-2.0.so.5 $(INSTALLDIR)/$</usr/$(BLACKFUEL_OPTIMIZED_LIB)/libevent-2.0.so.5
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/$</usr/$(BLACKFUEL_OPTIMIZED_LIB)/libevent-2.0.so*
@@ -15396,19 +15344,9 @@
 +	cp -df $(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libmbed*.so* $(INSTALLDIR)/mbedtls/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
 +	chmod u+w $(INSTALLDIR)/mbedtls/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/mbedtls/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libmbed*.so*
- 
--# commented out for mt-daapd-svn-1696
--ifneq ($(MEDIA_SERVER_STATIC),y)
--	install -D sqlite/.libs/libsqlite3.so.0 $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
--	$(STRIP) $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
--endif
--ifeq ($(RTCONFIG_FREERADIUS),y)
--	install -D sqlite/.libs/sqlite3 $(INSTALLDIR)/sqlite/usr/sbin/sqlite3
--	$(STRIP) $(INSTALLDIR)/sqlite/usr/sbin/sqlite3
--endif
++
 +### libusb-0.1.12-aarch64
- 
--FFMPEG_FILTER_CONFIG= $(foreach c, $(2), --$(1)="$(c)")
++
 +ifeq ($(HND_ROUTER),y)
 +libusb-0.1.12-aarch64/stamp-h1:
 +	cd libusb-0.1.12-aarch64 && \
@@ -15421,20 +15359,23 @@
 +		--disable-build-docs \
 +		--disable-dependency-tracking
 +	-@$(MAKE) -C libusb-0.1.12-aarch64 clean
-+	touch $@
+ 	touch $@
  
--FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpeg4aac mpegvideo png wmav1 wmav2
--FFMPEG_CONFIGURE_DECODERS:=$(call FFMPEG_FILTER_CONFIG,enable-decoder,$(FFMPEG_DECODERS))
+-sqlCipher: sqlCipher/stamp-h1
+-	@$(MAKE) -C sqlCipher all
 +libusb-0.1.12-aarch64: libusb-0.1.12-aarch64/stamp-h1
 +	$(MAKE) -C $@
  
--FFMPEG_PARSERS:=aac ac3 h264 mpeg4video mpegaudio mpegvideo
--FFMPEG_CONFIGURE_PARSERS:=$(call FFMPEG_FILTER_CONFIG,enable-parser,$(FFMPEG_PARSERS))
+-sqlCipher-clean:
+-	-@$(MAKE) -C sqlCipher clean
+-	@rm -f sqlCipher/stamp-h1
 +libusb-0.1.12-aarch64-install: libusb-0.1.12-aarch64
 +	@echo "do nothing"
  
--FFMPEG_PROTOCOLS:=file
--FFMPEG_CONFIGURE_PROTOCOLS:=$(call FFMPEG_FILTER_CONFIG,enable-protocol,$(FFMPEG_PROTOCOLS))
+-sqlCipher-install: sqlCipher
+-	install -D sqlCipher/.libs/libsqlcipher.so.0.8.6 $(INSTALLDIR)/sqlCipher/usr/lib/libsqlcipher.so.0
+-	$(STRIP) $(INSTALLDIR)/sqlCipher/usr/lib/libsqlcipher.so.0
+-	@$(SEP)
 +libusb-0.1.12-aarch64-clean:
 +	-@$(MAKE) -C libusb-0.1.12-aarch64 clean
 +	@rm -f libusb-0.1.12-aarch64/stamp-h1
@@ -15561,20 +15502,29 @@
 +	chmod u+w $(INSTALLDIR)/libgd/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/libgd/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libgd.so*
  
--FFMPEG_DISABLED_DEMUXERS:=amr apc ape ass bethsoftvid bfi c93 daud dnxhd dsicin dxa ffm gsm gxf idcin iff image2 image2pipe ingenient ipmovie lmlm4 mm mmf msnwc_tcp mtv mxf nsv nut oma pva rawvideo rl2 roq rpl segafilm shorten siff smacker sol str thp tiertexseq tta txd vmd voc wc3 wsaud wsvqa xa yuv4mpegpipe
--FFMPEG_CONFIGURE_DEMUXERS:=$(call FFMPEG_FILTER_CONFIG,disable-demuxer,$(FFMPEG_DISABLED_DEMUXERS))
+-# commented out for mt-daapd-svn-1696
+-ifneq ($(MEDIA_SERVER_STATIC),y)
+-	install -D sqlite/.libs/libsqlite3.so.0 $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
+-	$(STRIP) $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
+-endif
+-ifeq ($(RTCONFIG_FREERADIUS),y)
+-	install -D sqlite/.libs/sqlite3 $(INSTALLDIR)/sqlite/usr/sbin/sqlite3
+-	$(STRIP) $(INSTALLDIR)/sqlite/usr/sbin/sqlite3
+-endif
 +### jpeg-aarch64
  
--ffmpeg/stamp-h1: zlib
--	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
--		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
+-FFMPEG_FILTER_CONFIG= $(foreach c, $(2), --$(1)="$(c)")
 +ifeq ($(HND_ROUTER),y)
 +jpeg-aarch64: jpeg-aarch64/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
-+
+ 
+-FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpeg4aac mpegvideo png wmav1 wmav2
+-FFMPEG_CONFIGURE_DECODERS:=$(call FFMPEG_FILTER_CONFIG,enable-decoder,$(FFMPEG_DECODERS))
 +jpeg-aarch64/Makefile: jpeg-aarch64-unpack
 +	@[ -f $@ ] || $(MAKE) jpeg-aarch64-configure
-+
+ 
+-FFMPEG_PARSERS:=aac ac3 h264 mpeg4video mpegaudio mpegvideo
+-FFMPEG_CONFIGURE_PARSERS:=$(call FFMPEG_FILTER_CONFIG,enable-parser,$(FFMPEG_PARSERS))
 +jpeg-aarch64-configure:
 +	@[ ! -d jpeg-aarch64 ] || [ -f "$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libjpeg.so" ] || ( \
 +		cd jpeg-aarch64 ; \
@@ -15593,7 +15543,9 @@
 +		--disable-silent-rules \
 +		--enable-maxmem=1 \
 +		)
-+
+ 
+-FFMPEG_PROTOCOLS:=file
+-FFMPEG_CONFIGURE_PROTOCOLS:=$(call FFMPEG_FILTER_CONFIG,enable-protocol,$(FFMPEG_PROTOCOLS))
 +jpeg-aarch64-stage:
 +	@echo jpeg-aarch64
 +	@[ ! -d jpeg-aarch64 ] || ( \
@@ -15636,7 +15588,9 @@
 +		--enable-static \
 +		--disable-silent-rules \
 +		)
-+
+ 
+-FFMPEG_DISABLED_DEMUXERS:=amr apc ape ass bethsoftvid bfi c93 daud dnxhd dsicin dxa ffm gsm gxf idcin iff image2 image2pipe ingenient ipmovie lmlm4 mm mmf msnwc_tcp mtv mxf nsv nut oma pva rawvideo rl2 roq rpl segafilm shorten siff smacker sol str thp tiertexseq tta txd vmd voc wc3 wsaud wsvqa xa yuv4mpegpipe
+-FFMPEG_CONFIGURE_DEMUXERS:=$(call FFMPEG_FILTER_CONFIG,disable-demuxer,$(FFMPEG_DISABLED_DEMUXERS))
 +libpng-stage:
 +	@echo libpng
 +	@[ ! -d libpng ] || ( \
@@ -15792,7 +15746,8 @@
 +	cp -df $(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libbz2.so* $(INSTALLDIR)/bzip2/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
 +	chmod u+w $(INSTALLDIR)/bzip2/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/bzip2/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
-+
+ 
+-ffmpeg/stamp-h1: zlib
 +### zlib-aarch64
 +
 +ifeq ($(HND_ROUTER),y)
@@ -16656,7 +16611,7 @@
 +			URL="https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz"; \
 +			URL2="https://git.lysator.liu.se/nettle/nettle.git"; \
 +			VERSION="3.4+git"; \
-+			SOURCE_VERSION="0d9930963b4891c7823ec1382fd576821388f7d2"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="nettle"; \
 +		elif [ "$$PACKAGE_DIR" = "curl" ] || [ "$$PACKAGE_DIR" = "curl-7.21.7" ] || \
 +			[ "$$PACKAGE_DIR" = "curl-aarch64" ]; then \
@@ -16672,7 +16627,7 @@
 +			URL="https://ftp.gnu.org/gnu/wget/wget-1.19.4.tar.lz"; \
 +			URL2="https://gitlab.com/gnuwget/wget.git"; \
 +			VERSION="1.19.4+git"; \
-+			SOURCE_VERSION="ab8a3c80dfc981194ca2ea42d9f709ac198b222c"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="wget"; \
 +		elif [ "$$PACKAGE_DIR" = "jpeg" ] || [ "$$PACKAGE_DIR" = "jpeg-aarch64" ]; then \
 +			URL="http://www.ijg.org/files/jpegsrc.v9a.tar.gz"; \
@@ -16681,7 +16636,7 @@
 +			URL="https://zlib.net/zlib-1.2.11.tar.xz"; \
 +			URL2="https://github.com/madler/zlib.git"; \
 +			VERSION="1.2.11+git"; \
-+			SOURCE_VERSION="cacf7f1d4e3d44d871b605da3b647f07d718623f"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="zlib"; \
 +		elif [ "$$PACKAGE_DIR" = "lzo" ] || [ "$$PACKAGE_DIR" = "lzo-aarch64" ]; then \
 +			URL="http://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz"; \
@@ -16696,13 +16651,13 @@
 +			URL="https://tukaani.org/xz/xz-5.2.3.tar.gz"; \
 +			URL2="https://git.tukaani.org/xz.git"; \
 +			VERSION="5.2.3+git"; \
-+			SOURCE_VERSION="3d566cd519017eee1a400e7961ff14058dfaf33c"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="xzutils"; \
 +		elif [ "$$PACKAGE_DIR" = "zstd" ]; then \
-+			URL="https://github.com/facebook/zstd/archive/v1.3.3.tar.gz"; \
++			URL="https://github.com/facebook/zstd/archive/v1.3.4.tar.gz"; \
 +			URL2="https://github.com/facebook/zstd.git"; \
-+			VERSION="1.3.3+git"; \
-+			SOURCE_VERSION="f3a8bd553a865c59f1bd6e1f68bf182cf75a8f00"; \
++			VERSION="1.3.4+git"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="zstd"; \
 +		elif [ "$$PACKAGE_DIR" = "tor" ]; then \
 +			URL="https://www.torproject.org/dist/tor-0.3.2.10.tar.gz"; \
@@ -16725,13 +16680,13 @@
 +		elif [ "$$PACKAGE_DIR" = "popt" ]; then \
 +			URL="http://rpm5.org/files/popt/popt-1.16.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "libgpg-error" ]; then \
-+			URL="https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.27.tar.bz2"; \
++			URL="https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.28.tar.bz2"; \
 +			URL2="https://dev.gnupg.org/source/libgpg-error.git"; \
-+			VERSION="1.27+git"; \
-+			SOURCE_VERSION="70058cd9f944d620764e57c838209afae8a58c78"; \
++			VERSION="1.28+git"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="libgpg-error"; \
 +		elif [ "$$PACKAGE_DIR" = "util-linux" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.31/util-linux-2.31.1.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.32/util-linux-2.32.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "lvm2" ]; then \
 +			URL="https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.02.177.tgz"; \
 +		elif [ "$$PACKAGE_DIR" = "libgcrypt" ]; then \
@@ -16778,10 +16733,10 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="transmission"; \
 +		elif [ "$$PACKAGE_DIR" = "mbedtls" ]; then \
-+			URL="https://tls.mbed.org/download/mbedtls-2.7.0-gpl.tgz"; \
++			URL="https://tls.mbed.org/download/mbedtls-2.8.0-gpl.tgz"; \
 +			URL2="https://github.com/ARMmbed/mbedtls.git"; \
-+			VERSION="2.7.0+git"; \
-+			SOURCE_VERSION="32605dc83042d737e715a685e53176388d73540e"; \
++			VERSION="2.8.0+git"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="mbedtls"; \
 +		elif [ "$$PACKAGE_DIR" = "apcupsd" ]; then \
 +			URL="https://downloads.sourceforge.net/project/apcupsd/apcupsd - Stable/3.14.14/apcupsd-3.14.14.tar.gz"; \
@@ -16789,7 +16744,7 @@
 +			URL="https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz"; \
 +			URL2="https://github.com/libgd/libgd.git"; \
 +			VERSION="2.2.5+git"; \
-+			SOURCE_VERSION="8255231b68889597d04d451a72438ab92a405aba"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="libgd"; \
 +		elif [ "$$PACKAGE_DIR" = "libpng" ]; then \
 +			URL="https://sourceforge.net/projects/libpng/files/libpng16/1.6.34/libpng-1.6.34.tar.xz"; \
@@ -16805,13 +16760,13 @@
 +			URL="https://github.com/lz4/lz4/archive/v1.8.1.2.tar.gz"; \
 +			URL2="https://github.com/lz4/lz4.git"; \
 +			VERSION="1.8.1.2+git"; \
-+			SOURCE_VERSION="dfed9fa1d77f0434306d377c4da1f7191d3ba08a"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="lz4"; \
 +		elif [ "$$PACKAGE_DIR" = "strace" ] || [ "$$PACKAGE_DIR" = "strace-aarch64" ]; then \
 +			URL="https://strace.io/files/4.21/strace-4.21.tar.xz"; \
 +			URL2="https://github.com/strace/strace.git"; \
 +			VERSION="4.21+git"; \
-+			SOURCE_VERSION="003c02745f4a07d51cce133a090a1e4cc1a1edce"; \
++			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="strace"; \
 +		elif [ "$$PACKAGE_DIR" = "libargon2" ]; then \
 +			URL2="https://github.com/P-H-C/phc-winner-argon2/archive/20171227.tar.gz"; \
@@ -16826,7 +16781,11 @@
 +			SOURCE_VERSION="5806b687b142dad80c01ac17996241ba326623dc"; \
 +			PACKAGE_NAME="nss"; \
 +		elif [ "$$PACKAGE_DIR" = "xtables-addons" ]; then \
-+			URL="https://ufpr.dl.sourceforge.net/project/xtables-addons/Xtables-addons/xtables-addons-2.14.tar.xz"; \
++			if [ -n "$(RTCONFIG_HND_ROUTER)" ]; then \
++				URL="https://ufpr.dl.sourceforge.net/project/xtables-addons/Xtables-addons/xtables-addons-2.14.tar.xz"; \
++			else \
++				URL="https://ufpr.dl.sourceforge.net/project/xtables-addons/Xtables-addons/xtables-addons-1.47.1.tar.xz"; \
++			fi; \
 +			PACKAGE_NAME="xtables-addons"; \
 +		else \
 +			URL="/$${PACKAGE_DIR}-MISSING-PACKAGE"; \
@@ -17101,12 +17060,10 @@
 +FFMPEG_CONFIGURE_DEMUXERS:=$(call FFMPEG_FILTER_CONFIG,disable-demuxer,$(FFMPEG_DISABLED_DEMUXERS))
 +
 +ffmpeg/stamp-h1: zlib
-+	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
-+		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
+ 	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
+ 		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
  		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
- 		--enable-pthreads --enable-small --disable-encoders --disable-filters \
- 		--disable-muxers --disable-devices --disable-ffmpeg --disable-ffplay \
-@@ -4228,25 +7620,6 @@
+@@ -4228,25 +7623,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -17132,7 +17089,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4268,33 +7641,6 @@
+@@ -4268,33 +7644,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -17166,7 +17123,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4369,7 +7715,7 @@
+@@ -4369,7 +7718,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -17175,7 +17132,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4812,26 +8158,6 @@
+@@ -4812,26 +8161,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -17202,7 +17159,7 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4930,27 +8256,6 @@
+@@ -4930,27 +8259,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -17230,7 +17187,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5039,6 +8344,12 @@
+@@ -5039,6 +8347,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -17243,7 +17200,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5239,56 +8550,6 @@
+@@ -5239,56 +8553,6 @@
  	-@$(MAKE) -C usbclient clean
  	rm -rf usbclient/stamp-h1
  
@@ -17300,7 +17257,7 @@
  sw-hw-auth:
  	cd sw-hw-auth && \
  	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -5369,38 +8630,6 @@
+@@ -5369,38 +8633,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -17339,7 +17296,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5813,7 +9042,7 @@
+@@ -5813,7 +9045,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -17348,7 +17305,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6193,53 +9422,6 @@
+@@ -6193,53 +9425,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -17402,7 +17359,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6526,7 +9708,7 @@
+@@ -6526,7 +9711,7 @@
  	$(MAKE) -C $@
  
  i2c-tools-2013-12-15-clean:
@@ -17411,7 +17368,7 @@
  
  i2c-tools-2013-12-15-install: i2c-tools-2013-12-15
  	install -D i2c-tools-2013-12-15/tools/i2cdump $(INSTALLDIR)/i2c-tools-2013-12-15/usr/bin/i2cdump
-@@ -6810,46 +9992,11 @@
+@@ -6810,46 +9995,11 @@
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2.0 &&\
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2
  
@@ -17459,7 +17416,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6868,24 +10015,6 @@
+@@ -6868,24 +10018,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -17484,7 +17441,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -6949,7 +10078,7 @@
+@@ -6949,7 +10081,7 @@
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
  	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
  	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
@@ -17493,7 +17450,7 @@
  	touch ipset_arm/stamp-h1
  
  ipset_arm: ipset_arm/stamp-h1
-@@ -7246,37 +10375,6 @@
+@@ -7246,37 +10378,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  
@@ -17631,6 +17588,24 @@
  
  	_dprintf(reboot ? "Rebooting..." : "Shutting down...");
  	kill(1, reboot ? SIGTERM : SIGQUIT);
+--- a/release/src/router/rc/openvpn.c
++++ b/release/src/router/rc/openvpn.c
+@@ -1339,6 +1339,7 @@
+ 	fclose(fp);
+ 	vpnlog(VPN_LOG_EXTRA,"Done creating firewall rules");
+ 
++/*
+ 	// Run the firewall rules
+ 	vpnlog(VPN_LOG_EXTRA,"Running firewall rules");
+ 	sprintf(buffer, "/etc/openvpn/fw/server%d-fw.sh", serverNum);
+@@ -1346,6 +1347,7 @@
+ 	argv[1] = NULL;
+ 	_eval(argv, NULL, 0, NULL);
+ 	vpnlog(VPN_LOG_EXTRA,"Done running firewall rules");
++*/
+ 
+ 	// Start the VPN server
+ 	sprintf(buffer, "/etc/openvpn/vpnserver%d", serverNum);
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
 @@ -13657,12 +13657,11 @@
@@ -17716,7 +17691,23 @@
  
 --- a/release/src/router/rc/watchdog.c
 +++ b/release/src/router/rc/watchdog.c
-@@ -3713,9 +3713,11 @@
+@@ -2427,6 +2427,7 @@
+ 				if (++btn_count > RESET_WAIT_COUNT)
+ 				{
+ 					dbg("You can release RESET button now!\n");
++					if (btn_pressed == 1 && shutdown_start("watchdog", __FUNCTION__, "reset_button_pressed") == 0) {
+ #ifdef BLUECAVE
+ 					if(btn_pressed == 1) {
+ 						nvram_set("bc_ledbh", "reset");
+@@ -2446,6 +2447,7 @@
+ 						set_led(LED_BLINK_SLOW, LED_BLINK_SLOW);
+ #endif
+ 					btn_pressed = 2;
++					} else if (btn_pressed == 1) btn_count = 0;
+ 				}
+ 				if (btn_pressed == 2)
+ 				{
+@@ -3713,9 +3715,11 @@
  		{
  			if (timecheck_reboot(reboot_schedule))
  			{
@@ -17728,7 +17719,7 @@
  			}
  		}
  	}
-@@ -4713,6 +4715,7 @@
+@@ -4713,6 +4717,7 @@
  	else if (flag_sw_mode == 1 && nvram_invmatch("asus_mfg", "1")) {
  		if (sw_mode != pre_sw_mode) {
  			if (++count_stable>4) { // stable for more than 5 second
@@ -17736,7 +17727,7 @@
  				dbg("Reboot to switch sw mode ..\n");
  				flag_sw_mode=0;
  				/* sw mode changed: restore defaults */
-@@ -4722,6 +4725,7 @@
+@@ -4722,6 +4727,7 @@
  				if (notify_rc_after_wait("resetdefault")) {     /* Send resetdefault rc_service failed. */
  					alarmtimer(NORMAL_PERIOD, 0);
  				}
@@ -17744,7 +17735,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -4748,6 +4752,7 @@
+@@ -4748,6 +4754,7 @@
  		if (tmp_sw_mode == sw_mode) {
  			if (++count_stable>4) // stable for more than 5 second
  			{
@@ -17752,7 +17743,7 @@
  				dbg("Reboot to switch sw mode ..\n");
  				flag_sw_mode=0;
  				sync();
-@@ -4755,6 +4760,7 @@
+@@ -4755,6 +4762,7 @@
  				nvram_set("nvramver", "0");
  				nvram_commit();
  				reboot(RB_AUTOBOOT);
@@ -17760,7 +17751,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -5602,6 +5608,12 @@
+@@ -5602,6 +5610,12 @@
  				return;
  			}
  
