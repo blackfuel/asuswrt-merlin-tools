@@ -7039,7 +7039,7 @@
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
 @@ -2468,6 +2735,7 @@
- 	./Configure $(HOSTCONFIG) --prefix=/usr --openssldir=/etc --cross-compile-prefix=' ' \
+ 	./Configure $(HOSTCONFIG) -DOPENSSL_NO_BUF_FREELISTS --prefix=/usr --openssldir=/etc --cross-compile-prefix=' ' \
  	-ffunction-sections -fdata-sections -Wl,--gc-sections \
  	shared $(OPENSSL_CIPHERS) no-ssl2 no-ssl3
 +#	-I$(TOP)/cryptodev-linux -DHAVE_CRYPTODEV -DUSE_CRYPTODEV_DIGESTS
@@ -11236,7 +11236,7 @@
 +
 --- a/release/src/router/rc/init.c
 +++ b/release/src/router/rc/init.c
-@@ -10422,6 +10422,10 @@
+@@ -10439,6 +10439,10 @@
  		case SIGINT:		/* STOP */
  		case SIGQUIT:		/* HALT */
  		case SIGTERM:		/* REBOOT */
@@ -11247,7 +11247,7 @@
  #if defined(RTCONFIG_USB_MODEM) && (defined(RTCONFIG_JFFS2) || defined(RTCONFIG_BRCM_NAND_JFFS2) || defined(RTCONFIG_UBIFS))
  		_dprintf("modem data: save the data during the signal %d.\n", state);
  		eval("/usr/sbin/modem_status.sh", "bytes+");
-@@ -10476,6 +10480,7 @@
+@@ -10493,6 +10497,7 @@
  			// SIGHUP (RESTART) falls through
  
  		case SIGUSR2:		/* START */
@@ -11255,7 +11255,7 @@
  			start_logger();
  #if defined(RTCONFIG_QCA)
  			logmessage("INIT", "firmware version: %s_%s_%s\n", nvram_safe_get("firmver"), nvram_safe_get("buildno"), nvram_safe_get("extendno"));
-@@ -11008,6 +11013,10 @@
+@@ -11022,6 +11027,10 @@
  {
  	int reboot = (strstr(argv[0], "reboot") != NULL);
  	int def_reset_wait = 20;
@@ -11266,9 +11266,52 @@
  
  	_dprintf(reboot ? "Rebooting..." : "Shutting down...");
  	kill(1, reboot ? SIGTERM : SIGQUIT);
+--- a/release/src/router/rc/openvpn.c
++++ b/release/src/router/rc/openvpn.c
+@@ -1407,29 +1407,17 @@
+ 	}
+ 
+ 	// watchdog
+-	sprintf(buffer, "/etc/openvpn/server%d/vpns-watchdog%d.sh", serverNum, serverNum);
+-	if ((fp = fopen(buffer, "w"))) {
+-		char taskname[20];
+-
+-		chmod(buffer, S_IRUSR|S_IWUSR|S_IXUSR);
+-		fprintf(fp, "#!/bin/sh\n"
+-		            "if [ -z $(pidof vpnserver%d) ]\n"
+-		            "then\n"
+-		            "   service restart_vpnserver%d\n"
+-		            "fi\n",
+-		            serverNum, serverNum);
+-		fclose(fp);
+-
+-		argv[0] = "cru";
+-		argv[1] = "a";
+-		sprintf(taskname, "CheckVPNServer%d", serverNum);
+-		argv[2] = taskname;
+-		sprintf(buffer2, "*/2 * * * * %s", buffer);
+-		argv[3] = buffer2;
+-		argv[4] = NULL;
+-		_eval(argv, NULL, 0, NULL);
+-		vpnlog(VPN_LOG_EXTRA,"Done adding cron job");
+-	}
++	sprintf(buffer, "[ -z $(pidof vpnserver%d) ] && service restart_vpnserver%d", serverNum, serverNum);
++	char taskname[20];
++	argv[0] = "cru";
++	argv[1] = "a";
++	sprintf(taskname, "CheckVPNServer%d", serverNum);
++	argv[2] = taskname;
++	sprintf(buffer2, "*/2 * * * * %s", buffer);
++	argv[3] = buffer2;
++	argv[4] = NULL;
++	_eval(argv, NULL, 0, NULL);
++	vpnlog(VPN_LOG_EXTRA,"Done adding cron job");
+ 
+ 	vpnlog(VPN_LOG_INFO,"VPN GUI server backend complete.");
+ }
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -13704,12 +13704,11 @@
+@@ -13703,12 +13703,11 @@
  	remove("/tmp/torlog");
  
  #if (defined(RTCONFIG_JFFS2)||defined(RTCONFIG_BRCM_NAND_JFFS2))
@@ -11286,7 +11329,7 @@
  #endif
  }
  
-@@ -13733,22 +13732,6 @@
+@@ -13732,22 +13731,6 @@
  	if ((fp = fopen("/tmp/torrc", "w")) == NULL)
  		return;
  
@@ -11309,7 +11352,7 @@
  	if ((Socksport = nvram_get("Tor_socksport")) == NULL)	Socksport = "9050";
  	if ((Transport = nvram_get("Tor_transport")) == NULL)   Transport = "9040";
  	if ((Dnsport = nvram_get("Tor_dnsport")) == NULL)   	Dnsport = "9053";
-@@ -13769,6 +13752,18 @@
+@@ -13768,6 +13751,18 @@
  	use_custom_config("torrc", "/tmp/torrc");
  	run_postconf("torrc", "/tmp/torrc");
  
@@ -11379,7 +11422,7 @@
  			}
  		}
  	}
-@@ -4866,6 +4870,7 @@
+@@ -4861,6 +4865,7 @@
  	else if (flag_sw_mode == 1 && nvram_invmatch("asus_mfg", "1")) {
  		if (sw_mode != pre_sw_mode) {
  			if (++count_stable>4) { // stable for more than 5 second
@@ -11387,7 +11430,7 @@
  				dbg("Reboot to switch sw mode ..\n");
  				flag_sw_mode=0;
  				/* sw mode changed: restore defaults */
-@@ -4875,6 +4880,7 @@
+@@ -4870,6 +4875,7 @@
  				if (notify_rc_after_wait("resetdefault")) {	/* Send resetdefault rc_service failed. */
  					alarmtimer(NORMAL_PERIOD, 0);
  				}
@@ -11395,7 +11438,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -4901,6 +4907,7 @@
+@@ -4896,6 +4902,7 @@
  		if (tmp_sw_mode == sw_mode) {
  			if (++count_stable>4) // stable for more than 5 second
  			{
@@ -11403,7 +11446,7 @@
  				dbg("Reboot to switch sw mode ..\n");
  				flag_sw_mode=0;
  				sync();
-@@ -4908,6 +4915,7 @@
+@@ -4903,6 +4910,7 @@
  				nvram_set("nvramver", "0");
  				nvram_commit();
  				reboot(RB_AUTOBOOT);
@@ -11411,7 +11454,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -5755,6 +5763,12 @@
+@@ -5750,6 +5758,12 @@
  				return;
  			}
  
@@ -11469,7 +11512,7 @@
  long fappend(FILE *out, const char *fname)
  {
  	FILE *in;
-@@ -132,3 +149,49 @@
+@@ -137,3 +154,49 @@
  	}
  }
  
@@ -11837,7 +11880,7 @@
 +
 --- a/release/src/router/httpd/web.c
 +++ b/release/src/router/httpd/web.c
-@@ -3795,6 +3795,7 @@
+@@ -3794,6 +3794,7 @@
  		}
  	}
  	else if(!strcmp(apiName, "qos")){
@@ -11845,7 +11888,7 @@
  		char *desc, *addr, *port, *prio, *transferred, *proto;
  
  		if(!strcmp(apiAction, "enable")){
-@@ -3989,6 +3990,7 @@
+@@ -3988,6 +3989,7 @@
  		else{
  				retStatus = 3;
  		}
@@ -11853,7 +11896,7 @@
  	}
  	else{
  		retStatus = 3;
-@@ -10239,10 +10241,12 @@
+@@ -10238,10 +10240,12 @@
  	}
  	else if (!strcmp(action_mode, " Restart ")||!strcmp(action_mode, "reboot"))
  	{
@@ -11866,7 +11909,7 @@
  	}
  	else if (!strcmp(action_mode, "Restore")||!strcmp(action_mode, "restore"))
  	{
-@@ -10630,6 +10634,7 @@
+@@ -10638,6 +10642,7 @@
  	}
  	else if (!strcmp(action_mode, "start_simdetect"))
  	{
@@ -11874,7 +11917,7 @@
  		char *simdetect;
  
  		simdetect = get_cgi_json("simdetect", root);
-@@ -10639,6 +10644,7 @@
+@@ -10647,6 +10652,7 @@
  		nvram_set("freeze_duck", "15");
  		shutdown(fileno(wp), SHUT_RDWR);
  		sys_reboot();
@@ -11882,7 +11925,7 @@
  	}
  	else if(!strcmp(action_mode, "update_lte_fw")){
  		notify_rc("start_gobi_update");
-@@ -11376,6 +11382,7 @@
+@@ -11384,6 +11390,7 @@
  static void
  do_upgrade_post(char *url, FILE *stream, int len, char *boundary)
  {
@@ -11890,7 +11933,7 @@
  	#define MAX_VERSION_LEN 64
  
  	do_html_get(url, len, boundary);
-@@ -11587,12 +11594,14 @@
+@@ -11595,12 +11602,14 @@
  	while (len-- > 0)
  		if((ch = fgetc(stream)) == EOF)
  			break;
@@ -11905,7 +11948,7 @@
  	/* Reboot if successful */
  	char *autoreboot = safe_get_cgi_json("autoreboot",NULL);
  	char *reset = safe_get_cgi_json("reset",NULL);
-@@ -11663,6 +11672,7 @@
+@@ -11671,6 +11680,7 @@
  #endif
  		}
  	}
@@ -11913,7 +11956,7 @@
  }
  
  #if defined(RTCONFIG_SAVEJFFS)
-@@ -11937,6 +11947,7 @@
+@@ -11945,6 +11955,7 @@
  static void
  do_upload_cgi(char *url, FILE *stream)
  {
@@ -11921,7 +11964,7 @@
  	int ret;
  #if defined(RTCONFIG_SAVEJFFS)
  	int r;
-@@ -11987,6 +11998,7 @@
+@@ -11995,6 +12006,7 @@
  		websApply(stream, "UploadError.asp");
  	   	//unlink("/tmp/settings_u.prf");
  	}
@@ -11929,7 +11972,7 @@
  }
  
  #ifdef RTCONFIG_OPENVPN
-@@ -19535,11 +19547,7 @@
+@@ -19543,11 +19555,7 @@
  		mkdir(JFFS_USERICON, 0755);
  
  	//Write /jffs/usericon/ file count and list
@@ -11942,7 +11985,7 @@
  	while ((entry = readdir(dirp)) != NULL) {
  		if (entry->d_type == DT_REG) { /* If the entry is a regular file */
  			strcat(allMacList, entry->d_name);
-@@ -22720,7 +22728,11 @@
+@@ -22728,7 +22736,11 @@
  	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
  	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
  	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
