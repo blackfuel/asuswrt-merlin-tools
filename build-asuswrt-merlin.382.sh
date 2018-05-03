@@ -89,7 +89,7 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox-1.24.1/busybox-1.24.1/config_base release/src/router/busybox-1.24.1/busybox-1.24.1/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox/Makefile release/src/router/busybox/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/config/config.in release/src/router/config/
-	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/Makefile release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/rc.c release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/init.c release/src/router/rc/

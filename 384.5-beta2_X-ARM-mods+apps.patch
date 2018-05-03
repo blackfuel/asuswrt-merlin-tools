@@ -16649,9 +16649,9 @@
 +			URL="https://ftp.gnu.org/gnu/ncurses/ncurses-6.0.tar.gz"; \
 +			PACKAGE_NAME="ncurses"; \
 +		elif [ "$$PACKAGE_DIR" = "xzutils" ]; then \
-+			URL="https://tukaani.org/xz/xz-5.2.3.tar.gz"; \
++			URL="https://tukaani.org/xz/xz-5.2.4.tar.xz"; \
 +			URL2="https://git.tukaani.org/xz.git"; \
-+			VERSION="5.2.3+git"; \
++			VERSION="5.2.4+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="xzutils"; \
 +		elif [ "$$PACKAGE_DIR" = "zstd" ]; then \
@@ -16681,9 +16681,9 @@
 +		elif [ "$$PACKAGE_DIR" = "popt" ]; then \
 +			URL="http://rpm5.org/files/popt/popt-1.16.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "libgpg-error" ]; then \
-+			URL="https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.29.tar.bz2"; \
++			URL="https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.31.tar.bz2"; \
 +			URL2="https://dev.gnupg.org/source/libgpg-error.git"; \
-+			VERSION="1.28+git"; \
++			VERSION="1.31+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="libgpg-error"; \
 +		elif [ "$$PACKAGE_DIR" = "util-linux" ]; then \
