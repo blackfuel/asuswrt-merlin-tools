@@ -72,7 +72,7 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1247,7 +1269,10 @@
+@@ -1245,7 +1267,10 @@
  #
  # PPS support
  #
@@ -84,7 +84,7 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1280,14 +1305,14 @@
+@@ -1278,14 +1303,14 @@
  # CONFIG_SOUND is not set
  CONFIG_HID_SUPPORT=y
  CONFIG_HID=m
@@ -101,7 +101,7 @@
  
  #
  # USB HID Boot Protocol drivers
-@@ -1434,13 +1459,13 @@
+@@ -1432,13 +1457,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -118,7 +118,7 @@
  # CONFIG_USB_SERIAL_FUNSOFT is not set
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1459,7 +1484,7 @@
+@@ -1457,7 +1482,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MOTOROLA is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -127,7 +127,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1584,8 +1609,11 @@
+@@ -1582,8 +1607,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -141,7 +141,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1633,11 +1661,12 @@
+@@ -1631,11 +1659,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -155,7 +155,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
  # CONFIG_VXFS_FS is not set
-@@ -1830,7 +1859,7 @@
+@@ -1828,7 +1857,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -164,7 +164,7 @@
  
  #
  # Hash modes
-@@ -1847,41 +1876,42 @@
+@@ -1845,41 +1874,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -230,7 +230,7 @@
  
  #
  # Random Number Generation
-@@ -1889,9 +1919,17 @@
+@@ -1887,9 +1917,17 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -5273,7 +5273,7 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1277,7 +1300,10 @@
+@@ -1275,7 +1298,10 @@
  #
  # PPS support
  #
@@ -5285,7 +5285,7 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1310,14 +1336,14 @@
+@@ -1308,14 +1334,14 @@
  # CONFIG_SOUND is not set
  CONFIG_HID_SUPPORT=y
  CONFIG_HID=m
@@ -5302,7 +5302,7 @@
  
  #
  # USB HID Boot Protocol drivers
-@@ -1464,13 +1490,13 @@
+@@ -1462,13 +1488,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -5319,7 +5319,7 @@
  # CONFIG_USB_SERIAL_FUNSOFT is not set
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1489,7 +1515,7 @@
+@@ -1487,7 +1513,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MOTOROLA is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -5328,7 +5328,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1614,8 +1640,11 @@
+@@ -1612,8 +1638,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -5342,7 +5342,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1664,11 +1693,12 @@
+@@ -1662,11 +1691,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -5356,7 +5356,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
  # CONFIG_VXFS_FS is not set
-@@ -1861,7 +1891,7 @@
+@@ -1859,7 +1889,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -5365,7 +5365,7 @@
  
  #
  # Hash modes
-@@ -1878,41 +1908,42 @@
+@@ -1876,41 +1906,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -5431,7 +5431,7 @@
  
  #
  # Random Number Generation
-@@ -1920,9 +1951,17 @@
+@@ -1918,9 +1949,17 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -10498,7 +10498,7 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1205,14 +1241,14 @@
+@@ -1203,14 +1239,14 @@
  # CONFIG_INPUT_MISC is not set
  CONFIG_HID_SUPPORT=y
  CONFIG_HID=m
@@ -10515,7 +10515,7 @@
  
  #
  # USB HID Boot Protocol drivers
-@@ -1316,7 +1352,10 @@
+@@ -1314,7 +1350,10 @@
  #
  # PPS support
  #
@@ -10527,7 +10527,7 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1444,13 +1483,13 @@
+@@ -1442,13 +1481,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -10544,7 +10544,7 @@
  # CONFIG_USB_SERIAL_FUNSOFT is not set
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
-@@ -1469,7 +1508,7 @@
+@@ -1467,7 +1506,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MOTOROLA is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -10553,7 +10553,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -1594,8 +1633,11 @@
+@@ -1592,8 +1631,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -10567,7 +10567,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -1644,11 +1686,12 @@
+@@ -1642,11 +1684,12 @@
  # CONFIG_JFFS2_CMODE_SIZE is not set
  # CONFIG_JFFS2_CMODE_FAVOURLZO is not set
  # CONFIG_LOGFS is not set
@@ -10581,7 +10581,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
  # CONFIG_VXFS_FS is not set
-@@ -1841,7 +1884,7 @@
+@@ -1839,7 +1882,7 @@
  CONFIG_CRYPTO_ECB=y
  # CONFIG_CRYPTO_LRW is not set
  # CONFIG_CRYPTO_PCBC is not set
@@ -10590,7 +10590,7 @@
  
  #
  # Hash modes
-@@ -1858,41 +1901,42 @@
+@@ -1856,41 +1899,42 @@
  # CONFIG_CRYPTO_MD4 is not set
  CONFIG_CRYPTO_MD5=y
  # CONFIG_CRYPTO_MICHAEL_MIC is not set
@@ -10654,7 +10654,7 @@
  
  #
  # Random Number Generation
-@@ -1900,9 +1944,17 @@
+@@ -1898,9 +1942,17 @@
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRYPTO_HW=y
  # CONFIG_CRYPTO_DEV_HIFN_795X is not set
@@ -13230,29 +13230,16 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1887,9 +2091,9 @@
+@@ -1887,7 +2091,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
 -	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/usbkbd.*o $(PLATFORMDIR)/extras/ || true
 +	@cp -f $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/usbkbd.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/usbmouse.*o $(PLATFORMDIR)/extras/ || true
--	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/hid*.*o $(PLATFORMDIR)/extras/ || true
-+	@cp -f $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/hid*.*o $(PLATFORMDIR)/extras/ || true
+ #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/hid*.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
- 	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/audio.*o $(PLATFORMDIR)/extras/ || true
- 	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ov51*.*o $(PLATFORMDIR)/extras/ || true
-@@ -1902,16 +2106,14 @@
- 	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/drivers/sound || true
- 	@mv $(TARGETDIR)/lib/modules/*/kernel/sound/* $(PLATFORMDIR)/extras/ || true
- 	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/sound || true
--	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/input/* $(PLATFORMDIR)/extras/ || true
--	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/drivers/input || true
--	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/hid/* $(PLATFORMDIR)/extras/ || true
--	@rm -rf $(TARGETDIR)/lib/modules/*/kernel/drivers/hid || true
-+	@cp -f $(TARGETDIR)/lib/modules/*/kernel/drivers/input/* $(PLATFORMDIR)/extras/ || true
-+	@cp -f $(TARGETDIR)/lib/modules/*/kernel/drivers/hid/* $(PLATFORMDIR)/extras/ || true
- 	@cp -f $(TARGETDIR)/lib/modules/*/kernel/drivers/net/bcm57*.*o $(PLATFORMDIR)/extras/ || true
+@@ -1910,8 +2114,8 @@
  	$(if $(RTCONFIG_PPTP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pptp.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_L2TP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pppol2tp.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/net/ppp_deflate.*o $(PLATFORMDIR)/extras/ || true
@@ -13263,7 +13250,7 @@
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp1251.*o $(PLATFORMDIR)/extras/ || true
-@@ -2259,7 +2461,66 @@
+@@ -2259,7 +2463,66 @@
  menuconfig mconf: rmconf kmconf
  
  oldconfig oldconf: koldconf roldconf bboldconf
@@ -13330,7 +13317,7 @@
  
  #
  # overrides and extra dependencies
-@@ -2295,10 +2556,10 @@
+@@ -2295,10 +2558,10 @@
  	chmod 4755 $(INSTALLDIR)/$(BUSYBOX)/bin/busybox
  
  busybox-clean:
@@ -13343,7 +13330,7 @@
  
  busybox-config:
  	$(MAKE) -C $(BUSYBOX_DIR) menuconfig
-@@ -2419,11 +2680,17 @@
+@@ -2419,11 +2682,17 @@
  	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
@@ -13361,7 +13348,7 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -2468,6 +2735,7 @@
+@@ -2468,6 +2737,7 @@
  	./Configure $(HOSTCONFIG) -DOPENSSL_NO_BUF_FREELISTS --prefix=/usr --openssldir=/etc --cross-compile-prefix=' ' \
  	-ffunction-sections -fdata-sections -Wl,--gc-sections \
  	shared $(OPENSSL_CIPHERS) no-ssl2 no-ssl3
@@ -13369,7 +13356,7 @@
  #	no-sha0 no-smime no-camellia no-krb5 no-rmd160 no-ripemd \
  #	no-seed no-capieng no-cms no-gms no-gmp no-rfc3779 \
  #	no-ec no-ecdh no-ecdsa no-err no-hw no-jpake no-threads \
-@@ -2507,6 +2775,7 @@
+@@ -2507,6 +2777,7 @@
  else
  openssl: openssl/Makefile
  endif
@@ -13377,7 +13364,7 @@
  	$(MAKE) -C openssl && $(MAKE) $@-stage
  
  openssl-clean:
-@@ -2524,9 +2793,9 @@
+@@ -2524,9 +2795,9 @@
  	[ ! -f openssl/Makefile ] || $(STRIP) $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libcrypto.so.1.0.0
  	[ ! -f openssl/Makefile ] || cd $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib && rm -f libcrypto.so && ln -sf libcrypto.so.1.0.0 libcrypto.so
  
@@ -13390,7 +13377,7 @@
  
  ifeq ($(or $(RTCONFIG_WEBDAV),$(RTCONFIG_FTP_SSL),$(RTCONFIG_OPENVPN),$(RTCONFIG_HTTPS)),y)
  	[ ! -f openssl/Makefile ] || install -D openssl/libssl.so.1.0.0 $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libssl.so.1.0.0
-@@ -2554,7 +2823,7 @@
+@@ -2554,7 +2825,7 @@
  
  push_log: wb
  
@@ -13399,7 +13386,7 @@
  	@$(SEP)
  # Dig into our collection of prebuilt objects based on model
  	@-rm -f rc/prebuild/*.o || true
-@@ -2728,11 +2997,11 @@
+@@ -2728,11 +2999,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -13414,7 +13401,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
-@@ -2904,14 +3173,14 @@
+@@ -2906,14 +3177,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -13432,7 +13419,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -3069,7 +3338,8 @@
+@@ -3071,7 +3342,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -13442,7 +13429,7 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -3220,7 +3490,7 @@
+@@ -3222,7 +3494,7 @@
  	( cd lsof ; ./Configure -clean )
  	@rm -f lsof/Makefile
  
@@ -13451,7 +13438,7 @@
  ifeq ($(ALPINE)$(LANTIQ),y)
  	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
  		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
-@@ -3239,45 +3509,6 @@
+@@ -3241,45 +3513,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -13497,7 +13484,7 @@
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -3592,19 +3823,19 @@
+@@ -3594,19 +3827,19 @@
  
  quagga-install:
  	install -d $(INSTALLDIR)/quagga/usr/lib
@@ -13522,7 +13509,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3935,213 +4166,3377 @@
+@@ -3937,213 +4170,3377 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -16625,9 +16612,9 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="curl"; \
 +		elif [ "$$PACKAGE_DIR" = "wget" ]; then \
-+			URL="https://ftp.gnu.org/gnu/wget/wget-1.19.4.tar.lz"; \
++			URL="https://ftp.gnu.org/gnu/wget/wget-1.19.5.tar.lz"; \
 +			URL2="https://gitlab.com/gnuwget/wget.git"; \
-+			VERSION="1.19.4+git"; \
++			VERSION="1.19.5+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="wget"; \
 +		elif [ "$$PACKAGE_DIR" = "jpeg" ] || [ "$$PACKAGE_DIR" = "jpeg-aarch64" ]; then \
@@ -16700,9 +16687,9 @@
 +			[ "$$PACKAGE_DIR" = "cryptsetup-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-nettle" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-kernel" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.2.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.3.tar.xz"; \
 +			URL2="https://gitlab.com/cryptsetup/cryptsetup.git"; \
-+			VERSION="2.0.2+git"; \
++			VERSION="2.0.3+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="cryptsetup"; \
 +		elif [ "$$PACKAGE_DIR" = "pps-tools" ]; then \
@@ -16730,7 +16717,7 @@
 +		elif [ "$$PACKAGE_DIR" = "transmission-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "transmission-mbedtls" ]; then \
 +			URL="git://github.com/transmission/transmission.git"; \
-+			VERSION="2.93+git"; \
++			VERSION="2.94+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="transmission"; \
 +		elif [ "$$PACKAGE_DIR" = "mbedtls" ]; then \
@@ -17064,7 +17051,7 @@
  	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
  		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
  		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
-@@ -4225,25 +7620,6 @@
+@@ -4227,25 +7624,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -17090,7 +17077,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4265,33 +7641,6 @@
+@@ -4267,33 +7645,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -17124,7 +17111,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4366,7 +7715,7 @@
+@@ -4368,7 +7719,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -17133,7 +17120,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4813,26 +8162,6 @@
+@@ -4815,26 +8166,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -17160,7 +17147,7 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4931,27 +8260,6 @@
+@@ -4933,27 +8264,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -17188,7 +17175,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5040,6 +8348,12 @@
+@@ -5042,6 +8352,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -17201,7 +17188,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5240,56 +8554,6 @@
+@@ -5242,56 +8558,6 @@
  	-@$(MAKE) -C usbclient clean
  	rm -rf usbclient/stamp-h1
  
@@ -17258,7 +17245,7 @@
  sw-hw-auth:
  	cd sw-hw-auth && \
  	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -5370,38 +8634,6 @@
+@@ -5372,38 +8638,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -17297,7 +17284,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5815,7 +9047,7 @@
+@@ -5817,7 +9051,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -17306,7 +17293,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6195,53 +9427,6 @@
+@@ -6197,53 +9431,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -17360,7 +17347,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6528,7 +9713,7 @@
+@@ -6530,7 +9717,7 @@
  	$(MAKE) -C $@
  
  i2c-tools-2013-12-15-clean:
@@ -17369,7 +17356,7 @@
  
  i2c-tools-2013-12-15-install: i2c-tools-2013-12-15
  	install -D i2c-tools-2013-12-15/tools/i2cdump $(INSTALLDIR)/i2c-tools-2013-12-15/usr/bin/i2cdump
-@@ -6812,46 +9997,11 @@
+@@ -6814,46 +10001,11 @@
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2.0 &&\
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2
  
@@ -17417,7 +17404,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6870,24 +10020,6 @@
+@@ -6872,24 +10024,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -17442,7 +17429,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -6951,7 +10083,7 @@
+@@ -6953,7 +10087,7 @@
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
  	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
  	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
@@ -17451,7 +17438,7 @@
  	touch ipset_arm/stamp-h1
  
  ipset_arm: ipset_arm/stamp-h1
-@@ -7248,37 +10380,6 @@
+@@ -7250,37 +10384,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  
@@ -18481,20 +18468,25 @@
  # CONFIG_TARGET_CORE is not set
  # CONFIG_FUSION is not set
  
-@@ -1364,7 +1386,11 @@
- # CONFIG_SERIAL_CONEXANT_DIGICOLOR is not set
- # CONFIG_TTY_PRINTK is not set
- # CONFIG_IPMI_HANDLER is not set
--# CONFIG_HW_RANDOM is not set
-+CONFIG_HW_RANDOM=m
-+CONFIG_HW_RANDOM_TIMERIOMEM=m
-+CONFIG_HW_RANDOM_BCM63XX=m
-+CONFIG_HW_RANDOM_BCM2835=m
-+CONFIG_UML_RANDOM=m
- # CONFIG_R3964 is not set
- # CONFIG_APPLICOM is not set
+@@ -1319,7 +1341,7 @@
+ # HID support
+ CONFIG_HID=m
+ # CONFIG_HID_BATTERY_STRENGTH is not set
+-# CONFIG_HIDRAW is not set
++CONFIG_HIDRAW=y
+ # CONFIG_UHID is not set
+ CONFIG_HID_GENERIC=m
  
-@@ -1484,7 +1510,16 @@
+@@ -1328,7 +1350,7 @@
+ #
+ CONFIG_USB_HID=m
+ # CONFIG_HID_PID is not set
+-# CONFIG_USB_HIDDEV is not set
++CONFIG_USB_HIDDEV=y
+ 
+ #
+ # Hardware I/O ports
+@@ -1499,7 +1521,16 @@
  #
  # PPS support
  #
@@ -18512,19 +18504,10 @@
  
  #
  # PPS generators support
-@@ -1681,6 +1716,98 @@
+@@ -1696,6 +1727,82 @@
  # CONFIG_BACKLIGHT_LCD_SUPPORT is not set
  # CONFIG_VGASTATE is not set
  # CONFIG_SOUND is not set
-+
-+#
-+# HID support
-+#
-+CONFIG_HID=m
-+# CONFIG_HID_BATTERY_STRENGTH is not set
-+CONFIG_HIDRAW=y
-+# CONFIG_UHID is not set
-+CONFIG_HID_GENERIC=m
 +
 +#
 +# Special HID drivers
@@ -18591,13 +18574,6 @@
 +# CONFIG_HID_SENSOR_HUB is not set
 +
 +#
-+# USB HID support
-+#
-+CONFIG_USB_HID=m
-+# CONFIG_HID_PID is not set
-+CONFIG_USB_HIDDEV=y
-+
-+#
 +# USB HID Boot Protocol drivers
 +#
 +# CONFIG_USB_KBD is not set
@@ -18611,7 +18587,7 @@
  CONFIG_USB_OHCI_LITTLE_ENDIAN=y
  CONFIG_USB_SUPPORT=y
  CONFIG_USB_COMMON=m
-@@ -1777,13 +1904,13 @@
+@@ -1792,13 +1899,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
  # CONFIG_USB_SERIAL_BELKIN is not set
@@ -18628,7 +18604,7 @@
  # CONFIG_USB_SERIAL_VISOR is not set
  # CONFIG_USB_SERIAL_IPAQ is not set
  # CONFIG_USB_SERIAL_IR is not set
-@@ -1803,7 +1930,7 @@
+@@ -1818,7 +1925,7 @@
  # CONFIG_USB_SERIAL_MOS7840 is not set
  # CONFIG_USB_SERIAL_MXUPORT is not set
  # CONFIG_USB_SERIAL_NAVMAN is not set
@@ -18637,7 +18613,7 @@
  # CONFIG_USB_SERIAL_OTI6858 is not set
  # CONFIG_USB_SERIAL_QCAUX is not set
  # CONFIG_USB_SERIAL_QUALCOMM is not set
-@@ -2051,8 +2178,11 @@
+@@ -2066,8 +2173,11 @@
  #
  # CD-ROM/DVD Filesystems
  #
@@ -18651,7 +18627,7 @@
  
  #
  # DOS/FAT/NT Filesystems
-@@ -2116,7 +2246,7 @@
+@@ -2131,7 +2241,7 @@
  # CONFIG_SQUASHFS_LZ4 is not set
  # CONFIG_SQUASHFS_LZO is not set
  CONFIG_SQUASHFS_XZ=y
@@ -18660,7 +18636,7 @@
  CONFIG_SQUASHFS_EMBEDDED=y
  CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=1
  # CONFIG_VXFS_FS is not set
-@@ -2353,11 +2483,11 @@
+@@ -2368,11 +2478,11 @@
  CONFIG_CRYPTO_PCOMP2=y
  CONFIG_CRYPTO_MANAGER=y
  CONFIG_CRYPTO_MANAGER2=y
@@ -18674,7 +18650,7 @@
  CONFIG_CRYPTO_WORKQUEUE=y
  # CONFIG_CRYPTO_CRYPTD is not set
  # CONFIG_CRYPTO_MCRYPTD is not set
-@@ -2376,11 +2506,11 @@
+@@ -2391,11 +2501,11 @@
  #
  CONFIG_CRYPTO_CBC=y
  CONFIG_CRYPTO_CTR=y
@@ -18688,7 +18664,7 @@
  
  #
  # Hash modes
-@@ -2394,60 +2524,87 @@
+@@ -2409,60 +2519,87 @@
  # Digest
  #
  CONFIG_CRYPTO_CRC32C=y
