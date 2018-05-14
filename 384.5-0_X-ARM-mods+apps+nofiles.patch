@@ -84,23 +84,6 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1278,14 +1303,14 @@
- # CONFIG_SOUND is not set
- CONFIG_HID_SUPPORT=y
- CONFIG_HID=m
--# CONFIG_HIDRAW is not set
-+CONFIG_HIDRAW=y
- 
- #
- # USB Input Devices
- #
- CONFIG_USB_HID=m
- # CONFIG_HID_PID is not set
--# CONFIG_USB_HIDDEV is not set
-+CONFIG_USB_HIDDEV=y
- 
- #
- # USB HID Boot Protocol drivers
 @@ -1432,13 +1457,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
@@ -2124,23 +2107,6 @@
  # CONFIG_W1 is not set
  # CONFIG_POWER_SUPPLY is not set
  # CONFIG_HWMON is not set
-@@ -1308,14 +1334,14 @@
- # CONFIG_SOUND is not set
- CONFIG_HID_SUPPORT=y
- CONFIG_HID=m
--# CONFIG_HIDRAW is not set
-+CONFIG_HIDRAW=y
- 
- #
- # USB Input Devices
- #
- CONFIG_USB_HID=m
- # CONFIG_HID_PID is not set
--# CONFIG_USB_HIDDEV is not set
-+CONFIG_USB_HIDDEV=y
- 
- #
- # USB HID Boot Protocol drivers
 @@ -1462,13 +1488,13 @@
  # CONFIG_USB_SERIAL_AIRCABLE is not set
  # CONFIG_USB_SERIAL_ARK3116 is not set
@@ -4175,23 +4141,6 @@
  # CONFIG_FUSION is not set
  
  #
-@@ -1203,14 +1239,14 @@
- # CONFIG_INPUT_MISC is not set
- CONFIG_HID_SUPPORT=y
- CONFIG_HID=m
--# CONFIG_HIDRAW is not set
-+CONFIG_HIDRAW=y
- 
- #
- # USB Input Devices
- #
- CONFIG_USB_HID=m
- # CONFIG_HID_PID is not set
--# CONFIG_USB_HIDDEV is not set
-+CONFIG_USB_HIDDEV=y
- 
- #
- # USB HID Boot Protocol drivers
 @@ -1314,7 +1350,10 @@
  #
  # PPS support
@@ -12145,24 +12094,6 @@
  # CONFIG_TARGET_CORE is not set
  # CONFIG_FUSION is not set
  
-@@ -1319,7 +1341,7 @@
- # HID support
- CONFIG_HID=m
- # CONFIG_HID_BATTERY_STRENGTH is not set
--# CONFIG_HIDRAW is not set
-+CONFIG_HIDRAW=y
- # CONFIG_UHID is not set
- CONFIG_HID_GENERIC=m
- 
-@@ -1328,7 +1350,7 @@
- #
- CONFIG_USB_HID=m
- # CONFIG_HID_PID is not set
--# CONFIG_USB_HIDDEV is not set
-+CONFIG_USB_HIDDEV=y
- 
- #
- # Hardware I/O ports
 @@ -1499,7 +1521,16 @@
  #
  # PPS support
