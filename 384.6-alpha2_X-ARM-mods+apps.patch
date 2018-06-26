@@ -12428,7 +12428,7 @@
  #define IPX_TYPE	1
 --- a/release/src-rt/Makefile
 +++ b/release/src-rt/Makefile
-@@ -3605,12 +3605,6 @@
+@@ -3601,12 +3601,6 @@
  	else \
  		echo "CONFIG_LINUX_MTD=$(LINUX_MTD)" >>$(1); \
  	fi; \
@@ -12662,7 +12662,7 @@
  	@rm -f bcmdrivers/broadcom/net/wl/bcm9$(BCM_CHIP) && ln -sf impl51 bcmdrivers/broadcom/net/wl/bcm9$(BCM_CHIP)
 --- a/release/src-rt/target.mak
 +++ b/release/src-rt/target.mak
-@@ -1,122 +1,122 @@
+@@ -1,109 +1,109 @@
  #
  # Broadcom SDK 6.37 ARM platform
  #
@@ -12840,22 +12840,6 @@
  
  export RT-AC88U := $(RT-AC88U_BASE)
  export RT-AC88U += BUILD_NAME="RT-AC88U" RGMII_BRCM5301X=y SWITCH2="RTL8365MB" BCM_MMC=n BCM_7114=y \
- 		ETLAN_LED=y ROMCFE=n NVSIZE="128" DHDAP=y DPSTA=y USB_DEBUG=n BCMFA=n GMAC3=y \
--		LACP=y RESET_SWITCH=n WTFAST=y FORCE_SN="380" FORCE_EN="664" DISABLE_REPEATER_UI=n \
-+		LACP=y RESET_SWITCH=n WTFAST=n FORCE_SN="380" FORCE_EN="664" DISABLE_REPEATER_UI=n \
- 		NEWSSID_REV2=y
- 
- export RT-AC3100 := $(RT-AC88U_BASE)
- export RT-AC3100 += BUILD_NAME="RT-AC3100" SWITCH2="" BCM_MMC=n BCM_7114=y NOWLALL=n ETLAN_LED=y ROMCFE=n \
--		NVSIZE="128" NOWL=y DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=y \
-+		NVSIZE="128" NOWL=y DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=n \
- 		FORCE_SN="380" FORCE_EN="664" DISABLE_REPEATER_UI=n NEWSSID_REV2=y
- 
- export RT-AC5300 := $(RT-AC88U_BASE)
- export RT-AC5300 += BUILD_NAME="RT-AC5300" RGMII_BRCM5301X=y SWITCH2="" BCM_MMC=n BCM_7114=y ETLAN_LED=y \
--		NVSIZE="128" DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=y FORCE_SN="380" FORCE_EN="630" \
-+		NVSIZE="128" DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=n FORCE_SN="380" FORCE_EN="630" \
- 		DISABLE_REPEATER_UI=n
 --- a/release/src-rt/platform.mak
 +++ b/release/src-rt/platform.mak
 @@ -11,10 +11,10 @@
@@ -13463,7 +13447,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3937,213 +4175,3406 @@
+@@ -3938,213 +4176,3410 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -16639,7 +16623,7 @@
 +		elif [ "$$PACKAGE_DIR" = "wipe" ]; then \
 +			URL="https://downloads.sourceforge.net/project/wipe/wipe/2.3.1/wipe-2.3.1.tar.bz2"; \
 +		elif [ "$$PACKAGE_DIR" = "gsl" ]; then \
-+			URL="https://ftpmirror.gnu.org/gsl/gsl-2.4.tar.gz"; \
++			URL="https://ftp.igh.cnrs.fr/pub/gnu/gsl/gsl-2.5.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "dieharder" ]; then \
 +			URL="http://www.phy.duke.edu/~rgb/General/dieharder/dieharder-3.31.1.tgz"; \
 +		elif [ "$$PACKAGE_DIR" = "popt" ]; then \
@@ -16659,7 +16643,11 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="libaio"; \
 +		elif [ "$$PACKAGE_DIR" = "lvm2" ]; then \
-+			URL="https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.02.178.tgz"; \
++			URL="https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.178.tgz"; \
++			URL2="git://sourceware.org/git/lvm2.git"; \
++			VERSION="2.02.178+git"; \
++			SOURCE_VERSION=""; \
++			PACKAGE_NAME="lvm2"; \
 +		elif [ "$$PACKAGE_DIR" = "libgcrypt" ]; then \
 +			URL="https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.8.3.tar.bz2"; \
 +			URL2="https://dev.gnupg.org/source/libgcrypt.git"; \
@@ -16704,9 +16692,9 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="transmission"; \
 +		elif [ "$$PACKAGE_DIR" = "mbedtls" ]; then \
-+			URL="https://tls.mbed.org/download/mbedtls-2.9.0-gpl.tgz"; \
++			URL="https://tls.mbed.org/download/mbedtls-2.11.0-gpl.tgz"; \
 +			URL2="https://github.com/ARMmbed/mbedtls.git"; \
-+			VERSION="2.9.0+git"; \
++			VERSION="2.11.0+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="mbedtls"; \
 +		elif [ "$$PACKAGE_DIR" = "apcupsd" ]; then \
@@ -17034,7 +17022,7 @@
  	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
  		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
  		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
-@@ -4227,25 +7658,6 @@
+@@ -4228,25 +7663,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -17060,7 +17048,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4267,33 +7679,6 @@
+@@ -4268,33 +7684,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -17094,7 +17082,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4368,7 +7753,7 @@
+@@ -4369,7 +7758,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -17103,7 +17091,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4815,26 +8200,6 @@
+@@ -4816,26 +8205,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -17130,7 +17118,7 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4933,27 +8298,6 @@
+@@ -4934,27 +8303,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -17158,7 +17146,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5042,6 +8386,12 @@
+@@ -5043,6 +8391,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -17171,7 +17159,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5242,56 +8592,6 @@
+@@ -5243,56 +8597,6 @@
  	-@$(MAKE) -C usbclient clean
  	rm -rf usbclient/stamp-h1
  
@@ -17228,7 +17216,7 @@
  sw-hw-auth:
  	cd sw-hw-auth && \
  	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -5372,38 +8672,6 @@
+@@ -5373,38 +8677,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -17267,7 +17255,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5817,7 +9085,7 @@
+@@ -5818,7 +9090,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -17276,7 +17264,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6197,53 +9465,6 @@
+@@ -6198,53 +9470,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -17330,7 +17318,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6530,7 +9751,7 @@
+@@ -6531,7 +9756,7 @@
  	$(MAKE) -C $@
  
  i2c-tools-2013-12-15-clean:
@@ -17339,7 +17327,7 @@
  
  i2c-tools-2013-12-15-install: i2c-tools-2013-12-15
  	install -D i2c-tools-2013-12-15/tools/i2cdump $(INSTALLDIR)/i2c-tools-2013-12-15/usr/bin/i2cdump
-@@ -6814,46 +10035,11 @@
+@@ -6815,46 +10040,11 @@
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2.0 &&\
  		ln -sf libicalvcal.so.2.0.0 libicalvcal.so.2
  
@@ -17387,7 +17375,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6872,24 +10058,6 @@
+@@ -6873,24 +10063,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -17412,7 +17400,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -6953,7 +10121,7 @@
+@@ -6954,7 +10126,7 @@
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
  	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
  	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
@@ -17421,21 +17409,21 @@
  	touch ipset_arm/stamp-h1
  
  ipset_arm: ipset_arm/stamp-h1
-@@ -7250,37 +10418,6 @@
+@@ -7251,37 +10423,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  
 -json-c/stamp-h1:
 -ifeq ($(RTCONFIG_LANTIQ),y)
 -	cd $(TOP)/json-c && \
--	$(CONFIGURE) --enable-shared --disable-static \
+-	$(CONFIGURE) --prefix=/usr --enable-shared --disable-static \
 -	ac_cv_func_realloc_0_nonnull=yes ac_cv_func_malloc_0_nonnull=yes ac_cv_have_decl__isnan=no \
 -	CFLAGS="-Os -Wno-error $(EXTRACFLAGS)" \
 -	LDFLAGS="$(EXTRALDFLAGS) -Wl,--as-needed -lm"
 -	touch $@
 -else
 -	cd $(TOP)/json-c && \
--	$(CONFIGURE) --enable-shared --disable-static \
+-	$(CONFIGURE) --prefix=/usr --enable-shared --disable-static \
 -	ac_cv_func_realloc_0_nonnull=yes ac_cv_func_malloc_0_nonnull=yes \
 -	CFLAGS="-Os -Wno-error $(EXTRACFLAGS)" \
 -	LDFLAGS="$(EXTRALDFLAGS) -Wl,--as-needed -lm"
@@ -17443,7 +17431,7 @@
 -endif
 -
 -json-c: json-c/stamp-h1
--	$(MAKE) -C $@
+-	$(MAKE) -C $@ && $(MAKE) $@-stage
 -
 -json-c-install:
 -	install -D json-c/.libs/libjson-c.so.2.0.2 $(INSTALLDIR)/json-c/usr/lib/libjson-c.so.2.0.2
@@ -17495,7 +17483,7 @@
  cfe.o:
 --- a/release/src/router/rc/rc.c
 +++ b/release/src/router/rc/rc.c
-@@ -979,6 +979,14 @@
+@@ -982,6 +982,14 @@
  #if !defined(CONFIG_BCMWL5)
      }
  #endif
@@ -17510,7 +17498,7 @@
  	const applets_t *a;
  	for (a = applets; a->name; ++a) {
  		if (strcmp(base, a->name) == 0) {
-@@ -1969,3 +1977,16 @@
+@@ -1971,3 +1979,16 @@
  	printf("Unknown applet: %s\n", base);
  	return 0;
  }
@@ -17529,7 +17517,7 @@
 +
 --- a/release/src/router/rc/init.c
 +++ b/release/src/router/rc/init.c
-@@ -10439,6 +10439,10 @@
+@@ -10422,6 +10422,10 @@
  		case SIGINT:		/* STOP */
  		case SIGQUIT:		/* HALT */
  		case SIGTERM:		/* REBOOT */
@@ -17540,7 +17528,7 @@
  #if defined(RTCONFIG_USB_MODEM) && (defined(RTCONFIG_JFFS2) || defined(RTCONFIG_BRCM_NAND_JFFS2) || defined(RTCONFIG_UBIFS))
  		_dprintf("modem data: save the data during the signal %d.\n", state);
  		eval("/usr/sbin/modem_status.sh", "bytes+");
-@@ -10493,6 +10497,7 @@
+@@ -10476,6 +10480,7 @@
  			// SIGHUP (RESTART) falls through
  
  		case SIGUSR2:		/* START */
@@ -17548,7 +17536,7 @@
  			start_logger();
  #if defined(RTCONFIG_QCA)
  			logmessage("INIT", "firmware version: %s_%s_%s\n", nvram_safe_get("firmver"), nvram_safe_get("buildno"), nvram_safe_get("extendno"));
-@@ -11022,6 +11027,10 @@
+@@ -11005,6 +11010,10 @@
  {
  	int reboot = (strstr(argv[0], "reboot") != NULL);
  	int def_reset_wait = 20;
@@ -17561,7 +17549,7 @@
  	kill(1, reboot ? SIGTERM : SIGQUIT);
 --- a/release/src/router/rc/openvpn.c
 +++ b/release/src/router/rc/openvpn.c
-@@ -1407,29 +1407,17 @@
+@@ -1409,29 +1409,17 @@
  	}
  
  	// watchdog
@@ -17604,7 +17592,7 @@
  }
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -13704,12 +13704,11 @@
+@@ -13721,12 +13721,11 @@
  	remove("/tmp/torlog");
  
  #if (defined(RTCONFIG_JFFS2)||defined(RTCONFIG_BRCM_NAND_JFFS2))
@@ -17622,7 +17610,7 @@
  #endif
  }
  
-@@ -13733,22 +13732,6 @@
+@@ -13750,22 +13749,6 @@
  	if ((fp = fopen("/tmp/torrc", "w")) == NULL)
  		return;
  
@@ -17645,7 +17633,7 @@
  	if ((Socksport = nvram_get("Tor_socksport")) == NULL)	Socksport = "9050";
  	if ((Transport = nvram_get("Tor_transport")) == NULL)   Transport = "9040";
  	if ((Dnsport = nvram_get("Tor_dnsport")) == NULL)   	Dnsport = "9053";
-@@ -13769,6 +13752,18 @@
+@@ -13786,6 +13769,18 @@
  	use_custom_config("torrc", "/tmp/torrc");
  	run_postconf("torrc", "/tmp/torrc");
  
@@ -17666,7 +17654,7 @@
  #endif
 --- a/release/src/router/rc/wan.c
 +++ b/release/src/router/rc/wan.c
-@@ -3405,8 +3405,16 @@
+@@ -3430,8 +3430,16 @@
  
  #ifndef RT4GAC68U
  #if LINUX_KERNEL_VERSION >= KERNEL_VERSION(2,6,36)
@@ -17703,7 +17691,7 @@
  				}
  				if (btn_pressed == 2)
  				{
-@@ -3724,9 +3726,11 @@
+@@ -3735,9 +3737,11 @@
  		{
  			if (timecheck_reboot(reboot_schedule))
  			{
@@ -17715,7 +17703,7 @@
  			}
  		}
  	}
-@@ -4861,6 +4865,7 @@
+@@ -4872,6 +4876,7 @@
  	else if (flag_sw_mode == 1 && nvram_invmatch("asus_mfg", "1")) {
  		if (sw_mode != pre_sw_mode) {
  			if (++count_stable>4) { // stable for more than 5 second
@@ -17723,7 +17711,7 @@
  				dbg("Reboot to switch sw mode ..\n");
  				flag_sw_mode=0;
  				/* sw mode changed: restore defaults */
-@@ -4870,6 +4875,7 @@
+@@ -4881,6 +4886,7 @@
  				if (notify_rc_after_wait("resetdefault")) {	/* Send resetdefault rc_service failed. */
  					alarmtimer(NORMAL_PERIOD, 0);
  				}
@@ -17731,7 +17719,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -4896,6 +4902,7 @@
+@@ -4907,6 +4913,7 @@
  		if (tmp_sw_mode == sw_mode) {
  			if (++count_stable>4) // stable for more than 5 second
  			{
@@ -17739,7 +17727,7 @@
  				dbg("Reboot to switch sw mode ..\n");
  				flag_sw_mode=0;
  				sync();
-@@ -4903,6 +4910,7 @@
+@@ -4914,6 +4921,7 @@
  				nvram_set("nvramver", "0");
  				nvram_commit();
  				reboot(RB_AUTOBOOT);
@@ -17747,7 +17735,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -5750,6 +5758,12 @@
+@@ -5746,6 +5754,12 @@
  				return;
  			}
  
@@ -17762,7 +17750,7 @@
  			eval("/usr/sbin/webs_upgrade.sh");
 --- a/release/src/router/shared/shared.h
 +++ b/release/src/router/shared/shared.h
-@@ -1771,11 +1771,16 @@
+@@ -1776,11 +1776,16 @@
  /* scripts.c */
  #define xstart(args...) _xstart(args, NULL)
  extern int _xstart(const char *cmd, ...);
@@ -18076,7 +18064,7 @@
  extern struct AiMesh_whitelist AiMesh_whitelists[];
  #endif
  
-@@ -378,6 +379,9 @@
+@@ -382,6 +383,9 @@
  extern int alexa_pause_internet(int pause);
  extern int httpd_sw_hw_check(void);
  extern int ej_get_ui_support(int eid, webs_t wp, int argc, char **argv);
@@ -18100,7 +18088,7 @@
  /* Forwards. */
  static int initialize_listen_socket(usockaddr* usa, const char *ifname);
  int check_noauth_referrer(char* referer, int fromapp_flag);
-@@ -2298,3 +2303,70 @@
+@@ -2382,3 +2387,70 @@
  	return _check_ip_is_lan_or_wan(target_ip, nvram_safe_get("lan_ipaddr"), nvram_safe_get("lan_netmask"));
  }
  
@@ -18173,7 +18161,7 @@
 +
 --- a/release/src/router/httpd/web.c
 +++ b/release/src/router/httpd/web.c
-@@ -3794,6 +3794,7 @@
+@@ -3801,6 +3801,7 @@
  		}
  	}
  	else if(!strcmp(apiName, "qos")){
@@ -18181,7 +18169,7 @@
  		char *desc, *addr, *port, *prio, *transferred, *proto;
  
  		if(!strcmp(apiAction, "enable")){
-@@ -3988,6 +3989,7 @@
+@@ -3995,6 +3996,7 @@
  		else{
  				retStatus = 3;
  		}
@@ -18189,7 +18177,7 @@
  	}
  	else{
  		retStatus = 3;
-@@ -10238,10 +10240,12 @@
+@@ -10279,10 +10281,12 @@
  	}
  	else if (!strcmp(action_mode, " Restart ")||!strcmp(action_mode, "reboot"))
  	{
@@ -18202,7 +18190,7 @@
  	}
  	else if (!strcmp(action_mode, "Restore")||!strcmp(action_mode, "restore"))
  	{
-@@ -10638,6 +10642,7 @@
+@@ -10693,6 +10697,7 @@
  	}
  	else if (!strcmp(action_mode, "start_simdetect"))
  	{
@@ -18210,7 +18198,7 @@
  		char *simdetect;
  
  		simdetect = get_cgi_json("simdetect", root);
-@@ -10647,6 +10652,7 @@
+@@ -10702,6 +10707,7 @@
  		nvram_set("freeze_duck", "15");
  		shutdown(fileno(wp), SHUT_RDWR);
  		sys_reboot();
@@ -18218,7 +18206,7 @@
  	}
  	else if(!strcmp(action_mode, "update_lte_fw")){
  		notify_rc("start_gobi_update");
-@@ -11384,6 +11390,7 @@
+@@ -11439,6 +11445,7 @@
  static void
  do_upgrade_post(char *url, FILE *stream, int len, char *boundary)
  {
@@ -18226,7 +18214,7 @@
  	#define MAX_VERSION_LEN 64
  
  	do_html_get(url, len, boundary);
-@@ -11595,12 +11602,14 @@
+@@ -11650,12 +11657,14 @@
  	while (len-- > 0)
  		if((ch = fgetc(stream)) == EOF)
  			break;
@@ -18241,7 +18229,7 @@
  	/* Reboot if successful */
  	char *autoreboot = safe_get_cgi_json("autoreboot",NULL);
  	char *reset = safe_get_cgi_json("reset",NULL);
-@@ -11671,6 +11680,7 @@
+@@ -11726,6 +11735,7 @@
  #endif
  		}
  	}
@@ -18249,7 +18237,7 @@
  }
  
  #if defined(RTCONFIG_SAVEJFFS)
-@@ -11945,6 +11955,7 @@
+@@ -12000,6 +12010,7 @@
  static void
  do_upload_cgi(char *url, FILE *stream)
  {
@@ -18257,7 +18245,7 @@
  	int ret;
  #if defined(RTCONFIG_SAVEJFFS)
  	int r;
-@@ -11995,6 +12006,7 @@
+@@ -12050,6 +12061,7 @@
  		websApply(stream, "UploadError.asp");
  	   	//unlink("/tmp/settings_u.prf");
  	}
@@ -18265,20 +18253,7 @@
  }
  
  #ifdef RTCONFIG_OPENVPN
-@@ -19543,11 +19555,7 @@
- 		mkdir(JFFS_USERICON, 0755);
- 
- 	//Write /jffs/usericon/ file count and list
--	dirp = opendir(JFFS_USERICON);
--	if (!dirp) {
--		return 0;
--	}
--
-+	dirp = opendir(JFFS_USERICON); /* There should be error handling after this */
- 	while ((entry = readdir(dirp)) != NULL) {
- 		if (entry->d_type == DT_REG) { /* If the entry is a regular file */
- 			strcat(allMacList, entry->d_name);
-@@ -22728,7 +22736,11 @@
+@@ -22833,7 +22845,11 @@
  	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
  	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
  	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
