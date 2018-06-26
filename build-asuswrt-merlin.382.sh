@@ -52,7 +52,7 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.6-alpha2-e2600a9.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.6-alpha2-350dc54.tar.gz
 }
 
 make_clean_3() {
