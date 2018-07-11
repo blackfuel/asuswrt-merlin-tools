@@ -52,7 +52,7 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.6-alpha2-350dc54.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.6-alpha2-daa9a80.tar.gz
 }
 
 make_clean_3() {
@@ -97,7 +97,7 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/openvpn.c release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/shared/shared.h release/src/router/shared/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/shared/scripts.c release/src/router/shared/
-	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/web.c release/src/router/httpd/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/web.c release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.c release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.h release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/Makefile release/src-rt/
@@ -643,7 +643,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.3.7, NTP 4.2.8p11, DNSCrypt 1.9.5, Curl 7.60.0, Wget 1.19.5, Cryptsetup 2.0.3, Wipe 2.3.1, Whois 5.3.1, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
+echo "\`Tor 0.3.3.8, NTP 4.2.8p11, DNSCrypt 1.9.5, Curl 7.60.0, Wget 1.19.5, Cryptsetup 2.0.3, Wipe 2.3.1, Whois 5.3.1, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 
