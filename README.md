@@ -169,7 +169,7 @@ git reset --hard 0955e6b95f07d849a182125919a1f2b6790d5b51
 git push -f origin master
 ```
 
-### Copy a github repo to a local file for distribution purposes, similar to how OpenWRT create local archive of remote repo
+### Copy a Github repo to a local file for distribution purposes, similar to how OpenWRT create local archive of remote repo
 ```
 # EXAMPLE: Copy the original dnscrypt-proxy 1.9.5 repo to a local file
 cd $HOME
