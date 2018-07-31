@@ -52,7 +52,7 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.6-beta1-edad638.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.6-0-8f62873.tar.gz
 }
 
 make_clean_3() {
