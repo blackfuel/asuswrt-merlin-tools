@@ -1,6 +1,15 @@
 
+
 ---
 git clone https://github.com/blackfuel/asuswrt-merlin
+
+---
+# format patch for specific commit
+cd transmission
+git format-patch -1 860d9e977d765f6680b5c07b7bb4b17dec435fa5
+
+---
+git format-patch origin
 
 ---
 # Reset to upstream/master and apply the blackfuel mod
@@ -17,6 +26,32 @@ git commit -m "Reset to upstream/master and apply the blackfuel mod"
 git push -f origin master
 
 ---
+# See all commits
+git reflog | more
+
+---
+# Unstage committed changes not yet pushed to remote
+git reset HEAD~1
+git pull
+
+---
+# unstage uncomitted changes
+git reset HEAD <file>
+
+---
+# Revert committed changes already pushed to remote
+git revert HEAD
+
+---
+# create a new repository on the command line
+echo "# XXXXXXXXXXXXXXXXXXX" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/blackfuel/XXXXXXXXXXXXXXXXXXX.git
+git push -u origin master
+
+---
 # git pull with backup
 cd asuswrt-merlin-blackfuel
 git pull
@@ -24,10 +59,37 @@ cd ..
 rsync -a --del asuswrt-merlin-blackfuel/ asuswrt-merlin-backup
 
 ---
+# refresh the git repo when it's out-of-sync
+cd $HOME/blackfuel/asuswrt-merlin-blackfuel
+rm -rf *
+cp -a $HOME/asuswrt-merlin-original/* .
+patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/380.68_4-ARM-mods+apps+xtables-addons.patch
+patch --dry-run -p1 -i ~/blackfuel/asuswrt-merlin-tools/asuswrt-arm-entropy-backport-3.16.43.patch
+git checkout README*
+git checkout README-blackfuel.md
+git checkout README-merlin.md
+git status
+
+---
+rsync -a --del tomatoware/ tomatoware-backup
+rsync -a --del evaluation@192.168.234.128:/home/evaluation/ homedir-backup
+
+cd /opt/home
+rsync --progress -a --del pi@192.168.1.139:/home/pi/tomatoware/ tomatoware
+
+---
 # merge with upstream master
 git checkout master
 git fetch upstream
 git merge upstream/master
+#git commit -m "Sync with upstream master"
+git push -f origin master
+
+---
+# merge up to specific commit in upstream master
+git checkout master
+git fetch upstream
+git merge 9f2d198ad5b532ceca5cede6677bc246a2e72c17
 git push -f origin master
 
 ---
@@ -60,24 +122,46 @@ git push -f origin 7266
 
 ---
 # create pull request for a single commit
-git checkout -b upstream upstream/master
-git cherry-pick 891f13f93c4d2356863833fec9075806fe9daa69
-git push origin upstream
+git checkout -b forgetaboutit upstream/master
+git cherry-pick 5f5807699c3a75c95372bda98eebb33f8351e9ab
+git push origin forgetaboutit
+git checkout master
 #(now create the pull request)
 
 ---
 # create pull request for a single commit
-git checkout -b torfirewall upstream/master
-git cherry-pick 5ea0eb689debdd5267d63f3954294b6b30c72694
-git push origin torfirewall
+git checkout -b shutdown-control-2 upstream/master
+git cherry-pick 7b062dee3c4e51797ad2f9a139568661c6168d3c
+git push origin shutdown-control-2
+git checkout master
 #(now create the pull request)
 
 ---
+# delete branch both locally and remotely
+git checkout master
+git push origin --delete shutdown-control-2
+git branch -D shutdown-control-2
+
+---
+# Update branch for a pull request
+git checkout shutdown-control
+git reset --hard HEAD~
+git cherry-pick 0e2e5e90da5e705f6505c3c6a5696722ffe0f09c
+git push -f origin shutdown-control
+git checkout master
+
+---
+# List all commits AND reset to a specific commit
+git rev-list --all --remotes --pretty | more
+git reset --hard <commit>
+git push -f
+
+---
 # merge pull request with upstream master
-git checkout upstream
+git checkout clearhistory
 git fetch upstream
 git merge upstream/master
-git push origin upstream
+git push origin clearhistory
 
 ---
 # restore original merlin README.md
@@ -98,12 +182,6 @@ git commit -m "Sync with upstream 380.63"
 git push
 
 ---
-# delete branch both locally and remotely
-git checkout master
-git push origin --delete 380.64_1
-git branch -D 380.64_1
-
----
 # merge with upstream and ignore conflict for a specific file
 
 git remote add upstream https://github.com/RMerl/asuswrt-merlin
@@ -119,8 +197,8 @@ git reset --hard
 git config merge.renameLimit 999999
 # OR
 git reset --hard
-echo target.mak merge=ours > release/src-rt/.gitattributes
-echo README.md merge=ours > .gitattributes
+echo release/src-rt/target.mak merge=ours >> .git/info/attributes
+echo README.md merge=ours >> .git/info/attributes
 git config merge.ours.driver true
 git merge upstream/master
 # OR
@@ -236,3 +314,116 @@ git commit -m "Upgraded to TOR v0.2.8.9"
 git status
 git push
 ---
+asuswrt-gt-ac5300
+AsusWRT GT-AC5300 router GPL source code
+https://www.asus.com/Networking/ROG-Rapture-GT-AC5300/HelpDesk_Download/
+---
+asuswrt-rt-ac86u
+AsusWRT RT-AC86U router GPL source code
+https://www.asus.com/Networking/RT-AC86U/HelpDesk_Download/
+---
+# upload Asus GPL source code to Github (first commit, slow)
+cd $HOME/blackfuel
+tar xzf /mnt/hgfs/sandbox/GPL_RT-AC86U_300438211816.tgz
+mv asuswrt asuswrt-rt-ac86u
+cd asuswrt-rt-ac86u
+git init
+git remote add origin https://github.com/blackfuel/asuswrt-rt-ac86u.git
+git add -A
+git commit -m "Asus GPL 3.0.0.4 382.11816 (RT-AC86U) first commit"
+git push -u origin master
+git tag 382.11816
+git push origin --tags
+
+# upload Asus GPL source code to Github (for updates)
+cd $HOME/blackfuel
+tar xzf /mnt/hgfs/sandbox/GPL_RT-AC86U_3.0.0.4.384.21045-gb451ba1.tgz
+rm -rf asuswrt-rt-ac86u/*   # clears out everything except the .git directory
+cd asuswrt-rt-ac86u
+mv ../asuswrt/* .
+rmdir ../asuswrt
+git add -A
+git commit -m "update GPL 384.21045"
+git push -u origin master
+git tag 384.21045
+git push origin --tags
+rm -rf *
+
+---
+cd $HOME/blackfuel
+tar xzf /mnt/hgfs/sandbox/GPL_GT-AC5300_3.0.0.4.384.20648-g21e3702.tgz
+
+---
+# upload Asus GPL source code to Github (for updates)
+cd $HOME/blackfuel
+tar xzf /mnt/hgfs/sandbox/GPL_GT-AC5300_3.0.0.4.384.21045-gb451ba1.tgz
+rm -rf asuswrt-gt-ac5300/*   # clears out everything except the .git directory
+cd asuswrt-gt-ac5300
+mv ../asuswrt/* .
+rmdir ../asuswrt
+git add -A
+git commit -m "update GPL 384.21045"
+git push -u origin master
+git tag 384.21045
+git push origin --tags
+rm -rf *
+
+---
+# upload Asus GPL source code to Github (for updates)
+cd $HOME/blackfuel
+### fixes issue with missing symlinks
+rm -rf asuswrt
+mkdir asuswrt
+find -L asuswrt2/ -xtype l -printf "%P\0" | xargs -0 -I '{}' cp -df --parents asuswrt2/'{}' asuswrt/
+mv asuswrt/asuswrt2/* asuswrt/
+rmdir asuswrt/asuswrt2
+###
+tar xzf /mnt/hgfs/sandbox/GPL_GT-AC5300_3.0.0.4.384.21045-gb451ba1.tgz
+rm -rf asuswrt-gt-ac5300/*   # clears out everything except the .git directory
+cd asuswrt-gt-ac5300
+mv ../asuswrt/* .
+rmdir ../asuswrt
+git add -A
+git commit -m "update GPL 384.21045"
+git push -u origin master
+git tag 384.21045
+git push origin --tags
+rm -rf *
+
+---
+# binwalk
+# clone my fork and update it to a specific upstream commit that is more recent than my fork
+git clone https://github.com/blackfuel/binwalk
+cd binwalk
+git remote add upstream https://github.com/devttys0/binwalk
+git checkout master
+git fetch upstream
+git merge a709e0e3409eee066fe225e906fa413e95ca75e0
+git push -f origin master
+
+# ubi_reader
+# clone my fork and update it to a previous upstream commit that is known to work
+git clone https://github.com/blackfuel/ubi_reader
+cd ubi_reader
+git remote add upstream https://github.com/jrspruitt/ubi_reader
+git checkout master
+git fetch upstream
+git reset --hard 0955e6b95f07d849a182125919a1f2b6790d5b51
+git push -f origin master
+
+---
+# archive a github repo for source package distribution, like the OpenWRT does
+# example for archiving the original dnscrypt-proxy 1.9.5 for source package distribution
+cd $HOME
+git clone https://github.com/dyne/dnscrypt-proxy
+cd dnscrypt-proxy
+git checkout 3762f45e2f0d0781fbe3c73413b048dd9890cfd6 # version 1.9.5
+git submodule update --init --recursive
+TAR_TIMESTAMP="`git log -1 --format='@%ct'`"
+rm -rf .git
+cd ..
+chmod -R g-w,o-w dnscrypt-proxy
+tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy.tar.xz
+
+---
+
