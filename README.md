@@ -19,7 +19,7 @@ cd ~/blackfuel
 find asuswrt-merlin-xtables-addons-1.47.1 -type f -name "*" -printf "$HOME/blackfuel/asuswrt-merlin/%P\0" | xargs -0 -I '{}' rm '{}'
 ```
 
-### Remove packages from Asuswrt-Merlin using scripted search/replace and append new packages
+### Add/remove packages from Asuswrt-Merlin using regular expressions
 The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use a script to make our life easy.
 
 1. Change existing target settings
