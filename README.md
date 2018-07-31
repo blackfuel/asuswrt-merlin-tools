@@ -169,9 +169,9 @@ git reset --hard 0955e6b95f07d849a182125919a1f2b6790d5b51
 git push -f origin master
 ```
 
-### Create local archive of github repo for source package distribution, like the OpenWRT does
+### Copy a github repo to a local file for distribution purposes, similar to how OpenWRT create local archive of remote repo
 ```
-# EXAMPLE: archive the original dnscrypt-proxy 1.9.5 for source package distribution
+# EXAMPLE: Copy the original dnscrypt-proxy 1.9.5 repo to a local file
 cd $HOME
 git clone https://github.com/dyne/dnscrypt-proxy
 cd dnscrypt-proxy
@@ -182,6 +182,24 @@ rm -rf .git
 cd ..
 chmod -R g-w,o-w dnscrypt-proxy
 tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy.tar.xz
+```
+
+```
+# EXAMPLE: Copy the latest official FOSSCAD library repo to a local file
+SOURCE_VERSION=`git ls-remote https://github.com/maduce/fosscad-repo | grep HEAD | cut -f1`
+[ -z "$SOURCE_VERSION" ] && SOURCE_VERSION="missing_git_source_version"
+cd $HOME
+git clone https://github.com/maduce/fosscad-repo
+cd fosscad-repo
+git checkout master
+git submodule update --init --recursive
+TAR_TIMESTAMP="`git log -1 --format='@%ct'`"
+VERSION=$(grep -A 2 "# Version" README.md | grep -P '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
+[ -z "$VERSION" ] && VERSION="x.x"
+rm -rf .git
+cd ..
+chmod -R g-w,o-w fosscad-repo
+tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv fosscad-repo | xz -zc -7e > fosscad-repo-${VERSION}+git-${SOURCE_VERSION}.tar.xz
 ```
 
 
