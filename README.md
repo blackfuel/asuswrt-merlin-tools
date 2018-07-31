@@ -1,4 +1,4 @@
-# Blackfuel's tips and tricks
+# Blackfuel's Github cheat sheet and other tricks
 
 ### Build the Blackfuel version of Asuswrt-Merlin firmware
 ```
@@ -169,7 +169,7 @@ git reset --hard 0955e6b95f07d849a182125919a1f2b6790d5b51
 git push -f origin master
 ```
 
-### Archive a github repo for source package distribution, like the OpenWRT does
+### Create local archive of github repo for source package distribution, like the OpenWRT does
 ```
 # EXAMPLE: archive the original dnscrypt-proxy 1.9.5 for source package distribution
 cd $HOME
