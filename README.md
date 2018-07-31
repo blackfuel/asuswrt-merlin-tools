@@ -19,39 +19,19 @@ cd ~/blackfuel
 find asuswrt-merlin-xtables-addons-1.47.1 -type f -name "*" -printf "$HOME/blackfuel/asuswrt-merlin/%P\0" | xargs -0 -I '{}' rm '{}'
 ```
 
-### Remove packages from Asuswrt-Merlin using scripted search/replace
-The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use an ed script to make our life easy.
+### Remove packages from Asuswrt-Merlin using scripted search/replace and append new packages
+The **target.mak** file in Asuswrt-Merlin does not merge well, therefore we use a script to make our life easy.
 
-1. Create an ed script to automatically edit the file, "release/src-rt/target.mak".
-
-  Script file: **~/blackfuel/asuswrt-merlin-tools/asuswrt-merlin-target.patch**
-  ```
-  e ./release/src-rt/target.mak
-  H
-  g/MEDIASRV=y/s//MEDIASRV=n/g
-  g/PARENTAL2=y/s//PARENTAL2=n/g
-  g/WEBDAV=y/s//WEBDAV=n/g
-  g/CLOUDSYNC=y/s//CLOUDSYNC=n/g
-  g/EMAIL=y/s//EMAIL=n/g
-  g/DROPBOXCLIENT=y/s//DROPBOXCLIENT=n/g
-  g/TIMEMACHINE=y/s//TIMEMACHINE=n/g
-  g/MDNS=y/s//MDNS=n/g
-  g/BWDPI=y/s//BWDPI=n/g
-  g/SWEBDAVCLIENT=y/s//SWEBDAVCLIENT=n/g
-  g/SNMPD=y/s//SNMPD=n/g
-  g/CLOUDCHECK=y/s//CLOUDCHECK=n/g
-  g/DUALWAN=y/s//DUALWAN=n/g
-  g/DNSFILTER=y/s//DNSFILTER=n/g
-  g/HW_DUALWAN=y/s//HW_DUALWAN=n/g
-  g/HSPOT=y/s//HSPOT=n/g
-  g/SMARTSYNCBASE=y/s//SMARTSYNCBASE=n/g
-  ,w
-  ```
-
-2. Run this ed script on the Asuswrt-Merlin source code.
+1. Change existing target settings
   ```
   cd ~/blackfuel/asuswrt-merlin
-  ed -s < ~/blackfuel/asuswrt-merlin-tools/380.65-beta4-target.patch
+  sed -r -i 's/MEDIASRV=y/MEDIASRV=n/g;s/PARENTAL2=y/PARENTAL2=n/g;s/WEBDAV=y/WEBDAV=n/g;s/CLOUDSYNC=y/CLOUDSYNC=n/g;s/DROPBOXCLIENT=y/DROPBOXCLIENT=n/g;s/TIMEMACHINE=y/TIMEMACHINE=n/g;s/MDNS=y/MDNS=n/g;s/BWDPI=y/BWDPI=n/g;s/SWEBDAVCLIENT=y/SWEBDAVCLIENT=n/g;s/SNMPD=y/SNMPD=n/g;s/CLOUDCHECK=y/CLOUDCHECK=n/g;s/DNSFILTER=y/DNSFILTER=n/g;s/HSPOT=y/HSPOT=n/g;s/SMARTSYNCBASE=y/SMARTSYNCBASE=n/g;s/EMAIL=y/EMAIL=n/g;s/NOTIFICATION_CENTER=y/NOTIFICATION_CENTER=n/g;s/NATNL_AICLOUD=y/NATNL_AICLOUD=n/g;s/NATNL_AIHOME=y/NATNL_AIHOME=n/g;s/IFTTT=y/IFTTT=n/g;s/ALEXA=y/ALEXA=n/g;s/LETSENCRYPT=y/LETSENCRYPT=n/g;s/VISUALIZATION=y/VISUALIZATION=n/g;s/WTFAST=y/WTFAST=n/g;s/ROG=y/ROG=n/g;s/MULTICASTIPTV=y/MULTICASTIPTV=n/g;s/QUAGGA=y/QUAGGA=n/g;s/OPTIMIZE_XBOX=y/OPTIMIZE_XBOX=n/g;s/AMAS=y/AMAS=n/g' release/src-rt/target.mak
+  ```
+
+2. Append new target settings, use Perl's regex negative lookahead because it's not supported in Sed
+  ```
+  perl -pi -e 's/ARM=y(?!\s+STRACE=y)/ARM=y STRACE=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n/g' release/src-rt/target.mak
+  # learn more: https://www.regular-expressions.info/lookaround.html
   ```
 
 ### Create pull request for a single commit (ex: torfirewall)
@@ -139,6 +119,72 @@ git push origin --tags
 cd /share/man/man1
 cat wipe.1 | groff -mandoc -Thtml
 ```
+
+### Unstage committed changes not yet pushed to remote
+```
+git reset HEAD~1
+git pull
+```
+
+### Unstage uncomitted changes
+```
+git reset HEAD <file>
+```
+
+### Revert committed changes already pushed to remote
+```
+git revert HEAD
+```
+
+### List all commits AND reset to a specific commit
+```
+git reflog | more
+git reset --hard <commit>
+git push -f
+```
+
+### Clone my fork and update it to a specific upstream commit that is more recent than my fork
+```
+# EXAMPLE: binwalk
+cd $HOME
+git clone https://github.com/blackfuel/binwalk
+cd binwalk
+git remote add upstream https://github.com/devttys0/binwalk
+git checkout master
+git fetch upstream
+git merge a709e0e3409eee066fe225e906fa413e95ca75e0
+git push -f origin master
+```
+
+### Clone my fork and update it to a previous known good upstream commit
+```
+# EXAMPLE: ubi_reader
+cd $HOME
+git clone https://github.com/blackfuel/ubi_reader
+cd ubi_reader
+git remote add upstream https://github.com/jrspruitt/ubi_reader
+git checkout master
+git fetch upstream
+git reset --hard 0955e6b95f07d849a182125919a1f2b6790d5b51
+git push -f origin master
+```
+
+### Archive a github repo for source package distribution, like the OpenWRT does
+```
+# EXAMPLE: archive the original dnscrypt-proxy 1.9.5 for source package distribution
+cd $HOME
+git clone https://github.com/dyne/dnscrypt-proxy
+cd dnscrypt-proxy
+git checkout 3762f45e2f0d0781fbe3c73413b048dd9890cfd6 # version 1.9.5
+git submodule update --init --recursive # not needed for this particular repo because there are no submodules
+TAR_TIMESTAMP="`git log -1 --format='@%ct'`"
+rm -rf .git
+cd ..
+chmod -R g-w,o-w dnscrypt-proxy
+tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy.tar.xz
+```
+
+
 
 
 ### Donations may be sent to my Bitcoin address: 1i5Tpno73gJdr1XdmoxT6CjVFGef5KkZM
