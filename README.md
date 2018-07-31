@@ -146,7 +146,6 @@ git push -f
 ### Clone my fork and update it to a specific upstream commit that is more recent than my fork
 ```
 # EXAMPLE: binwalk
-cd $HOME
 git clone https://github.com/blackfuel/binwalk
 cd binwalk
 git remote add upstream https://github.com/devttys0/binwalk
@@ -159,7 +158,6 @@ git push -f origin master
 ### Clone my fork and update it to a previous known good upstream commit
 ```
 # EXAMPLE: ubi_reader
-cd $HOME
 git clone https://github.com/blackfuel/ubi_reader
 cd ubi_reader
 git remote add upstream https://github.com/jrspruitt/ubi_reader
@@ -172,23 +170,23 @@ git push -f origin master
 ### Copy a Github repo to a local file for distribution purposes, similar to how OpenWRT create local archive of remote repo
 ```
 # EXAMPLE: Copy the original dnscrypt-proxy 1.9.5 repo to a local file
-cd $HOME
+SOURCE_VERSION="3762f45e2f0d0781fbe3c73413b048dd9890cfd6"
+VERSION="1.9.5"
 git clone https://github.com/dyne/dnscrypt-proxy
 cd dnscrypt-proxy
-git checkout 3762f45e2f0d0781fbe3c73413b048dd9890cfd6 # version 1.9.5
+git checkout ${SOURCE_VERSION}
 git submodule update --init --recursive # not needed for this particular repo because there are no submodules
 TAR_TIMESTAMP="`git log -1 --format='@%ct'`"
 rm -rf .git
 cd ..
 chmod -R g-w,o-w dnscrypt-proxy
-tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy.tar.xz
+tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy-${VERSION}+git-${SOURCE_VERSION}.tar.xz
 ```
 
 ```
 # EXAMPLE: Copy the latest official FOSSCAD library repo to a local file
 SOURCE_VERSION=`git ls-remote https://github.com/maduce/fosscad-repo | grep HEAD | cut -f1`
 [ -z "$SOURCE_VERSION" ] && SOURCE_VERSION="missing_git_source_version"
-cd $HOME
 git clone https://github.com/maduce/fosscad-repo
 cd fosscad-repo
 git checkout master
