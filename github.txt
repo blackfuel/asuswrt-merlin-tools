@@ -412,18 +412,35 @@ git reset --hard 0955e6b95f07d849a182125919a1f2b6790d5b51
 git push -f origin master
 
 ---
-# archive a github repo for source package distribution, like the OpenWRT does
-# example for archiving the original dnscrypt-proxy 1.9.5 for source package distribution
-cd $HOME
+### Copy a Github repo to a local file for distribution purposes, similar to how OpenWRT create local archive of remote repo
+# EXAMPLE: Copy the original dnscrypt-proxy 1.9.5 repo to a local file
+SOURCE_VERSION="3762f45e2f0d0781fbe3c73413b048dd9890cfd6"
+VERSION="1.9.5"
 git clone https://github.com/dyne/dnscrypt-proxy
 cd dnscrypt-proxy
-git checkout 3762f45e2f0d0781fbe3c73413b048dd9890cfd6 # version 1.9.5
-git submodule update --init --recursive
+git checkout ${SOURCE_VERSION}
+git submodule update --init --recursive # not needed for this particular repo because there are no submodules
 TAR_TIMESTAMP="`git log -1 --format='@%ct'`"
 rm -rf .git
 cd ..
 chmod -R g-w,o-w dnscrypt-proxy
-tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy.tar.xz
+tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy-${VERSION}+git-${SOURCE_VERSION}.tar.xz
+
+# EXAMPLE: Copy the latest official FOSSCAD library repo to a local file
+SOURCE_VERSION=`git ls-remote https://github.com/maduce/fosscad-repo | grep HEAD | cut -f1`
+[ -z "$SOURCE_VERSION" ] && SOURCE_VERSION="missing_git_source_version"
+git clone https://github.com/maduce/fosscad-repo
+cd fosscad-repo
+git checkout master
+git submodule update --init --recursive
+TAR_TIMESTAMP="`git log -1 --format='@%ct'`"
+VERSION=$(grep -A 2 "# Version" README.md | grep -P '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
+[ -z "$VERSION" ] && VERSION="x.x"
+rm -rf .git
+cd ..
+chmod -R g-w,o-w fosscad-repo
+tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv fosscad-repo | xz -zc -7e > fosscad-repo-${VERSION}+git-${SOURCE_VERSION}.tar.xz
+
 
 ---
 
