@@ -4,7 +4,7 @@
 set -e
 set -x
 
-VERSION=$(wget -q -O - https://raw.githubusercontent.com/maduce/fosscad-repo/master/README.md | grep -A 3 "# Version" | grep -P '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
+VERSION=$(wget -q -O - https://raw.githubusercontent.com/maduce/fosscad-repo/master/README.md | grep -A 3 "# Version" | grep -E '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
 [ -z "$VERSION" ] && echo "cannot retrieve the release version number" && exit 1
 
 SOURCE_VERSION=`git ls-remote https://github.com/maduce/fosscad-repo | grep HEAD | cut -f1`

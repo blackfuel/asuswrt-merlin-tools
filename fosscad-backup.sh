@@ -23,7 +23,7 @@ if [ -n $BACKUP_NEEDED ]; then
   SOURCE_VERSION=`git ls-remote https://github.com/maduce/fosscad-repo | grep HEAD | cut -f1`
   [ -z "$SOURCE_VERSION" ] && SOURCE_VERSION="missing_git_source_version"
   SOURCE_TIMESTAMP="`git log -1 --format='@%ct'`"
-  VERSION=$(grep -A 3 "# Version" README.md | grep -P '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
+  VERSION=$(grep -A 3 "# Version" README.md | grep -E '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
   [ -z "$VERSION" ] && VERSION="N.N"
   FOLDER_NAME="FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}"
   cd ..
