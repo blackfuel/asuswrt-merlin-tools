@@ -193,11 +193,11 @@ git checkout master
 git submodule update --init --recursive
 TAR_TIMESTAMP="`git log -1 --format='@%ct'`"
 VERSION=$(grep -A 2 "# Version" README.md | grep -P '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
-[ -z "$VERSION" ] && VERSION="x.x"
+[ -z "$VERSION" ] && VERSION="N.N"
 rm -rf .git
 cd ..
 chmod -R g-w,o-w fosscad-repo
-tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv fosscad-repo | xz -zc -7e > fosscad-repo-${VERSION}+git-${SOURCE_VERSION}.tar.xz
+tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv fosscad-repo | xz -zc -7e > FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}.tar.xz
 ```
 
 
