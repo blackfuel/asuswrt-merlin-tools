@@ -429,7 +429,7 @@ tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv d
 
 #!/bin/sh
 # fosscad-download.sh
-# Downloads the latest official FOSSCAD repository to a local file, for distribution purposes. Compressed archive is prepared by the Github site and downloaded by this script.
+# Download the latest official FOSSCAD repository to a local file, for distribution purposes. Compressed archive is prepared by the Github site and downloaded by this script.
 set -e
 set -x
 
@@ -449,7 +449,7 @@ FILENAME="FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}"
 
 #!/bin/sh
 # fosscad-backup.sh
-# Downloads the latest official FOSSCAD repository to a local file, for backup and mirror support. Compressed archive is created by this script.
+# Download the latest official FOSSCAD repository to a local file, for backup and mirror support. Compressed archive is created by this script.
 set -e
 set -x
 unset BACKUP_NEEDED

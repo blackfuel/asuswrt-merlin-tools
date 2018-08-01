@@ -185,7 +185,7 @@ chmod -R g-w,o-w dnscrypt-proxy
 tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$SOURCE_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy-${VERSION}+git-${SOURCE_VERSION}.tar.xz
 ```
 
-EXAMPLE: Downloads the latest official FOSSCAD repository to a local file, for distribution purposes. Compressed archive is prepared by the Github site and downloaded by this script.
+EXAMPLE: Download the latest official FOSSCAD repository to a local file, for distribution purposes. Compressed archive is prepared by the Github site and downloaded by this script.
 ```
 #!/bin/sh
 # fosscad-download.sh
@@ -209,7 +209,7 @@ FILENAME="FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}"
 [ ! -f ${FILENAME}.tar.gz ] && wget -O ${FILENAME}.tar.gz https://github.com/maduce/fosscad-repo/archive/master.tar.gz && touch -d $SOURCE_TIMESTAMP ${FILENAME}.tar.gz
 ```
 
-EXAMPLE: Downloads the latest official FOSSCAD repository to a local file, for backup and mirror support. Compressed archive is created by this script.
+EXAMPLE: Download the latest official FOSSCAD repository to a local file, for backup and mirror support. Compressed archive is created by this script.
 ```
 #!/bin/sh
 # fosscad-backup.sh
