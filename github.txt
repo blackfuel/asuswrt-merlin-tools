@@ -1,5 +1,4 @@
 
-
 ---
 git clone https://github.com/blackfuel/asuswrt-merlin
 
@@ -424,7 +423,6 @@ rm -rf .git
 cd ..
 chmod -R g-w,o-w dnscrypt-proxy
 tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy-${VERSION}+git-${SOURCE_VERSION}.tar.xz
-
 ---
 
 #!/bin/sh
@@ -432,21 +430,14 @@ tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv d
 # Download the latest official FOSSCAD repository to a local file, for distribution purposes. Compressed archive is prepared by the Github site and downloaded by this script.
 set -e
 set -x
-
 VERSION=$(wget -q -O - https://raw.githubusercontent.com/maduce/fosscad-repo/master/README.md | grep -A 3 "# Version" | grep -E '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
 [ -z "$VERSION" ] && echo "cannot retrieve the release version number" && exit 1
-
 SOURCE_VERSION=`git ls-remote https://github.com/maduce/fosscad-repo | grep HEAD | cut -f1`
 [ -z "$SOURCE_VERSION" ] && echo "cannot retrieve the git commit hash" && exit 1
-
 FILENAME="FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}"
-
 [ ! -f ${FILENAME}.zip ] && wget -O ${FILENAME}.zip https://github.com/maduce/fosscad-repo/archive/master.zip
-
 [ ! -f ${FILENAME}.tar.gz ] && wget -O ${FILENAME}.tar.gz https://github.com/maduce/fosscad-repo/archive/master.tar.gz
-
 ---
-
 #!/bin/sh
 # fosscad-backup.sh
 # Download the latest official FOSSCAD repository to a local file, for backup and mirror support. Compressed archive is created by this script.
@@ -477,17 +468,14 @@ if [ -n $BACKUP_NEEDED ]; then
   FOLDER_NAME="FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}"
   cd ..
   rsync -av --progress fosscad-repo/ ${FOLDER_NAME} --exclude .git
-
   # make tar+xz archive (Linux)
   chmod -R g-w,o-w ${FOLDER_NAME}
   tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv ${FOLDER_NAME} | xz -zc -7e > ${FOLDER_NAME}.tar.xz
   touch -d $TAR_TIMESTAMP ${FOLDER_NAME}.tar.xz
-
   # make zip archive (Windows)
   find ${FOLDER_NAME}/ -exec touch -d $TAR_TIMESTAMP {} +
   zip -r -c ${SOURCE_VERSION} ${FOLDER_NAME}.zip ${FOLDER_NAME}
   touch -d $TAR_TIMESTAMP ${FOLDER_NAME}.zip
-
   rm -rf ${FOLDER_NAME}
 fi
 
