@@ -189,7 +189,7 @@ EXAMPLE: Downloads the latest official FOSSCAD repository to a local file, for d
 ```
 #!/bin/sh
 # fosscad-download.sh
-# Downloads the latest official FOSSCAD repository to a local file, for distribution purposes. Compressed archive is prepared by the Github site and downloaded by this script.
+# Download the latest official FOSSCAD repository to a local file, for distribution purposes. Compressed archive is prepared by the Github site and downloaded by this script.
 set -e
 set -x
 
@@ -213,7 +213,7 @@ EXAMPLE: Downloads the latest official FOSSCAD repository to a local file, for b
 ```
 #!/bin/sh
 # fosscad-backup.sh
-# Downloads the latest official FOSSCAD repository to a local file, for backup and mirror support. Compressed archive is created by this script.
+# Download the latest official FOSSCAD repository to a local file, for backup and mirror support. Compressed archive is created by this script.
 set -e
 set -x
 unset BACKUP_NEEDED
