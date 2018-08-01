@@ -86,7 +86,7 @@ make_clean_3() {
 	# append new target settings
 	perl -pi -e 's/ARM=y(?!\s+STRACE=y)/ARM=y STRACE=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n/g' release/src-rt/target.mak
 
-#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox-1.24.1/busybox-1.24.1/config_base release/src/router/busybox-1.24.1/busybox-1.24.1/
+	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox/config_base release/src/router/busybox/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox/Makefile release/src/router/busybox/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/config/config.in release/src/router/config/
 	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
