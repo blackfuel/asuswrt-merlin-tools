@@ -426,7 +426,7 @@ cd ..
 chmod -R g-w,o-w dnscrypt-proxy
 tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv dnscrypt-proxy | xz -zc -7e > dnscrypt-proxy-${VERSION}+git-${SOURCE_VERSION}.tar.xz
 
-# EXAMPLE: Copy the latest official FOSSCAD library repo to a local file
+# EXAMPLE: Copy the latest official FOSSCAD library repo to a local file, for distribution purposes
 SOURCE_VERSION=`git ls-remote https://github.com/maduce/fosscad-repo | grep HEAD | cut -f1`
 [ -z "$SOURCE_VERSION" ] && SOURCE_VERSION="missing_git_source_version"
 git clone https://github.com/maduce/fosscad-repo
@@ -434,12 +434,21 @@ cd fosscad-repo
 git checkout master
 git submodule update --init --recursive
 TAR_TIMESTAMP="`git log -1 --format='@%ct'`"
-VERSION=$(grep -A 2 "# Version" README.md | grep -P '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
+VERSION=$(grep -A 3 "# Version" README.md | grep -P '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
 [ -z "$VERSION" ] && VERSION="N.N"
+FOLDER_NAME="FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}"
 rm -rf .git
 cd ..
 chmod -R g-w,o-w fosscad-repo
-tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv fosscad-repo | xz -zc -7e > FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}.tar.xz
+mv fosscad-repo ${FOLDER_NAME}
+# make tar+xz archive (Linux)
+tar --numeric-owner --owner=0 --group=0 --sort=name --mtime=$TAR_TIMESTAMP -cv ${FOLDER_NAME} | xz -zc -7e > ${FOLDER_NAME}.tar.xz
+touch -d $TAR_TIMESTAMP ${FOLDER_NAME}.tar.xz
+# make zip archive (Windows)
+find ${FOLDER_NAME}/ -exec touch -d $TAR_TIMESTAMP {} +
+zip -r ${FOLDER_NAME}.zip ${FOLDER_NAME}
+touch -d $TAR_TIMESTAMP ${FOLDER_NAME}.zip
+
 
 
 ---
