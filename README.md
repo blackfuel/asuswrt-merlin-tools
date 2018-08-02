@@ -196,7 +196,7 @@ set -x
 VERSION=$(wget -q -O - https://raw.githubusercontent.com/maduce/fosscad-repo/master/README.md | grep -A 3 "# Version" | grep -E '\*\s+[0-9]+\.[0-9]+\s+.*' | sed -r 's/\*\s+([0-9]+\.[0-9]+)\s+.*$/\1/')
 [ -z "$VERSION" ] && echo "cannot retrieve the release version number" && exit 1
 
-SOURCE_VERSION=`git ls-remote https://github.com/maduce/fosscad-repo | grep HEAD | cut -f1`
+SOURCE_VERSION=$(wget -q -O - https://api.github.com/repos/maduce/fosscad-repo/git/refs/heads/master | grep -A 4 '"object": {' | grep '"sha":' | cut -d'"' -f4)
 [ -z "$SOURCE_VERSION" ] && echo "cannot retrieve the git commit hash" && exit 1
 
 SOURCE_TIMESTAMP_X=$(wget -q -O - https://api.github.com/repos/maduce/fosscad-repo/git/commits/${SOURCE_VERSION} | grep -A 4 '"author": {' | grep '"date":' | cut -d'"' -f4)
