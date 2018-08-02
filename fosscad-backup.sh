@@ -27,7 +27,7 @@ if [ -n $BACKUP_NEEDED ]; then
   [ -z "$VERSION" ] && VERSION="N.N"
   FOLDER_NAME="FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}"
   cd ..
-  rsync -av --progress fosscad-repo/ ${FOLDER_NAME} --exclude .git
+  rsync -avq fosscad-repo/ ${FOLDER_NAME} --exclude .git
 
   # make tar+xz archive (Linux)
   chmod -R g-w,o-w ${FOLDER_NAME}
@@ -36,7 +36,7 @@ if [ -n $BACKUP_NEEDED ]; then
 
   # make zip archive (Windows)
   find ${FOLDER_NAME}/ -exec touch -d $SOURCE_TIMESTAMP {} +
-  echo ${SOURCE_VERSION}. | zip -r -z ${FOLDER_NAME}.zip ${FOLDER_NAME}
+  echo ${SOURCE_VERSION} | zip -r -z ${FOLDER_NAME}.zip ${FOLDER_NAME}
   touch -d $SOURCE_TIMESTAMP ${FOLDER_NAME}.zip
 
   rm -rf ${FOLDER_NAME}
