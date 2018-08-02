@@ -249,7 +249,7 @@ if [ -n $BACKUP_NEEDED ]; then
 
   # make zip archive (Windows)
   find ${FOLDER_NAME}/ -exec touch -d $SOURCE_TIMESTAMP {} +
-  zip -r -c ${SOURCE_VERSION} ${FOLDER_NAME}.zip ${FOLDER_NAME}
+  echo ${SOURCE_VERSION}. | zip -r -z ${FOLDER_NAME}.zip ${FOLDER_NAME}
   touch -d $SOURCE_TIMESTAMP ${FOLDER_NAME}.zip
 
   rm -rf ${FOLDER_NAME}
