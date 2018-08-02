@@ -11,15 +11,15 @@ if [ ! -d fosscad-repo ]; then
   git submodule update --init --recursive
   BACKUP_NEEDED=1
 else
+  cd fosscad-repo
   PULL_NEEDED=$(git fetch --dry-run 2>&1 | wc -c)
   if [ $PULL_NEEDED -gt 0 ]; then
-    cd fosscad-repo
     git pull
     git submodule update --init --recursive
     BACKUP_NEEDED=1
   fi
 fi
-if [ -n $BACKUP_NEEDED ]; then
+if [ -n "$BACKUP_NEEDED" ]; then
   SOURCE_VERSION=`git ls-remote https://github.com/maduce/fosscad-repo | grep HEAD | cut -f1`
   [ -z "$SOURCE_VERSION" ] && SOURCE_VERSION="missing_git_source_version"
   SOURCE_TIMESTAMP="`git log -1 --format='@%ct'`"
