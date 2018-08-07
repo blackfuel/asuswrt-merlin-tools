@@ -123,7 +123,6 @@ cat wipe.1 | groff -mandoc -Thtml
 ### Unstage committed changes not yet pushed to remote
 ```
 git reset HEAD~1
-git pull
 ```
 
 ### Unstage uncomitted changes
