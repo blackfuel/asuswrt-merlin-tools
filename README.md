@@ -166,6 +166,42 @@ git reset --hard 0955e6b95f07d849a182125919a1f2b6790d5b51
 git push -f origin master
 ```
 
+### Download the latest Asuswrt-Merlin.ng to a local file
+```
+# EXAMPLE: Download the latest Asuswrt-Merlin.ng to a local file
+# merlin-download.sh
+#!/bin/sh
+set -e
+
+BRANCH="$1"
+[ -z "$BRANCH" ] && BRANCH="master"
+
+VERSION_CONF=$(/usr/sbin/curl -L -s https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/${BRANCH}/release/src-rt/version.conf)
+eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
+eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep EXTENDNO)
+[ -z "$SERIALNO$EXTENDNO" ] && echo "cannot retrieve the release version number" && exit 1
+VERSION="$SERIALNO-$EXTENDNO"
+
+SOURCE_VERSION=$(/usr/sbin/curl -L -s https://api.github.com/repos/RMerl/asuswrt-merlin.ng/git/refs/heads/master | grep -A 4 '"object": {' | grep '"sha":' | cut -d'"' -f4)
+[ -z "$SOURCE_VERSION" ] && echo "cannot retrieve the git commit hash" && exit 1
+
+SOURCE_TIMESTAMP_X=$(/usr/sbin/curl -L -s https://api.github.com/repos/RMerl/asuswrt-merlin.ng/git/commits/${SOURCE_VERSION} | grep -A 4 '"author": {' | grep '"date":' | cut -d'"' -f4)
+SOURCE_TIMESTAMP=$(date -u +@%s -d "$SOURCE_TIMESTAMP_X" 2>/dev/null || date -u +@%s -D '%Y-%m-%dT%H:%M:%S%Z' -d "$SOURCE_TIMESTAMP_X")
+
+FILENAME="${VERSION}-${SOURCE_VERSION:0:7}.tar.gz"
+if [ ! -f ${FILENAME} ]; then
+  /bin/echo
+  /bin/echo "Downloading $FILENAME ..."
+  /bin/echo
+  /usr/sbin/curl -L -S --retry 90 --retry-delay 5 -o "$FILENAME" https://github.com/RMerl/asuswrt-merlin.ng/archive/${BRANCH}.tar.gz && touch -d $SOURCE_TIMESTAMP ${FILENAME}
+else
+  /bin/echo
+  /bin/echo Already have the latest commit as of $(date '+%Y-%m-%d %r' -d "$SOURCE_TIMESTAMP_X" 2>/dev/null || date '+%Y-%m-%d %r %Z' -d $(date -u +@%s -D '%Y-%m-%dT%H:%M:%S%Z' -d "$SOURCE_TIMESTAMP_X"))
+  /bin/echo $FILENAME
+  /bin/echo
+fi
+```
+
 ### Copy a Github repo to a local file for backup and mirror support, or for distribution purposes, similar to how OpenWRT create local archive of remote repo
 
 EXAMPLE: Copy the original dnscrypt-proxy 1.9.5 repo to a local file
