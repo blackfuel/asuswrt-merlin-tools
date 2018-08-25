@@ -52,7 +52,7 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.7-alpha1-43c4482.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.7-alpha2-1a3674a.tar.gz
 }
 
 make_clean_3() {
