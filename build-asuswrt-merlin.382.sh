@@ -100,7 +100,7 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/web.c release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.c release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.h release/src/router/httpd/
-#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/Makefile release/src-rt/
+	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/Makefile release/src-rt/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/platform.mak release/src-rt/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a release/src-rt-6.x.4708/linux/linux-2.6.36/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a release/src-rt-7.14.114.x/src/linux/linux-2.6.36/
@@ -150,25 +150,6 @@ sudo rm -f /opt/brcm
 sudo ln -s ~/am-toolchains/brcm-mips-sdk/tools/brcm /opt/brcm
 
 [ ! -h /opt/brcm ] && sudo ln -sf $HOME/asuswrt-merlin/tools/brcm /opt/brcm
-
-if [ -d ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src ]; then
-  rm -rf ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
-  ln -s ~/am-toolchains/brcm-arm-hnd ~/asuswrt-merlin.382/release/src-rt-5.02hnd/bcmdrivers/broadcom/net/wl/impl51/main/src/toolchains
-
-  rm -rf ~/asuswrt-merlin.382/release/src-rt-6.x.4708/toolchains
-  ln -s ~/am-toolchains/brcm-arm-sdk ~/asuswrt-merlin.382/release/src-rt-6.x.4708/toolchains
-
-  rm -rf ~/asuswrt-merlin.382/tools
-  ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin.382/tools
-fi
-
-if [ -d ~/asuswrt-merlin/release/src-rt-6.x.4708 ]; then
-  rm -rf ~/asuswrt-merlin/release/src-rt-6.x.4708/toolchains
-  ln -s ~/am-toolchains/brcm-arm-sdk ~/asuswrt-merlin/release/src-rt-6.x.4708/toolchains
-
-  rm -rf ~/asuswrt-merlin/tools
-  ln -s ~/am-toolchains/brcm-mips-sdk/tools ~/asuswrt-merlin/tools
-fi
 
 # unpack additional toolchains
 #sudo rm -rf /opt/entware
@@ -254,7 +235,7 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
 sha256sum *.trx > sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
@@ -305,7 +286,7 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
 sha256sum *.trx > sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
@@ -356,7 +337,7 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
 sha256sum *.trx > sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
@@ -407,7 +388,7 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
 sha256sum *.trx > sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
@@ -458,7 +439,7 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
 sha256sum *.trx > sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
@@ -509,7 +490,7 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
 sha256sum *.trx > sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
@@ -560,7 +541,7 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
 sha256sum *.trx > sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
@@ -605,13 +586,13 @@ cd targets/94908HND
 mkdir -p ${BUILD_MODEL}
 mv ../../${BUILD_MODEL}_${BUILD_VER}_image.tar.gz ${BUILD_MODEL}
 rm -f sha256sum.txt
-sha256sum ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w >> sha256sum.txt
-#sha256sum ${BUILD_MODEL}_${BUILD_VER}_ubi.w >> sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w
-#zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_ubi.w
+sha256sum ${BUILD_MODEL}_${BUILD_VER}_blackfuel_cferom_ubi.w >> sha256sum.txt
+#sha256sum ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w >> sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel_cferom_ubi.w
+#zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip sha256sum.txt
-mv ${BUILD_MODEL}_${BUILD_VER}_cferom_ubi.w ${BUILD_MODEL}
-#mv ${BUILD_MODEL}_${BUILD_VER}_ubi.w ${BUILD_MODEL}
+mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel_cferom_ubi.w ${BUILD_MODEL}
+#mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}
 mkdir -p ${DST}
