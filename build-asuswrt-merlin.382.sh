@@ -52,7 +52,7 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.7-alpha2-1a3674a.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.7-alpha3-f42ce4f.tar.gz
 }
 
 make_clean_3() {
@@ -587,12 +587,12 @@ mkdir -p ${BUILD_MODEL}
 mv ../../${BUILD_MODEL}_${BUILD_VER}_image.tar.gz ${BUILD_MODEL}
 rm -f sha256sum.txt
 sha256sum ${BUILD_MODEL}_${BUILD_VER}_blackfuel_cferom_ubi.w >> sha256sum.txt
-#sha256sum ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w >> sha256sum.txt
+sha256sum ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w >> sha256sum.txt
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel_cferom_ubi.w
-#zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w
+zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w
 zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip sha256sum.txt
 mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel_cferom_ubi.w ${BUILD_MODEL}
-#mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w ${BUILD_MODEL}
+mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
 mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}
 mkdir -p ${DST}
@@ -624,7 +624,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.3.9, NTP 4.2.8p12, DNSCrypt 1.9.5, Curl 7.61.0, Wget 1.19.5, Cryptsetup 2.0.4, Wipe 2.3.1, Whois 5.3.2, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
+echo "\`Tor 0.3.3.9, NTP 4.2.8p12, DNSCrypt 1.9.5, Curl 7.61.1, Wget 1.19.5, Cryptsetup 2.0.4, Wipe 2.3.1, Whois 5.3.2, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 
