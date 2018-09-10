@@ -235,9 +235,9 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}-blackfuel.trx
 sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 cat sha256sum.txt >>"${DST}/sha256sums.txt"
@@ -286,9 +286,9 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}-blackfuel.trx
 sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 cat sha256sum.txt >>"${DST}/sha256sums.txt"
@@ -337,9 +337,9 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}-blackfuel.trx
 sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 cat sha256sum.txt >>"${DST}/sha256sums.txt"
@@ -388,9 +388,9 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}-blackfuel.trx
 sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 cat sha256sum.txt >>"${DST}/sha256sums.txt"
@@ -439,9 +439,9 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}-blackfuel.trx
 sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 cat sha256sum.txt >>"${DST}/sha256sums.txt"
@@ -490,9 +490,9 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}-blackfuel.trx
 sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 cat sha256sum.txt >>"${DST}/sha256sums.txt"
@@ -541,9 +541,9 @@ cd ${PWD%%/release*}/release/src/router
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-netfilter.tar.gz arm-uclibc/target/lib/modules/2.6.36.4brcmarm/kernel/net/netfilter
 tar czvf ${BUILD_FOLDER}/image/${BUILD_MODEL}/${BUILD_MODEL}_${BUILD_VER}_modules-extras.tar.gz arm-uclibc/extras
 popd
-#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}_blackfuel.trx
+#mv ${BUILD_MODEL}_${BUILD_VER}.trx ${BUILD_MODEL}_${BUILD_VER}-blackfuel.trx
 sha256sum *.trx > sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip *.trx sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip *.trx sha256sum.txt
 mv *.trx ${BUILD_MODEL}
 mv *.zip ${BUILD_MODEL}
 cat sha256sum.txt >>"${DST}/sha256sums.txt"
@@ -586,15 +586,15 @@ cd targets/94908HND
 mkdir -p ${BUILD_MODEL}
 mv ../../${BUILD_MODEL}_${BUILD_VER}_image.tar.gz ${BUILD_MODEL}
 rm -f sha256sum.txt
-sha256sum ${BUILD_MODEL}_${BUILD_VER}_blackfuel_cferom_ubi.w >> sha256sum.txt
-sha256sum ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w >> sha256sum.txt
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel_cferom_ubi.w
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w
-zip ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip sha256sum.txt
-mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel_cferom_ubi.w ${BUILD_MODEL}
-mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel_ubi.w ${BUILD_MODEL}
+sha256sum ${BUILD_MODEL}_${BUILD_VER}-blackfuel_cferom_ubi.w >> sha256sum.txt
+sha256sum ${BUILD_MODEL}_${BUILD_VER}-blackfuel_ubi.w >> sha256sum.txt
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel_cferom_ubi.w
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel_ubi.w
+zip ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip sha256sum.txt
+mv ${BUILD_MODEL}_${BUILD_VER}-blackfuel_cferom_ubi.w ${BUILD_MODEL}
+mv ${BUILD_MODEL}_${BUILD_VER}-blackfuel_ubi.w ${BUILD_MODEL}
 mv sha256sum.txt ${BUILD_MODEL}
-mv ${BUILD_MODEL}_${BUILD_VER}_blackfuel.zip ${BUILD_MODEL}
+mv ${BUILD_MODEL}_${BUILD_VER}-blackfuel.zip ${BUILD_MODEL}
 mkdir -p ${DST}
 cat ${BUILD_MODEL}/sha256sum.txt >>"${DST}/sha256sums.txt"
 mv -vf ${BUILD_MODEL} ${DST}/
