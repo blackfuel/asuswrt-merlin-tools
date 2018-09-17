@@ -12428,15 +12428,20 @@
  #define IPX_TYPE	1
 --- a/release/src-rt/Makefile
 +++ b/release/src-rt/Makefile
-@@ -81,6 +81,7 @@
- else
+@@ -82,6 +82,12 @@
  include $(ASUSWRTVERSIONCONFDIR)/version.conf
  endif
-+EXTENDNO:=$(EXTENDNO)_blackfuel
  
++ifeq ($(EXTENDNO),)
++EXTENDNO:=blackfuel
++else
++EXTENDNO:=$(EXTENDNO)-blackfuel
++endif
++
  export BRANCH := $(shell git branch)
  
-@@ -3611,12 +3612,6 @@
+ ifneq ($(RCNO),)
+@@ -3611,12 +3617,6 @@
  	else \
  		echo "CONFIG_LINUX_MTD=$(LINUX_MTD)" >>$(1); \
  	fi; \
@@ -12449,7 +12454,7 @@
  	if [ "$(BWDPI)" = "y" ]; then \
  		sed -i "/CONFIG_NET_SCH_HTB/d" $(1); \
  		echo "CONFIG_NET_SCH_HTB=y" >>$(1); \
-@@ -3902,11 +3897,218 @@
+@@ -3902,11 +3902,218 @@
  	$(MAKE) -C router bboldconf
  	@echo done
  
@@ -12782,9 +12787,9 @@
 +				TEMPROOTFS=n SSH=y EMAIL=n SYSSTATE=y ROG=n STAINFO=y CLOUDCHECK=n NATNL_AICLOUD=n \
 +				REBOOT_SCHEDULE=y MULTICASTIPTV=n QUAGGA=n WLCLMLOAD=n BCM_MUMIMO=y \
  				LAN50=y ATCOVER=y GETREALIP=y CFEZ=y TFAT=y NTFS="tuxera" HFS="tuxera" \
--				NEWSSID_REV2=y LAN4WAN_LED=y NEW_APP_ARM=y NETOOL=y TRACEROUTE=y FORCE_AUTO_UPGRADE=n \
+-				NEWSSID_REV2=y LAN4WAN_LED=y NEW_APP_ARM=y NETOOL=n TRACEROUTE=y FORCE_AUTO_UPGRADE=n \
 -				HD_SPINDOWN=y SW_HW_AUTH=y NATNL_AIHOME=y ASPMD=n BCM_MEVENT=y \
-+				NEWSSID_REV2=y LAN4WAN_LED=y NEW_APP_ARM=y STRACE=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n NETOOL=y TRACEROUTE=y FORCE_AUTO_UPGRADE=n \
++				NEWSSID_REV2=y LAN4WAN_LED=y NEW_APP_ARM=y STRACE=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n NETOOL=n TRACEROUTE=y FORCE_AUTO_UPGRADE=n \
 +				HD_SPINDOWN=y SW_HW_AUTH=y NATNL_AIHOME=n ASPMD=n BCM_MEVENT=y \
  				IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
 -				BCMEVENTD=y BCM_APPEVENTD=y JFFS_NVRAM=y IFTTT=n ALEXA=n LETSENCRYPT=y \
@@ -12823,10 +12828,10 @@
  #
 -export RT-AC88U_BASE := IPV6SUPP=y HTTPS=y ARM=y BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=3.6.x \
 -		MEDIASRV=y MODEM=y BECEEM=y PARENTAL2=y ACCEL_PPTPD=y PRINTER=y WEBDAV=y UTF8_SSID=y \
--		NETOOL=y SW_HW_AUTH=y IFTTT=y ALEXA=y LETSENCRYPT=y IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
+-		NETOOL=n SW_HW_AUTH=y IFTTT=y ALEXA=y LETSENCRYPT=y IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
 +export RT-AC88U_BASE := IPV6SUPP=y HTTPS=y ARM=y STRACE=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n BCM57=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y EBTABLES=y SAMBA3=3.6.x \
 +		MEDIASRV=n MODEM=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n UTF8_SSID=y \
-+		NETOOL=y SW_HW_AUTH=y IFTTT=n ALEXA=n LETSENCRYPT=n IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
++		NETOOL=n SW_HW_AUTH=y IFTTT=n ALEXA=n LETSENCRYPT=n IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
  		USB="USB" GRO=y APP="network" DNSMQ=y SHP=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y \
 -		DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y LED_BTN=y ODMPID=y BCMSMP=y XHCI=y \
 -		DUALWAN=y REPEATER=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y \
@@ -13093,17 +13098,6 @@
  # Begin merlin add-ons
  obj-$(RTCONFIG_NANO) += ncurses-6.0
  obj-$(RTCONFIG_NANO) += nano
-@@ -1234,8 +1422,8 @@
- obj-$(RTCONFIG_DNSSEC) += nettle
- obj-$(RTCONFIG_SAMBA36X) += libiconv-1.14
- obj-$(RTCONFIG_TELENET) += lanauth
--obj-y += inadyn
--obj-y += libconfuse
-+### obj-y += inadyn
-+### obj-y += libconfuse
- 
- ifneq ($(HND_ROUTER),y)
- obj-y += cstats
 @@ -1253,9 +1441,12 @@
  # End merlin add-ons
  
@@ -16768,7 +16762,7 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="zstd"; \
 +		elif [ "$$PACKAGE_DIR" = "tor" ]; then \
-+			URL="https://www.torproject.org/dist/tor-0.3.3.9.tar.gz"; \
++			URL="https://www.torproject.org/dist/tor-0.3.4.8.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "findutils" ]; then \
 +			URL="https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "whois" ]; then \
@@ -17716,7 +17710,7 @@
  	kill(1, reboot ? SIGTERM : SIGQUIT);
 --- a/release/src/router/rc/openvpn.c
 +++ b/release/src/router/rc/openvpn.c
-@@ -1407,29 +1407,17 @@
+@@ -1436,29 +1436,17 @@
  	}
  
  	// watchdog
@@ -17759,7 +17753,7 @@
  }
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -13828,12 +13828,11 @@
+@@ -13830,12 +13830,11 @@
  	remove("/tmp/torlog");
  
  #if (defined(RTCONFIG_JFFS2)||defined(RTCONFIG_BRCM_NAND_JFFS2))
@@ -17777,7 +17771,7 @@
  #endif
  }
  
-@@ -13857,22 +13856,6 @@
+@@ -13859,22 +13858,6 @@
  	if ((fp = fopen("/tmp/torrc", "w")) == NULL)
  		return;
  
@@ -17800,7 +17794,7 @@
  	if ((Socksport = nvram_get("Tor_socksport")) == NULL)	Socksport = "9050";
  	if ((Transport = nvram_get("Tor_transport")) == NULL)   Transport = "9040";
  	if ((Dnsport = nvram_get("Tor_dnsport")) == NULL)   	Dnsport = "9053";
-@@ -13893,6 +13876,18 @@
+@@ -13895,6 +13878,18 @@
  	use_custom_config("torrc", "/tmp/torrc");
  	run_postconf("torrc", "/tmp/torrc");
  
@@ -17902,7 +17896,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -5759,6 +5767,12 @@
+@@ -5748,6 +5756,12 @@
  				return;
  			}
  
