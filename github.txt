@@ -31,7 +31,6 @@ git reflog | more
 ---
 # Unstage committed changes not yet pushed to remote
 git reset HEAD~1
-git pull
 
 ---
 # unstage uncomitted changes
@@ -80,7 +79,8 @@ rsync --progress -a --del pi@192.168.1.139:/home/pi/tomatoware/ tomatoware
 # merge with upstream master
 git checkout master
 git fetch upstream
-git merge upstream/master
+git merge upstream/master 
+#git merge --abort
 #git commit -m "Sync with upstream master"
 git push -f origin master
 
@@ -353,22 +353,39 @@ cd $HOME/blackfuel
 tar xzf /mnt/hgfs/sandbox/GPL_GT-AC5300_3.0.0.4.384.20648-g21e3702.tgz
 
 ---
-# upload Asus GPL source code to Github (for updates)
+---
+# upload Asus GPL source code to Github (for updates) - RT-AC86U
 cd $HOME/blackfuel
-tar xzf /mnt/hgfs/sandbox/GPL_GT-AC5300_3.0.0.4.384.21045-gb451ba1.tgz
+tar xzf /mnt/hgfs/sandbox/GPL_RT-AC86U_3.0.0.4.384.21140-ge07a2dd.tgz
+rm -rf asuswrt-rt-ac86u/*   # clears out everything except the .git directory
+cd asuswrt-rt-ac86u
+mv ../asuswrt/* .
+rmdir ../asuswrt
+git add -A
+git commit -m "update GPL 384.21140"
+git push -u origin master
+git tag 384.21140
+git push origin --tags
+rm -rf *
+
+---
+# upload Asus GPL source code to Github (for updates) - GT-AC5300
+cd $HOME/blackfuel
+tar xzf /mnt/hgfs/sandbox/GPL_GT-AC5300_3.0.0.4.384.21140-ge07a2dd.tgz
 rm -rf asuswrt-gt-ac5300/*   # clears out everything except the .git directory
 cd asuswrt-gt-ac5300
 mv ../asuswrt/* .
 rmdir ../asuswrt
 git add -A
-git commit -m "update GPL 384.21045"
+git commit -m "update GPL 384.21140"
 git push -u origin master
-git tag 384.21045
+git tag 384.21140
 git push origin --tags
 rm -rf *
 
 ---
-# upload Asus GPL source code to Github (for updates)
+---
+# upload Asus GPL source code to Github (for updates) -- FAILED
 cd $HOME/blackfuel
 ### fixes issue with missing symlinks
 rm -rf asuswrt
@@ -410,8 +427,42 @@ git fetch upstream
 git reset --hard 0955e6b95f07d849a182125919a1f2b6790d5b51
 git push -f origin master
 
----
 
+---
+# Download the latest Asuswrt-Merlin.ng
+# merlin-download.sh
+#!/bin/sh
+set -e
+
+BRANCH="$1"
+[ -z "$BRANCH" ] && BRANCH="master"
+
+VERSION_CONF=$(/usr/sbin/curl -L -s https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/${BRANCH}/release/src-rt/version.conf)
+eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep SERIALNO)
+eval $(/bin/echo $VERSION_CONF | /bin/sed 's# #\n#g' | grep EXTENDNO)
+[ -z "$SERIALNO$EXTENDNO" ] && echo "cannot retrieve the release version number" && exit 1
+VERSION="$SERIALNO-$EXTENDNO"
+
+SOURCE_VERSION=$(/usr/sbin/curl -L -s https://api.github.com/repos/RMerl/asuswrt-merlin.ng/git/refs/heads/master | grep -A 4 '"object": {' | grep '"sha":' | cut -d'"' -f4)
+[ -z "$SOURCE_VERSION" ] && echo "cannot retrieve the git commit hash" && exit 1
+
+SOURCE_TIMESTAMP_X=$(/usr/sbin/curl -L -s https://api.github.com/repos/RMerl/asuswrt-merlin.ng/git/commits/${SOURCE_VERSION} | grep -A 4 '"author": {' | grep '"date":' | cut -d'"' -f4)
+SOURCE_TIMESTAMP=$(date -u +@%s -d "$SOURCE_TIMESTAMP_X" 2>/dev/null || date -u +@%s -D '%Y-%m-%dT%H:%M:%S%Z' -d "$SOURCE_TIMESTAMP_X")
+
+FILENAME="${VERSION}-${SOURCE_VERSION:0:7}.tar.gz"
+if [ ! -f ${FILENAME} ]; then
+  /bin/echo
+  /bin/echo "Downloading $FILENAME ..."
+  /bin/echo
+  /usr/sbin/curl -L -S --retry 90 --retry-delay 5 -o "$FILENAME" https://github.com/RMerl/asuswrt-merlin.ng/archive/${BRANCH}.tar.gz && touch -d $SOURCE_TIMESTAMP ${FILENAME}
+else
+  /bin/echo
+  /bin/echo Already have the latest commit as of $(date '+%Y-%m-%d %r' -d "$SOURCE_TIMESTAMP_X" 2>/dev/null || date '+%Y-%m-%d %r %Z' -d $(date -u +@%s -D '%Y-%m-%dT%H:%M:%S%Z' -d "$SOURCE_TIMESTAMP_X"))
+  /bin/echo $FILENAME
+  /bin/echo
+fi
+
+---
 # Copy the original dnscrypt-proxy 1.9.5 repo to a local file
 SOURCE_VERSION="3762f45e2f0d0781fbe3c73413b048dd9890cfd6"
 VERSION="1.9.5"
@@ -440,7 +491,7 @@ SOURCE_VERSION=$(wget -q -O - https://api.github.com/repos/maduce/fosscad-repo/g
 [ -z "$SOURCE_VERSION" ] && echo "cannot retrieve the git commit hash" && exit 1
 
 SOURCE_TIMESTAMP_X=$(wget -q -O - https://api.github.com/repos/maduce/fosscad-repo/git/commits/${SOURCE_VERSION} | grep -A 4 '"author": {' | grep '"date":' | cut -d'"' -f4)
-SOURCE_TIMESTAMP=$(date -u +@%s -d "$SOURCE_TIMESTAMP_X" 2>/dev/null || date -u +@%s -D %Y-%m-%dT%H:%M:%S%Z -d "$SOURCE_TIMESTAMP_X")
+SOURCE_TIMESTAMP=$(date -u +@%s -d "$SOURCE_TIMESTAMP_X" 2>/dev/null || date -u +@%s -D '%Y-%m-%dT%H:%M:%S%Z' -d "$SOURCE_TIMESTAMP_X")
 
 FILENAME="FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}"
 
@@ -479,7 +530,7 @@ if [ -n "$BACKUP_NEEDED" ]; then
   [ -z "$VERSION" ] && VERSION="N.N"
   FOLDER_NAME="FOSSCAD_MEGA_PACK_v${VERSION}+git-${SOURCE_VERSION}"
   cd ..
-  rsync -avq fosscad-repo/ ${FOLDER_NAME} --exclude .git
+  rsync -aq fosscad-repo/ ${FOLDER_NAME} --exclude .git
 
   # make tar+xz archive (Linux)
   chmod -R g-w,o-w ${FOLDER_NAME}
@@ -495,6 +546,4 @@ if [ -n "$BACKUP_NEEDED" ]; then
 fi
 
 ---
-
-
 
