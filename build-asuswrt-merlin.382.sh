@@ -52,7 +52,7 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.8-alpha1-08124f4.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.8-alpha2-3d76330.tar.gz
 }
 
 make_clean_3() {
@@ -616,7 +616,7 @@ if [ "$BUILD_SDK" == "ARM" ]; then
 NOTES="$DST/blackfuel-release.txt"
 echo "=============================================================================================" >>"$NOTES"
 echo "$BUILD_VER2" >>"$NOTES"
-echo "Asuswrt-Merlin $BUILD_VER2 (Blackfuel)" >>"$NOTES"
+echo "Asuswrt-Merlin $BUILD_VER2-blackfuel" >>"$NOTES"
 echo >>"$NOTES"
 echo "__SHA256 signatures__" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
@@ -624,7 +624,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.4.8, NTP 4.2.8p12, DNSCrypt 1.9.5, Curl 7.61.1, Wget 1.19.5, Cryptsetup 2.0.4, Wipe 2.3.1, Whois 5.4.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
+echo "\`Tor 0.3.4.9, NTP 4.2.8p12, DNSCrypt 1.9.5, Curl 7.62.0, Wget 1.19.5, Cryptsetup 2.0.5, Wipe 2.3.1, Whois 5.4.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 

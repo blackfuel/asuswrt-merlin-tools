@@ -12441,7 +12441,7 @@
  export BRANCH := $(shell git branch)
  
  ifneq ($(RCNO),)
-@@ -3611,12 +3617,6 @@
+@@ -3660,12 +3666,6 @@
  	else \
  		echo "CONFIG_LINUX_MTD=$(LINUX_MTD)" >>$(1); \
  	fi; \
@@ -12454,7 +12454,7 @@
  	if [ "$(BWDPI)" = "y" ]; then \
  		sed -i "/CONFIG_NET_SCH_HTB/d" $(1); \
  		echo "CONFIG_NET_SCH_HTB=y" >>$(1); \
-@@ -3902,11 +3902,218 @@
+@@ -3951,11 +3951,218 @@
  	$(MAKE) -C router bboldconf
  	@echo done
  
@@ -12721,13 +12721,13 @@
 -			DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=y TOR=y \
 -			MULTICASTIPTV=y QUAGGA=y BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
 -			BCM5301X_TRAFFIC_MONITOR=y CLOUDCHECK=y REBOOT_SCHEDULE=y DPSTA=y \
--			AMAS=y DBLOG=y \
+-			AMAS=y DBLOG=y ETHOBD=y \
 -			TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=y UPNPIGD2=n \
 +			TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y JFFS2LOG=y BCMFA=y BWDPI=n HSPOT=n \
 +			DUMP_OOPS_MSG=y LINUX_MTD="64" BCM7=n TEMPROOTFS=y DEBUGFS=y SNMPD=n TOR=y \
 +			MULTICASTIPTV=n QUAGGA=n BCM_RECVFILE=y LAN50=y ATCOVER=y GETREALIP=y \
 +			BCM5301X_TRAFFIC_MONITOR=y CLOUDCHECK=n REBOOT_SCHEDULE=y DPSTA=y \
-+			AMAS=n DBLOG=y \
++			AMAS=n DBLOG=y ETHOBD=y \
 +			TFAT=y HFS="tuxera" NTFS="tuxera" REPEATER=y DUALWAN=y DNSFILTER=n UPNPIGD2=n \
  			DNSSEC=y NANO=y
  
@@ -12765,8 +12765,8 @@
  #
  # Broadcom HND ARM platform
  #
--export HND-94908_BASE := HND_ROUTER=y PROFILE="94908HND" SW_HW_AUTH=y AMAS=y DBLOG=y UTF8_SSID=y
-+export HND-94908_BASE := HND_ROUTER=y PROFILE="94908HND" SW_HW_AUTH=y AMAS=n DBLOG=y UTF8_SSID=y
+-export HND-94908_BASE := HND_ROUTER=y PROFILE="94908HND" SW_HW_AUTH=y AMAS=y DBLOG=y UTF8_SSID=y ETHOBD=y
++export HND-94908_BASE := HND_ROUTER=y PROFILE="94908HND" SW_HW_AUTH=y AMAS=n DBLOG=y UTF8_SSID=y ETHOBD=y
  export RT-AC86U := $(HND-94908_BASE)
 -export RT-AC86U += BUILD_NAME="RT-AC86U" NVSIZE="128" DHDAP=y DPSTA=y LACP=n WTFAST=y REPEATER=y \
 -				IPV6SUPP=y HTTPS=y ARM=y AUTODICT=y BBEXTRAS=y USBEXTRAS=y \
@@ -12791,7 +12791,7 @@
 -				HD_SPINDOWN=y SW_HW_AUTH=y NATNL_AIHOME=y ASPMD=n BCM_MEVENT=y \
 +				NEWSSID_REV2=y LAN4WAN_LED=y NEW_APP_ARM=y STRACE=y USBRESET=y BONJOUR=n PROTECTION_SERVER=n UPNPC=n NETOOL=n TRACEROUTE=y FORCE_AUTO_UPGRADE=n \
 +				HD_SPINDOWN=y SW_HW_AUTH=y NATNL_AIHOME=n ASPMD=n BCM_MEVENT=y \
- 				IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
+ 				IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV DFS_US=y \
 -				BCMEVENTD=y BCM_APPEVENTD=y JFFS_NVRAM=y IFTTT=n ALEXA=n LETSENCRYPT=y \
 -				VISUALIZATION=y NFS=y DNSFILTER=y SNMPD=n TOR=y UPNPIGD2=n DNSSEC=y NANO=y
 +				BCMEVENTD=y BCM_APPEVENTD=y JFFS_NVRAM=y IFTTT=n ALEXA=n LETSENCRYPT=n \
@@ -12833,13 +12833,13 @@
 +		MEDIASRV=n MODEM=y BECEEM=y PARENTAL2=n ACCEL_PPTPD=y PRINTER=y WEBDAV=n UTF8_SSID=y \
 +		NETOOL=n SW_HW_AUTH=y IFTTT=n ALEXA=n LETSENCRYPT=n IPSEC=STRONGSWAN IPSEC_SRVCLI_ONLY=SRV \
  		USB="USB" GRO=y APP="network" DNSMQ=y SHP=y BCMWL6=y BCMWL6A=y TUNEK="n" BCM5301X=y \
--		DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y LED_BTN=y ODMPID=y BCMSMP=y XHCI=y \
+-		DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=y LED_BTN=y ODMPID=y BCMSMP=y XHCI=y ETHOBD=y \
 -		DUALWAN=y REPEATER=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=y MDNS=y VPNC=y BRCM_NAND_JFFS2=y \
 -		REBOOT_SCHEDULE=y FORCE_AUTO_UPGRADE=n FAKEID=n MULTICASTIPTV=y QUAGGA=y HD_SPINDOWN=y \
 -		JFFS2LOG=y BWDPI=y DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
 -		EMAIL=y ROG=y SSD=n STAINFO=y BCM5301X_TRAFFIC_MONITOR=y PROXYSTA=y AMAS=y DBLOG=y \
 -		BCM_RECVFILE=y TFAT=y NTFS="tuxera" HFS="tuxera" CFEZ=y ERPTEST=n CLOUDCHECK=y \
-+		DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=n LED_BTN=y ODMPID=y BCMSMP=y XHCI=y \
++		DISK_MONITOR=y BTN_WIFITOG=y OPTIMIZE_XBOX=n LED_BTN=y ODMPID=y BCMSMP=y XHCI=y ETHOBD=y \
 +		DUALWAN=y REPEATER=y NEW_USER_LOW_RSSI=y OPENVPN=y TIMEMACHINE=n MDNS=n VPNC=y BRCM_NAND_JFFS2=y \
 +		REBOOT_SCHEDULE=y FORCE_AUTO_UPGRADE=n FAKEID=n MULTICASTIPTV=n QUAGGA=n HD_SPINDOWN=y \
 +		JFFS2LOG=y BWDPI=n DUMP_OOPS_MSG=y LINUX_MTD="64" DEBUGFS=y TEMPROOTFS=y SSH=y WIFILOGO=n \
@@ -12892,7 +12892,7 @@
  # RTCONFIG_FBT is not set
 --- a/release/src/router/Makefile
 +++ b/release/src/router/Makefile
-@@ -691,6 +691,196 @@
+@@ -693,6 +693,196 @@
  obj-y += iproute2-3.15.0
  endif
  
@@ -13089,7 +13089,7 @@
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlite
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlCipher
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += PMS_DBapis
-@@ -1225,8 +1415,6 @@
+@@ -1229,8 +1419,6 @@
  
  obj-$(RTCONFIG_GEOIP) += GeoIP-1.6.2
  
@@ -13098,7 +13098,7 @@
  # Begin merlin add-ons
  obj-$(RTCONFIG_NANO) += ncurses-6.0
  obj-$(RTCONFIG_NANO) += nano
-@@ -1253,9 +1441,12 @@
+@@ -1257,9 +1445,12 @@
  # End merlin add-ons
  
  ifeq ($(RTCONFIG_TOR),y)
@@ -13114,7 +13114,7 @@
  obj-y += tor
  endif
  
-@@ -1592,6 +1783,8 @@
+@@ -1596,6 +1787,8 @@
  	done
  
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}${EX7}.sh
@@ -13123,7 +13123,7 @@
  	@echo ---
  
  	# extra install in case build-process skip them
-@@ -1609,10 +1802,28 @@
+@@ -1613,10 +1806,28 @@
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libpthread.so.0 $(INSTALLDIR)/lib/libpthread.so.0
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libdl.so.2 $(INSTALLDIR)/lib/libdl.so.2
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libgcc_s.so.1 $(INSTALLDIR)/lib/libgcc_s.so.1
@@ -13156,7 +13156,7 @@
  
  ifeq ($(RTCONFIG_CFEZ),y)
  	install -D $(TOP)/envram_bin/envram$(BCMEX)$(EX7)/envrams $(INSTALLDIR)/usr/sbin/envrams
-@@ -1641,8 +1852,8 @@
+@@ -1645,8 +1856,8 @@
  	rm -rf $(INSTALLDIR)/rom/rom/etc
  
  	# strip size for tmp
@@ -13167,7 +13167,7 @@
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/css
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/js
  	#rm -rf $(INSTALLDIR)/www/images/New_ui
-@@ -1813,6 +2024,8 @@
+@@ -1817,6 +2028,8 @@
  	@echo ---
  else
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}.sh
@@ -13176,7 +13176,7 @@
  	@echo ---
  endif
  
-@@ -1873,7 +2086,7 @@
+@@ -1879,7 +2092,7 @@
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/scsi/sr_mod.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/scanner.*o $(PLATFORMDIR)/extras/ || true
  
@@ -13185,7 +13185,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1888,7 +2101,7 @@
+@@ -1894,7 +2107,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
@@ -13194,7 +13194,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/usbmouse.*o $(PLATFORMDIR)/extras/ || true
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/hid*.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
-@@ -1911,8 +2124,8 @@
+@@ -1917,8 +2130,8 @@
  	$(if $(RTCONFIG_PPTP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pptp.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_L2TP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pppol2tp.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/net/ppp_deflate.*o $(PLATFORMDIR)/extras/ || true
@@ -13205,7 +13205,7 @@
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp1251.*o $(PLATFORMDIR)/extras/ || true
-@@ -2262,7 +2475,67 @@
+@@ -2279,7 +2492,67 @@
  menuconfig mconf: rmconf kmconf
  
  oldconfig oldconf: koldconf roldconf bboldconf
@@ -13273,7 +13273,7 @@
  
  #
  # overrides and extra dependencies
-@@ -2298,10 +2571,10 @@
+@@ -2315,10 +2588,10 @@
  	chmod 4755 $(INSTALLDIR)/$(BUSYBOX)/bin/busybox
  
  busybox-clean:
@@ -13286,7 +13286,7 @@
  
  busybox-config:
  	$(MAKE) -C $(BUSYBOX_DIR) menuconfig
-@@ -2422,11 +2695,17 @@
+@@ -2439,11 +2712,17 @@
  	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
@@ -13304,7 +13304,7 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -2471,6 +2750,7 @@
+@@ -2488,6 +2767,7 @@
  	./Configure $(HOSTCONFIG) -DOPENSSL_NO_BUF_FREELISTS --prefix=/usr --openssldir=/etc --cross-compile-prefix=' ' \
  	-ffunction-sections -fdata-sections -Wl,--gc-sections \
  	shared $(OPENSSL_CIPHERS) no-ssl2 no-ssl3
@@ -13312,7 +13312,7 @@
  #	no-sha0 no-smime no-camellia no-krb5 no-rmd160 no-ripemd \
  #	no-seed no-capieng no-cms no-gms no-gmp no-rfc3779 \
  #	no-ec no-ecdh no-ecdsa no-err no-hw no-jpake no-threads \
-@@ -2510,6 +2790,7 @@
+@@ -2527,6 +2807,7 @@
  else
  openssl: openssl/Makefile
  endif
@@ -13320,7 +13320,7 @@
  	$(MAKE) -C openssl && $(MAKE) $@-stage
  
  openssl-clean:
-@@ -2527,9 +2808,9 @@
+@@ -2544,9 +2825,9 @@
  	[ ! -f openssl/Makefile ] || $(STRIP) $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libcrypto.so.1.0.0
  	[ ! -f openssl/Makefile ] || cd $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib && rm -f libcrypto.so && ln -sf libcrypto.so.1.0.0 libcrypto.so
  
@@ -13333,16 +13333,7 @@
  
  ifeq ($(or $(RTCONFIG_WEBDAV),$(RTCONFIG_FTP_SSL),$(RTCONFIG_OPENVPN),$(RTCONFIG_HTTPS)),y)
  	[ ! -f openssl/Makefile ] || install -D openssl/libssl.so.1.0.0 $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libssl.so.1.0.0
-@@ -2557,7 +2838,7 @@
- 
- push_log: wb
- 
--rc: shared nvram$(BCMEX)$(EX7) libbcmcrypto libdisk $(if $(RTCONFIG_FBWIFI),fb_wifi) $(if $(RTCONFIG_QTN),libqcsapi_client) $(if $(CONFIG_LIBBCM),libbcm) $(if $(RTCONFIG_BWDPI),bwdpi_source) $(if $(RTCONFIG_USB_SMS_MODEM),smspdu) $(if $(RTCONFIG_HND_ROUTER),bcm_flashutil bcm_util bcm_boardctl) $(if $(RTCONFIG_OPENVPN),libvpn) $(if $(RTCONFIG_LANTIQ),libfapi-0.1) $(if $(RTCONFIG_CFGSYNC), $(CFGSYNC_PKG) $(if $(RTCONFIG_AMAS), amas-utils) $(if $(RTCONFIG_LANTIQ),hostapd-2.6))
-+rc: shared nvram$(BCMEX)$(EX7) libbcmcrypto libdisk $(if $(RTCONFIG_FBWIFI),fb_wifi) $(if $(RTCONFIG_QTN),libqcsapi_client) $(if $(CONFIG_LIBBCM),libbcm) $(if $(RTCONFIG_BWDPI),bwdpi_source) $(if $(RTCONFIG_USB_SMS_MODEM),smspdu) $(if $(RTCONFIG_HND_ROUTER),bcm_flashutil bcm_util bcm_boardctl) $(if $(RTCONFIG_OPENVPN),libvpn) $(if $(RTCONFIG_LANTIQ),libfapi-0.1) $(if $(RTCONFIG_CFGSYNC), $(CFGSYNC_PKG) $(if $(RTCONFIG_AMAS), amas-utils) $(if $(RTCONFIG_LANTIQ),hostapd-2.6)) json-c
- 	@$(SEP)
- # Dig into our collection of prebuilt objects based on model
- 	@-rm -f rc/prebuild/*.o || true
-@@ -2731,11 +3012,11 @@
+@@ -2748,11 +3029,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -13357,7 +13348,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
-@@ -2909,14 +3190,14 @@
+@@ -2926,14 +3207,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -13375,7 +13366,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -3074,7 +3355,8 @@
+@@ -3091,7 +3372,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -13385,16 +13376,16 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -3230,7 +3512,7 @@
- 	@$(SEP)
- endif
+@@ -3242,7 +3524,7 @@
+ 	( cd lsof ; ./Configure -clean )
+ 	@rm -f lsof/Makefile
  
 -mtd-utils: e2fsprogs lzo zlib
 +mtd-utils: util-linux lzo zlib
  ifeq ($(ALPINE)$(LANTIQ),y)
  	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
  		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
-@@ -3249,45 +3531,6 @@
+@@ -3261,45 +3543,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -13440,7 +13431,7 @@
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -3314,20 +3557,22 @@
+@@ -3326,20 +3569,22 @@
  6relayd-clean:
  	-@$(MAKE) -C 6relayd clean
  
@@ -13469,7 +13460,7 @@
  		--disable-backtrace --disable-debugfs \
  		--disable-imager --disable-resizer --disable-defrag \
  		--disable-e2initrd-helper --disable-uuidd \
-@@ -3335,21 +3580,13 @@
+@@ -3347,21 +3592,13 @@
  		ac_cv_lib_dl_dlopen=no \
  		ac_cv_have_decl_fgets_unlocked=yes
  
@@ -13491,7 +13482,7 @@
  		ln -sf libcom_err.so.2.1 libcom_err.so.2 && ln -sf libcom_err.so.2.1 libcom_err.so && \
  		ln -sf libe2p.so.2.3 libe2p.so.2 && ln -sf libe2p.so.2.3 libe2p.so && \
  		ln -sf libext2fs.so.2.4 libext2fs.so.2 && ln -sf libext2fs.so.2.4 libext2fs.so
-@@ -3604,19 +3841,19 @@
+@@ -3616,19 +3853,19 @@
  
  quagga-install:
  	install -d $(INSTALLDIR)/quagga/usr/lib
@@ -13516,7 +13507,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3948,217 +4185,3500 @@
+@@ -3961,216 +4198,3499 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -15490,7 +15481,6 @@
 -	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
 -		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
 -		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
--		--enable-pthreads --enable-small --disable-encoders --disable-filters \
 +libusb-0.1.12-aarch64: libusb-0.1.12-aarch64/stamp-h1
 +	$(MAKE) -C $@
 +
@@ -17180,11 +17170,10 @@
 +	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
 +		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
 +		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
-+		--enable-pthreads --enable-small --disable-encoders --disable-filters \
+ 		--enable-pthreads --enable-small --disable-encoders --disable-filters \
  		--disable-muxers --disable-devices --disable-ffmpeg --disable-ffplay \
  		--disable-ffserver --disable-ffprobe --disable-avdevice --disable-swscale \
- 		--disable-hwaccels --disable-network --disable-bsfs --disable-mpegaudio-hp \
-@@ -4238,25 +7758,6 @@
+@@ -4251,25 +7771,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -17210,7 +17199,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4278,33 +7779,6 @@
+@@ -4291,33 +7792,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -17244,7 +17233,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4379,7 +7853,7 @@
+@@ -4392,7 +7866,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -17253,7 +17242,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4826,26 +8300,6 @@
+@@ -4839,26 +8313,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -17280,7 +17269,7 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4944,27 +8398,6 @@
+@@ -4953,27 +8407,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -17308,7 +17297,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5053,6 +8486,12 @@
+@@ -5062,6 +8495,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -17321,7 +17310,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5253,56 +8692,6 @@
+@@ -5262,56 +8701,6 @@
  	-@$(MAKE) -C usbclient clean
  	rm -rf usbclient/stamp-h1
  
@@ -17378,7 +17367,7 @@
  sw-hw-auth:
  	cd sw-hw-auth && \
  	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -5383,37 +8772,6 @@
+@@ -5392,37 +8781,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -17416,7 +17405,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5827,7 +9185,7 @@
+@@ -5878,7 +9236,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -17425,7 +17414,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6207,53 +9565,6 @@
+@@ -6258,53 +9616,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -17479,7 +17468,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6540,7 +9851,7 @@
+@@ -6592,7 +9903,7 @@
  	$(MAKE) -C $@
  
  i2c-tools-2013-12-15-clean:
@@ -17488,7 +17477,7 @@
  
  i2c-tools-2013-12-15-install: i2c-tools-2013-12-15
  	install -D i2c-tools-2013-12-15/tools/i2cdump $(INSTALLDIR)/i2c-tools-2013-12-15/usr/bin/i2cdump
-@@ -6873,46 +10184,11 @@
+@@ -6929,46 +10240,11 @@
  	$(MAKE) -C inadyn clean
  	rm inadyn/Makefile
  
@@ -17536,7 +17525,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6931,24 +10207,6 @@
+@@ -6987,24 +10263,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -17561,7 +17550,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -7016,7 +10274,7 @@
+@@ -7072,7 +10330,7 @@
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
  	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
  	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
@@ -17570,7 +17559,7 @@
  	touch ipset_arm/stamp-h1
  
  ipset_arm: ipset_arm/stamp-h1
-@@ -7313,37 +10571,6 @@
+@@ -7382,37 +10640,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  
@@ -17610,7 +17599,7 @@
  	cd phddns && $(CONFIGURE) --prefix="" \
 --- a/release/src/router/rc/Makefile
 +++ b/release/src/router/rc/Makefile
-@@ -511,13 +511,14 @@
+@@ -532,13 +532,14 @@
  endif
  
  ifeq ($(RTCONFIG_NEW_USER_LOW_RSSI),y)
@@ -17629,7 +17618,7 @@
  OBJS += roamast.o
  ifeq ($(RTCONFIG_RALINK),y)
  OBJS += roamast-ralink.o
-@@ -1069,10 +1070,12 @@
+@@ -1102,10 +1103,12 @@
  ate-broadcom.o:
  	@-cp -f ./prebuild/ate-broadcom.o .
  endif
@@ -17644,7 +17633,7 @@
  cfe.o:
 --- a/release/src/router/rc/rc.c
 +++ b/release/src/router/rc/rc.c
-@@ -982,6 +982,14 @@
+@@ -991,6 +991,14 @@
  #if !defined(CONFIG_BCMWL5)
      }
  #endif
@@ -17659,7 +17648,7 @@
  	const applets_t *a;
  	for (a = applets; a->name; ++a) {
  		if (strcmp(base, a->name) == 0) {
-@@ -1971,3 +1979,16 @@
+@@ -1980,3 +1988,16 @@
  	printf("Unknown applet: %s\n", base);
  	return 0;
  }
@@ -17678,7 +17667,7 @@
 +
 --- a/release/src/router/rc/init.c
 +++ b/release/src/router/rc/init.c
-@@ -10427,6 +10427,10 @@
+@@ -10501,6 +10501,10 @@
  		case SIGINT:		/* STOP */
  		case SIGQUIT:		/* HALT */
  		case SIGTERM:		/* REBOOT */
@@ -17689,7 +17678,7 @@
  #if defined(RTCONFIG_USB_MODEM) && (defined(RTCONFIG_JFFS2) || defined(RTCONFIG_BRCM_NAND_JFFS2) || defined(RTCONFIG_UBIFS))
  		_dprintf("modem data: save the data during the signal %d.\n", state);
  		eval("/usr/sbin/modem_status.sh", "bytes+");
-@@ -10481,6 +10485,7 @@
+@@ -10555,6 +10559,7 @@
  			// SIGHUP (RESTART) falls through
  
  		case SIGUSR2:		/* START */
@@ -17697,7 +17686,7 @@
  			start_logger();
  #if defined(RTCONFIG_QCA)
  			logmessage("INIT", "firmware version: %s_%s_%s\n", nvram_safe_get("firmver"), nvram_safe_get("buildno"), nvram_safe_get("extendno"));
-@@ -11010,6 +11015,10 @@
+@@ -11086,6 +11091,10 @@
  {
  	int reboot = (strstr(argv[0], "reboot") != NULL);
  	int def_reset_wait = 20;
@@ -17710,7 +17699,7 @@
  	kill(1, reboot ? SIGTERM : SIGQUIT);
 --- a/release/src/router/rc/openvpn.c
 +++ b/release/src/router/rc/openvpn.c
-@@ -1436,29 +1436,17 @@
+@@ -1451,29 +1451,17 @@
  	}
  
  	// watchdog
@@ -17753,7 +17742,7 @@
  }
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -13830,12 +13830,11 @@
+@@ -14220,12 +14220,11 @@
  	remove("/tmp/torlog");
  
  #if (defined(RTCONFIG_JFFS2)||defined(RTCONFIG_BRCM_NAND_JFFS2))
@@ -17771,7 +17760,7 @@
  #endif
  }
  
-@@ -13859,22 +13858,6 @@
+@@ -14249,22 +14248,6 @@
  	if ((fp = fopen("/tmp/torrc", "w")) == NULL)
  		return;
  
@@ -17794,7 +17783,7 @@
  	if ((Socksport = nvram_get("Tor_socksport")) == NULL)	Socksport = "9050";
  	if ((Transport = nvram_get("Tor_transport")) == NULL)   Transport = "9040";
  	if ((Dnsport = nvram_get("Tor_dnsport")) == NULL)   	Dnsport = "9053";
-@@ -13895,6 +13878,18 @@
+@@ -14285,6 +14268,18 @@
  	use_custom_config("torrc", "/tmp/torrc");
  	run_postconf("torrc", "/tmp/torrc");
  
@@ -17815,7 +17804,7 @@
  #endif
 --- a/release/src/router/rc/wan.c
 +++ b/release/src/router/rc/wan.c
-@@ -3430,8 +3430,16 @@
+@@ -3434,8 +3434,16 @@
  
  #ifndef RT4GAC68U
  #if LINUX_KERNEL_VERSION >= KERNEL_VERSION(2,6,36)
@@ -17836,7 +17825,7 @@
  
 --- a/release/src/router/rc/watchdog.c
 +++ b/release/src/router/rc/watchdog.c
-@@ -2438,6 +2438,7 @@
+@@ -2442,6 +2442,7 @@
  				if (++btn_count > RESET_WAIT_COUNT)
  				{
  					dbg("You can release RESET button now!\n");
@@ -17844,7 +17833,7 @@
  #ifdef BLUECAVE
  					if(btn_pressed == 1) {
  						nvram_set("bc_ledbh", "reset");
-@@ -2457,6 +2458,7 @@
+@@ -2461,6 +2462,7 @@
  						set_led(LED_BLINK_SLOW, LED_BLINK_SLOW);
  #endif
  					btn_pressed = 2;
@@ -17852,7 +17841,7 @@
  				}
  				if (btn_pressed == 2)
  				{
-@@ -3735,9 +3737,11 @@
+@@ -3744,9 +3746,11 @@
  		{
  			if (timecheck_reboot(reboot_schedule))
  			{
@@ -17864,7 +17853,7 @@
  			}
  		}
  	}
-@@ -4872,6 +4876,7 @@
+@@ -4881,6 +4885,7 @@
  	else if (flag_sw_mode == 1 && nvram_invmatch("asus_mfg", "1")) {
  		if (sw_mode != pre_sw_mode) {
  			if (++count_stable>4) { // stable for more than 5 second
@@ -17872,7 +17861,7 @@
  				dbg("Reboot to switch sw mode ..\n");
  				flag_sw_mode=0;
  				/* sw mode changed: restore defaults */
-@@ -4881,6 +4886,7 @@
+@@ -4890,6 +4895,7 @@
  				if (notify_rc_after_wait("resetdefault")) {	/* Send resetdefault rc_service failed. */
  					alarmtimer(NORMAL_PERIOD, 0);
  				}
@@ -17880,7 +17869,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -4907,6 +4913,7 @@
+@@ -4916,6 +4922,7 @@
  		if (tmp_sw_mode == sw_mode) {
  			if (++count_stable>4) // stable for more than 5 second
  			{
@@ -17888,7 +17877,7 @@
  				dbg("Reboot to switch sw mode ..\n");
  				flag_sw_mode=0;
  				sync();
-@@ -4914,6 +4921,7 @@
+@@ -4923,6 +4930,7 @@
  				nvram_set("nvramver", "0");
  				nvram_commit();
  				reboot(RB_AUTOBOOT);
@@ -17896,7 +17885,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -5748,6 +5756,12 @@
+@@ -5831,6 +5839,12 @@
  				return;
  			}
  
@@ -17911,7 +17900,7 @@
  			eval("/usr/sbin/webs_upgrade.sh");
 --- a/release/src/router/shared/shared.h
 +++ b/release/src/router/shared/shared.h
-@@ -1785,11 +1785,16 @@
+@@ -1821,11 +1821,16 @@
  /* scripts.c */
  #define xstart(args...) _xstart(args, NULL)
  extern int _xstart(const char *cmd, ...);
@@ -18218,7 +18207,7 @@
  }
 --- a/release/src/router/httpd/httpd.h
 +++ b/release/src/router/httpd/httpd.h
-@@ -62,11 +62,12 @@
+@@ -74,11 +74,12 @@
  
  extern struct useful_redirect_list useful_redirect_lists[];
  
@@ -18232,7 +18221,7 @@
  extern struct AiMesh_whitelist AiMesh_whitelists[];
  #endif
  
-@@ -380,6 +381,9 @@
+@@ -439,6 +440,9 @@
  extern int alexa_pause_internet(int pause);
  extern int httpd_sw_hw_check(void);
  extern int ej_get_ui_support(int eid, webs_t wp, int argc, char **argv);
@@ -18256,7 +18245,7 @@
  /* Forwards. */
  static int initialize_listen_socket(usockaddr* usa, const char *ifname);
  int check_noauth_referrer(char* referer, int fromapp_flag);
-@@ -2255,3 +2260,70 @@
+@@ -2306,3 +2311,70 @@
  	return _check_ip_is_lan_or_wan(target_ip, nvram_safe_get("lan_ipaddr"), nvram_safe_get("lan_netmask"));
  }
  
@@ -18329,7 +18318,7 @@
 +
 --- a/release/src/router/httpd/web.c
 +++ b/release/src/router/httpd/web.c
-@@ -3799,6 +3799,7 @@
+@@ -3824,6 +3824,7 @@
  		}
  	}
  	else if(!strcmp(apiName, "qos")){
@@ -18337,7 +18326,7 @@
  		char *desc, *addr, *port, *prio, *transferred, *proto;
  
  		if(!strcmp(apiAction, "enable")){
-@@ -3993,6 +3994,7 @@
+@@ -4018,6 +4019,7 @@
  		else{
  				retStatus = 3;
  		}
@@ -18345,7 +18334,7 @@
  	}
  	else{
  		retStatus = 3;
-@@ -10277,10 +10279,12 @@
+@@ -10439,10 +10441,12 @@
  	}
  	else if (!strcmp(action_mode, " Restart ")||!strcmp(action_mode, "reboot"))
  	{
@@ -18358,7 +18347,7 @@
  	}
  	else if (!strcmp(action_mode, "Restore")||!strcmp(action_mode, "restore"))
  	{
-@@ -10691,6 +10695,7 @@
+@@ -10853,6 +10857,7 @@
  	}
  	else if (!strcmp(action_mode, "start_simdetect"))
  	{
@@ -18366,7 +18355,7 @@
  		char *simdetect;
  
  		simdetect = get_cgi_json("simdetect", root);
-@@ -10700,6 +10705,7 @@
+@@ -10862,6 +10867,7 @@
  		nvram_set("freeze_duck", "15");
  		shutdown(fileno(wp), SHUT_RDWR);
  		sys_reboot();
@@ -18374,7 +18363,7 @@
  	}
  	else if(!strcmp(action_mode, "update_lte_fw")){
  		notify_rc("start_gobi_update");
-@@ -11437,6 +11443,7 @@
+@@ -11598,6 +11604,7 @@
  static void
  do_upgrade_post(char *url, FILE *stream, int len, char *boundary)
  {
@@ -18382,7 +18371,7 @@
  	#define MAX_VERSION_LEN 64
  
  	do_html_get(url, len, boundary);
-@@ -11648,12 +11655,14 @@
+@@ -11809,12 +11816,14 @@
  	while (len-- > 0)
  		if((ch = fgetc(stream)) == EOF)
  			break;
@@ -18397,7 +18386,7 @@
  	/* Reboot if successful */
  	char *autoreboot = safe_get_cgi_json("autoreboot",NULL);
  	char *reset = safe_get_cgi_json("reset",NULL);
-@@ -11724,6 +11733,7 @@
+@@ -11885,6 +11894,7 @@
  #endif
  		}
  	}
@@ -18405,7 +18394,7 @@
  }
  
  #if defined(RTCONFIG_SAVEJFFS)
-@@ -11998,6 +12008,7 @@
+@@ -12159,6 +12169,7 @@
  static void
  do_upload_cgi(char *url, FILE *stream)
  {
@@ -18413,7 +18402,7 @@
  	int ret;
  #if defined(RTCONFIG_SAVEJFFS)
  	int r;
-@@ -12048,6 +12059,7 @@
+@@ -12202,6 +12213,7 @@
  		websApply(stream, "UploadError.asp");
  	   	//unlink("/tmp/settings_u.prf");
  	}
@@ -18421,7 +18410,7 @@
  }
  
  #ifdef RTCONFIG_OPENVPN
-@@ -22841,7 +22853,11 @@
+@@ -23485,7 +23497,11 @@
  	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
  	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
  	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
@@ -18435,7 +18424,7 @@
  #endif
 --- a/release/src/router/config/config.in
 +++ b/release/src/router/config/config.in
-@@ -1684,9 +1684,6 @@
+@@ -1688,9 +1688,6 @@
  	bool "enable advanced roaming assistant"
  	default n
  
