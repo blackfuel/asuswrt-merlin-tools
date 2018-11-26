@@ -10395,7 +10395,7 @@
  # CONFIG_NF_CT_PROTO_SCTP is not set
 @@ -541,9 +541,17 @@
  # CONFIG_NETFILTER_XT_TARGET_RATEEST is not set
- # CONFIG_NETFILTER_XT_TARGET_TEE is not set
+ CONFIG_NETFILTER_XT_TARGET_TEE=m
  # CONFIG_NETFILTER_XT_TARGET_TRACE is not set
 +# CONFIG_NETFILTER_XT_TARGET_ACCOUNT is not set
 +CONFIG_NETFILTER_XT_TARGET_CHAOS=m
@@ -12675,7 +12675,7 @@
  	@rm -f bcmdrivers/broadcom/net/wl/bcm9$(BCM_CHIP) && ln -sf impl51 bcmdrivers/broadcom/net/wl/bcm9$(BCM_CHIP)
 --- a/release/src-rt/target.mak
 +++ b/release/src-rt/target.mak
-@@ -1,109 +1,109 @@
+@@ -1,122 +1,122 @@
  #
  # Broadcom SDK 6.37 ARM platform
  #
@@ -12853,6 +12853,22 @@
  
  export RT-AC88U := $(RT-AC88U_BASE)
  export RT-AC88U += BUILD_NAME="RT-AC88U" RGMII_BRCM5301X=y SWITCH2="RTL8365MB" BCM_MMC=n BCM_7114=y \
+ 		ETLAN_LED=y ROMCFE=n NVSIZE="128" DHDAP=y DPSTA=y USB_DEBUG=n BCMFA=n GMAC3=y \
+-		LACP=y RESET_SWITCH=n WTFAST=y FORCE_SN="380" FORCE_EN="664" DISABLE_REPEATER_UI=n \
++		LACP=y RESET_SWITCH=n WTFAST=n FORCE_SN="380" FORCE_EN="664" DISABLE_REPEATER_UI=n \
+ 		NEWSSID_REV2=y
+ 
+ export RT-AC3100 := $(RT-AC88U_BASE)
+ export RT-AC3100 += BUILD_NAME="RT-AC3100" SWITCH2="" BCM_MMC=n BCM_7114=y NOWLALL=n ETLAN_LED=y ROMCFE=n \
+-		NVSIZE="128" NOWL=y DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=y \
++		NVSIZE="128" NOWL=y DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=n \
+ 		FORCE_SN="380" FORCE_EN="664" DISABLE_REPEATER_UI=n NEWSSID_REV2=y
+ 
+ export RT-AC5300 := $(RT-AC88U_BASE)
+ export RT-AC5300 += BUILD_NAME="RT-AC5300" RGMII_BRCM5301X=y SWITCH2="" BCM_MMC=n BCM_7114=y ETLAN_LED=y \
+-		NVSIZE="128" DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=y FORCE_SN="380" FORCE_EN="630" \
++		NVSIZE="128" DHDAP=y DPSTA=y BCMFA=n GMAC3=y LACP=y WTFAST=n FORCE_SN="380" FORCE_EN="630" \
+ 		DISABLE_REPEATER_UI=n
 --- a/release/src-rt/platform.mak
 +++ b/release/src-rt/platform.mak
 @@ -11,10 +11,10 @@
@@ -13507,7 +13523,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3961,216 +4198,3499 @@
+@@ -3961,216 +4198,3501 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -15203,6 +15219,7 @@
 +	--disable-telnet \
 +	--disable-manual \
 +	--disable-libcurl-option \
++	--disable-threaded-resolver \
 +	--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
 +	)
 +
@@ -16442,6 +16459,7 @@
 +	--disable-telnet \
 +	--disable-manual \
 +	--disable-libcurl-option \
++	--disable-threaded-resolver \
 +	--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
 +	)
 +
@@ -16710,9 +16728,9 @@
 +			if [ "$$PACKAGE_DIR" = "curl-7.21.7" ]; then \
 +				PACKAGE_DIR="curl"; \
 +			fi; \
-+			URL="https://github.com/curl/curl/releases/download/curl-7_61_1/curl-7.61.1.tar.xz"; \
++			URL="https://github.com/curl/curl/releases/download/curl-7_62_0/curl-7.62.0.tar.xz"; \
 +			URL2="https://github.com/curl/curl.git"; \
-+			VERSION="7.61.1+git"; \
++			VERSION="7.62.0+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="curl"; \
 +		elif [ "$$PACKAGE_DIR" = "wget" ]; then \
@@ -16752,7 +16770,7 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="zstd"; \
 +		elif [ "$$PACKAGE_DIR" = "tor" ]; then \
-+			URL="https://www.torproject.org/dist/tor-0.3.4.8.tar.gz"; \
++			URL="https://www.torproject.org/dist/tor-0.3.4.9.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "findutils" ]; then \
 +			URL="https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "whois" ]; then \
@@ -16791,9 +16809,9 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="libaio"; \
 +		elif [ "$$PACKAGE_DIR" = "lvm2" ]; then \
-+			URL="https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.178.tgz"; \
++			URL="https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.181.tgz"; \
 +			URL2="git://sourceware.org/git/lvm2.git"; \
-+			VERSION="2.02.178+git"; \
++			VERSION="2.02.181+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="lvm2"; \
 +		elif [ "$$PACKAGE_DIR" = "libgcrypt" ]; then \
@@ -16806,9 +16824,9 @@
 +			[ "$$PACKAGE_DIR" = "cryptsetup-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-nettle" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-kernel" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.4.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.5.tar.xz"; \
 +			URL2="https://gitlab.com/cryptsetup/cryptsetup.git"; \
-+			VERSION="2.0.4+git"; \
++			VERSION="2.0.5+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="cryptsetup"; \
 +		elif [ "$$PACKAGE_DIR" = "pps-tools" ]; then \
@@ -17173,7 +17191,7 @@
  		--enable-pthreads --enable-small --disable-encoders --disable-filters \
  		--disable-muxers --disable-devices --disable-ffmpeg --disable-ffplay \
  		--disable-ffserver --disable-ffprobe --disable-avdevice --disable-swscale \
-@@ -4251,25 +7771,6 @@
+@@ -4251,25 +7773,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -17199,7 +17217,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4291,33 +7792,6 @@
+@@ -4291,33 +7794,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -17233,7 +17251,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4392,7 +7866,7 @@
+@@ -4392,7 +7868,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -17242,7 +17260,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4839,26 +8313,6 @@
+@@ -4839,26 +8315,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -17269,7 +17287,7 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4953,27 +8407,6 @@
+@@ -4953,27 +8409,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -17297,7 +17315,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5062,6 +8495,12 @@
+@@ -5062,6 +8497,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -17310,7 +17328,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5262,56 +8701,6 @@
+@@ -5262,56 +8703,6 @@
  	-@$(MAKE) -C usbclient clean
  	rm -rf usbclient/stamp-h1
  
@@ -17367,7 +17385,7 @@
  sw-hw-auth:
  	cd sw-hw-auth && \
  	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -5392,37 +8781,6 @@
+@@ -5392,38 +8783,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -17384,6 +17402,7 @@
 -		$(if $(RTCONFIG_IPV6),--enable-ipv6) \
 -		--disable-gopher --disable-dict --disable-telnet \
 -		--disable-proxy --disable-manual --disable-libcurl-option \
+-		--disable-threaded-resolver \
 -		LDFLAGS='$(LDFLAGS) -L$(TOP)/openssl' LIBS='-lcrypto -lssl -ldl' \
 -		--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
 -
@@ -17405,7 +17424,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5878,7 +9236,7 @@
+@@ -5879,7 +9238,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -17414,7 +17433,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6258,53 +9616,6 @@
+@@ -6259,53 +9618,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -17468,7 +17487,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6592,7 +9903,7 @@
+@@ -6593,7 +9905,7 @@
  	$(MAKE) -C $@
  
  i2c-tools-2013-12-15-clean:
@@ -17477,7 +17496,7 @@
  
  i2c-tools-2013-12-15-install: i2c-tools-2013-12-15
  	install -D i2c-tools-2013-12-15/tools/i2cdump $(INSTALLDIR)/i2c-tools-2013-12-15/usr/bin/i2cdump
-@@ -6929,46 +10240,11 @@
+@@ -6930,46 +10242,11 @@
  	$(MAKE) -C inadyn clean
  	rm inadyn/Makefile
  
@@ -17525,7 +17544,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6987,24 +10263,6 @@
+@@ -6988,24 +10265,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -17550,7 +17569,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -7072,7 +10330,7 @@
+@@ -7073,7 +10332,7 @@
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
  	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
  	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
@@ -17559,7 +17578,7 @@
  	touch ipset_arm/stamp-h1
  
  ipset_arm: ipset_arm/stamp-h1
-@@ -7382,37 +10640,6 @@
+@@ -7383,37 +10642,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  
@@ -17742,7 +17761,7 @@
  }
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
-@@ -14220,12 +14220,11 @@
+@@ -14224,12 +14224,11 @@
  	remove("/tmp/torlog");
  
  #if (defined(RTCONFIG_JFFS2)||defined(RTCONFIG_BRCM_NAND_JFFS2))
@@ -17760,7 +17779,7 @@
  #endif
  }
  
-@@ -14249,22 +14248,6 @@
+@@ -14253,22 +14252,6 @@
  	if ((fp = fopen("/tmp/torrc", "w")) == NULL)
  		return;
  
@@ -17783,7 +17802,7 @@
  	if ((Socksport = nvram_get("Tor_socksport")) == NULL)	Socksport = "9050";
  	if ((Transport = nvram_get("Tor_transport")) == NULL)   Transport = "9040";
  	if ((Dnsport = nvram_get("Tor_dnsport")) == NULL)   	Dnsport = "9053";
-@@ -14285,6 +14268,18 @@
+@@ -14289,6 +14272,18 @@
  	use_custom_config("torrc", "/tmp/torrc");
  	run_postconf("torrc", "/tmp/torrc");
  
@@ -17885,7 +17904,7 @@
  			}
  		}
  		else flag_sw_mode = 0;
-@@ -5831,6 +5839,12 @@
+@@ -5846,6 +5854,12 @@
  				return;
  			}
  
@@ -18318,7 +18337,7 @@
 +
 --- a/release/src/router/httpd/web.c
 +++ b/release/src/router/httpd/web.c
-@@ -3824,6 +3824,7 @@
+@@ -3818,6 +3818,7 @@
  		}
  	}
  	else if(!strcmp(apiName, "qos")){
@@ -18326,7 +18345,7 @@
  		char *desc, *addr, *port, *prio, *transferred, *proto;
  
  		if(!strcmp(apiAction, "enable")){
-@@ -4018,6 +4019,7 @@
+@@ -4012,6 +4013,7 @@
  		else{
  				retStatus = 3;
  		}
@@ -18334,7 +18353,7 @@
  	}
  	else{
  		retStatus = 3;
-@@ -10439,10 +10441,12 @@
+@@ -10433,10 +10435,12 @@
  	}
  	else if (!strcmp(action_mode, " Restart ")||!strcmp(action_mode, "reboot"))
  	{
@@ -18347,7 +18366,7 @@
  	}
  	else if (!strcmp(action_mode, "Restore")||!strcmp(action_mode, "restore"))
  	{
-@@ -10853,6 +10857,7 @@
+@@ -10847,6 +10851,7 @@
  	}
  	else if (!strcmp(action_mode, "start_simdetect"))
  	{
@@ -18355,7 +18374,7 @@
  		char *simdetect;
  
  		simdetect = get_cgi_json("simdetect", root);
-@@ -10862,6 +10867,7 @@
+@@ -10856,6 +10861,7 @@
  		nvram_set("freeze_duck", "15");
  		shutdown(fileno(wp), SHUT_RDWR);
  		sys_reboot();
@@ -18363,7 +18382,7 @@
  	}
  	else if(!strcmp(action_mode, "update_lte_fw")){
  		notify_rc("start_gobi_update");
-@@ -11598,6 +11604,7 @@
+@@ -11592,6 +11598,7 @@
  static void
  do_upgrade_post(char *url, FILE *stream, int len, char *boundary)
  {
@@ -18371,7 +18390,7 @@
  	#define MAX_VERSION_LEN 64
  
  	do_html_get(url, len, boundary);
-@@ -11809,12 +11816,14 @@
+@@ -11803,12 +11810,14 @@
  	while (len-- > 0)
  		if((ch = fgetc(stream)) == EOF)
  			break;
@@ -18386,7 +18405,7 @@
  	/* Reboot if successful */
  	char *autoreboot = safe_get_cgi_json("autoreboot",NULL);
  	char *reset = safe_get_cgi_json("reset",NULL);
-@@ -11885,6 +11894,7 @@
+@@ -11879,6 +11888,7 @@
  #endif
  		}
  	}
@@ -18394,7 +18413,7 @@
  }
  
  #if defined(RTCONFIG_SAVEJFFS)
-@@ -12159,6 +12169,7 @@
+@@ -12153,6 +12163,7 @@
  static void
  do_upload_cgi(char *url, FILE *stream)
  {
@@ -18402,7 +18421,7 @@
  	int ret;
  #if defined(RTCONFIG_SAVEJFFS)
  	int r;
-@@ -12202,6 +12213,7 @@
+@@ -12196,6 +12207,7 @@
  		websApply(stream, "UploadError.asp");
  	   	//unlink("/tmp/settings_u.prf");
  	}
@@ -18410,7 +18429,7 @@
  }
  
  #ifdef RTCONFIG_OPENVPN
-@@ -23485,7 +23497,11 @@
+@@ -23479,7 +23491,11 @@
  	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
  	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
  	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
