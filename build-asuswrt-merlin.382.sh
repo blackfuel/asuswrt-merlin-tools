@@ -40,7 +40,7 @@ make_clean_2() {
 	rm -rf asuswrt-merlin.382
 	extract_source_code
 
-	mv asuswrt-merlin.ng-master asuswrt-merlin.382
+	mv asuswrt-merlin.ng-???????????????????????????????????????? asuswrt-merlin.382
 #	mv asuswrt-merlin.382-master asuswrt-merlin.382
 	get_version_info
 	rm -rf ~/asuswrt-merlin.382/release/src-rt-6.x.4708/toolchains
@@ -52,23 +52,23 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.8-beta2-39d319c.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.8-0-dff1559.tar.gz
 }
 
 make_clean_3() {
 	cd $HOME/blackfuel
-	rm -rf asuswrt-merlin.382 asuswrt-merlin.ng-master
+	rm -rf asuswrt-merlin.382 asuswrt-merlin.ng-????????????????????????????????????????
 	extract_source_code
-	mv asuswrt-merlin.ng-master asuswrt-merlin.382
+	mv asuswrt-merlin.ng-???????????????????????????????????????? asuswrt-merlin.382
 	get_version_info
 
 	get_version_info_orig
 	if [ "$BUILD_VER" != "$BUILD_VER_ORIG" ]; then
 		pushd .
 		cd
-		rm -rf asuswrt-merlin.382-original asuswrt-merlin.ng-master
+		rm -rf asuswrt-merlin.382-original asuswrt-merlin.ng-????????????????????????????????????????
 		extract_source_code
-		mv asuswrt-merlin.ng-master asuswrt-merlin.382-original
+		mv asuswrt-merlin.ng-???????????????????????????????????????? asuswrt-merlin.382-original
 		popd
 	fi
 
@@ -624,7 +624,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.4.9, NTP 4.2.8p12, DNSCrypt 1.9.5, Curl 7.62.0, Wget 1.19.5, Cryptsetup 2.0.5, Wipe 2.3.1, Whois 5.4.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
+echo "\`Tor 0.3.4.9, NTP 4.2.8p12, DNSCrypt 1.9.5, Curl 7.62.0, Wget 1.20.0, Cryptsetup 2.0.6, Wipe 2.3.1, Whois 5.4.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 
