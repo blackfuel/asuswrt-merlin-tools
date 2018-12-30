@@ -52,7 +52,7 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.8-0-dff1559.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.9-alpha1-c9b15c5.tar.gz
 }
 
 make_clean_3() {
@@ -624,7 +624,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.3.4.9, NTP 4.2.8p12, DNSCrypt 1.9.5, Curl 7.62.0, Wget 1.20.0, Cryptsetup 2.0.6, Wipe 2.3.1, Whois 5.4.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
+echo "\`Tor 0.3.4.9, NTP 4.2.8p12, DNSCrypt 1.9.5, Curl 7.63.0, Wget 1.20.1, Cryptsetup 2.0.6, Wipe 2.3.1, Whois 5.4.0, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 

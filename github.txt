@@ -81,6 +81,7 @@ git checkout master
 git fetch upstream
 git merge upstream/master 
 #git merge --abort
+#git add release/src/router/Makefile
 #git commit -m "Sync with upstream master"
 git push -f origin master
 
@@ -88,7 +89,7 @@ git push -f origin master
 # merge up to specific commit in upstream master
 git checkout master
 git fetch upstream
-git merge 9f2d198ad5b532ceca5cede6677bc246a2e72c17
+git merge dff15591c745c4e80d400a6ec03aaaacf0e8d6a4
 git push -f origin master
 
 ---
@@ -356,32 +357,50 @@ tar xzf /mnt/hgfs/sandbox/GPL_GT-AC5300_3.0.0.4.384.20648-g21e3702.tgz
 ---
 # upload Asus GPL source code to Github (for updates) - RT-AC86U
 cd $HOME/blackfuel
-tar xzf /mnt/hgfs/sandbox/GPL_RT-AC86U_3.0.0.4.384.21140-ge07a2dd.tgz
+tar xzf /mnt/hgfs/sandbox/GPL_RT-AC86U_3.0.0.4.384.45149-g467037b.tgz
 rm -rf asuswrt-rt-ac86u/*   # clears out everything except the .git directory
 cd asuswrt-rt-ac86u
 mv ../asuswrt/* .
 rmdir ../asuswrt
 git add -A
-git commit -m "update GPL 384.21140"
-git push -u origin master
-git tag 384.21140
-git push origin --tags
-rm -rf *
+git commit -m "update GPL 384.45149"
+git push -u origin master; git tag 384.45149; git push origin --tags; rm -rf *
 
 ---
 # upload Asus GPL source code to Github (for updates) - GT-AC5300
 cd $HOME/blackfuel
-tar xzf /mnt/hgfs/sandbox/GPL_GT-AC5300_3.0.0.4.384.21140-ge07a2dd.tgz
+tar xzf /mnt/hgfs/sandbox/GPL_GT-AC5300_3.0.0.4.384.45149-g467037b.tgz
 rm -rf asuswrt-gt-ac5300/*   # clears out everything except the .git directory
 cd asuswrt-gt-ac5300
 mv ../asuswrt/* .
 rmdir ../asuswrt
 git add -A
-git commit -m "update GPL 384.21140"
-git push -u origin master
-git tag 384.21140
-git push origin --tags
-rm -rf *
+git commit -m "update GPL 384.45149"
+git push -u origin master; git tag 384.45149; git push origin --tags; rm -rf *
+
+---
+# upload Asus GPL source code to Github (for updates) - RT-AX88U
+cd $HOME/blackfuel
+tar xzf /mnt/hgfs/sandbox/GPL_RT-AX88U_3.0.0.4.384.5247-g499251e.tgz
+rm -rf asuswrt-rt-ax88u/*   # clears out everything except the .git directory
+cd asuswrt-rt-ax88u
+mv ../asuswrt/* .
+rmdir ../asuswrt
+git add -A
+git commit -m "update GPL 384.5247"
+git push -u origin master; git tag 384.5247; git push origin --tags; rm -rf *
+
+---
+# upload Asus GPL source code to Github (for updates) - BRT-AC828
+cd $HOME/blackfuel
+tar xzf /mnt/hgfs/sandbox/GPL_BRT-AC828_3.0.0.4.380.7587-ga6a3821.tgz
+rm -rf asuswrt-brt-ac828/*   # clears out everything except the .git directory
+cd asuswrt-brt-ac828
+mv ../asuswrt/* .
+rmdir ../asuswrt
+git add -A
+git commit -m "update GPL 380.7587"
+git push -u origin master; git tag 380.7587; git push origin --tags; rm -rf *
 
 ---
 ---
@@ -403,8 +422,7 @@ git add -A
 git commit -m "update GPL 384.21045"
 git push -u origin master
 git tag 384.21045
-git push origin --tags
-rm -rf *
+git push origin --tags; rm -rf *
 
 ---
 # binwalk
@@ -546,4 +564,5 @@ if [ -n "$BACKUP_NEEDED" ]; then
 fi
 
 ---
+
 
