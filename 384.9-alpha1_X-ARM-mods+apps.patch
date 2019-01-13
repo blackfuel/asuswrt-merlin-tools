@@ -13523,7 +13523,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3961,216 +4198,3501 @@
+@@ -3961,217 +4198,3502 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -15498,6 +15498,7 @@
 -	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
 -		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
 -		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
+-		--enable-pthreads --enable-small --disable-encoders --disable-filters \
 +libusb-0.1.12-aarch64: libusb-0.1.12-aarch64/stamp-h1
 +	$(MAKE) -C $@
 +
@@ -16124,7 +16125,7 @@
 +		)
 +
 +tor-install:
-+	install -D tor/src/or/tor $(INSTALLDIR)/tor/usr/sbin/Tor
++	install -D tor/src/app/tor $(INSTALLDIR)/tor/usr/sbin/Tor
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor
 +	install -D tor/src/tools/tor-gencert $(INSTALLDIR)/tor/usr/sbin/Tor-gencert
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor-gencert
@@ -16770,13 +16771,13 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="zstd"; \
 +		elif [ "$$PACKAGE_DIR" = "tor" ]; then \
-+			URL="https://www.torproject.org/dist/tor-0.3.4.9.tar.gz"; \
++			URL="https://www.torproject.org/dist/tor-0.3.5.7.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "findutils" ]; then \
 +			URL="https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "whois" ]; then \
 +			URL="http://ftp.debian.org/debian/pool/main/w/whois/whois_5.4.0.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "libsodium" ]; then \
-+			URL="https://download.libsodium.org/libsodium/releases/libsodium-1.0.16.tar.gz"; \
++			URL="https://download.libsodium.org/libsodium/releases/libsodium-1.0.17.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "dnscrypt" ]; then \
 +			URL="http://http.debian.net/debian/pool/main/d/dnscrypt-proxy/dnscrypt-proxy_1.9.5.orig.tar.gz"; \
 +			URL2="https://github.com/dyne/dnscrypt-proxy"; \
@@ -16800,7 +16801,7 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="libgpg-error"; \
 +		elif [ "$$PACKAGE_DIR" = "util-linux" ] || [ "$$PACKAGE_DIR" = "util-linux-aarch64" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.33/util-linux-2.33.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.33/util-linux-2.33.1.tar.xz"; \
 +			PACKAGE_NAME="util-linux"; \
 +		elif [ "$$PACKAGE_DIR" = "libaio" ]; then \
 +			URL="http://http.debian.net/debian/pool/main/liba/libaio/libaio_0.3.111.orig.tar.gz"; \
@@ -16809,9 +16810,9 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="libaio"; \
 +		elif [ "$$PACKAGE_DIR" = "lvm2" ]; then \
-+			URL="https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.181.tgz"; \
++			URL="https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.183.tgz"; \
 +			URL2="git://sourceware.org/git/lvm2.git"; \
-+			VERSION="2.02.181+git"; \
++			VERSION="2.02.183+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="lvm2"; \
 +		elif [ "$$PACKAGE_DIR" = "libgcrypt" ]; then \
@@ -17188,9 +17189,10 @@
 +	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
 +		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
 +		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
- 		--enable-pthreads --enable-small --disable-encoders --disable-filters \
++		--enable-pthreads --enable-small --disable-encoders --disable-filters \
  		--disable-muxers --disable-devices --disable-ffmpeg --disable-ffplay \
  		--disable-ffserver --disable-ffprobe --disable-avdevice --disable-swscale \
+ 		--disable-hwaccels --disable-network --disable-bsfs --disable-mpegaudio-hp \
 @@ -4251,25 +7773,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
@@ -17675,6 +17677,27 @@
 +}
 +#endif
 +
+--- a/release/src/router/rc/rc.h
++++ b/release/src/router/rc/rc.h
+@@ -1303,10 +1303,6 @@
+ extern void start_ovpn_eas(void);
+ extern void stop_ovpn_eas(void);
+ extern void run_ovpn_fw_script();
+-extern void write_ovpn_dnsmasq_config(FILE*);
+-extern int write_ovpn_resolv(FILE*, FILE*);
+-//static inline void start_ovpn_eas() { }
+-//#define write_ovpn_resolv(f) (0)
+ extern void create_ovpn_passwd();
+ extern void stop_ovpn_all();
+ extern void update_ovpn_profie_remote();
+@@ -1622,6 +1618,7 @@
+ extern void dnsfilter6_settings(FILE *fp, char *lan_if, char *lan_ip);
+ extern void dnsfilter_setup_dnsmasq(FILE *fp);
+ #endif
++extern void dnsfilter_dot_rules(FILE *fp, char *lan_if);
+ 
+ // lan.c
+ #ifdef RTCONFIG_TIMEMACHINE
 --- a/release/src/router/rc/init.c
 +++ b/release/src/router/rc/init.c
 @@ -10501,6 +10501,10 @@
@@ -17707,9 +17730,187 @@
  
  	_dprintf(reboot ? "Rebooting..." : "Shutting down...");
  	kill(1, reboot ? SIGTERM : SIGQUIT);
+--- a/release/src/router/rc/firewall.c
++++ b/release/src/router/rc/firewall.c
+@@ -3065,6 +3065,9 @@
+ #ifdef RTCONFIG_OPENVPN
+ 	    ":OVPN - [0:0]\n"
+ #endif
++#ifdef RTCONFIG_DNSFILTER
++	    ":DNSFILTER_DOT - [0:0]\n"
++#endif
+ #ifdef RTCONFIG_PARENTALCTRL
+ 	    ":PControls - [0:0]\n"
+ #endif
+@@ -4090,6 +4093,10 @@
+ 	}
+ #endif
+ 
++#ifdef RTCONFIG_DNSFILTER
++	dnsfilter_dot_rules(fp, lan_if);
++#endif
++
+ 	fprintf(fp, "-A FORWARD -i %s -j %s\n", lan_if, logaccept);
+ 
+ 	fprintf(fp, "COMMIT\n\n");
+@@ -4174,6 +4181,9 @@
+ #ifdef RTCONFIG_OPENVPN
+ 	    ":OVPN - [0:0]\n"
+ #endif
++#ifdef RTCONFIG_DNSFILTER
++	   ":DNSFILTER_DOT - [0:0]\n"
++#endif
+ 	   ":other2wan - [0:0]\n"
+ #ifdef RTCONFIG_PARENTALCTRL
+ 	    ":PControls - [0:0]\n"
+@@ -5234,6 +5244,10 @@
+ 	}
+ #endif
+ 
++#ifdef RTCONFIG_DNSFILTER
++	dnsfilter_dot_rules(fp, lan_if);
++#endif
++
+ 	fprintf(fp, "COMMIT\n\n");
+ 	if(fp) fclose(fp);
+ 
+@@ -5404,7 +5418,8 @@
+ 		if (fp != NULL) {
+ 			fprintf(fp, "*mangle\n"
+ 			    ":DNSFILTERI - [0:0]\n"
+-			    ":DNSFILTERF - [0:0]\n");
++			    ":DNSFILTERF - [0:0]\n"
++			    ":DNSFILTER_DOT - [0:0]\n");
+ 
+ 			dnsfilter6_settings(fp, lan_if, lan_ip);
+ 
+@@ -5590,7 +5605,8 @@
+ 		if (fp != NULL) {
+ 			fprintf(fp, "*mangle\n"
+ 				":DNSFILTERI - [0:0]\n"
+-				":DNSFILTERF - [0:0]\n");
++				":DNSFILTERF - [0:0]\n"
++				":DNSFILTER_DOT - [0:0]\n");
+ 
+ 			dnsfilter6_settings(fp, lan_if, lan_ip);
+ 
 --- a/release/src/router/rc/openvpn.c
 +++ b/release/src/router/rc/openvpn.c
-@@ -1451,29 +1451,17 @@
+@@ -25,25 +25,6 @@
+ #include <openssl/x509.h>
+ #include <openssl/x509_vfy.h>
+ 
+-// Line number as text string
+-#define __LINE_T__ __LINE_T_(__LINE__)
+-#define __LINE_T_(x) __LINE_T(x)
+-#define __LINE_T(x) # x
+-
+-#define VPN_LOG_ERROR -1
+-#define VPN_LOG_NOTE 0
+-#define VPN_LOG_INFO 1
+-#define VPN_LOG_EXTRA 2
+-#define vpnlog(level,x...) if(nvram_get_int("vpn_debug")>=level) syslog(LOG_INFO, #level ": " __LINE_T__ ": " x)
+-
+-#define CLIENT_IF_START 10
+-#define SERVER_IF_START 20
+-
+-// client_access
+-#define CLIENT_ACCESS_LAN 0
+-#define CLIENT_ACCESS_WAN 1
+-#define CLIENT_ACCESS_WAN_LAN 2
+-
+ extern struct nvram_tuple router_defaults[];
+ 
+ #define PUSH_LAN_METRIC 500
+@@ -122,7 +103,7 @@
+ 	}
+ 
+ 	// Build interface name
+-	snprintf(iface, sizeof (iface), "%s%d", buffer, clientNum+CLIENT_IF_START);
++	snprintf(iface, sizeof (iface), "%s%d", buffer, clientNum+OVPN_CLIENT_BASEIF);
+ 
+ 	// Determine encryption mode
+ 	strlcpy(buffer, nvram_pf_safe_get(prefix, "crypt"), sizeof(buffer) );
+@@ -272,11 +253,12 @@
+ 		fprintf(fp, "auth %s\n", buffer);
+ 
+ 	nvi = nvram_pf_get_int(prefix, "rgw");
+-	if (nvi == 1)
+-	{
++	if (nvi == OVPN_RGW_ALL) {
+ 		if ( ifType == TAP && nvram_pf_safe_get(prefix, "gw")[0] != '\0' )
+ 			fprintf(fp, "route-gateway %s\n", nvram_pf_safe_get(prefix, "gw"));
+ 		fprintf(fp, "redirect-gateway def1\n");
++	} else if (nvi == OVPN_RGW_POLICY_STRICT) {
++		fprintf(fp, "route-noexec\n");
+ 	}
+ 
+ 	// For selective routing
+@@ -465,7 +447,7 @@
+ 		        ip[0]&nm[0], ip[1]&nm[1], ip[2]&nm[2], ip[3]&nm[3], nvram_safe_get("lan_netmask"), iface);
+ 	}
+ 	// Disable rp_filter when in policy mode - firewall restart would re-enable it
+-	if (nvram_pf_get_int(prefix, "rgw") > 1) {
++	if (nvram_pf_get_int(prefix, "rgw") >= OVPN_RGW_POLICY) {
+ 		fprintf(fp, "for i in /proc/sys/net/ipv4/conf/*/rp_filter ; do\n"); /* */
+ 		fprintf(fp, "echo 0 > $i\n");
+ 		fprintf(fp, "done\n");
+@@ -572,11 +554,11 @@
+ 
+ 	// NVRAM setting for device type could have changed, just try to remove both
+ 	vpnlog(VPN_LOG_EXTRA,"Removing VPN device.");
+-	sprintf(buffer, "openvpn --rmtun --dev tap%d", clientNum+CLIENT_IF_START);
++	sprintf(buffer, "openvpn --rmtun --dev tap%d", clientNum+OVPN_CLIENT_BASEIF);
+ 	for (argv[argc=0] = strtok(buffer, " "); argv[argc] != NULL; argv[++argc] = strtok(NULL, " "));
+ 	_eval(argv, NULL, 0, NULL);
+ 
+-	sprintf(buffer, "openvpn --rmtun --dev tun%d", clientNum+CLIENT_IF_START);
++	sprintf(buffer, "openvpn --rmtun --dev tun%d", clientNum+OVPN_CLIENT_BASEIF);
+ 	for (argv[argc=0] = strtok(buffer, " "); argv[argc] != NULL; argv[++argc] = strtok(NULL, " "));
+ 	_eval(argv, NULL, 0, NULL);
+ 	vpnlog(VPN_LOG_EXTRA,"VPN device removed.");
+@@ -680,7 +662,7 @@
+ 	}
+ 
+ 	// Build interface name
+-	snprintf(iface, sizeof (iface), "%s%d", buffer, serverNum+SERVER_IF_START);
++	snprintf(iface, sizeof (iface), "%s%d", buffer, serverNum+OVPN_SERVER_BASEIF);
+ 
+ 	if(is_intf_up(iface) > 0 && ifType == TAP) {
+ 		eval("brctl", "delif", nvram_safe_get("lan_ifname"), iface);
+@@ -898,7 +880,7 @@
+ 
+ 	if ( cryptMode == TLS )
+ 	{
+-		if ( (ifType == TUN) && (nvram_pf_get_int(prefix, "client_access") != CLIENT_ACCESS_WAN) )
++		if ( (ifType == TUN) && (nvram_pf_get_int(prefix, "client_access") != OVPN_CLT_ACCESS_WAN) )
+ 		{
+ 			sscanf(nvram_safe_get("lan_ipaddr"), "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+ 			sscanf(nvram_safe_get("lan_netmask"), "%d.%d.%d.%d", &nm[0], &nm[1], &nm[2], &nm[3]);
+@@ -1003,7 +985,7 @@
+ 			fprintf(fp, "push \"dhcp-option DNS %s\"\n", nvram_safe_get("lan_ipaddr"));
+ 		}
+ 
+-		if ( nvram_pf_get_int(prefix, "client_access") != CLIENT_ACCESS_LAN )
++		if ( nvram_pf_get_int(prefix, "client_access") != OVPN_CLT_ACCESS_LAN )
+ 		{
+ 			if ( ifType == TAP )
+ 				fprintf(fp, "push \"route-gateway %s\"\n", nvram_safe_get("lan_ipaddr"));
+@@ -1384,11 +1366,11 @@
+ 	fprintf(fp, "iptables -I INPUT -p %s ", strtok(buffer, "-"));
+ 	fprintf(fp, "--dport %d -j ACCEPT\n", nvram_pf_get_int(prefix, "port"));
+ 
+-	if (nvram_pf_get_int(prefix, "client_access") == CLIENT_ACCESS_WAN)
++	if (nvram_pf_get_int(prefix, "client_access") == OVPN_CLT_ACCESS_WAN)
+ 	{
+ 		ip2class(nvram_safe_get("lan_ipaddr"), nvram_safe_get("lan_netmask"), buffer);
+ 		fprintf(fp, "iptables -I OVPN -i %s ! -d %s -j ACCEPT\n", iface, buffer);
+-	} else	if (nvram_pf_get_int(prefix, "client_access") == CLIENT_ACCESS_LAN)
++	} else	if (nvram_pf_get_int(prefix, "client_access") == OVPN_CLT_ACCESS_LAN)
+ 	{
+ 		ip2class(nvram_safe_get("lan_ipaddr"), nvram_safe_get("lan_netmask"), buffer);
+ 		fprintf(fp, "iptables -I OVPN -i %s -d %s -j ACCEPT\n", iface, buffer);
+@@ -1451,29 +1433,17 @@
  	}
  
  	// watchdog
@@ -17750,6 +17951,140 @@
  
  	vpnlog(VPN_LOG_INFO,"VPN GUI server backend complete.");
  }
+@@ -1510,11 +1480,11 @@
+ 
+ 	// NVRAM setting for device type could have changed, just try to remove both
+ 	vpnlog(VPN_LOG_EXTRA,"Removing VPN device.");
+-	sprintf(buffer, "openvpn --rmtun --dev tap%d", serverNum+SERVER_IF_START);
++	sprintf(buffer, "openvpn --rmtun --dev tap%d", serverNum+OVPN_SERVER_BASEIF);
+ 	for (argv[argc=0] = strtok(buffer, " "); argv[argc] != NULL; argv[++argc] = strtok(NULL, " "));
+ 	_eval(argv, NULL, 0, NULL);
+ 
+-	sprintf(buffer, "openvpn --rmtun --dev tun%d", serverNum+SERVER_IF_START);
++	sprintf(buffer, "openvpn --rmtun --dev tun%d", serverNum+OVPN_SERVER_BASEIF);
+ 	for (argv[argc=0] = strtok(buffer, " "); argv[argc] != NULL; argv[++argc] = strtok(NULL, " "));
+ 	_eval(argv, NULL, 0, NULL);
+ 	vpnlog(VPN_LOG_EXTRA,"VPN device removed.");
+@@ -1713,119 +1683,6 @@
+ 	closedir(dir);
+ }
+ 
+-void write_ovpn_dnsmasq_config(FILE* f)
+-{
+-	char nv[16];
+-	char buf[24];
+-	char ch;
+-	int unit, ch2;	DIR *dir;
+-	struct dirent *file;
+-	FILE *dnsf;
+-
+-	for (unit = 1; unit <= OVPN_SERVER_MAX; unit++) {
+-	{
+-		sprintf(buf, "vpn_server%d_pdns", unit);
+-		if (nvram_get_int(buf) )
+-			vpnlog(VPN_LOG_EXTRA, "Adding server %d interface to dns config", unit);
+-			snprintf(nv, sizeof(nv), "vpn_server%d_if", unit);
+-			fprintf(f, "interface=%s%d\n", nvram_safe_get(nv), SERVER_IF_START + unit);
+-		}
+-	}
+-
+-	if ( (dir = opendir("/etc/openvpn/dns")) != NULL )
+-	{
+-		while ( (file = readdir(dir)) != NULL )
+-		{
+-			if ( file->d_name[0] == '.' )
+-				continue;
+-
+-			if ( sscanf(file->d_name, "client%d.resol%c", &unit, &ch) == 2 )
+-			{
+-				vpnlog(VPN_LOG_EXTRA, "Checking ADNS settings for client %d", unit);
+-				snprintf(buf, sizeof(buf), "vpn_client%d_adns", unit);
+-				if ( nvram_get_int(buf) == 2 )
+-				{
+-					vpnlog(VPN_LOG_INFO, "Adding strict-order to dnsmasq config for client %d", unit);
+-					fprintf(f, "strict-order\n");
+-					break;
+-				}
+-			}
+-
+-			if ( sscanf(file->d_name, "client%d.con%c", &unit, &ch) == 2 )
+-			{
+-				if ( (dnsf = fopen(file->d_name, "r")) != NULL )
+-				{
+-					vpnlog(VPN_LOG_INFO, "Adding Dnsmasq config from %s", file->d_name);
+-
+-					while( !feof(dnsf) )
+-					{
+-						ch2 = fgetc(dnsf);
+-						fputc(ch2==EOF?'\n':ch2, f);
+-					}
+-
+-					fclose(dnsf);
+-				}
+-			}
+-		}
+-	}
+-}
+-
+-int write_ovpn_resolv(FILE* fresolv, FILE* f)
+-{
+-	DIR *dir;
+-	struct dirent *file;
+-	char *fn, ch, num, buf[24];
+-	FILE *dnsf;
+-	int strictlevel = 0, ch2, level;
+-
+-	if ( chdir("/etc/openvpn/dns") )
+-		return 0;
+-
+-	dir = opendir("/etc/openvpn/dns");
+-
+-	vpnlog(VPN_LOG_EXTRA, "Adding DNS entries...");
+-	while ( (file = readdir(dir)) != NULL )
+-	{
+-		fn = file->d_name;
+-
+-		if ( fn[0] == '.' )
+-			continue;
+-
+-		if ( sscanf(fn, "client%c.resol%c", &num, &ch) == 2 )
+-		{
+-			snprintf(buf, sizeof(buf), "vpn_client%c_", num);
+-
+-			level = nvram_pf_get_int(buf, "adns");
+-
+-			// Don't modify dnsmasq if policy routing is enabled and dns mode set to "Exclusive"
+-			if ((nvram_pf_get_int(buf, "rgw") >= 2 ) && (level == 3))
+-				continue;
+-
+-			if ( (dnsf = fopen(fn, "r")) == NULL )
+-				continue;
+-
+-			vpnlog(VPN_LOG_INFO,"Adding DNS entries from %s", fn);
+-
+-			while( !feof(dnsf) )
+-			{
+-				ch2 = fgetc(dnsf);
+-				fputc(ch2==EOF?'\n':ch2, f);
+-			}
+-
+-			fclose(dnsf);
+-
+-			// Only return the highest active level, so one exclusive client
+-			// will override a relaxed client.
+-			if (level > strictlevel)
+-				strictlevel = level;
+-		}
+-	}
+-	vpnlog(VPN_LOG_EXTRA, "Done with DNS entries...");
+-
+-	closedir(dir);
+-
+-	return strictlevel;
+-}
+ 
+ void create_ovpn_passwd()
+ {
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
 @@ -14228,12 +14228,11 @@
@@ -17814,7 +18149,52 @@
  #endif
 --- a/release/src/router/rc/wan.c
 +++ b/release/src/router/rc/wan.c
-@@ -3434,8 +3434,16 @@
+@@ -2042,7 +2042,7 @@
+ 	int yadns_mode = nvram_get_int("yadns_enable_x") ? nvram_get_int("yadns_mode") : YADNS_DISABLED;
+ #endif
+ #ifdef RTCONFIG_OPENVPN
+-        int dnsstrict = 0;
++        int dnsmode;
+ #endif
+ #ifdef RTCONFIG_DUALWAN
+ 	int primary_unit = wan_primary_ifunit();
+@@ -2060,11 +2060,10 @@
+ 		goto error;
+ 	}
+ 
+-/* Add DNS from VPN clients, others if non-exclusive */
++/* Add DNS if no VPN client is globally set to exclusive */
+ #ifdef RTCONFIG_OPENVPN
+-	dnsstrict = write_ovpn_resolv(fp, fp_servers);
+-	// If dns not set to exclusive
+-	if (dnsstrict != 3)
++	dnsmode = get_max_dnsmode();
++	if (dnsmode != 3)
+ #endif
+ 	{
+ 		for (unit = WAN_UNIT_FIRST; unit < WAN_UNIT_MAX; unit++) {
+@@ -2129,6 +2128,11 @@
+ 		}
+ 	}
+ 
++/* Add DNS from VPN clients - add at the end since config is read backward by dnsmasq */
++#ifdef RTCONFIG_OPENVPN
++	write_ovpn_dns(fp_servers);
++#endif
++
+ #ifdef RTCONFIG_YANDEXDNS
+ 	if (yadns_mode != YADNS_DISABLED) {
+ 		char *server[2];
+@@ -2200,7 +2204,7 @@
+ 	file_unlock(lock);
+ 
+ #ifdef RTCONFIG_OPENVPN
+-	if (dnsstrict == 2)
++	if (dnsmode == 2)
+ 		start_dnsmasq();	// add strict-order
+ 	else
+ #endif
+@@ -3434,8 +3438,16 @@
  
  #ifndef RT4GAC68U
  #if LINUX_KERNEL_VERSION >= KERNEL_VERSION(2,6,36)
@@ -18420,7 +18800,18 @@
  }
  
  #ifdef RTCONFIG_OPENVPN
-@@ -23486,7 +23498,11 @@
+@@ -23123,7 +23135,9 @@
+ 	{ "iptmon", ej_iptmon},
+ 	{ "ipt_bandwidth", ej_ipt_bandwidth},
+ #endif
+-
++#ifdef RTCONFIG_BWDPI
++	{ "bwdpi_conntrack", ej_bwdpi_conntrack},
++#endif
+ 	{ "bandwidth", ej_bandwidth},
+ #ifdef RTCONFIG_DSL
+ 	{ "spectrum", ej_spectrum}, //Ren
+@@ -23486,7 +23500,11 @@
  	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
  	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
  	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
