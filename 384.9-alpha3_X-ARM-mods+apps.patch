@@ -15248,7 +15248,7 @@
 -FFMPEG_FILTER_CONFIG= $(foreach c, $(2), --$(1)="$(c)")
 +### libevent-2.0.21-aarch64
  
--FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpeg4aac mpegvideo png wmav1 wmav2
+-FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpegvideo png wmav1 wmav2
 -FFMPEG_CONFIGURE_DECODERS:=$(call FFMPEG_FILTER_CONFIG,enable-decoder,$(FFMPEG_DECODERS))
 +ifeq ($(HND_ROUTER),y)
 +libevent-2.0.21-aarch64: libevent-2.0.21-aarch64/Makefile
@@ -15478,7 +15478,7 @@
 -FFMPEG_CONFIGURE_PROTOCOLS:=$(call FFMPEG_FILTER_CONFIG,enable-protocol,$(FFMPEG_PROTOCOLS))
 +### libusb-0.1.12-aarch64
  
--FFMPEG_DISABLED_DEMUXERS:=amr apc ape ass bethsoftvid bfi c93 daud dnxhd dsicin dxa ffm gsm gxf idcin iff image2 image2pipe ingenient ipmovie lmlm4 mm mmf msnwc_tcp mtv mxf nsv nut oma pva rawvideo rl2 roq rpl segafilm shorten siff smacker sol str thp tiertexseq tta txd vmd voc wc3 wsaud wsvqa xa yuv4mpegpipe
+-FFMPEG_DISABLED_DEMUXERS:=aa acm act adf adp ads adx afc aix amr amrnb amrwb apc ape apng aptx aptx_hd aqtitle asf_o ass ast avr bethsoftvid bfi bfstm bit bmv boa brstm c93 cdxl cine codec2 codec2raw concat data daud dcstr dfa dirac dnxhd dsf dsicin dss dtshd dvbsub dvbtxt dxa epaf ffmetadata fits frm fsb g722 g723_1 g726 g726le g729 gdv genh gif gsm gxf hevc hls hnm ico idcin idf iff ilbc image2 image2pipe image_bmp_pipe image_dds_pipe image_dpx_pipe image_exr_pipe image_j2k_pipe image_jpeg_pipe image_jpegls_pipe image_pam_pipe image_pbm_pipe image_pcx_pipe image_pgm_pipe image_pgmyuv_pipe image_pictor_pipe image_png_pipe image_ppm_pipe image_psd_pipe image_qdraw_pipe image_sgi_pipe image_sunrast_pipe image_svg_pipe image_tiff_pipe image_webp_pipe image_xpm_pipe ingenient ipmovie ircam ivf ivr jacosub jv live_flv lmlm4 loas lrc lvf lxf mgsts microdvd mjpeg_2000 mlv mm mmf mpjpeg mpl2 mpsub msf msnwc_tcp mtaf mtv musx mv mxf mxg nistsphere nsp nsv nut oma paf pjs pmp pva pvf rawvideo realtext redspark rl2 roq rpl rsd rso s337m sami sbc sbg scc sdr2 sds sdx segafilm shorten siff sln smacker smjpeg smush sol spdif srt stl str subviewer subviewer1 sup svag tak tedcaptions thp threedostr tiertexseq tta tty txd ty v210 v210x vag vivo vmd vobsub voc vpk vplayer wc3 webm_dash_manifest webvtt wsaud wsd wsvqa wtv wve xa xbin xmv xvag xwma yuv4mpegpipe
 -FFMPEG_CONFIGURE_DEMUXERS:=$(call FFMPEG_FILTER_CONFIG,disable-demuxer,$(FFMPEG_DISABLED_DEMUXERS))
 +ifeq ($(HND_ROUTER),y)
 +libusb-0.1.12-aarch64/stamp-h1:
@@ -15494,11 +15494,11 @@
 +	-@$(MAKE) -C libusb-0.1.12-aarch64 clean
 +	touch $@
  
--ffmpeg/stamp-h1: zlib
+-ffmpeg/stamp-h1: $(if $(FFMPEG_ZLIB_REQD),zlib,)
 -	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
 -		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
--		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
--		--enable-pthreads --enable-small --disable-encoders --disable-filters \
+-		--cross-prefix=$(CROSS_COMPILE) --enable-gpl \
+-		$(if $(MEDIA_SERVER_STATIC),,--disable-static --enable-shared) --enable-small \
 +libusb-0.1.12-aarch64: libusb-0.1.12-aarch64/stamp-h1
 +	$(MAKE) -C $@
 +
@@ -17173,7 +17173,7 @@
 +
 +FFMPEG_FILTER_CONFIG= $(foreach c, $(2), --$(1)="$(c)")
 +
-+FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpeg4aac mpegvideo png wmav1 wmav2
++FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpegvideo png wmav1 wmav2
 +FFMPEG_CONFIGURE_DECODERS:=$(call FFMPEG_FILTER_CONFIG,enable-decoder,$(FFMPEG_DECODERS))
 +
 +FFMPEG_PARSERS:=aac ac3 h264 mpeg4video mpegaudio mpegvideo
@@ -17182,18 +17182,18 @@
 +FFMPEG_PROTOCOLS:=file
 +FFMPEG_CONFIGURE_PROTOCOLS:=$(call FFMPEG_FILTER_CONFIG,enable-protocol,$(FFMPEG_PROTOCOLS))
 +
-+FFMPEG_DISABLED_DEMUXERS:=amr apc ape ass bethsoftvid bfi c93 daud dnxhd dsicin dxa ffm gsm gxf idcin iff image2 image2pipe ingenient ipmovie lmlm4 mm mmf msnwc_tcp mtv mxf nsv nut oma pva rawvideo rl2 roq rpl segafilm shorten siff smacker sol str thp tiertexseq tta txd vmd voc wc3 wsaud wsvqa xa yuv4mpegpipe
++FFMPEG_DISABLED_DEMUXERS:=aa acm act adf adp ads adx afc aix amr amrnb amrwb apc ape apng aptx aptx_hd aqtitle asf_o ass ast avr bethsoftvid bfi bfstm bit bmv boa brstm c93 cdxl cine codec2 codec2raw concat data daud dcstr dfa dirac dnxhd dsf dsicin dss dtshd dvbsub dvbtxt dxa epaf ffmetadata fits frm fsb g722 g723_1 g726 g726le g729 gdv genh gif gsm gxf hevc hls hnm ico idcin idf iff ilbc image2 image2pipe image_bmp_pipe image_dds_pipe image_dpx_pipe image_exr_pipe image_j2k_pipe image_jpeg_pipe image_jpegls_pipe image_pam_pipe image_pbm_pipe image_pcx_pipe image_pgm_pipe image_pgmyuv_pipe image_pictor_pipe image_png_pipe image_ppm_pipe image_psd_pipe image_qdraw_pipe image_sgi_pipe image_sunrast_pipe image_svg_pipe image_tiff_pipe image_webp_pipe image_xpm_pipe ingenient ipmovie ircam ivf ivr jacosub jv live_flv lmlm4 loas lrc lvf lxf mgsts microdvd mjpeg_2000 mlv mm mmf mpjpeg mpl2 mpsub msf msnwc_tcp mtaf mtv musx mv mxf mxg nistsphere nsp nsv nut oma paf pjs pmp pva pvf rawvideo realtext redspark rl2 roq rpl rsd rso s337m sami sbc sbg scc sdr2 sds sdx segafilm shorten siff sln smacker smjpeg smush sol spdif srt stl str subviewer subviewer1 sup svag tak tedcaptions thp threedostr tiertexseq tta tty txd ty v210 v210x vag vivo vmd vobsub voc vpk vplayer wc3 webm_dash_manifest webvtt wsaud wsd wsvqa wtv wve xa xbin xmv xvag xwma yuv4mpegpipe
 +FFMPEG_CONFIGURE_DEMUXERS:=$(call FFMPEG_FILTER_CONFIG,disable-demuxer,$(FFMPEG_DISABLED_DEMUXERS))
 +
-+ffmpeg/stamp-h1: zlib
++ffmpeg/stamp-h1: $(if $(FFMPEG_ZLIB_REQD),zlib,)
 +	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
 +		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
-+		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
-+		--enable-pthreads --enable-small --disable-encoders --disable-filters \
- 		--disable-muxers --disable-devices --disable-ffmpeg --disable-ffplay \
- 		--disable-ffserver --disable-ffprobe --disable-avdevice --disable-swscale \
- 		--disable-hwaccels --disable-network --disable-bsfs --disable-mpegaudio-hp \
-@@ -4251,25 +7773,6 @@
++		--cross-prefix=$(CROSS_COMPILE) --enable-gpl \
++		$(if $(MEDIA_SERVER_STATIC),,--disable-static --enable-shared) --enable-small \
+ 		--disable-runtime-cpudetect --disable-mipsfpu --disable-mipsdsp --disable-mipsdspr2 \
+ 		--disable-programs --disable-doc \
+ 		--disable-avdevice --disable-swresample --disable-swscale --disable-postproc \
+@@ -4257,25 +7779,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -17219,7 +17219,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4291,33 +7794,6 @@
+@@ -4297,33 +7800,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -17253,7 +17253,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4392,7 +7868,7 @@
+@@ -4398,7 +7874,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -17262,7 +17262,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4839,26 +8315,6 @@
+@@ -4845,26 +8321,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -17289,7 +17289,7 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4953,27 +8409,6 @@
+@@ -4959,27 +8415,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -17317,7 +17317,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5062,6 +8497,12 @@
+@@ -5068,6 +8503,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -17330,7 +17330,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5262,56 +8703,6 @@
+@@ -5268,56 +8709,6 @@
  	-@$(MAKE) -C usbclient clean
  	rm -rf usbclient/stamp-h1
  
@@ -17387,7 +17387,7 @@
  sw-hw-auth:
  	cd sw-hw-auth && \
  	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -5392,38 +8783,6 @@
+@@ -5398,38 +8789,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -17426,7 +17426,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5879,7 +9238,7 @@
+@@ -5885,7 +9244,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -17435,7 +17435,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6259,53 +9618,6 @@
+@@ -6265,53 +9624,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -17489,7 +17489,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6930,46 +10242,11 @@
+@@ -6936,46 +10248,11 @@
  	[ ! -f inadyn/Makefile ] || $(MAKE) -C inadyn distclean
  	@rm -f inadyn/Makefile
  
@@ -17537,7 +17537,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6988,24 +10265,6 @@
+@@ -6994,24 +10271,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -17562,7 +17562,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -7073,7 +10332,7 @@
+@@ -7079,7 +10338,7 @@
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
  	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
  	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
@@ -17571,7 +17571,7 @@
  	touch ipset_arm/stamp-h1
  
  ipset_arm: ipset_arm/stamp-h1
-@@ -7383,37 +10642,6 @@
+@@ -7389,37 +10648,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  
@@ -17677,27 +17677,6 @@
 +}
 +#endif
 +
---- a/release/src/router/rc/rc.h
-+++ b/release/src/router/rc/rc.h
-@@ -1303,10 +1303,6 @@
- extern void start_ovpn_eas(void);
- extern void stop_ovpn_eas(void);
- extern void run_ovpn_fw_script();
--extern void write_ovpn_dnsmasq_config(FILE*);
--extern int write_ovpn_resolv(FILE*, FILE*);
--//static inline void start_ovpn_eas() { }
--//#define write_ovpn_resolv(f) (0)
- extern void create_ovpn_passwd();
- extern void stop_ovpn_all();
- extern void update_ovpn_profie_remote();
-@@ -1622,6 +1618,7 @@
- extern void dnsfilter6_settings(FILE *fp, char *lan_if, char *lan_ip);
- extern void dnsfilter_setup_dnsmasq(FILE *fp);
- #endif
-+extern void dnsfilter_dot_rules(FILE *fp, char *lan_if);
- 
- // lan.c
- #ifdef RTCONFIG_TIMEMACHINE
 --- a/release/src/router/rc/init.c
 +++ b/release/src/router/rc/init.c
 @@ -10501,6 +10501,10 @@
@@ -17730,187 +17709,9 @@
  
  	_dprintf(reboot ? "Rebooting..." : "Shutting down...");
  	kill(1, reboot ? SIGTERM : SIGQUIT);
---- a/release/src/router/rc/firewall.c
-+++ b/release/src/router/rc/firewall.c
-@@ -3065,6 +3065,9 @@
- #ifdef RTCONFIG_OPENVPN
- 	    ":OVPN - [0:0]\n"
- #endif
-+#ifdef RTCONFIG_DNSFILTER
-+	    ":DNSFILTER_DOT - [0:0]\n"
-+#endif
- #ifdef RTCONFIG_PARENTALCTRL
- 	    ":PControls - [0:0]\n"
- #endif
-@@ -4090,6 +4093,10 @@
- 	}
- #endif
- 
-+#ifdef RTCONFIG_DNSFILTER
-+	dnsfilter_dot_rules(fp, lan_if);
-+#endif
-+
- 	fprintf(fp, "-A FORWARD -i %s -j %s\n", lan_if, logaccept);
- 
- 	fprintf(fp, "COMMIT\n\n");
-@@ -4174,6 +4181,9 @@
- #ifdef RTCONFIG_OPENVPN
- 	    ":OVPN - [0:0]\n"
- #endif
-+#ifdef RTCONFIG_DNSFILTER
-+	   ":DNSFILTER_DOT - [0:0]\n"
-+#endif
- 	   ":other2wan - [0:0]\n"
- #ifdef RTCONFIG_PARENTALCTRL
- 	    ":PControls - [0:0]\n"
-@@ -5234,6 +5244,10 @@
- 	}
- #endif
- 
-+#ifdef RTCONFIG_DNSFILTER
-+	dnsfilter_dot_rules(fp, lan_if);
-+#endif
-+
- 	fprintf(fp, "COMMIT\n\n");
- 	if(fp) fclose(fp);
- 
-@@ -5404,7 +5418,8 @@
- 		if (fp != NULL) {
- 			fprintf(fp, "*mangle\n"
- 			    ":DNSFILTERI - [0:0]\n"
--			    ":DNSFILTERF - [0:0]\n");
-+			    ":DNSFILTERF - [0:0]\n"
-+			    ":DNSFILTER_DOT - [0:0]\n");
- 
- 			dnsfilter6_settings(fp, lan_if, lan_ip);
- 
-@@ -5590,7 +5605,8 @@
- 		if (fp != NULL) {
- 			fprintf(fp, "*mangle\n"
- 				":DNSFILTERI - [0:0]\n"
--				":DNSFILTERF - [0:0]\n");
-+				":DNSFILTERF - [0:0]\n"
-+				":DNSFILTER_DOT - [0:0]\n");
- 
- 			dnsfilter6_settings(fp, lan_if, lan_ip);
- 
 --- a/release/src/router/rc/openvpn.c
 +++ b/release/src/router/rc/openvpn.c
-@@ -25,25 +25,6 @@
- #include <openssl/x509.h>
- #include <openssl/x509_vfy.h>
- 
--// Line number as text string
--#define __LINE_T__ __LINE_T_(__LINE__)
--#define __LINE_T_(x) __LINE_T(x)
--#define __LINE_T(x) # x
--
--#define VPN_LOG_ERROR -1
--#define VPN_LOG_NOTE 0
--#define VPN_LOG_INFO 1
--#define VPN_LOG_EXTRA 2
--#define vpnlog(level,x...) if(nvram_get_int("vpn_debug")>=level) syslog(LOG_INFO, #level ": " __LINE_T__ ": " x)
--
--#define CLIENT_IF_START 10
--#define SERVER_IF_START 20
--
--// client_access
--#define CLIENT_ACCESS_LAN 0
--#define CLIENT_ACCESS_WAN 1
--#define CLIENT_ACCESS_WAN_LAN 2
--
- extern struct nvram_tuple router_defaults[];
- 
- #define PUSH_LAN_METRIC 500
-@@ -122,7 +103,7 @@
- 	}
- 
- 	// Build interface name
--	snprintf(iface, sizeof (iface), "%s%d", buffer, clientNum+CLIENT_IF_START);
-+	snprintf(iface, sizeof (iface), "%s%d", buffer, clientNum+OVPN_CLIENT_BASEIF);
- 
- 	// Determine encryption mode
- 	strlcpy(buffer, nvram_pf_safe_get(prefix, "crypt"), sizeof(buffer) );
-@@ -272,11 +253,12 @@
- 		fprintf(fp, "auth %s\n", buffer);
- 
- 	nvi = nvram_pf_get_int(prefix, "rgw");
--	if (nvi == 1)
--	{
-+	if (nvi == OVPN_RGW_ALL) {
- 		if ( ifType == TAP && nvram_pf_safe_get(prefix, "gw")[0] != '\0' )
- 			fprintf(fp, "route-gateway %s\n", nvram_pf_safe_get(prefix, "gw"));
- 		fprintf(fp, "redirect-gateway def1\n");
-+	} else if (nvi == OVPN_RGW_POLICY_STRICT) {
-+		fprintf(fp, "route-noexec\n");
- 	}
- 
- 	// For selective routing
-@@ -465,7 +447,7 @@
- 		        ip[0]&nm[0], ip[1]&nm[1], ip[2]&nm[2], ip[3]&nm[3], nvram_safe_get("lan_netmask"), iface);
- 	}
- 	// Disable rp_filter when in policy mode - firewall restart would re-enable it
--	if (nvram_pf_get_int(prefix, "rgw") > 1) {
-+	if (nvram_pf_get_int(prefix, "rgw") >= OVPN_RGW_POLICY) {
- 		fprintf(fp, "for i in /proc/sys/net/ipv4/conf/*/rp_filter ; do\n"); /* */
- 		fprintf(fp, "echo 0 > $i\n");
- 		fprintf(fp, "done\n");
-@@ -572,11 +554,11 @@
- 
- 	// NVRAM setting for device type could have changed, just try to remove both
- 	vpnlog(VPN_LOG_EXTRA,"Removing VPN device.");
--	sprintf(buffer, "openvpn --rmtun --dev tap%d", clientNum+CLIENT_IF_START);
-+	sprintf(buffer, "openvpn --rmtun --dev tap%d", clientNum+OVPN_CLIENT_BASEIF);
- 	for (argv[argc=0] = strtok(buffer, " "); argv[argc] != NULL; argv[++argc] = strtok(NULL, " "));
- 	_eval(argv, NULL, 0, NULL);
- 
--	sprintf(buffer, "openvpn --rmtun --dev tun%d", clientNum+CLIENT_IF_START);
-+	sprintf(buffer, "openvpn --rmtun --dev tun%d", clientNum+OVPN_CLIENT_BASEIF);
- 	for (argv[argc=0] = strtok(buffer, " "); argv[argc] != NULL; argv[++argc] = strtok(NULL, " "));
- 	_eval(argv, NULL, 0, NULL);
- 	vpnlog(VPN_LOG_EXTRA,"VPN device removed.");
-@@ -680,7 +662,7 @@
- 	}
- 
- 	// Build interface name
--	snprintf(iface, sizeof (iface), "%s%d", buffer, serverNum+SERVER_IF_START);
-+	snprintf(iface, sizeof (iface), "%s%d", buffer, serverNum+OVPN_SERVER_BASEIF);
- 
- 	if(is_intf_up(iface) > 0 && ifType == TAP) {
- 		eval("brctl", "delif", nvram_safe_get("lan_ifname"), iface);
-@@ -898,7 +880,7 @@
- 
- 	if ( cryptMode == TLS )
- 	{
--		if ( (ifType == TUN) && (nvram_pf_get_int(prefix, "client_access") != CLIENT_ACCESS_WAN) )
-+		if ( (ifType == TUN) && (nvram_pf_get_int(prefix, "client_access") != OVPN_CLT_ACCESS_WAN) )
- 		{
- 			sscanf(nvram_safe_get("lan_ipaddr"), "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
- 			sscanf(nvram_safe_get("lan_netmask"), "%d.%d.%d.%d", &nm[0], &nm[1], &nm[2], &nm[3]);
-@@ -1003,7 +985,7 @@
- 			fprintf(fp, "push \"dhcp-option DNS %s\"\n", nvram_safe_get("lan_ipaddr"));
- 		}
- 
--		if ( nvram_pf_get_int(prefix, "client_access") != CLIENT_ACCESS_LAN )
-+		if ( nvram_pf_get_int(prefix, "client_access") != OVPN_CLT_ACCESS_LAN )
- 		{
- 			if ( ifType == TAP )
- 				fprintf(fp, "push \"route-gateway %s\"\n", nvram_safe_get("lan_ipaddr"));
-@@ -1384,11 +1366,11 @@
- 	fprintf(fp, "iptables -I INPUT -p %s ", strtok(buffer, "-"));
- 	fprintf(fp, "--dport %d -j ACCEPT\n", nvram_pf_get_int(prefix, "port"));
- 
--	if (nvram_pf_get_int(prefix, "client_access") == CLIENT_ACCESS_WAN)
-+	if (nvram_pf_get_int(prefix, "client_access") == OVPN_CLT_ACCESS_WAN)
- 	{
- 		ip2class(nvram_safe_get("lan_ipaddr"), nvram_safe_get("lan_netmask"), buffer);
- 		fprintf(fp, "iptables -I OVPN -i %s ! -d %s -j ACCEPT\n", iface, buffer);
--	} else	if (nvram_pf_get_int(prefix, "client_access") == CLIENT_ACCESS_LAN)
-+	} else	if (nvram_pf_get_int(prefix, "client_access") == OVPN_CLT_ACCESS_LAN)
- 	{
- 		ip2class(nvram_safe_get("lan_ipaddr"), nvram_safe_get("lan_netmask"), buffer);
- 		fprintf(fp, "iptables -I OVPN -i %s -d %s -j ACCEPT\n", iface, buffer);
-@@ -1451,29 +1433,17 @@
+@@ -1433,29 +1433,17 @@
  	}
  
  	// watchdog
@@ -17951,140 +17752,6 @@
  
  	vpnlog(VPN_LOG_INFO,"VPN GUI server backend complete.");
  }
-@@ -1510,11 +1480,11 @@
- 
- 	// NVRAM setting for device type could have changed, just try to remove both
- 	vpnlog(VPN_LOG_EXTRA,"Removing VPN device.");
--	sprintf(buffer, "openvpn --rmtun --dev tap%d", serverNum+SERVER_IF_START);
-+	sprintf(buffer, "openvpn --rmtun --dev tap%d", serverNum+OVPN_SERVER_BASEIF);
- 	for (argv[argc=0] = strtok(buffer, " "); argv[argc] != NULL; argv[++argc] = strtok(NULL, " "));
- 	_eval(argv, NULL, 0, NULL);
- 
--	sprintf(buffer, "openvpn --rmtun --dev tun%d", serverNum+SERVER_IF_START);
-+	sprintf(buffer, "openvpn --rmtun --dev tun%d", serverNum+OVPN_SERVER_BASEIF);
- 	for (argv[argc=0] = strtok(buffer, " "); argv[argc] != NULL; argv[++argc] = strtok(NULL, " "));
- 	_eval(argv, NULL, 0, NULL);
- 	vpnlog(VPN_LOG_EXTRA,"VPN device removed.");
-@@ -1713,119 +1683,6 @@
- 	closedir(dir);
- }
- 
--void write_ovpn_dnsmasq_config(FILE* f)
--{
--	char nv[16];
--	char buf[24];
--	char ch;
--	int unit, ch2;	DIR *dir;
--	struct dirent *file;
--	FILE *dnsf;
--
--	for (unit = 1; unit <= OVPN_SERVER_MAX; unit++) {
--	{
--		sprintf(buf, "vpn_server%d_pdns", unit);
--		if (nvram_get_int(buf) )
--			vpnlog(VPN_LOG_EXTRA, "Adding server %d interface to dns config", unit);
--			snprintf(nv, sizeof(nv), "vpn_server%d_if", unit);
--			fprintf(f, "interface=%s%d\n", nvram_safe_get(nv), SERVER_IF_START + unit);
--		}
--	}
--
--	if ( (dir = opendir("/etc/openvpn/dns")) != NULL )
--	{
--		while ( (file = readdir(dir)) != NULL )
--		{
--			if ( file->d_name[0] == '.' )
--				continue;
--
--			if ( sscanf(file->d_name, "client%d.resol%c", &unit, &ch) == 2 )
--			{
--				vpnlog(VPN_LOG_EXTRA, "Checking ADNS settings for client %d", unit);
--				snprintf(buf, sizeof(buf), "vpn_client%d_adns", unit);
--				if ( nvram_get_int(buf) == 2 )
--				{
--					vpnlog(VPN_LOG_INFO, "Adding strict-order to dnsmasq config for client %d", unit);
--					fprintf(f, "strict-order\n");
--					break;
--				}
--			}
--
--			if ( sscanf(file->d_name, "client%d.con%c", &unit, &ch) == 2 )
--			{
--				if ( (dnsf = fopen(file->d_name, "r")) != NULL )
--				{
--					vpnlog(VPN_LOG_INFO, "Adding Dnsmasq config from %s", file->d_name);
--
--					while( !feof(dnsf) )
--					{
--						ch2 = fgetc(dnsf);
--						fputc(ch2==EOF?'\n':ch2, f);
--					}
--
--					fclose(dnsf);
--				}
--			}
--		}
--	}
--}
--
--int write_ovpn_resolv(FILE* fresolv, FILE* f)
--{
--	DIR *dir;
--	struct dirent *file;
--	char *fn, ch, num, buf[24];
--	FILE *dnsf;
--	int strictlevel = 0, ch2, level;
--
--	if ( chdir("/etc/openvpn/dns") )
--		return 0;
--
--	dir = opendir("/etc/openvpn/dns");
--
--	vpnlog(VPN_LOG_EXTRA, "Adding DNS entries...");
--	while ( (file = readdir(dir)) != NULL )
--	{
--		fn = file->d_name;
--
--		if ( fn[0] == '.' )
--			continue;
--
--		if ( sscanf(fn, "client%c.resol%c", &num, &ch) == 2 )
--		{
--			snprintf(buf, sizeof(buf), "vpn_client%c_", num);
--
--			level = nvram_pf_get_int(buf, "adns");
--
--			// Don't modify dnsmasq if policy routing is enabled and dns mode set to "Exclusive"
--			if ((nvram_pf_get_int(buf, "rgw") >= 2 ) && (level == 3))
--				continue;
--
--			if ( (dnsf = fopen(fn, "r")) == NULL )
--				continue;
--
--			vpnlog(VPN_LOG_INFO,"Adding DNS entries from %s", fn);
--
--			while( !feof(dnsf) )
--			{
--				ch2 = fgetc(dnsf);
--				fputc(ch2==EOF?'\n':ch2, f);
--			}
--
--			fclose(dnsf);
--
--			// Only return the highest active level, so one exclusive client
--			// will override a relaxed client.
--			if (level > strictlevel)
--				strictlevel = level;
--		}
--	}
--	vpnlog(VPN_LOG_EXTRA, "Done with DNS entries...");
--
--	closedir(dir);
--
--	return strictlevel;
--}
- 
- void create_ovpn_passwd()
- {
 --- a/release/src/router/rc/services.c
 +++ b/release/src/router/rc/services.c
 @@ -14228,12 +14228,11 @@
@@ -18149,52 +17816,7 @@
  #endif
 --- a/release/src/router/rc/wan.c
 +++ b/release/src/router/rc/wan.c
-@@ -2042,7 +2042,7 @@
- 	int yadns_mode = nvram_get_int("yadns_enable_x") ? nvram_get_int("yadns_mode") : YADNS_DISABLED;
- #endif
- #ifdef RTCONFIG_OPENVPN
--        int dnsstrict = 0;
-+        int dnsmode;
- #endif
- #ifdef RTCONFIG_DUALWAN
- 	int primary_unit = wan_primary_ifunit();
-@@ -2060,11 +2060,10 @@
- 		goto error;
- 	}
- 
--/* Add DNS from VPN clients, others if non-exclusive */
-+/* Add DNS if no VPN client is globally set to exclusive */
- #ifdef RTCONFIG_OPENVPN
--	dnsstrict = write_ovpn_resolv(fp, fp_servers);
--	// If dns not set to exclusive
--	if (dnsstrict != 3)
-+	dnsmode = get_max_dnsmode();
-+	if (dnsmode != 3)
- #endif
- 	{
- 		for (unit = WAN_UNIT_FIRST; unit < WAN_UNIT_MAX; unit++) {
-@@ -2129,6 +2128,11 @@
- 		}
- 	}
- 
-+/* Add DNS from VPN clients - add at the end since config is read backward by dnsmasq */
-+#ifdef RTCONFIG_OPENVPN
-+	write_ovpn_dns(fp_servers);
-+#endif
-+
- #ifdef RTCONFIG_YANDEXDNS
- 	if (yadns_mode != YADNS_DISABLED) {
- 		char *server[2];
-@@ -2200,7 +2204,7 @@
- 	file_unlock(lock);
- 
- #ifdef RTCONFIG_OPENVPN
--	if (dnsstrict == 2)
-+	if (dnsmode == 2)
- 		start_dnsmasq();	// add strict-order
- 	else
- #endif
-@@ -3434,8 +3438,16 @@
+@@ -3438,8 +3438,16 @@
  
  #ifndef RT4GAC68U
  #if LINUX_KERNEL_VERSION >= KERNEL_VERSION(2,6,36)
@@ -18800,18 +18422,7 @@
  }
  
  #ifdef RTCONFIG_OPENVPN
-@@ -23123,7 +23135,9 @@
- 	{ "iptmon", ej_iptmon},
- 	{ "ipt_bandwidth", ej_ipt_bandwidth},
- #endif
--
-+#ifdef RTCONFIG_BWDPI
-+	{ "bwdpi_conntrack", ej_bwdpi_conntrack},
-+#endif
- 	{ "bandwidth", ej_bandwidth},
- #ifdef RTCONFIG_DSL
- 	{ "spectrum", ej_spectrum}, //Ren
-@@ -23486,7 +23500,11 @@
+@@ -23488,7 +23500,11 @@
  	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
  	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
  	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
@@ -18835,16 +18446,6 @@
  config RTCONFIG_WLCSCAN_RSSI
  	bool "Sitesurvey for specific SSID rssi"
  	default n
---- a/release/src-rt-5.02hnd/hostTools/Makefile
-+++ b/release/src-rt-5.02hnd/hostTools/Makefile
-@@ -203,6 +203,7 @@
- $(FAKEROOT_DIR)/Makefile:
- 	mkdir -p $(FAKEROOT_DIR)
- 	(tar -jxf $(FAKEROOT_TAR) --strip 1 -C $(FAKEROOT_DIR) 2> /dev/null || true)
-+	patch -p1 -s -d $(FAKEROOT_DIR) < fakeroot_1.20.2.patch || exit 1; \
- 	cd $(FAKEROOT_DIR); CFLAGS="$(CFLAGS_NOARCH)" ac_cv_func_capset=0 ./configure --prefix=$(HOSTTOOLS_DIR)/local_install --bindir=$(HOSTTOOLS_DIR)/local_install
- 
- fakeroot: $(FAKEROOT_DIR)/Makefile
 --- a/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile
 +++ b/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile
 @@ -64,7 +64,7 @@
@@ -18894,7 +18495,7 @@
  	rm -rfv $(INSTALL_DIR)/lib/private $(INSTALL_DIR)/lib/libdl.so.0 $(INSTALL_DIR)/lib/libutil.so.0
 --- a/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch
 +++ b/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch
-@@ -0,0 +1,56 @@
+@@ -1,3 +1,59 @@
 +--- a/libfakeroot.c
 ++++ b/libfakeroot.c
 +@@ -1643,7 +1643,7 @@
@@ -18951,6 +18552,9 @@
 + {
 +   INT_STRUCT_STAT st;
 +   int r;
+ From a853f21633693f9eefc4949660253a5328d2d2f3 Mon Sep 17 00:00:00 2001
+ From: "Yann E. MORIN" <yann.morin.1998@free.fr>
+ Date: Sun, 13 Aug 2017 23:21:54 +0200
 --- a/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a
 +++ b/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a
 @@ -1174,7 +1174,29 @@

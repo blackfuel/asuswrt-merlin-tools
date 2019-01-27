@@ -52,7 +52,7 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.9-alpha1-8fe2b7c.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.9-alpha3-5908e33.tar.gz
 }
 
 make_clean_3() {
@@ -89,12 +89,15 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox/config_base release/src/router/busybox/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/busybox/Makefile release/src/router/busybox/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/config/config.in release/src/router/config/
-	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/Makefile release/src/router/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/Makefile release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/rc.c release/src/router/rc/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/rc.h release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/init.c release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/watchdog.c release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/openvpn.c release/src/router/rc/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/firewall.c release/src/router/rc/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/rc/wan.c release/src/router/rc/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/shared/shared.h release/src/router/shared/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/shared/scripts.c release/src/router/shared/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/web.c release/src/router/httpd/
