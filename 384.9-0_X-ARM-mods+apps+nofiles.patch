@@ -7200,41 +7200,24 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3961,217 +4198,3502 @@
+@@ -3961,25 +4198,3305 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
 -tor: openssl zlib libevent-2.0.21 tor/Makefile
--	@$(SEP)
--	$(MAKE) -C $@ $(PARALLEL_BUILD)
 +#######################################################################################
 +#
 +# Blackfuel addons
 +#
- 
--tor/Makefile:
--	(cd tor ; $(CONFIGURE) --enable-static-libevent --with-libevent-dir=$(STAGEDIR)/usr \
--					--with-openssl-dir=$(TOP)/openssl \
--					--with-zlib-dir=$(TOP)/zlib \
--					--disable-asciidoc --disable-unittests \
--					--disable-tool-name-check)
++
 +### xzutils
- 
--tor-install:
--	install -D tor/src/or/tor $(INSTALLDIR)/tor/usr/sbin/Tor
--	$(STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor
++
 +xzutils: xzutils/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
- 
--tor-clean:
--	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
--	@rm -f tor/Makefile
++
 +xzutils/Makefile: xzutils-unpack xzutils/configure
 +	@[ -f $@ ] || $(MAKE) xzutils-configure
- 
--iproute2:
--	@$(SEP)
--	@$(MAKE) -C $@ KERNEL_INCLUDE=$(LINUX_INC_DIR)/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)" $(PARALLEL_BUILD)
++
 +xzutils/configure:
 +	@[ -f $@ ] || ( cd xzutils ; ./autogen.sh )
 +
@@ -7326,14 +7309,7 @@
 +		--enable-threads=posix \
 +		--disable-silent-rules \
 +		--disable-rpath)
- 
--iproute2-install: iproute2
--	install -D iproute2/tc/tc $(INSTALLDIR)/iproute2/usr/sbin/tc
--	install -D iproute2/tc/tc $(INSTALLDIR)/iproute2/usr/sbin/realtc
--	$(STRIP) $(INSTALLDIR)/iproute2/usr/sbin/tc
--	$(STRIP) $(INSTALLDIR)/iproute2/usr/sbin/realtc
--	install -D iproute2/ip/ip $(INSTALLDIR)/iproute2/usr/sbin/ip
--	$(STRIP) $(INSTALLDIR)/iproute2/usr/sbin/ip
++
 +findutils-stage:
 +	@echo findutils
 +	@[ ! -d findutils ] || ( \
@@ -7382,10 +7358,7 @@
 +		--disable-silent-rules \
 +		--enable-opt \
 +		--with-pthreads)
- 
--iproute2-3.x: kernel_header iptables-1.4.x
--	@$(SEP)
--	@$(MAKE) -C $@ IPTABLES_DIR=$(TOP)/iptables-1.4.x KERNEL_INCLUDE=$(TOP)/kernel_header/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)" && $(MAKE) -C $@ stage
++
 +libsodium-stage:
 +	@echo libsodium
 +	@[ ! -d libsodium ] || ( \
@@ -7733,19 +7706,7 @@
 +		--disable-silent-rules \
 +		--disable-tests \
 +		)
- 
--iproute2-3.x-install: iproute2-3.x
--	install -D iproute2-3.x/tc/tc $(INSTALLDIR)/iproute2-3.x/usr/sbin/tc
--	install -D iproute2-3.x/tc/tc $(INSTALLDIR)/iproute2-3.x/usr/sbin/realtc
--	$(STRIP) $(INSTALLDIR)/iproute2-3.x/usr/sbin/tc
--	$(STRIP) $(INSTALLDIR)/iproute2-3.x/usr/sbin/realtc
--	install -D iproute2-3.x/ip/ip $(INSTALLDIR)/iproute2-3.x/usr/sbin/ip
--	$(STRIP) $(INSTALLDIR)/iproute2-3.x/usr/sbin/ip
--	@if [ -e iproute2-3.x/tc/m_xt.so ] ; then \
--		install -D iproute2-3.x/tc/m_xt.so $(INSTALLDIR)/iproute2-3.x/usr/lib/tc/m_xt.so ; \
--		ln -sf m_xt.so $(INSTALLDIR)/iproute2-3.x/usr/lib/tc/m_ipt.so ; \
--		$(STRIP) $(INSTALLDIR)/iproute2-3.x/usr/lib/tc/*.so ; \
--	fi
++
 +libgpg-error-stage:
 +	@echo libgpg-error
 +	@[ ! -d libgpg-error ] || ( \
@@ -7891,40 +7852,18 @@
 +	cp -df $(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libpopt.so* $(INSTALLDIR)/popt/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
 +	chmod u+w $(INSTALLDIR)/popt/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/popt/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libpopt.so*
- 
--iproute2-3.x-clean:
--	-@$(MAKE) -C iproute2-3.x clean
--	-rm -f iproute2-3.x/Config
++
 +### util-linux
- 
--iproute2-3.15.0: kernel_header iptables-1.4.21
--	@$(SEP)
--	@$(MAKE) -C $@ IPTABLES_DIR=$(TOP)/iptables-1.4.21 KERNEL_INCLUDE=$(TOP)/kernel_header/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)"
++
 +util-linux: ncurses-6.0 libgcrypt util-linux/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
- 
--iproute2-3.15.0-install: iproute2-3.15.0
--	install -D iproute2-3.15.0/tc/tc $(INSTALLDIR)/iproute2-3.15.0/usr/sbin/tc
--	$(STRIP) $(INSTALLDIR)/iproute2-3.15.0/usr/sbin/tc
--	install -D iproute2-3.15.0/ip/ip $(INSTALLDIR)/iproute2-3.15.0/usr/sbin/ip
--	$(STRIP) $(INSTALLDIR)/iproute2-3.15.0/usr/sbin/ip
--	@if [ -e iproute2-3.15.0/tc/m_xt.so ] ; then \
--		install -D iproute2-3.15.0/tc/m_xt.so $(INSTALLDIR)/iproute2-3.15.0/usr/lib/tc/m_xt.so ; \
--		ln -sf m_xt.so $(INSTALLDIR)/iproute2-3.15.0/usr/lib/tc/m_ipt.so ; \
--		$(STRIP) $(INSTALLDIR)/iproute2-3.15.0/usr/lib/tc/*.so ; \
--	fi
++
 +util-linux/Makefile: util-linux-unpack util-linux/configure
 +	@[ -f $@ ] || $(MAKE) util-linux-configure
- 
--iproute2-3.15.0-clean:
--	-@$(MAKE) -C iproute2-3.15.0 clean
--	-rm -f iproute2-3.15.0/Config
++
 +util-linux/configure:
 +	@[ -f $@ ] || ( cd util-linux ; ./autogen.sh )
- 
--iproute2-4.3:
--	touch iproute2-4.3/iproute2-4.3.0/configure
--	$(MAKE) -C iproute2-4.3
++
 +util-linux-configure:
 +	@[ ! -d util-linux ] || [ -f "$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)/libuuid.so" ] || ( \
 +		cd util-linux ; \
@@ -7950,26 +7889,17 @@
 +		$(if $(RTCONFIG_BCMARM),--with-ncursesw --without-ncurses,--with-ncurses --without-ncursesw) \
 +		--enable-libuuid \
 +		--enable-libblkid )
- 
--iproute2-4.3-install:
--	install -D iproute2-4.3/iproute2-4.3.0/tc/tc $(INSTALLDIR)/iproute2-4.3/usr/sbin/tc
--	$(STRIP) $(INSTALLDIR)/iproute2-4.3/usr/sbin/tc
--	install -D iproute2-4.3/iproute2-4.3.0/ip/ip $(INSTALLDIR)/iproute2-4.3/usr/sbin/ip
--	$(STRIP) $(INSTALLDIR)/iproute2-4.3/usr/sbin/ip
++
 +util-linux-stage:
 +	@echo util-linux
 +	@[ ! -d util-linux ] || ( \
 +		$(MAKE) -C util-linux $(PARALLEL_BUILD) && \
 +		$(MAKE) -C util-linux install )
- 
--iproute2-4.3-clean:
--	-@$(MAKE) -C iproute2-4.3 clean
--	-rm -f iproute2-4.3/iproute2-4.3.0/Config
++
 +util-linux-clean:
 +	[ ! -f util-linux/Makefile ] || $(MAKE) -C util-linux clean
 +	@rm -f util-linux/Makefile
- 
--ntpclient: nvram$(BCMEX)$(EX7) shared
++
 +util-linux-install:
 +	install -d $(INSTALLDIR)/util-linux/usr/$(BLACKFUEL_COMPATIBILE_LIB)/
 +	install -d $(INSTALLDIR)/util-linux/usr/bin/
@@ -8488,9 +8418,7 @@
 +			--enable-WWV \
 +			--enable-GPSD; \
 +		fi )
- 
--ntpclient-install:
--	$(MAKE) -C ntpclient INSTALLDIR=$(INSTALLDIR)/ntpclient install
++
 +ntp-stage:
 +	@echo ntp
 +	@[ ! -d ntp ] || ( \
@@ -8552,39 +8480,19 @@
 +	cp -df $(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libcap.so* $(INSTALLDIR)/libcap/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
 +	chmod u+w $(INSTALLDIR)/libcap/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/libcap/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libcap.so*
- 
--rstats: nvram$(BCMEX)$(EX7) shared
++
 +### util-linux-aarch64
- 
--rstats-install:
--	$(MAKE) -C rstats INSTALLDIR=$(INSTALLDIR)/rstats install
++
 +ifeq ($(HND_ROUTER),y)
 +util-linux-aarch64: ncurses-aarch64 libgcrypt util-linux-aarch64/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
- 
--dropbear/config.h.in: $(if $(RTCONFIG_PROTECTION_SERVER),protect_srv-stage,)
++
 +util-linux-aarch64/Makefile: util-linux-aarch64-unpack util-linux-aarch64/configure
 +	@[ -f $@ ] || $(MAKE) util-linux-aarch64-configure
- 
--dropbear/config.h: dropbear/config.h.in
--	cd dropbear && \
--		CPPFLAGS="-O2 -Wall $(EXTRACFLAGS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include \
--			$(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
--		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
--		LIBS="$(if $(RTCONFIG_PROTECTION_SERVER),-lptcsrv)" \
--		$(CONFIGURE) --disable-zlib --disable-pam \
--		--enable-openpty --enable-syslog --enable-shadow --enable-bundled-libtom \
--		--disable-lastlog \
--		--disable-utmp --disable-utmpx \
--		--disable-wtmp --disable-wtmpx \
--		--disable-loginfunc \
--		--disable-pututline --disable-pututxline
++
 +util-linux-aarch64/configure:
 +	@[ -f $@ ] || ( cd util-linux-aarch64 ; ./autogen.sh )
- 
--dropbear: dropbear/config.h
--	@$(SEP)
--	@$(MAKE) -C $@ PROGRAMS="dropbear dbclient dropbearkey scp" MULTI=1 $(PARALLEL_BUILD)
++
 +util-linux-aarch64-configure:
 +	@[ ! -d util-linux-aarch64 ] || [ -f "$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libuuid.so" ] || ( \
 +		cd util-linux-aarch64 ; \
@@ -8610,18 +8518,7 @@
 +		$(if $(RTCONFIG_BCMARM),--with-ncursesw --without-ncurses,--with-ncurses --without-ncursesw) \
 +		--enable-libuuid \
 +		--enable-libblkid )
- 
--dropbear-install:
--	install -D dropbear/dropbearmulti $(INSTALLDIR)/dropbear/usr/bin/dropbearmulti
--	$(STRIP) $(INSTALLDIR)/dropbear/usr/bin/dropbearmulti
--	cd $(INSTALLDIR)/dropbear/usr/bin && \
--	ln -sf dropbearmulti dropbearkey && \
--	ln -sf dropbearmulti dbclient && \
--	ln -sf dropbearmulti ssh && \
--	ln -sf dropbearmulti scp
--	install -d $(INSTALLDIR)/dropbear/usr/sbin
--	cd $(INSTALLDIR)/dropbear/usr/sbin && \
--	ln -sf ../bin/dropbearmulti dropbear
++
 +util-linux-aarch64-stage:
 +	@echo util-linux-aarch64
 +	@[ ! -d util-linux-aarch64 ] || ( \
@@ -8661,14 +8558,9 @@
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/util-linux-aarch64/usr/bin/losetup
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/util-linux-aarch64/usr/bin/hwclock
 +endif
- 
--dropbear-clean:
--	-@$(MAKE) -C dropbear clean
--	@rm -f dropbear/config.h
++
 +### libusb10-aarch64
- 
--wtfast-configure:
--	@true
++
 +ifeq ($(HND_ROUTER),y)
 +libusb10-aarch64/stamp-h1:
 +	cd libusb10-aarch64 && \
@@ -8682,9 +8574,7 @@
 +		ac_cv_lib_rt_clock_gettime=no
 +	-@$(MAKE) -C libusb10-aarch64 clean
 +	touch $@
- 
--wtfast-install:
--	install -D wtfast/wtfslhd/wtfslhd$(BCMEX)$(EX7)/wtfslhd $(INSTALLDIR)/wtfast/usr/sbin/wtfslhd
++
 +libusb10-aarch64: libusb10-aarch64/stamp-h1
 +	$(MAKE) -C $@ && \
 +	DESTDIR="$(STAGEDIR)" $(MAKE) -C $@ install
@@ -8695,20 +8585,12 @@
 +	cd $(INSTALLDIR)/libusb10-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB) && \
 +		ln -sf libusb-1.0.so.0 libusb-1.0.so.0.0.0 && \
 +		ln -sf libusb-1.0.so.0 libusb-1.0.so
- 
--# Media libraries
++
 +libusb10-aarch64-clean:
 +	-@$(MAKE) -C libusb10-aarch64 clean
 +	@rm -f libusb10-aarch64/stamp-h1
 +endif
- 
--sqlite/stamp-h1:
--	cd sqlite && \
--	CC=$(CC) CFLAGS="-O2 $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
--		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -lpthread -ldl" \
--		$(CONFIGURE) --prefix=/usr --enable-shared --enable-static \
--		--disable-readline --disable-dynamic-extensions --enable-threadsafe \
--		--disable-dependency-tracking
++
 +### libusb-aarch64
 +
 +ifeq ($(HND_ROUTER),y)
@@ -8724,27 +8606,18 @@
 +		LIBUSB_1_0_LIBS="-L$(TOP)/libusb10-aarch64/libusb/.libs -lusb-1.0 -lpthread -ldl $(EXTRALDFLAGS)\
 +		-Wl,-R/lib/arch64:/usr/$(BLACKFUEL_OPTIMIZED_LIB):/opt/usr/lib:/usr/local/share"
 +	-@$(MAKE) -C libusb-aarch64 clean
- 	touch $@
- 
--sqlite: sqlite/stamp-h1
--	@$(MAKE) -C sqlite all
++	touch $@
++
 +libusb-aarch64: libusb10-aarch64 libusb-aarch64/stamp-h1
 +	$(MAKE) -C $@
- 
--sqlite-clean:
--	-@$(MAKE) -C sqlite clean
--	@rm -f sqlite/stamp-h1
++
 +libusb-aarch64-install: libusb-aarch64
 +	install -D libusb-aarch64/libusb/.libs/libusb-0.1.so.4.4.4 $(INSTALLDIR)/libusb-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libusb-0.1.so.4
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/libusb-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*.so.*
 +	cd $(INSTALLDIR)/libusb-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB) && \
 +		ln -sf libusb-0.1.so.4 libusb-0.1.so.4.4.4 && \
 +		ln -sf libusb-0.1.so.4 libusb.so
- 
--sqlite-install: sqlite
--	@$(SEP)
--	install -D sqlite/.libs/libsqlite3.so.0 $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
--	$(STRIP) $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
++
 +libusb-aarch64-clean:
 +	-@$(MAKE) -C libusb-aarch64 clean
 +	@rm -f libusb-aarch64/stamp-h1
@@ -8776,16 +8649,7 @@
 +		--disable-shared \
 +		--disable-silent-rules \
 +		--enable-driver-detach )
- 
--# sqlite encrpted version
--sqlCipher/stamp-h1:
--	cd sqlCipher && \
--        CC=$(CC) CFLAGS="-Os $(EXTRACFLAGS) -DSQLITE_HAS_CODEC -ffunction-sections -fdata-sections -I$(SRCBASE)/router/openssl/include  -fPIC" \
--                LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -lpthread -ldl -L$(SRCBASE)/router/openssl -lcrypto" \
--                $(CONFIGURE) --prefix=/usr --enable-shared --enable-static \
--                --disable-readline --disable-dynamic-extensions --enable-threadsafe \
--                --disable-dependency-tracking --enable-tempstore=yes --disable-tcl
--	touch $@
++
 +rtl-sdr-stage:
 +	@echo rtl-sdr
 +	@[ ! -d rtl-sdr ] || ( \
@@ -8859,21 +8723,13 @@
 +	install -d $(INSTALLDIR)/rtl-entropy/usr/bin/
 +	install -D $(STAGEDIR)/usr/bin/rtl_entropy $(INSTALLDIR)/rtl-entropy/usr/bin/
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/rtl-entropy/usr/bin/rtl_entropy
- 
--sqlCipher: sqlCipher/stamp-h1
--	@$(MAKE) -C sqlCipher all
++
 +### curl-aarch64
- 
--sqlCipher-clean:
--	-@$(MAKE) -C sqlCipher clean
--	@rm -f sqlCipher/stamp-h1
++
 +ifeq ($(HND_ROUTER),y)
 +curl-aarch64: openssl-aarch64 curl-aarch64/Makefile
 +	@$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
- 
--sqlCipher-install: sqlCipher
--	install -D sqlCipher/.libs/libsqlcipher.so.0.8.6 $(INSTALLDIR)/sqlCipher/usr/lib/libsqlcipher.so.0
--	$(STRIP) $(INSTALLDIR)/sqlCipher/usr/lib/libsqlcipher.so.0
++
 +curl-aarch64/Makefile: curl-aarch64-unpack curl-aarch64/configure
 +	@[ ! -d curl-aarch64 ] || [ -f "$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libcurl.so" ] || ( \
 +	cd curl-aarch64 && \
@@ -8901,32 +8757,21 @@
 +	)
 +
 +curl-aarch64-install:
- 	@$(SEP)
++	@$(SEP)
 +	install -d $(INSTALLDIR)/curl-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
 +	cp -df curl-aarch64/lib/.libs/libcurl.so* $(INSTALLDIR)/curl-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
 +	chmod u+w $(INSTALLDIR)/curl-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/curl-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libcurl.so*
 +	install -D curl-aarch64/src/.libs/curl $(INSTALLDIR)/curl-aarch64/usr/sbin/curl
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/curl-aarch64/usr/sbin/curl
- 
--# commented out for mt-daapd-svn-1696
--ifneq ($(MEDIA_SERVER_STATIC),y)
--	install -D sqlite/.libs/libsqlite3.so.0 $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
--	$(STRIP) $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
--endif
--ifeq ($(RTCONFIG_FREERADIUS),y)
--	install -D sqlite/.libs/sqlite3 $(INSTALLDIR)/sqlite/usr/sbin/sqlite3
--	$(STRIP) $(INSTALLDIR)/sqlite/usr/sbin/sqlite3
++
 +curl-aarch64-clean:
 +	[ ! -f curl-aarch64/Makefile ] || $(MAKE) -C curl-aarch64 clean
 +	@rm -f curl-aarch64/Makefile
- endif
- 
--FFMPEG_FILTER_CONFIG= $(foreach c, $(2), --$(1)="$(c)")
++endif
++
 +### libevent-2.0.21-aarch64
- 
--FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpegvideo png wmav1 wmav2
--FFMPEG_CONFIGURE_DECODERS:=$(call FFMPEG_FILTER_CONFIG,enable-decoder,$(FFMPEG_DECODERS))
++
 +ifeq ($(HND_ROUTER),y)
 +libevent-2.0.21-aarch64: libevent-2.0.21-aarch64/Makefile
 +	$(MAKE) -C $@ $(PARALLEL_BUILD) && \
@@ -8945,9 +8790,7 @@
 +			--libdir=/usr/$(BLACKFUEL_OPTIMIZED_LIB) \
 +			--bindir=/usr/sbin \
 +	)
- 
--FFMPEG_PARSERS:=aac ac3 h264 mpeg4video mpegaudio mpegvideo
--FFMPEG_CONFIGURE_PARSERS:=$(call FFMPEG_FILTER_CONFIG,enable-parser,$(FFMPEG_PARSERS))
++
 +libevent-2.0.21-aarch64-install: libevent-2.0.21-aarch64
 +	install -D $(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libevent-2.0.so.5 $(INSTALLDIR)/$</usr/$(BLACKFUEL_OPTIMIZED_LIB)/libevent-2.0.so.5
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/$</usr/$(BLACKFUEL_OPTIMIZED_LIB)/libevent-2.0.so*
@@ -9150,13 +8993,9 @@
 +	cp -df $(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libmbed*.so* $(INSTALLDIR)/mbedtls/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
 +	chmod u+w $(INSTALLDIR)/mbedtls/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/mbedtls/usr/$(BLACKFUEL_OPTIMIZED_LIB)/libmbed*.so*
- 
--FFMPEG_PROTOCOLS:=file
--FFMPEG_CONFIGURE_PROTOCOLS:=$(call FFMPEG_FILTER_CONFIG,enable-protocol,$(FFMPEG_PROTOCOLS))
++
 +### libusb-0.1.12-aarch64
- 
--FFMPEG_DISABLED_DEMUXERS:=aa acm act adf adp ads adx afc aix amr amrnb amrwb apc ape apng aptx aptx_hd aqtitle asf_o ass ast avr bethsoftvid bfi bfstm bit bmv boa brstm c93 cdxl cine codec2 codec2raw concat data daud dcstr dfa dirac dnxhd dsf dsicin dss dtshd dvbsub dvbtxt dxa epaf ffmetadata fits frm fsb g722 g723_1 g726 g726le g729 gdv genh gif gsm gxf hevc hls hnm ico idcin idf iff ilbc image2 image2pipe image_bmp_pipe image_dds_pipe image_dpx_pipe image_exr_pipe image_j2k_pipe image_jpeg_pipe image_jpegls_pipe image_pam_pipe image_pbm_pipe image_pcx_pipe image_pgm_pipe image_pgmyuv_pipe image_pictor_pipe image_png_pipe image_ppm_pipe image_psd_pipe image_qdraw_pipe image_sgi_pipe image_sunrast_pipe image_svg_pipe image_tiff_pipe image_webp_pipe image_xpm_pipe ingenient ipmovie ircam ivf ivr jacosub jv live_flv lmlm4 loas lrc lvf lxf mgsts microdvd mjpeg_2000 mlv mm mmf mpjpeg mpl2 mpsub msf msnwc_tcp mtaf mtv musx mv mxf mxg nistsphere nsp nsv nut oma paf pjs pmp pva pvf rawvideo realtext redspark rl2 roq rpl rsd rso s337m sami sbc sbg scc sdr2 sds sdx segafilm shorten siff sln smacker smjpeg smush sol spdif srt stl str subviewer subviewer1 sup svag tak tedcaptions thp threedostr tiertexseq tta tty txd ty v210 v210x vag vivo vmd vobsub voc vpk vplayer wc3 webm_dash_manifest webvtt wsaud wsd wsvqa wtv wve xa xbin xmv xvag xwma yuv4mpegpipe
--FFMPEG_CONFIGURE_DEMUXERS:=$(call FFMPEG_FILTER_CONFIG,disable-demuxer,$(FFMPEG_DISABLED_DEMUXERS))
++
 +ifeq ($(HND_ROUTER),y)
 +libusb-0.1.12-aarch64/stamp-h1:
 +	cd libusb-0.1.12-aarch64 && \
@@ -9170,12 +9009,7 @@
 +		--disable-dependency-tracking
 +	-@$(MAKE) -C libusb-0.1.12-aarch64 clean
 +	touch $@
- 
--ffmpeg/stamp-h1: $(if $(FFMPEG_ZLIB_REQD),zlib,)
--	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
--		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
--		--cross-prefix=$(CROSS_COMPILE) --enable-gpl \
--		$(if $(MEDIA_SERVER_STATIC),,--disable-static --enable-shared) --enable-small \
++
 +libusb-0.1.12-aarch64: libusb-0.1.12-aarch64/stamp-h1
 +	$(MAKE) -C $@
 +
@@ -9778,9 +9612,15 @@
 +### tor
 +
 +tor: openssl$(if $(RTCONFIG_HND_ROUTER),-aarch64,) zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,) libevent-2.0.21$(if $(RTCONFIG_HND_ROUTER),-aarch64,) zstd tor/Makefile
-+	@$(SEP)
-+	$(MAKE) -C $@ $(PARALLEL_BUILD)
-+
+ 	@$(SEP)
+ 	$(MAKE) -C $@ $(PARALLEL_BUILD)
+ 
+-tor/Makefile:
+-	(cd tor ; $(CONFIGURE) --enable-static-libevent --with-libevent-dir=$(STAGEDIR)/usr \
+-					--with-openssl-dir=$(TOP)/openssl \
+-					--with-zlib-dir=$(TOP)/zlib \
+-					--disable-asciidoc --disable-unittests \
+-					--disable-tool-name-check)
 +tor/Makefile: tor-unpack
 +	(cd tor ; \
 +		$(BLACKFUEL_OPTIMIZED_TOOLCHAIN) \
@@ -9800,8 +9640,10 @@
 +		--enable-lzma \
 +		--enable-zstd \
 +		)
-+
-+tor-install:
+ 
+ tor-install:
+-	install -D tor/src/or/tor $(INSTALLDIR)/tor/usr/sbin/Tor
+-	$(STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor
 +	install -D tor/src/app/tor $(INSTALLDIR)/tor/usr/sbin/Tor
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor
 +	install -D tor/src/tools/tor-gencert $(INSTALLDIR)/tor/usr/sbin/Tor-gencert
@@ -9810,11 +9652,11 @@
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor-resolve
 +	install -Dpv tor/src/config/geoip $(INSTALLDIR)/tor/rom/tor/geoip
 +	install -Dpv tor/src/config/geoip6 $(INSTALLDIR)/tor/rom/tor/geoip6
-+
-+tor-clean:
-+	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
-+	@rm -f tor/Makefile
-+
+ 
+ tor-clean:
+ 	[ ! -f tor/Makefile ] || $(MAKE) -C tor clean
+ 	@rm -f tor/Makefile
+ 
 +### openssl-aarch64
 +
 +ifeq ($(HND_ROUTER),y)
@@ -10406,9 +10248,9 @@
 +			if [ "$$PACKAGE_DIR" = "curl-7.21.7" ]; then \
 +				PACKAGE_DIR="curl"; \
 +			fi; \
-+			URL="https://github.com/curl/curl/releases/download/curl-7_63_0/curl-7.63.0.tar.xz"; \
++			URL="https://github.com/curl/curl/releases/download/curl-7_64_0/curl-7.64.0.tar.xz"; \
 +			URL2="https://github.com/curl/curl.git"; \
-+			VERSION="7.63.0+git"; \
++			VERSION="7.64.0+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="curl"; \
 +		elif [ "$$PACKAGE_DIR" = "wget" ]; then \
@@ -10502,9 +10344,9 @@
 +			[ "$$PACKAGE_DIR" = "cryptsetup-openssl" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-nettle" ] || \
 +			[ "$$PACKAGE_DIR" = "cryptsetup-kernel" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.6.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.1/cryptsetup-2.1.0.tar.xz"; \
 +			URL2="https://gitlab.com/cryptsetup/cryptsetup.git"; \
-+			VERSION="2.0.6+git"; \
++			VERSION="2.1.0+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="cryptsetup"; \
 +		elif [ "$$PACKAGE_DIR" = "pps-tools" ]; then \
@@ -10670,206 +10512,44 @@
 +
 +#######################################################################################
 +
-+iproute2:
-+	@$(SEP)
-+	@$(MAKE) -C $@ KERNEL_INCLUDE=$(LINUX_INC_DIR)/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)" $(PARALLEL_BUILD)
-+
-+iproute2-install: iproute2
-+	install -D iproute2/tc/tc $(INSTALLDIR)/iproute2/usr/sbin/tc
-+	install -D iproute2/tc/tc $(INSTALLDIR)/iproute2/usr/sbin/realtc
-+	$(STRIP) $(INSTALLDIR)/iproute2/usr/sbin/tc
-+	$(STRIP) $(INSTALLDIR)/iproute2/usr/sbin/realtc
-+	install -D iproute2/ip/ip $(INSTALLDIR)/iproute2/usr/sbin/ip
-+	$(STRIP) $(INSTALLDIR)/iproute2/usr/sbin/ip
-+
-+iproute2-3.x: kernel_header iptables-1.4.x
-+	@$(SEP)
-+	@$(MAKE) -C $@ IPTABLES_DIR=$(TOP)/iptables-1.4.x KERNEL_INCLUDE=$(TOP)/kernel_header/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)" && $(MAKE) -C $@ stage
-+
-+iproute2-3.x-install: iproute2-3.x
-+	install -D iproute2-3.x/tc/tc $(INSTALLDIR)/iproute2-3.x/usr/sbin/tc
-+	install -D iproute2-3.x/tc/tc $(INSTALLDIR)/iproute2-3.x/usr/sbin/realtc
-+	$(STRIP) $(INSTALLDIR)/iproute2-3.x/usr/sbin/tc
-+	$(STRIP) $(INSTALLDIR)/iproute2-3.x/usr/sbin/realtc
-+	install -D iproute2-3.x/ip/ip $(INSTALLDIR)/iproute2-3.x/usr/sbin/ip
-+	$(STRIP) $(INSTALLDIR)/iproute2-3.x/usr/sbin/ip
-+	@if [ -e iproute2-3.x/tc/m_xt.so ] ; then \
-+		install -D iproute2-3.x/tc/m_xt.so $(INSTALLDIR)/iproute2-3.x/usr/lib/tc/m_xt.so ; \
-+		ln -sf m_xt.so $(INSTALLDIR)/iproute2-3.x/usr/lib/tc/m_ipt.so ; \
-+		$(STRIP) $(INSTALLDIR)/iproute2-3.x/usr/lib/tc/*.so ; \
-+	fi
-+
-+iproute2-3.x-clean:
-+	-@$(MAKE) -C iproute2-3.x clean
-+	-rm -f iproute2-3.x/Config
-+
-+iproute2-3.15.0: kernel_header iptables-1.4.21
-+	@$(SEP)
-+	@$(MAKE) -C $@ IPTABLES_DIR=$(TOP)/iptables-1.4.21 KERNEL_INCLUDE=$(TOP)/kernel_header/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)"
-+
-+iproute2-3.15.0-install: iproute2-3.15.0
-+	install -D iproute2-3.15.0/tc/tc $(INSTALLDIR)/iproute2-3.15.0/usr/sbin/tc
-+	$(STRIP) $(INSTALLDIR)/iproute2-3.15.0/usr/sbin/tc
-+	install -D iproute2-3.15.0/ip/ip $(INSTALLDIR)/iproute2-3.15.0/usr/sbin/ip
-+	$(STRIP) $(INSTALLDIR)/iproute2-3.15.0/usr/sbin/ip
-+	@if [ -e iproute2-3.15.0/tc/m_xt.so ] ; then \
-+		install -D iproute2-3.15.0/tc/m_xt.so $(INSTALLDIR)/iproute2-3.15.0/usr/lib/tc/m_xt.so ; \
-+		ln -sf m_xt.so $(INSTALLDIR)/iproute2-3.15.0/usr/lib/tc/m_ipt.so ; \
-+		$(STRIP) $(INSTALLDIR)/iproute2-3.15.0/usr/lib/tc/*.so ; \
-+	fi
-+
-+iproute2-3.15.0-clean:
-+	-@$(MAKE) -C iproute2-3.15.0 clean
-+	-rm -f iproute2-3.15.0/Config
-+
-+iproute2-4.3:
-+	touch iproute2-4.3/iproute2-4.3.0/configure
-+	$(MAKE) -C iproute2-4.3
-+
-+iproute2-4.3-install:
-+	install -D iproute2-4.3/iproute2-4.3.0/tc/tc $(INSTALLDIR)/iproute2-4.3/usr/sbin/tc
-+	$(STRIP) $(INSTALLDIR)/iproute2-4.3/usr/sbin/tc
-+	install -D iproute2-4.3/iproute2-4.3.0/ip/ip $(INSTALLDIR)/iproute2-4.3/usr/sbin/ip
-+	$(STRIP) $(INSTALLDIR)/iproute2-4.3/usr/sbin/ip
-+
-+iproute2-4.3-clean:
-+	-@$(MAKE) -C iproute2-4.3 clean
-+	-rm -f iproute2-4.3/iproute2-4.3.0/Config
-+
-+ntpclient: nvram$(BCMEX)$(EX7) shared
-+
-+ntpclient-install:
-+	$(MAKE) -C ntpclient INSTALLDIR=$(INSTALLDIR)/ntpclient install
-+
-+rstats: nvram$(BCMEX)$(EX7) shared
-+
-+rstats-install:
-+	$(MAKE) -C rstats INSTALLDIR=$(INSTALLDIR)/rstats install
-+
-+dropbear/config.h.in: $(if $(RTCONFIG_PROTECTION_SERVER),protect_srv-stage,)
-+
-+dropbear/config.h: dropbear/config.h.in
-+	cd dropbear && \
+ iproute2:
+ 	@$(SEP)
+ 	@$(MAKE) -C $@ KERNEL_INCLUDE=$(LINUX_INC_DIR)/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)" $(PARALLEL_BUILD)
+@@ -4060,11 +7577,12 @@
+ 
+ dropbear/config.h: dropbear/config.h.in
+ 	cd dropbear && \
+-		CPPFLAGS="-O2 -Wall $(EXTRACFLAGS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include \
+-			$(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
+-		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/lib" \
 +		$(BLACKFUEL_OPTIMIZED_TOOLCHAIN) \
 +		CFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include $(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
 +		CPPFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include $(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
 +		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
-+		LIBS="$(if $(RTCONFIG_PROTECTION_SERVER),-lptcsrv)" \
+ 		LIBS="$(if $(RTCONFIG_PROTECTION_SERVER),-lptcsrv)" \
+-		$(CONFIGURE) --disable-zlib --disable-pam \
 +		$(BLACKFUEL_OPTIMIZED_CONFIGURE) --disable-zlib --disable-pam \
-+		--enable-openpty --enable-syslog --enable-shadow --enable-bundled-libtom \
-+		--disable-lastlog \
-+		--disable-utmp --disable-utmpx \
-+		--disable-wtmp --disable-wtmpx \
-+		--disable-loginfunc \
-+		--disable-pututline --disable-pututxline
-+
-+dropbear: dropbear/config.h
-+	@$(SEP)
+ 		--enable-openpty --enable-syslog --enable-shadow --enable-bundled-libtom \
+ 		--disable-lastlog \
+ 		--disable-utmp --disable-utmpx \
+@@ -4074,11 +7592,15 @@
+ 
+ dropbear: dropbear/config.h
+ 	@$(SEP)
+-	@$(MAKE) -C $@ PROGRAMS="dropbear dbclient dropbearkey scp" MULTI=1 $(PARALLEL_BUILD)
 +	CFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include $(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
 +	CPPFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -DARGTYPE=3 -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include $(if $(RTCONFIG_PROTECTION_SERVER),-DSECURITY_NOTIFY,)" \
 +	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
 +	LIBS="$(if $(RTCONFIG_PROTECTION_SERVER),-lptcsrv)" \
 +	$(MAKE) -C $@ PROGRAMS="dropbear dbclient dropbearkey scp" MULTI=1 $(PARALLEL_BUILD)
-+
-+dropbear-install:
-+	install -D dropbear/dropbearmulti $(INSTALLDIR)/dropbear/usr/bin/dropbearmulti
+ 
+ dropbear-install:
+ 	install -D dropbear/dropbearmulti $(INSTALLDIR)/dropbear/usr/bin/dropbearmulti
+-	$(STRIP) $(INSTALLDIR)/dropbear/usr/bin/dropbearmulti
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/dropbear/usr/bin/dropbearmulti
-+	cd $(INSTALLDIR)/dropbear/usr/bin && \
-+	ln -sf dropbearmulti dropbearkey && \
-+	ln -sf dropbearmulti dbclient && \
-+	ln -sf dropbearmulti ssh && \
-+	ln -sf dropbearmulti scp
-+	install -d $(INSTALLDIR)/dropbear/usr/sbin
-+	cd $(INSTALLDIR)/dropbear/usr/sbin && \
-+	ln -sf ../bin/dropbearmulti dropbear
-+
-+dropbear-clean:
-+	-@$(MAKE) -C dropbear clean
-+	@rm -f dropbear/config.h
-+
-+wtfast-configure:
-+	@true
-+
-+wtfast-install:
-+	install -D wtfast/wtfslhd/wtfslhd$(BCMEX)$(EX7)/wtfslhd $(INSTALLDIR)/wtfast/usr/sbin/wtfslhd
-+
-+# Media libraries
-+
-+sqlite/stamp-h1:
-+	cd sqlite && \
-+	CC=$(CC) CFLAGS="-O2 $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
-+		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -lpthread -ldl" \
-+		$(CONFIGURE) --prefix=/usr --enable-shared --enable-static \
-+		--disable-readline --disable-dynamic-extensions --enable-threadsafe \
-+		--disable-dependency-tracking
-+	touch $@
-+
-+sqlite: sqlite/stamp-h1
-+	@$(MAKE) -C sqlite all
-+
-+sqlite-clean:
-+	-@$(MAKE) -C sqlite clean
-+	@rm -f sqlite/stamp-h1
-+
-+sqlite-install: sqlite
-+	@$(SEP)
-+	install -D sqlite/.libs/libsqlite3.so.0 $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
-+	$(STRIP) $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
-+
-+# sqlite encrpted version
-+sqlCipher/stamp-h1:
-+	cd sqlCipher && \
-+        CC=$(CC) CFLAGS="-Os $(EXTRACFLAGS) -DSQLITE_HAS_CODEC -ffunction-sections -fdata-sections -I$(SRCBASE)/router/openssl/include  -fPIC" \
-+                LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -lpthread -ldl -L$(SRCBASE)/router/openssl -lcrypto" \
-+                $(CONFIGURE) --prefix=/usr --enable-shared --enable-static \
-+                --disable-readline --disable-dynamic-extensions --enable-threadsafe \
-+                --disable-dependency-tracking --enable-tempstore=yes --disable-tcl
-+	touch $@
-+
-+sqlCipher: sqlCipher/stamp-h1
-+	@$(MAKE) -C sqlCipher all
-+
-+sqlCipher-clean:
-+	-@$(MAKE) -C sqlCipher clean
-+	@rm -f sqlCipher/stamp-h1
-+
-+sqlCipher-install: sqlCipher
-+	install -D sqlCipher/.libs/libsqlcipher.so.0.8.6 $(INSTALLDIR)/sqlCipher/usr/lib/libsqlcipher.so.0
-+	$(STRIP) $(INSTALLDIR)/sqlCipher/usr/lib/libsqlcipher.so.0
-+	@$(SEP)
-+
-+# commented out for mt-daapd-svn-1696
-+ifneq ($(MEDIA_SERVER_STATIC),y)
-+	install -D sqlite/.libs/libsqlite3.so.0 $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
-+	$(STRIP) $(INSTALLDIR)/sqlite/usr/lib/libsqlite3.so.0
-+endif
-+ifeq ($(RTCONFIG_FREERADIUS),y)
-+	install -D sqlite/.libs/sqlite3 $(INSTALLDIR)/sqlite/usr/sbin/sqlite3
-+	$(STRIP) $(INSTALLDIR)/sqlite/usr/sbin/sqlite3
-+endif
-+
-+FFMPEG_FILTER_CONFIG= $(foreach c, $(2), --$(1)="$(c)")
-+
-+FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpegvideo png wmav1 wmav2
-+FFMPEG_CONFIGURE_DECODERS:=$(call FFMPEG_FILTER_CONFIG,enable-decoder,$(FFMPEG_DECODERS))
-+
-+FFMPEG_PARSERS:=aac ac3 h264 mpeg4video mpegaudio mpegvideo
-+FFMPEG_CONFIGURE_PARSERS:=$(call FFMPEG_FILTER_CONFIG,enable-parser,$(FFMPEG_PARSERS))
-+
-+FFMPEG_PROTOCOLS:=file
-+FFMPEG_CONFIGURE_PROTOCOLS:=$(call FFMPEG_FILTER_CONFIG,enable-protocol,$(FFMPEG_PROTOCOLS))
-+
-+FFMPEG_DISABLED_DEMUXERS:=aa acm act adf adp ads adx afc aix amr amrnb amrwb apc ape apng aptx aptx_hd aqtitle asf_o ass ast avr bethsoftvid bfi bfstm bit bmv boa brstm c93 cdxl cine codec2 codec2raw concat data daud dcstr dfa dirac dnxhd dsf dsicin dss dtshd dvbsub dvbtxt dxa epaf ffmetadata fits frm fsb g722 g723_1 g726 g726le g729 gdv genh gif gsm gxf hevc hls hnm ico idcin idf iff ilbc image2 image2pipe image_bmp_pipe image_dds_pipe image_dpx_pipe image_exr_pipe image_j2k_pipe image_jpeg_pipe image_jpegls_pipe image_pam_pipe image_pbm_pipe image_pcx_pipe image_pgm_pipe image_pgmyuv_pipe image_pictor_pipe image_png_pipe image_ppm_pipe image_psd_pipe image_qdraw_pipe image_sgi_pipe image_sunrast_pipe image_svg_pipe image_tiff_pipe image_webp_pipe image_xpm_pipe ingenient ipmovie ircam ivf ivr jacosub jv live_flv lmlm4 loas lrc lvf lxf mgsts microdvd mjpeg_2000 mlv mm mmf mpjpeg mpl2 mpsub msf msnwc_tcp mtaf mtv musx mv mxf mxg nistsphere nsp nsv nut oma paf pjs pmp pva pvf rawvideo realtext redspark rl2 roq rpl rsd rso s337m sami sbc sbg scc sdr2 sds sdx segafilm shorten siff sln smacker smjpeg smush sol spdif srt stl str subviewer subviewer1 sup svag tak tedcaptions thp threedostr tiertexseq tta tty txd ty v210 v210x vag vivo vmd vobsub voc vpk vplayer wc3 webm_dash_manifest webvtt wsaud wsd wsvqa wtv wve xa xbin xmv xvag xwma yuv4mpegpipe
-+FFMPEG_CONFIGURE_DEMUXERS:=$(call FFMPEG_FILTER_CONFIG,disable-demuxer,$(FFMPEG_DISABLED_DEMUXERS))
-+
-+ffmpeg/stamp-h1: $(if $(FFMPEG_ZLIB_REQD),zlib,)
-+	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
-+		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
-+		--cross-prefix=$(CROSS_COMPILE) --enable-gpl \
-+		$(if $(MEDIA_SERVER_STATIC),,--disable-static --enable-shared) --enable-small \
- 		--disable-runtime-cpudetect --disable-mipsfpu --disable-mipsdsp --disable-mipsdspr2 \
- 		--disable-programs --disable-doc \
- 		--disable-avdevice --disable-swresample --disable-swscale --disable-postproc \
+ 	cd $(INSTALLDIR)/dropbear/usr/bin && \
+ 	ln -sf dropbearmulti dropbearkey && \
+ 	ln -sf dropbearmulti dbclient && \
 @@ -4257,25 +7779,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
@@ -12170,68 +11850,6 @@
  ifneq ($(strip $(BRCM_IKOS)),)
          # Delete libraries not needed by the ikos Linux image. 
  	rm -rfv $(INSTALL_DIR)/lib/private $(INSTALL_DIR)/lib/libdl.so.0 $(INSTALL_DIR)/lib/libutil.so.0
---- a/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch
-+++ b/release/src-rt-5.02hnd/hostTools/fakeroot_1.20.2.patch
-@@ -1,3 +1,59 @@
-+--- a/libfakeroot.c
-++++ b/libfakeroot.c
-+@@ -1643,7 +1643,7 @@
-+ #endif /* defined(HAVE_REMOVEXATTR) || defined(HAVE_LREMOVEXATTR) || defined(HAVE_FREMOVEXATTR) */
-+ 
-+ #ifdef HAVE_SETXATTR
-+-ssize_t setxattr(const char *path, const char *name, void *value, size_t size, int flags)
-++int setxattr(const char *path, const char *name, const void *value, size_t size, int flags)
-+ {
-+   INT_STRUCT_STAT st;
-+   int r;
-+@@ -1664,7 +1664,7 @@
-+ #endif /* HAVE_SETXATTR */
-+ 
-+ #ifdef HAVE_LSETXATTR
-+-ssize_t lsetxattr(const char *path, const char *name, void *value, size_t size, int flags)
-++int lsetxattr(const char *path, const char *name, const void *value, size_t size, int flags)
-+ {
-+   INT_STRUCT_STAT st;
-+   int r;
-+@@ -1685,7 +1685,7 @@
-+ #endif /* HAVE_LSETXATTR */
-+ 
-+ #ifdef HAVE_FSETXATTR
-+-ssize_t fsetxattr(int fd, const char *name, void *value, size_t size, int flags)
-++int fsetxattr(int fd, const char *name, const void *value, size_t size, int flags)
-+ {
-+   INT_STRUCT_STAT st;
-+   int r;
-+@@ -1832,7 +1832,7 @@
-+ #endif /* HAVE_FLISTXATTR */
-+ 
-+ #ifdef HAVE_REMOVEXATTR
-+-ssize_t removexattr(const char *path, const char *name)
-++int removexattr(const char *path, const char *name)
-+ {
-+   INT_STRUCT_STAT st;
-+   int r;
-+@@ -1853,7 +1853,7 @@
-+ #endif /* HAVE_REMOVEXATTR */
-+ 
-+ #ifdef HAVE_LREMOVEXATTR
-+-ssize_t lremovexattr(const char *path, const char *name)
-++int lremovexattr(const char *path, const char *name)
-+ {
-+   INT_STRUCT_STAT st;
-+   int r;
-+@@ -1874,7 +1874,7 @@
-+ #endif /* HAVE_LREMOVEXATTR */
-+ 
-+ #ifdef HAVE_FREMOVEXATTR
-+-ssize_t fremovexattr(int fd, const char *name)
-++int fremovexattr(int fd, const char *name)
-+ {
-+   INT_STRUCT_STAT st;
-+   int r;
- From a853f21633693f9eefc4949660253a5328d2d2f3 Mon Sep 17 00:00:00 2001
- From: "Yann E. MORIN" <yann.morin.1998@free.fr>
- Date: Sun, 13 Aug 2017 23:21:54 +0200
 --- a/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a
 +++ b/release/src-rt-5.02hnd/kernel/linux-4.1/config_base.6a
 @@ -1174,7 +1174,29 @@
