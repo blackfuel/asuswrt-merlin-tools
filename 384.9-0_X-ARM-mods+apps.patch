@@ -13523,7 +13523,7 @@
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
  	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
-@@ -3961,25 +4198,3305 @@
+@@ -3961,25 +4198,3309 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -14397,6 +14397,7 @@
 +		--enable-static-cryptsetup \
 +		--enable-libargon2 \
 +		--with-libgcrypt-prefix=$(STAGEDIR)/usr \
++		--with-luks2-lock-path=/tmp/cryptsetup \
 +		)
 +
 +cryptsetup-gcrypt-stage: cryptsetup-gcrypt-configure
@@ -14460,6 +14461,7 @@
 +		--with-crypto_backend=openssl \
 +		--enable-static-cryptsetup \
 +		--enable-libargon2 \
++		--with-luks2-lock-path=/tmp/cryptsetup \
 +		)
 +
 +cryptsetup-openssl-stage: cryptsetup-openssl-configure
@@ -14523,6 +14525,7 @@
 +		--with-crypto_backend=nettle \
 +		--enable-static-cryptsetup \
 +		--enable-libargon2 \
++		--with-luks2-lock-path=/tmp/cryptsetup \
 +		)
 +
 +cryptsetup-nettle-stage: cryptsetup-nettle-configure
@@ -14586,6 +14589,7 @@
 +		--with-crypto_backend=kernel \
 +		--enable-static-cryptsetup \
 +		--enable-libargon2 \
++		--with-luks2-lock-path=/tmp/cryptsetup \
 +		)
 +
 +cryptsetup-kernel-stage: cryptsetup-kernel-configure
@@ -16613,7 +16617,7 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="zstd"; \
 +		elif [ "$$PACKAGE_DIR" = "tor" ]; then \
-+			URL="https://www.torproject.org/dist/tor-0.3.5.7.tar.gz"; \
++			URL="https://www.torproject.org/dist/tor-0.3.5.8.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "findutils" ]; then \
 +			URL="https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "whois" ]; then \
@@ -16838,7 +16842,7 @@
  iproute2:
  	@$(SEP)
  	@$(MAKE) -C $@ KERNEL_INCLUDE=$(LINUX_INC_DIR)/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)" $(PARALLEL_BUILD)
-@@ -4060,11 +7577,12 @@
+@@ -4060,11 +7581,12 @@
  
  dropbear/config.h: dropbear/config.h.in
  	cd dropbear && \
@@ -16855,7 +16859,7 @@
  		--enable-openpty --enable-syslog --enable-shadow --enable-bundled-libtom \
  		--disable-lastlog \
  		--disable-utmp --disable-utmpx \
-@@ -4074,11 +7592,15 @@
+@@ -4074,11 +7596,15 @@
  
  dropbear: dropbear/config.h
  	@$(SEP)
@@ -16873,7 +16877,7 @@
  	cd $(INSTALLDIR)/dropbear/usr/bin && \
  	ln -sf dropbearmulti dropbearkey && \
  	ln -sf dropbearmulti dbclient && \
-@@ -4257,25 +7779,6 @@
+@@ -4257,25 +7783,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -16899,7 +16903,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4297,33 +7800,6 @@
+@@ -4297,33 +7804,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -16933,7 +16937,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4398,7 +7874,7 @@
+@@ -4398,7 +7878,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -16942,7 +16946,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4845,26 +8321,6 @@
+@@ -4845,26 +8325,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -16969,7 +16973,7 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4959,27 +8415,6 @@
+@@ -4959,27 +8419,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -16997,7 +17001,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5068,6 +8503,12 @@
+@@ -5068,6 +8507,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -17010,7 +17014,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5268,56 +8709,6 @@
+@@ -5268,56 +8713,6 @@
  	-@$(MAKE) -C usbclient clean
  	rm -rf usbclient/stamp-h1
  
@@ -17067,7 +17071,7 @@
  sw-hw-auth:
  	cd sw-hw-auth && \
  	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -5398,38 +8789,6 @@
+@@ -5398,38 +8793,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -17106,7 +17110,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5885,7 +9244,7 @@
+@@ -5885,7 +9248,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -17115,7 +17119,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6265,53 +9624,6 @@
+@@ -6265,53 +9628,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -17169,7 +17173,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6936,46 +10248,11 @@
+@@ -6936,46 +10252,11 @@
  	[ ! -f inadyn/Makefile ] || $(MAKE) -C inadyn distclean
  	@rm -f inadyn/Makefile
  
@@ -17217,7 +17221,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6994,24 +10271,6 @@
+@@ -6994,24 +10275,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -17242,7 +17246,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -7079,7 +10338,7 @@
+@@ -7079,7 +10342,7 @@
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
  	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
  	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
@@ -17251,7 +17255,7 @@
  	touch ipset_arm/stamp-h1
  
  ipset_arm: ipset_arm/stamp-h1
-@@ -7389,37 +10648,6 @@
+@@ -7389,37 +10652,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  
