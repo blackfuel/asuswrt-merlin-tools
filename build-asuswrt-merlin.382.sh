@@ -52,7 +52,7 @@ make_clean_2() {
 }
 
 extract_source_code() {
-	tar xzvf /mnt/hgfs/sandbox/384.9-0-680426d.tar.gz
+	tar xzvf /mnt/hgfs/sandbox/384.10-alpha2-7b4dd66.tar.gz
 }
 
 make_clean_3() {
@@ -104,7 +104,7 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.c release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.h release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/Makefile release/src-rt/
-#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/platform.mak release/src-rt/
+	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/platform.mak release/src-rt/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a release/src-rt-6.x.4708/linux/linux-2.6.36/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a release/src-rt-7.14.114.x/src/linux/linux-2.6.36/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a release/src-rt-7.x.main/src/linux/linux-2.6.36/
