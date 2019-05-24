@@ -6118,7 +6118,7 @@
  export BRANCH := $(shell git branch)
  
  ifneq ($(RCNO),)
-@@ -3660,12 +3666,6 @@
+@@ -3664,12 +3670,6 @@
  	else \
  		echo "CONFIG_LINUX_MTD=$(LINUX_MTD)" >>$(1); \
  	fi; \
@@ -6131,7 +6131,7 @@
  	if [ "$(BWDPI)" = "y" ]; then \
  		sed -i "/CONFIG_NET_SCH_HTB/d" $(1); \
  		echo "CONFIG_NET_SCH_HTB=y" >>$(1); \
-@@ -3951,11 +3951,218 @@
+@@ -3955,11 +3955,218 @@
  	$(MAKE) -C router bboldconf
  	@echo done
  
@@ -6350,6 +6350,17 @@
  ifeq ($(HND_ROUTER),y)
  	@echo BRCM_BOARD_ID=$(BRCM_BOARD_ID)
  	@rm -f bcmdrivers/broadcom/net/wl/bcm9$(BCM_CHIP) && ln -sf impl51 bcmdrivers/broadcom/net/wl/bcm9$(BCM_CHIP)
+--- a/release/src-rt/platform.mak
++++ b/release/src-rt/platform.mak
+@@ -11,7 +11,7 @@
+ 
+ ifeq ($(HND_ROUTER),y)
+ export PRIVATE_EXTRACFLAGS := $(BRCM_COMMON_CFLAGS) -DHND_ROUTER -DLINUX26 -DLINUX_2_6_36 -DCONFIG_BCMWL5
+-export EXTRACFLAGS := -march=armv7-a -marm -DHND_ROUTER -DCONFIG_BCMWL5 -D__ARM_ARCH_7A__
++export EXTRACFLAGS := -march=armv8-a -fomit-frame-pointer -DHND_ROUTER -DCONFIG_BCMWL5 -D__ARM_ARCH_8A__
+ else
+  ifeq ($(EXTRACFLAGS),)
+ export EXTRACFLAGS := -DBCMWPA2 -DBCMARM -fno-delete-null-pointer-checks -marm 
 --- a/release/src/router/config_base
 +++ b/release/src/router/config_base
 @@ -347,7 +347,7 @@
@@ -7082,7 +7093,7 @@
 +
 --- a/release/src/router/httpd/web.c
 +++ b/release/src/router/httpd/web.c
-@@ -3818,6 +3818,7 @@
+@@ -3824,6 +3824,7 @@
  		}
  	}
  	else if(!strcmp(apiName, "qos")){
@@ -7090,7 +7101,7 @@
  		char *desc, *addr, *port, *prio, *transferred, *proto;
  
  		if(!strcmp(apiAction, "enable")){
-@@ -4012,6 +4013,7 @@
+@@ -4018,6 +4019,7 @@
  		else{
  				retStatus = 3;
  		}
@@ -7098,7 +7109,7 @@
  	}
  	else{
  		retStatus = 3;
-@@ -10433,10 +10435,12 @@
+@@ -10439,10 +10441,12 @@
  	}
  	else if (!strcmp(action_mode, " Restart ")||!strcmp(action_mode, "reboot"))
  	{
@@ -7111,7 +7122,7 @@
  	}
  	else if (!strcmp(action_mode, "Restore")||!strcmp(action_mode, "restore"))
  	{
-@@ -10847,6 +10851,7 @@
+@@ -10853,6 +10857,7 @@
  	}
  	else if (!strcmp(action_mode, "start_simdetect"))
  	{
@@ -7119,7 +7130,7 @@
  		char *simdetect;
  
  		simdetect = get_cgi_json("simdetect", root);
-@@ -10856,6 +10861,7 @@
+@@ -10862,6 +10867,7 @@
  		nvram_set("freeze_duck", "15");
  		shutdown(fileno(wp), SHUT_RDWR);
  		sys_reboot();
@@ -7127,7 +7138,7 @@
  	}
  	else if(!strcmp(action_mode, "update_lte_fw")){
  		notify_rc("start_gobi_update");
-@@ -11592,6 +11598,7 @@
+@@ -11598,6 +11604,7 @@
  static void
  do_upgrade_post(char *url, FILE *stream, int len, char *boundary)
  {
@@ -7135,7 +7146,7 @@
  	#define MAX_VERSION_LEN 64
  
  	do_html_get(url, len, boundary);
-@@ -11803,12 +11810,14 @@
+@@ -11809,12 +11816,14 @@
  	while (len-- > 0)
  		if((ch = fgetc(stream)) == EOF)
  			break;
@@ -7150,7 +7161,7 @@
  	/* Reboot if successful */
  	char *autoreboot = safe_get_cgi_json("autoreboot",NULL);
  	char *reset = safe_get_cgi_json("reset",NULL);
-@@ -11879,6 +11888,7 @@
+@@ -11885,6 +11894,7 @@
  #endif
  		}
  	}
@@ -7158,7 +7169,7 @@
  }
  
  #if defined(RTCONFIG_SAVEJFFS)
-@@ -12153,6 +12163,7 @@
+@@ -12159,6 +12169,7 @@
  static void
  do_upload_cgi(char *url, FILE *stream)
  {
@@ -7166,7 +7177,7 @@
  	int ret;
  #if defined(RTCONFIG_SAVEJFFS)
  	int r;
-@@ -12196,6 +12207,7 @@
+@@ -12202,6 +12213,7 @@
  		websApply(stream, "UploadError.asp");
  	   	//unlink("/tmp/settings_u.prf");
  	}
@@ -7174,7 +7185,7 @@
  }
  
  #ifdef RTCONFIG_OPENVPN
-@@ -23488,7 +23500,11 @@
+@@ -23492,7 +23504,11 @@
  	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
  	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
  	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
@@ -7186,18 +7197,6 @@
  #ifdef RTCONFIG_PUSH_EMAIL
  	{ "generate_trans_id", ej_generate_trans_id},
  #endif
---- a/release/src/router/config/config.in
-+++ b/release/src/router/config/config.in
-@@ -1688,9 +1688,6 @@
- 	bool "enable advanced roaming assistant"
- 	default n
- 
--config RTCONFIG_CFGSYNC
--	bool "Sync config"
--
- config RTCONFIG_WLCSCAN_RSSI
- 	bool "Sitesurvey for specific SSID rssi"
- 	default n
 --- a/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile
 +++ b/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile
 @@ -64,7 +64,7 @@

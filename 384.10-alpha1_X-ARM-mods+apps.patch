@@ -12880,6 +12880,26 @@
  else
   ifeq ($(EXTRACFLAGS),)
  export EXTRACFLAGS := -DBCMWPA2 -DBCMARM -fno-delete-null-pointer-checks -marm 
+@@ -24,8 +24,8 @@
+ export CROSS_COMPILER := $(CROSS_COMPILE)
+ export CONFIGURE := ./configure LD=$(CROSS_COMPILE)ld --host=arm-buildroot-linux-gnueabi
+ export CONFIGURE_64 := ./configure LD=$(CROSS_COMPILE_64)ld --host=aarch64-buildroot-linux-gnu 
+-export HOSTCONFIG := linux-armv4 -DOPENSSL_NO_HEARTBEATS -DL_ENDIAN -O2 -march=armv8-a -fomit-frame-pointer -mabi=aapcs-linux -marm -ffixed-r8 -msoft-float -D__ARM_ARCH_8A__
+-export HOSTCONFIG_64 := linux-aarch64 -DOPENSSL_NO_HEARTBEATS -DL_ENDIAN no-engine -Os -march=armv8-a -fomit-frame-pointer -mabi=lp64 -ffixed-r8 -D__ARM_ARCH_8A__ no-asm
++export HOSTCONFIG := linux-armv4 -DL_ENDIAN -march=armv8-a -fomit-frame-pointer -mabi=aapcs-linux -marm -ffixed-r8 -msoft-float -D__ARM_ARCH_8A__
++export HOSTCONFIG_64 := linux-aarch64 -DL_ENDIAN -march=armv8-a -fomit-frame-pointer -mabi=lp64 -ffixed-r8 -D__ARM_ARCH_8A__
+ export BCMEX := _arm
+ export ARCH := arm
+ export HOST :=
+@@ -40,7 +40,7 @@
+ export CROSS_COMPILE := arm-brcm-linux-uclibcgnueabi-
+ export CROSS_COMPILER := $(CROSS_COMPILE)
+ export CONFIGURE := ./configure --host=arm-linux --build=$(BUILD)
+-export HOSTCONFIG := linux-armv4 -O2
++export HOSTCONFIG := linux-armv4 -fomit-frame-pointer
+ export BCMEX := _arm
+ export EXTRA_FLAG := -lgcc_s
+ export ARCH := arm
 --- a/release/src/router/config_base
 +++ b/release/src/router/config_base
 @@ -347,7 +347,7 @@
@@ -12893,7 +12913,7 @@
  # RTCONFIG_FBT is not set
 --- a/release/src/router/Makefile
 +++ b/release/src/router/Makefile
-@@ -693,6 +693,196 @@
+@@ -693,6 +693,198 @@
  obj-y += iproute2-3.15.0
  endif
  
@@ -12925,6 +12945,7 @@
 +BLACKFUEL_OPTIMIZED_CONFIGURE:=$(if $(RTCONFIG_HND_ROUTER),./configure LD=/opt/toolchains/crosstools-aarch64-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/bin/aarch64-buildroot-linux-gnu-ld --host=aarch64-buildroot-linux-gnu ,$(CONFIGURE))
 +BLACKFUEL_OPTIMIZED_TOOLCHAIN:=CC="$(BLACKFUEL_OPTIMIZED_CC)" CXX="$(BLACKFUEL_OPTIMIZED_CXX)" CPP="$(BLACKFUEL_OPTIMIZED_CPP)" AR="$(BLACKFUEL_OPTIMIZED_AR)" AS="$(BLACKFUEL_OPTIMIZED_AS)" LD="$(BLACKFUEL_OPTIMIZED_LD)" NM="$(BLACKFUEL_OPTIMIZED_NM)" OBJCOPY="$(BLACKFUEL_OPTIMIZED_OBJCOPY)" OBJDUMP="$(BLACKFUEL_OPTIMIZED_OBJDUMP)" RANLIB="$(BLACKFUEL_OPTIMIZED_RANLIB)" SIZE="$(BLACKFUEL_OPTIMIZED_SIZE)" STRIP="$(BLACKFUEL_OPTIMIZED_STRIP)" $(BLACKFUEL_CURRENT_ARCH)
 +BLACKFUEL_OPTIMIZED_LIB:=$(if $(RTCONFIG_HND_ROUTER),lib64,lib)
++BLACKFUEL_OPTIMIZED_BIN:=$(if $(RTCONFIG_HND_ROUTER),bin/aarch64,bin)
 +BLACKFUEL_OPTIMIZED_SYSROOT:=$(if $(RTCONFIG_HND_ROUTER),/opt/toolchains/crosstools-aarch64-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/aarch64-buildroot-linux-gnu/sysroot,$(TOOLS)/bin/arm-brcm-linux-uclibcgnueabi/sysroot)
 +BLACKFUEL_OPTIMIZED_HOST:=$(if $(RTCONFIG_HND_ROUTER),aarch64-buildroot-linux-gnu,arm-brcm-linux-uclibcgnueabi)
 +
@@ -12932,6 +12953,7 @@
 +BLACKFUEL_COMPATIBILE_TOOLCHAIN=CC="$(CC)" CXX="$(CXX)" CPP="$(CPP)" AR="$(AR)" AS="$(AS)" LD="$(LD)" NM="$(NM)" OBJCOPY="$(OBJCOPY)" OBJDUMP="$(OBJDUMP)" RANLIB="$(RANLIB)" SIZE="$(SIZE)" STRIP="$(STRIP)" $(BLACKFUEL_CURRENT_ARCH)
 +BLACKFUEL_COMPATIBILE_CONFIGURE=$(CONFIGURE)
 +BLACKFUEL_COMPATIBILE_LIB=lib
++BLACKFUEL_COMPATIBILE_BIN=bin
 +BLACKFUEL_COMPATIBILE_STRIP=$(STRIP)
 +
 +obj-y += openssl$(if $(RTCONFIG_HND_ROUTER),-aarch64,)
@@ -13090,7 +13112,7 @@
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlite
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += sqlCipher
  obj-$(RTCONFIG_PERMISSION_MANAGEMENT) += PMS_DBapis
-@@ -1229,8 +1419,6 @@
+@@ -1229,8 +1421,6 @@
  
  obj-$(RTCONFIG_GEOIP) += GeoIP-1.6.2
  
@@ -13099,7 +13121,7 @@
  # Begin merlin add-ons
  obj-$(RTCONFIG_NANO) += ncurses-6.0
  obj-$(RTCONFIG_NANO) += nano
-@@ -1262,10 +1450,15 @@
+@@ -1262,10 +1452,15 @@
  obj-$(RTCONFIG_NFS) += portmap
  # End merlin add-ons
  
@@ -13112,13 +13134,13 @@
 +obj-y += $(BLACKFUEL_OPENSSLDIR)
 +obj-y += zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,)
 +obj-y += libevent-2.0.21$(if $(RTCONFIG_HND_ROUTER),-aarch64,)
-+obj-y += liblz4
++obj-y += liblz4$(if $(RTCONFIG_HND_ROUTER),-aarch64,)
 +obj-y += xzutils
 +obj-y += zstd
  obj-y += tor
  endif
  
-@@ -1602,6 +1795,8 @@
+@@ -1602,6 +1797,8 @@
  	done
  
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}${EX7}.sh
@@ -13127,7 +13149,7 @@
  	@echo ---
  
  	# extra install in case build-process skip them
-@@ -1619,10 +1814,28 @@
+@@ -1619,10 +1816,28 @@
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libpthread.so.0 $(INSTALLDIR)/lib/libpthread.so.0
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libdl.so.2 $(INSTALLDIR)/lib/libdl.so.2
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libgcc_s.so.1 $(INSTALLDIR)/lib/libgcc_s.so.1
@@ -13160,7 +13182,7 @@
  
  ifeq ($(RTCONFIG_CFEZ),y)
  	install -D $(TOP)/envram_bin/envram$(BCMEX)$(EX7)/envrams $(INSTALLDIR)/usr/sbin/envrams
-@@ -1651,8 +1864,8 @@
+@@ -1651,8 +1866,8 @@
  	rm -rf $(INSTALLDIR)/rom/rom/etc
  
  	# strip size for tmp
@@ -13171,7 +13193,7 @@
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/css
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/js
  	#rm -rf $(INSTALLDIR)/www/images/New_ui
-@@ -1823,6 +2036,8 @@
+@@ -1823,6 +2038,8 @@
  	@echo ---
  else
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}.sh
@@ -13180,7 +13202,7 @@
  	@echo ---
  endif
  
-@@ -1885,7 +2100,7 @@
+@@ -1885,7 +2102,7 @@
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/scsi/sr_mod.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/scanner.*o $(PLATFORMDIR)/extras/ || true
  
@@ -13189,7 +13211,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1900,7 +2115,7 @@
+@@ -1900,7 +2117,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
@@ -13198,7 +13220,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/usbmouse.*o $(PLATFORMDIR)/extras/ || true
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/hid*.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
-@@ -1923,8 +2138,8 @@
+@@ -1923,8 +2140,8 @@
  	$(if $(RTCONFIG_PPTP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pptp.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_L2TP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pppol2tp.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/net/ppp_deflate.*o $(PLATFORMDIR)/extras/ || true
@@ -13209,7 +13231,7 @@
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp1251.*o $(PLATFORMDIR)/extras/ || true
-@@ -2285,7 +2500,68 @@
+@@ -2285,7 +2502,68 @@
  menuconfig mconf: rmconf kmconf
  
  oldconfig oldconf: koldconf roldconf bboldconf
@@ -13268,7 +13290,7 @@
 +		rm -rf "$(TOP)/freetype"; \
 +		rm -rf "$(TOP)/bzip2"; \
 +		rm -rf "$(TOP)/powstatd"; \
-+		rm -rf "$(TOP)/liblz4"; \
++		rm -rf "$(TOP)/liblz4" "$(TOP)/liblz4-aarch64"; \
 +		rm -rf "$(TOP)/strace"; \
 +		rm -rf "$(TOP)/strongswan-5.2.1/*.a" "$(TOP)/strongswan-5.2.1/*.o" ; \
 +		sed -r -i 's/(\| arm-\*  \| armbe-\* \| armle-\* \| )/\| aarch64-\* \1/g' $$(find $(TOP)/ -name 'config.sub' -print0 | xargs -0 -I '{}' grep -FL 'aarch64-*' '{}') || true; \
@@ -13278,7 +13300,7 @@
  
  #
  # overrides and extra dependencies
-@@ -2321,10 +2597,10 @@
+@@ -2321,10 +2599,10 @@
  	chmod 4755 $(INSTALLDIR)/$(BUSYBOX)/bin/busybox
  
  busybox-clean:
@@ -13291,14 +13313,15 @@
  
  busybox-config:
  	$(MAKE) -C $(BUSYBOX_DIR) menuconfig
-@@ -2445,11 +2721,17 @@
+@@ -2445,11 +2723,17 @@
  	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
+-OPENSSL_CIPHERS:=enable-rc5 no-rc4
 +ifneq ($(RTCONFIG_TRANSMISSION),openssl)
- OPENSSL_CIPHERS:=enable-rc5 no-rc4
++OPENSSL_CIPHERS:=enable-rc5 no-rc4 no-ssl3
  else
-+OPENSSL_CIPHERS:=enable-rc5
++OPENSSL_CIPHERS:=enable-rc5 no-ssl3
 +endif
 +else
 +ifneq ($(RTCONFIG_TRANSMISSION),openssl)
@@ -13309,7 +13332,7 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -2494,6 +2776,7 @@
+@@ -2494,6 +2778,7 @@
  	./Configure $(HOSTCONFIG) -DOPENSSL_NO_BUF_FREELISTS --prefix=/usr --openssldir=/etc --cross-compile-prefix=' ' \
  	-ffunction-sections -fdata-sections -Wl,--gc-sections \
  	shared $(OPENSSL_CIPHERS) no-ssl2 no-ssl3 no-err
@@ -13317,7 +13340,7 @@
  #	no-sha0 no-smime no-camellia no-krb5 no-rmd160 no-ripemd \
  #	no-seed no-capieng no-cms no-gms no-gmp no-rfc3779 \
  #	no-ec no-ecdh no-ecdsa no-err no-hw no-jpake no-threads \
-@@ -2533,6 +2816,7 @@
+@@ -2533,6 +2818,7 @@
  else
  openssl: openssl/Makefile
  endif
@@ -13325,7 +13348,7 @@
  	$(MAKE) -C openssl && $(MAKE) $@-stage
  
  openssl-clean:
-@@ -2550,9 +2834,9 @@
+@@ -2550,9 +2836,9 @@
  	[ ! -f openssl/Makefile ] || $(STRIP) $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libcrypto.so.1.0.0
  	[ ! -f openssl/Makefile ] || cd $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib && rm -f libcrypto.so && ln -sf libcrypto.so.1.0.0 libcrypto.so
  
@@ -13338,7 +13361,7 @@
  
  ifeq ($(or $(RTCONFIG_WEBDAV),$(RTCONFIG_FTP_SSL),$(RTCONFIG_OPENVPN),$(RTCONFIG_HTTPS)),y)
  	[ ! -f openssl/Makefile ] || install -D openssl/libssl.so.1.0.0 $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libssl.so.1.0.0
-@@ -2754,11 +3038,11 @@
+@@ -2754,11 +3040,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -13353,7 +13376,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
-@@ -2932,14 +3216,14 @@
+@@ -2932,14 +3218,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -13371,7 +13394,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -3097,7 +3381,8 @@
+@@ -3097,7 +3383,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -13381,7 +13404,7 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -3248,7 +3533,7 @@
+@@ -3248,7 +3535,7 @@
  	( cd lsof ; ./Configure -clean )
  	@rm -f lsof/Makefile
  
@@ -13390,7 +13413,7 @@
  ifeq ($(ALPINE)$(LANTIQ),y)
  	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
  		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
-@@ -3267,45 +3552,6 @@
+@@ -3267,45 +3554,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -13436,7 +13459,7 @@
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -3332,20 +3578,22 @@
+@@ -3332,20 +3580,22 @@
  6relayd-clean:
  	-@$(MAKE) -C 6relayd clean
  
@@ -13465,7 +13488,7 @@
  		--disable-backtrace --disable-debugfs \
  		--disable-imager --disable-resizer --disable-defrag \
  		--disable-e2initrd-helper --disable-uuidd \
-@@ -3353,21 +3601,13 @@
+@@ -3353,21 +3603,13 @@
  		ac_cv_lib_dl_dlopen=no \
  		ac_cv_have_decl_fgets_unlocked=yes
  
@@ -13487,11 +13510,11 @@
  		ln -sf libcom_err.so.2.1 libcom_err.so.2 && ln -sf libcom_err.so.2.1 libcom_err.so && \
  		ln -sf libe2p.so.2.3 libe2p.so.2 && ln -sf libe2p.so.2.3 libe2p.so && \
  		ln -sf libext2fs.so.2.4 libext2fs.so.2 && ln -sf libext2fs.so.2.4 libext2fs.so
-@@ -3966,25 +4206,3254 @@
+@@ -3966,26 +4208,3290 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
--tor: openssl zlib libevent-2.0.21 tor/Makefile
+-tor: $(OPENSSLDIR) zlib libevent-2.0.21 tor/Makefile
 +#######################################################################################
 +#
 +# Blackfuel addons
@@ -13542,7 +13565,7 @@
 +
 +### zstd
 +
-+zstd: liblz4 xzutils zstd/Makefile
++zstd: liblz4$(if $(RTCONFIG_HND_ROUTER),-aarch64,) xzutils zstd/Makefile
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
 +zstd/Makefile:
@@ -14159,19 +14182,19 @@
 +util-linux-configure:
 +	@[ ! -d util-linux ] || [ -f "$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)/libuuid.so" ] || ( \
 +		cd util-linux ; \
++		$(if $(RTCONFIG_HND_ROUTER),,cp -p $(BLACKFUEL_DIR)/packages/util-linux/files/unsupported.c sys-utils/chcpu.c;) \
 +		$(BLACKFUEL_COMPATIBILE_TOOLCHAIN) \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)/pkgconfig" \
-+		CFLAGS="$(BLACKFUEL_COMPATIBILE_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 $(if $(RTCONFIG_HND_ROUTER),,-DHAVE_POSIX_FALLOCATE=1) -D_GNU_SOURCE -I$(STAGEDIR)/usr/include -lm" \
-+		CPPFLAGS="$(BLACKFUEL_COMPATIBILE_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 $(if $(RTCONFIG_HND_ROUTER),,-DHAVE_POSIX_FALLOCATE=1) -D_GNU_SOURCE -I$(STAGEDIR)/usr/include -lm" \
++		CFLAGS="$(BLACKFUEL_COMPATIBILE_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 $(if $(RTCONFIG_HND_ROUTER),,-DHAVE_POSIX_FALLOCATE=1) -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(BLACKFUEL_COMPATIBILE_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 $(if $(RTCONFIG_HND_ROUTER),,-DHAVE_POSIX_FALLOCATE=1) -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)" \
-+		LIBS="-lm $(if $(RTCONFIG_BCMARM),-lncursesw,-lncurses) -L$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)" \
++		LIBS="-lm $(if $(RTCONFIG_BCMARM),-lncursesw,-lncurses)" \
 +		$(BLACKFUEL_COMPATIBILE_CONFIGURE) \
 +		--prefix="$(STAGEDIR)/usr" \
 +		--libdir="$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)" \
 +		--enable-shared \
 +		--enable-static \
 +		$(if $(RTCONFIG_HND_ROUTER),,--disable-tls) \
-+		$(if $(RTCONFIG_HND_ROUTER),,--disable-chcpu) \
 +		--disable-rpath \
 +		--disable-silent-rules \
 +		--disable-bash-completion \
@@ -15698,37 +15721,38 @@
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/zlib-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
 +endif
 +
-+### liblz4
++### liblz4-aarch64
 +
-+liblz4: liblz4-unpack
++ifeq ($(HND_ROUTER),y)
++liblz4-aarch64: liblz4-aarch64-unpack
 +	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
 +
-+liblz4-stage:
-+	@echo liblz4
-+	@[ ! -d liblz4 ] || [ -f "$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/liblz4.so" ] || ( cd liblz4 ; \
++liblz4-aarch64-stage:
++	@echo liblz4-aarch64
++	@[ ! -d liblz4-aarch64 ] || [ -f "$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/liblz4.so" ] || ( cd liblz4-aarch64 ; \
 +		$(BLACKFUEL_OPTIMIZED_TOOLCHAIN) \
-+		$(MAKE) $(PARALLEL_BUILD) \
-+		CC=$(BLACKFUEL_OPTIMIZED_CC) \
-+		AR=$(BLACKFUEL_OPTIMIZED_AR) \
-+		LD=$(BLACKFUEL_OPTIMIZED_LINKER) \
-+		RANLIB=$(BLACKFUEL_OPTIMIZED_RANLIB) \
++		PKG_CONFIG_PATH="$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/pkgconfig" \
 +		CFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
 +		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
 +		DESTDIR="" \
 +		PREFIX="$(STAGEDIR)/usr" \
 +		LIBDIR="$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
++		BINDIR="$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_BIN)" \
 +		INCLUDEDIR="$(STAGEDIR)/usr/include" \
-+		install \
-+		)
++		INSTALL_PROGRAM="install" \
++		INSTALL_DATA="install" \
++		INSTALL_DIR="install -d" \
++		$(MAKE) $(PARALLEL_BUILD) install )
 +
-+liblz4-clean:
-+	-@$(MAKE) -C liblz4 clean
++liblz4-aarch64-clean:
++	-@$(MAKE) -C liblz4-aarch64 clean
 +
-+liblz4-install:
-+	install -d $(INSTALLDIR)/liblz4/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
-+	cp -df $(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/liblz4.so* $(INSTALLDIR)/liblz4/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
-+	chmod u+w $(INSTALLDIR)/liblz4/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
-+	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/liblz4/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
++liblz4-aarch64-install:
++	install -d $(INSTALLDIR)/liblz4-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
++	cp -df $(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/liblz4.so* $(INSTALLDIR)/liblz4-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/
++	chmod u+w $(INSTALLDIR)/liblz4-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
++	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/liblz4-aarch64/usr/$(BLACKFUEL_OPTIMIZED_LIB)/*
++endif
 +
 +### ncurses-aarch64
 +
@@ -15825,8 +15849,12 @@
 +		--disable-opie --disable-ntlm --disable-debug --disable-nls --disable-rpath \
 +		$(if $(RTCONFIG_IPV6),,--disable-ipv6) --disable-iri --without-included-regex  \
 +		--disable-dependency-tracking \
-+		CFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -I$(TOP)/$(OPENSSLDIR)/include -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="-Wl,--gc-sections -L$(TOP)/$(OPENSSLDIR) -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)"
++		OPENSSL_LIBS="-L$(TOP)/$(BLACKFUEL_OPENSSLDIR) -lcrypto -lssl" \
++		OPENSSL_CFLAGS="-I$(TOP)/$(BLACKFUEL_OPENSSLDIR)/include" \
++		ZLIB_CFLAGS="-I$(TOP)zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,)" \
++		ZLIB_LIBS="-L$(TOP)/zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,) -lz "\
++		CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="$(EXTRALDFLAGS) -Wl,--gc-sections -pthread"
 +
 +wget: $(BLACKFUEL_OPENSSLDIR) zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,) wget-unpack wget/Makefile
 +	$(MAKE) -C $@
@@ -15907,28 +15935,29 @@
 +
 +### tor
 +
-+tor: openssl$(if $(RTCONFIG_HND_ROUTER),-aarch64,) zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,) libevent-2.0.21$(if $(RTCONFIG_HND_ROUTER),-aarch64,) zstd tor/Makefile
++tor: $(BLACKFUEL_OPENSSLDIR) zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,) libevent-2.0.21$(if $(RTCONFIG_HND_ROUTER),-aarch64,) zstd tor/Makefile
  	@$(SEP)
  	$(MAKE) -C $@ $(PARALLEL_BUILD)
  
 -tor/Makefile:
--	(cd tor ; $(CONFIGURE) --enable-static-libevent --with-libevent-dir=$(STAGEDIR)/usr \
--					--with-openssl-dir=$(TOP)/openssl \
--					--with-zlib-dir=$(TOP)/zlib \
--					--disable-asciidoc --disable-unittests \
--					--disable-tool-name-check)
+-	(cd tor ; $(CONFIGURE) --with-libevent-dir=$(STAGEDIR)/usr \
+-		--with-openssl-dir=$(TOP)/$(OPENSSLDIR) --with-zlib-dir=$(TOP)/zlib \
+-		--disable-asciidoc --disable-unittests \
+-		--disable-tool-name-check --disable-unittests \
+-		CFLAGS="-I$(TOP)/$(OPENSSLDIR)/include" \
+-		CPPFLAGS="-I$(TOP)/$(OPENSSLDIR)/include")
 +tor/Makefile: tor-unpack
 +	(cd tor ; \
 +		$(BLACKFUEL_OPTIMIZED_TOOLCHAIN) \
 +		PKG_CONFIG_PATH="$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/pkgconfig" \
-+		CFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		CPPFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
++		CFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 -I$(TOP)/$(BLACKFUEL_OPENSSLDIR)/include -I$(STAGEDIR)/usr/include" \
++		CPPFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 -I$(TOP)/$(BLACKFUEL_OPENSSLDIR)/include -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(TOP)/$(BLACKFUEL_OPENSSLDIR) -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
 +		$(BLACKFUEL_OPTIMIZED_CONFIGURE) \
 +		--disable-silent-rules \
 +		--enable-static-libevent \
 +		--with-libevent-dir=$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB) \
-+		--with-openssl-dir=$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB) \
++		--with-openssl-dir=$(TOP)/$(BLACKFUEL_OPENSSLDIR) \
 +		--with-zlib-dir=$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB) \
 +		--disable-asciidoc \
 +		--disable-unittests \
@@ -15938,9 +15967,8 @@
 +		)
  
  tor-install:
--	install -D tor/src/or/tor $(INSTALLDIR)/tor/usr/sbin/Tor
+ 	install -D tor/src/app/tor $(INSTALLDIR)/tor/usr/sbin/Tor
 -	$(STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor
-+	install -D tor/src/app/tor $(INSTALLDIR)/tor/usr/sbin/Tor
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor
 +	install -D tor/src/tools/tor-gencert $(INSTALLDIR)/tor/usr/sbin/Tor-gencert
 +	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/tor/usr/sbin/Tor-gencert
@@ -15998,7 +16026,7 @@
 +	#-cd $(INSTALL_DIR)/lib/public && rm -f libgcc_s.so && ln -sf libgcc_s.so.1 libgcc_s.so
 +
 +ifeq ($(HND_ROUTER),y)
-+openssl-aarch64: openssl-aarch64/Makefile fsbuild
++openssl-aarch64: openssl-aarch64/Makefile fsbuild-aarch64
 +else
 +openssl-aarch64: openssl-aarch64/Makefile
 +endif
@@ -16395,6 +16423,37 @@
 +	@rm -f nettle/stamp-h1
 +	@rm -rf nettle/include nettle/lib
 +
++### liblz4
++
++liblz4: liblz4-unpack
++	@[ ! -d $@ ] || ( $(SEP); $(MAKE) $@-stage )
++
++liblz4-stage:
++	@echo liblz4
++	@[ ! -d liblz4 ] || [ -f "$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)/liblz4.so" ] || ( cd liblz4 ; \
++		$(BLACKFUEL_COMPATIBILE_TOOLCHAIN) \
++		PKG_CONFIG_PATH="$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)/pkgconfig" \
++		CFLAGS="$(BLACKFUEL_COMPATIBILE_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -Wall -fPIC -std=gnu99 -D_GNU_SOURCE -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)" \
++		DESTDIR="" \
++		PREFIX="$(STAGEDIR)/usr" \
++		LIBDIR="$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)" \
++		BINDIR="$(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_BIN)" \
++		INCLUDEDIR="$(STAGEDIR)/usr/include" \
++		INSTALL_PROGRAM="install" \
++		INSTALL_DATA="install" \
++		INSTALL_DIR="install -d" \
++		$(MAKE) $(PARALLEL_BUILD) install )
++
++liblz4-clean:
++	-@$(MAKE) -C liblz4 clean
++
++liblz4-install:
++	install -d $(INSTALLDIR)/liblz4/usr/$(BLACKFUEL_COMPATIBILE_LIB)/
++	cp -df $(STAGEDIR)/usr/$(BLACKFUEL_COMPATIBILE_LIB)/liblz4.so* $(INSTALLDIR)/liblz4/usr/$(BLACKFUEL_COMPATIBILE_LIB)/
++	chmod u+w $(INSTALLDIR)/liblz4/usr/$(BLACKFUEL_COMPATIBILE_LIB)/*
++	$(BLACKFUEL_COMPATIBILE_STRIP) $(INSTALLDIR)/liblz4/usr/$(BLACKFUEL_COMPATIBILE_LIB)/*
++
 +### ncurses-6.0
 +
 +ncurses-6.0/Makefile: ncurses-6.0-unpack
@@ -16484,15 +16543,15 @@
 +			if [ "$$PACKAGE_DIR" = "curl-7.21.7" ]; then \
 +				PACKAGE_DIR="curl"; \
 +			fi; \
-+			URL="https://github.com/curl/curl/releases/download/curl-7_64_0/curl-7.64.0.tar.xz"; \
++			URL="https://github.com/curl/curl/releases/download/curl-7_65_0/curl-7.65.0.tar.xz"; \
 +			URL2="https://github.com/curl/curl.git"; \
-+			VERSION="7.64.0+git"; \
++			VERSION="7.65.0+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="curl"; \
 +		elif [ "$$PACKAGE_DIR" = "wget" ]; then \
-+			URL="https://ftp.gnu.org/gnu/wget/wget-1.20.1.tar.lz"; \
++			URL="https://ftp.gnu.org/gnu/wget/wget-1.20.3.tar.lz"; \
 +			URL2="https://gitlab.com/gnuwget/wget.git"; \
-+			VERSION="1.20.1+git"; \
++			VERSION="1.20.3+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="wget"; \
 +		elif [ "$$PACKAGE_DIR" = "jpeg" ] || [ "$$PACKAGE_DIR" = "jpeg-aarch64" ]; then \
@@ -16520,17 +16579,17 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="xzutils"; \
 +		elif [ "$$PACKAGE_DIR" = "zstd" ]; then \
-+			URL="https://github.com/facebook/zstd/releases/download/v1.3.8/zstd-1.3.8.tar.gz"; \
++			URL="https://github.com/facebook/zstd/releases/download/v1.4.0/zstd-1.4.0.tar.gz"; \
 +			URL2="https://github.com/facebook/zstd.git"; \
-+			VERSION="1.3.8+git"; \
++			VERSION="1.4.0+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="zstd"; \
 +		elif [ "$$PACKAGE_DIR" = "tor" ]; then \
-+			URL="https://www.torproject.org/dist/tor-0.3.5.8.tar.gz"; \
++			URL="https://dist.torproject.org/tor-0.4.0.5.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "findutils" ]; then \
 +			URL="https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "whois" ]; then \
-+			URL="http://ftp.debian.org/debian/pool/main/w/whois/whois_5.4.1.tar.xz"; \
++			URL="http://ftp.debian.org/debian/pool/main/w/whois/whois_5.4.2.tar.xz"; \
 +		elif [ "$$PACKAGE_DIR" = "libsodium" ]; then \
 +			URL="https://download.libsodium.org/libsodium/releases/libsodium-1.0.17.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "dnscrypt" ]; then \
@@ -16550,13 +16609,13 @@
 +		elif [ "$$PACKAGE_DIR" = "popt" ]; then \
 +			URL="http://rpm5.org/files/popt/popt-1.16.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "libgpg-error" ]; then \
-+			URL="https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.35.tar.bz2"; \
++			URL="https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.36.tar.bz2"; \
 +			URL2="https://dev.gnupg.org/source/libgpg-error.git"; \
-+			VERSION="1.35+git"; \
++			VERSION="1.36+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="libgpg-error"; \
 +		elif [ "$$PACKAGE_DIR" = "util-linux" ] || [ "$$PACKAGE_DIR" = "util-linux-aarch64" ]; then \
-+			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.33/util-linux-2.33.1.tar.xz"; \
++			URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.33/util-linux-2.33.2.tar.xz"; \
 +			PACKAGE_NAME="util-linux"; \
 +		elif [ "$$PACKAGE_DIR" = "libaio" ]; then \
 +			URL="http://http.debian.net/debian/pool/main/liba/libaio/libaio_0.3.111.orig.tar.gz"; \
@@ -16565,9 +16624,9 @@
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="libaio"; \
 +		elif [ "$$PACKAGE_DIR" = "lvm2" ]; then \
-+			URL="https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.183.tgz"; \
++			URL="https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.185.tgz"; \
 +			URL2="git://sourceware.org/git/lvm2.git"; \
-+			VERSION="2.02.183+git"; \
++			VERSION="2.02.185+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="lvm2"; \
 +		elif [ "$$PACKAGE_DIR" = "libgcrypt" ]; then \
@@ -16637,10 +16696,10 @@
 +			URL="http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "powstatd" ]; then \
 +			URL="http://deb.debian.org/debian/pool/main/p/powstatd/powstatd_1.5.1.orig.tar.gz"; \
-+		elif [ "$$PACKAGE_DIR" = "liblz4" ]; then \
-+			URL="https://github.com/lz4/lz4/archive/v1.8.3.tar.gz"; \
++		elif [ "$$PACKAGE_DIR" = "liblz4" ] || [ "$$PACKAGE_DIR" = "liblz4-aarch64" ]; then \
++			URL="https://github.com/lz4/lz4/archive/v1.9.1.tar.gz"; \
 +			URL2="https://github.com/lz4/lz4.git"; \
-+			VERSION="1.8.3+git"; \
++			VERSION="1.9.1+git"; \
 +			SOURCE_VERSION=""; \
 +			PACKAGE_NAME="lz4"; \
 +		elif [ "$$PACKAGE_DIR" = "strace" ] || [ "$$PACKAGE_DIR" = "strace-aarch64" ]; then \
@@ -16751,7 +16810,7 @@
  iproute2:
  	@$(SEP)
  	@$(MAKE) -C $@ KERNEL_INCLUDE=$(LINUX_INC_DIR)/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)" $(PARALLEL_BUILD)
-@@ -4065,11 +7534,12 @@
+@@ -4066,11 +7572,12 @@
  
  dropbear/config.h: dropbear/config.h.in
  	cd dropbear && \
@@ -16768,7 +16827,7 @@
  		--enable-openpty --enable-syslog --enable-shadow --enable-bundled-libtom \
  		--disable-lastlog \
  		--disable-utmp --disable-utmpx \
-@@ -4079,11 +7549,15 @@
+@@ -4080,11 +7587,15 @@
  
  dropbear: dropbear/config.h
  	@$(SEP)
@@ -16786,7 +16845,7 @@
  	cd $(INSTALLDIR)/dropbear/usr/bin && \
  	ln -sf dropbearmulti dropbearkey && \
  	ln -sf dropbearmulti dbclient && \
-@@ -4256,25 +7730,6 @@
+@@ -4257,25 +7768,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -16812,7 +16871,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4296,33 +7751,6 @@
+@@ -4297,33 +7789,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -16846,7 +16905,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4397,7 +7825,7 @@
+@@ -4398,7 +7863,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -16855,7 +16914,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4844,26 +8272,6 @@
+@@ -4845,26 +8310,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -16882,7 +16941,27 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4938,27 +8346,6 @@
+@@ -4885,15 +8330,17 @@
+ 	[ ! -f openpam/Makefile ] || $(MAKE) -C openpam distclean
+ 	@rm -f openpam/Makefile
+ 
+-openvpn: shared $(OPENSSLDIR) lzo openpam zlib openvpn/Makefile
++openvpn: shared $(OPENSSLDIR) lzo openpam zlib liblz4 openvpn/Makefile
+ 	$(MAKE) -C $@ $(PARALLEL_BUILD)
+ 
+ openvpn/Makefile:
+ 	( cd openvpn ; ./autogen.sh && OPENSSL_CFLAGS="-I$(TOP)/$(OPENSSLDIR)/include" \
+ 		OPENSSL_LIBS="-L$(TOP)/$(OPENSSLDIR) -lcrypto -lssl" \
+ 		CFLAGS="-O3 -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections $(if $(RTCONFIG_BCMARM),-I$(SRCBASE)/shared/bcmwifi/include)" \
++		LZ4_CFLAGS="-I$(TOP)/liblz4/lib" \
++		LZ4_LIBS="-L$(TOP)/liblz4/lib -llz4" \
+ 		LDFLAGS="$(EXTRALDFLAGS) -L$(TOP)/nvram$(BCMEX)${EX7} ${EXTRA_NV_LDFLAGS} -lnvram -L$(TOP)/shared -lshared $(if $(RTCONFIG_QTN),-L$(TOP)/libqcsapi_client -lqcsapi_client) -L$(TOP)/zlib -lz -lpthread -ldl -L$(TOP)/lzo/src/.libs -L$(TOP)/openpam/lib/libpam/.libs -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+-		CPPFLAGS="-I$(TOP)/lzo/include -I$(TOP)/$(OPENSSLDIR)/include  -I$(TOP)/openpam/include -I$(TOP)/shared -I$(SRCBASE)/include" \
++		CPPFLAGS="-I$(TOP)/lzo/include -I$(TOP)/$(OPENSSLDIR)/include -I$(TOP)/openpam/include -I$(TOP)/shared -I$(SRCBASE)/include" \
+ 		IPROUTE="$(if $(RTCONFIG_HND_ROUTER),/bin/ip,/usr/sbin/ip)" IFCONFIG="/sbin/ifconfig" ROUTE="/sbin/route" \
+ 		$(CONFIGURE) --prefix=/usr --bindir=/usr/sbin --libdir=/usr/lib \
+ 			--disable-debug --enable-management --enable-plugin-auth-pam --enable-iproute2 \
+@@ -4939,27 +8386,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -16910,7 +16989,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5047,6 +8434,12 @@
+@@ -5048,6 +8474,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -16923,7 +17002,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5370,38 +8763,6 @@
+@@ -5371,38 +8803,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -16962,7 +17041,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5857,7 +9218,7 @@
+@@ -5858,7 +9258,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -16971,7 +17050,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6237,57 +9598,6 @@
+@@ -6238,57 +9638,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -17029,7 +17108,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6912,46 +10222,11 @@
+@@ -6913,46 +10262,11 @@
  	[ ! -f inadyn/Makefile ] || $(MAKE) -C inadyn distclean
  	@rm -f inadyn/Makefile
  
@@ -17077,7 +17156,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6970,24 +10245,6 @@
+@@ -6971,24 +10285,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -17102,7 +17181,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -7400,37 +10657,6 @@
+@@ -7401,37 +10697,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  

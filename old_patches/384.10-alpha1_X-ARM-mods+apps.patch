@@ -12441,7 +12441,7 @@
  export BRANCH := $(shell git branch)
  
  ifneq ($(RCNO),)
-@@ -3660,12 +3666,6 @@
+@@ -3664,12 +3670,6 @@
  	else \
  		echo "CONFIG_LINUX_MTD=$(LINUX_MTD)" >>$(1); \
  	fi; \
@@ -12454,7 +12454,7 @@
  	if [ "$(BWDPI)" = "y" ]; then \
  		sed -i "/CONFIG_NET_SCH_HTB/d" $(1); \
  		echo "CONFIG_NET_SCH_HTB=y" >>$(1); \
-@@ -3951,11 +3951,218 @@
+@@ -3955,11 +3955,218 @@
  	$(MAKE) -C router bboldconf
  	@echo done
  
@@ -12871,30 +12871,15 @@
  		DISABLE_REPEATER_UI=n
 --- a/release/src-rt/platform.mak
 +++ b/release/src-rt/platform.mak
-@@ -11,10 +11,10 @@
+@@ -11,7 +11,7 @@
  
  ifeq ($(HND_ROUTER),y)
  export PRIVATE_EXTRACFLAGS := $(BRCM_COMMON_CFLAGS) -DHND_ROUTER -DLINUX26 -DLINUX_2_6_36 -DCONFIG_BCMWL5
 -export EXTRACFLAGS := -march=armv7-a -marm -DHND_ROUTER -DCONFIG_BCMWL5 -D__ARM_ARCH_7A__
-+export EXTRACFLAGS := -march=armv8-a+crc -mtune=cortex-a53 -mfpu=crypto-neon-fp-armv8 -fomit-frame-pointer -fno-caller-saves -DHND_ROUTER -DCONFIG_BCMWL5
++export EXTRACFLAGS := -march=armv8-a -fomit-frame-pointer -DHND_ROUTER -DCONFIG_BCMWL5 -D__ARM_ARCH_8A__
  else
   ifeq ($(EXTRACFLAGS),)
--export EXTRACFLAGS := -DBCMWPA2 -DBCMARM -fno-delete-null-pointer-checks -marm 
-+export EXTRACFLAGS := -march=armv7-a -mtune=cortex-a9 -fomit-frame-pointer -fno-caller-saves -mfloat-abi=soft -DBCMWPA2 -DBCMARM
-  endif
- endif
- 
-@@ -24,8 +24,8 @@
- export CROSS_COMPILER := $(CROSS_COMPILE)
- export CONFIGURE := ./configure LD=$(CROSS_COMPILE)ld --host=arm-buildroot-linux-gnueabi
- export CONFIGURE_64 := ./configure LD=$(CROSS_COMPILE_64)ld --host=aarch64-buildroot-linux-gnu 
--export HOSTCONFIG := linux-armv4 -DOPENSSL_NO_HEARTBEATS -DL_ENDIAN -march=armv7-a -fomit-frame-pointer -mabi=aapcs-linux -marm -ffixed-r8 -msoft-float -D__ARM_ARCH_7A__
--export HOSTCONFIG_64 := linux-aarch64 -DOPENSSL_NO_HEARTBEATS -DL_ENDIAN no-engine -Os -march=armv8-a -fomit-frame-pointer -mabi=lp64 -ffixed-r8 -D__ARM_ARCH_8A__ no-asm
-+export HOSTCONFIG := linux-armv4 -DOPENSSL_NO_HEARTBEATS -DL_ENDIAN -march=armv8-a+crc -mtune=cortex-a53 -mfpu=crypto-neon-fp-armv8 -fomit-frame-pointer -fno-caller-saves
-+export HOSTCONFIG_64 := linux-aarch64 -DOPENSSL_NO_HEARTBEATS -DL_ENDIAN -march=armv8-a -fomit-frame-pointer -fno-caller-saves
- export BCMEX := _arm
- export ARCH := arm
- export HOST :=
+ export EXTRACFLAGS := -DBCMWPA2 -DBCMARM -fno-delete-null-pointer-checks -marm 
 --- a/release/src/router/config_base
 +++ b/release/src/router/config_base
 @@ -347,7 +347,7 @@
@@ -12920,9 +12905,9 @@
 +ASUSWRT_ADDON:=../asuswrt-merlin-addon
 +ASUSWRT_ADDON_DIR:=$(ASUSWRT_DIR)/$(ASUSWRT_ADDON)
 +BLACKFUEL_DIR:=$(ASUSWRT_DIR)/blackfuel-addon
-+BLACKFUEL_OPTIMIZED_ARMV7:=-march=armv7-a -mtune=cortex-a9 -fomit-frame-pointer -fno-caller-saves -mfloat-abi=soft
-+BLACKFUEL_OPTIMIZED_ARMV8_32:=-march=armv8-a+crc -mtune=cortex-a53 -mfpu=crypto-neon-fp-armv8 -fomit-frame-pointer -fno-caller-saves -DHND_ROUTER
-+BLACKFUEL_OPTIMIZED_ARMV8_64:=-march=armv8-a+crypto -fomit-frame-pointer -fno-caller-saves -DHND_ROUTER
++BLACKFUEL_OPTIMIZED_ARMV7:=-march=armv7-a -mtune=cortex-a9 -fomit-frame-pointer -mfloat-abi=soft
++BLACKFUEL_OPTIMIZED_ARMV8_32:=-march=armv8-a -fomit-frame-pointer -DHND_ROUTER
++BLACKFUEL_OPTIMIZED_ARMV8_64:=-march=armv8-a -fomit-frame-pointer -DHND_ROUTER
 +BLACKFUEL_OPTIMIZED_COPTS:=$(if $(RTCONFIG_HND_ROUTER),$(BLACKFUEL_OPTIMIZED_ARMV8_64),$(BLACKFUEL_OPTIMIZED_ARMV7))
 +BLACKFUEL_CURRENT_ARCH:=$(if $(RTCONFIG_HND_ROUTER),CURRENT_ARCH="aarch64",)
 +BLACKFUEL_OPTIMIZED_CC:=$(if $(RTCONFIG_HND_ROUTER),$(CROSS_COMPILE_64)gcc,$(TOOLS)/bin/$(CC))
@@ -13114,14 +13099,17 @@
  # Begin merlin add-ons
  obj-$(RTCONFIG_NANO) += ncurses-6.0
  obj-$(RTCONFIG_NANO) += nano
-@@ -1257,9 +1445,12 @@
+@@ -1262,10 +1450,15 @@
+ obj-$(RTCONFIG_NFS) += portmap
  # End merlin add-ons
  
++BLACKFUEL_OPENSSLDIR=$(OPENSSLDIR)$(if $(RTCONFIG_HND_ROUTER),-aarch64,)
++
  ifeq ($(RTCONFIG_TOR),y)
 -obj-y += openssl
 -obj-y += zlib
 -obj-y += libevent-2.0.21
-+obj-y += openssl$(if $(RTCONFIG_HND_ROUTER),-aarch64,)
++obj-y += $(BLACKFUEL_OPENSSLDIR)
 +obj-y += zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,)
 +obj-y += libevent-2.0.21$(if $(RTCONFIG_HND_ROUTER),-aarch64,)
 +obj-y += liblz4
@@ -13130,7 +13118,7 @@
  obj-y += tor
  endif
  
-@@ -1596,6 +1787,8 @@
+@@ -1602,6 +1795,8 @@
  	done
  
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}${EX7}.sh
@@ -13139,7 +13127,7 @@
  	@echo ---
  
  	# extra install in case build-process skip them
-@@ -1613,10 +1806,28 @@
+@@ -1619,10 +1814,28 @@
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libpthread.so.0 $(INSTALLDIR)/lib/libpthread.so.0
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libdl.so.2 $(INSTALLDIR)/lib/libdl.so.2
  	install -D $(TOOLCHAIN)/arm-buildroot-linux-gnueabi/sysroot/lib/libgcc_s.so.1 $(INSTALLDIR)/lib/libgcc_s.so.1
@@ -13172,7 +13160,7 @@
  
  ifeq ($(RTCONFIG_CFEZ),y)
  	install -D $(TOP)/envram_bin/envram$(BCMEX)$(EX7)/envrams $(INSTALLDIR)/usr/sbin/envrams
-@@ -1645,8 +1856,8 @@
+@@ -1651,8 +1864,8 @@
  	rm -rf $(INSTALLDIR)/rom/rom/etc
  
  	# strip size for tmp
@@ -13183,7 +13171,7 @@
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/css
  	#rm -rf $(INSTALLDIR)/usr/lighttpd/js
  	#rm -rf $(INSTALLDIR)/www/images/New_ui
-@@ -1817,6 +2028,8 @@
+@@ -1823,6 +2036,8 @@
  	@echo ---
  else
  	@cd $(TARGETDIR) && $(TOP)/others/rootprep${BCMEX}.sh
@@ -13192,7 +13180,7 @@
  	@echo ---
  endif
  
-@@ -1879,7 +2092,7 @@
+@@ -1885,7 +2100,7 @@
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/scsi/sr_mod.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/scanner.*o $(PLATFORMDIR)/extras/ || true
  
@@ -13201,7 +13189,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/option.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/*acm.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/cdc-wdm.*o $(PLATFORMDIR)/extras/ || true
-@@ -1894,7 +2107,7 @@
+@@ -1900,7 +2115,7 @@
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/usb/ipheth.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_USB_MODEM),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/sierra.*o $(PLATFORMDIR)/extras/ || true
  
@@ -13210,7 +13198,7 @@
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/usbmouse.*o $(PLATFORMDIR)/extras/ || true
  #	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/hid*.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/usb/ipw.*o $(PLATFORMDIR)/extras/ || true
-@@ -1917,8 +2130,8 @@
+@@ -1923,8 +2138,8 @@
  	$(if $(RTCONFIG_PPTP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pptp.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(RTCONFIG_L2TP),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/drivers/net/pppol2tp.*o $(PLATFORMDIR)/extras/ || true
  	@mv $(TARGETDIR)/lib/modules/*/kernel/drivers/net/ppp_deflate.*o $(PLATFORMDIR)/extras/ || true
@@ -13221,7 +13209,7 @@
  
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp9*.*o $(PLATFORMDIR)/extras/ || true
  	$(if $(NEED_EX_NLS),@cp -f,@mv) $(TARGETDIR)/lib/modules/*/kernel/fs/nls_cp1251.*o $(PLATFORMDIR)/extras/ || true
-@@ -2279,7 +2492,67 @@
+@@ -2285,7 +2500,68 @@
  menuconfig mconf: rmconf kmconf
  
  oldconfig oldconf: koldconf roldconf bboldconf
@@ -13242,6 +13230,7 @@
 +		rm -rf "$(TOP)/json-c" "$(TOP)/json-c-aarch64"; \
 +		rm -rf "$(TOP)/ncurses-6.0" "$(TOP)/ncurses-aarch64"; \
 +		rm -rf "$(TOP)/openssl-aarch64" && cp -a "$(TOP)/openssl" "$(TOP)/openssl-aarch64"; \
++		rm -rf "$(TOP)/openssl-1.1.x-aarch64" && cp -a "$(TOP)/openssl-1.1.x" "$(TOP)/openssl-1.1.x-aarch64"; \
 +		rm -rf "$(TOP)/libevent-2.0.21-aarch64" && cp -a "$(TOP)/libevent-2.0.21" "$(TOP)/libevent-2.0.21-aarch64"; \
 +		rm -rf "$(TOP)/libusb-0.1.12-aarch64" && cp -a "$(TOP)/libusb-0.1.12" "$(TOP)/libusb-0.1.12-aarch64"; \
 +		rm -rf "$(TOP)/libusb10-aarch64" && cp -a "$(TOP)/libusb10" "$(TOP)/libusb10-aarch64"; \
@@ -13289,7 +13278,7 @@
  
  #
  # overrides and extra dependencies
-@@ -2315,10 +2588,10 @@
+@@ -2321,10 +2597,10 @@
  	chmod 4755 $(INSTALLDIR)/$(BUSYBOX)/bin/busybox
  
  busybox-clean:
@@ -13302,7 +13291,7 @@
  
  busybox-config:
  	$(MAKE) -C $(BUSYBOX_DIR) menuconfig
-@@ -2439,11 +2712,17 @@
+@@ -2445,11 +2721,17 @@
  	@true
  
  ifeq ($(RTCONFIG_OPENVPN),y)
@@ -13320,15 +13309,15 @@
  
  #OPENSSL_CIPHERS:=enable-aes enable-tls1 enable-tlsext
  
-@@ -2488,6 +2767,7 @@
+@@ -2494,6 +2776,7 @@
  	./Configure $(HOSTCONFIG) -DOPENSSL_NO_BUF_FREELISTS --prefix=/usr --openssldir=/etc --cross-compile-prefix=' ' \
  	-ffunction-sections -fdata-sections -Wl,--gc-sections \
- 	shared $(OPENSSL_CIPHERS) no-ssl2 no-ssl3
+ 	shared $(OPENSSL_CIPHERS) no-ssl2 no-ssl3 no-err
 +#	-I$(TOP)/cryptodev-linux -DHAVE_CRYPTODEV -DUSE_CRYPTODEV_DIGESTS
  #	no-sha0 no-smime no-camellia no-krb5 no-rmd160 no-ripemd \
  #	no-seed no-capieng no-cms no-gms no-gmp no-rfc3779 \
  #	no-ec no-ecdh no-ecdsa no-err no-hw no-jpake no-threads \
-@@ -2527,6 +2807,7 @@
+@@ -2533,6 +2816,7 @@
  else
  openssl: openssl/Makefile
  endif
@@ -13336,7 +13325,7 @@
  	$(MAKE) -C openssl && $(MAKE) $@-stage
  
  openssl-clean:
-@@ -2544,9 +2825,9 @@
+@@ -2550,9 +2834,9 @@
  	[ ! -f openssl/Makefile ] || $(STRIP) $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libcrypto.so.1.0.0
  	[ ! -f openssl/Makefile ] || cd $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib && rm -f libcrypto.so && ln -sf libcrypto.so.1.0.0 libcrypto.so
  
@@ -13349,7 +13338,7 @@
  
  ifeq ($(or $(RTCONFIG_WEBDAV),$(RTCONFIG_FTP_SSL),$(RTCONFIG_OPENVPN),$(RTCONFIG_HTTPS)),y)
  	[ ! -f openssl/Makefile ] || install -D openssl/libssl.so.1.0.0 $(INSTALLDIR)$(INSTALLSUBDIR)/usr/lib/libssl.so.1.0.0
-@@ -2748,11 +3029,11 @@
+@@ -2754,11 +3038,11 @@
  		$(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6) \
  		$(if $(RTCONFIG_USB_EXTRAS)||$(RTCONFIG_TR069),,-DNO_SCRIPT) \
  		$(if $(RTCONFIG_USB_EXTRAS),,-DNO_TFTP) \
@@ -13364,7 +13353,7 @@
  
  dnsmasq-install:
  	install -D dnsmasq/src/dnsmasq $(INSTALLDIR)/dnsmasq/usr/sbin/dnsmasq
-@@ -2926,14 +3207,14 @@
+@@ -2932,14 +3216,14 @@
  	cd miniupnpd && ./genconfig.sh --vendorcfg --leasefile --portinuse
  endif
  
@@ -13382,7 +13371,7 @@
  	    LDLIBS="-Wl,--as-needed $(IPTC_LIBS) -luuid"
  
  miniupnpd-clean:
-@@ -3091,7 +3372,8 @@
+@@ -3097,7 +3381,8 @@
  	touch $@
  
  libusb10: libusb10/stamp-h1
@@ -13392,7 +13381,7 @@
  
  libusb10-install: libusb10
  	install -D libusb10/libusb/.libs/libusb-1.0.so.0.0.0 $(INSTALLDIR)/libusb10/usr/lib/libusb-1.0.so.0
-@@ -3242,7 +3524,7 @@
+@@ -3248,7 +3533,7 @@
  	( cd lsof ; ./Configure -clean )
  	@rm -f lsof/Makefile
  
@@ -13401,7 +13390,7 @@
  ifeq ($(ALPINE)$(LANTIQ),y)
  	$(MAKE) CPPFLAGS="-I$(STAGEDIR)/usr/include -DWITHOUT_XATTR" \
  		CFLAGS="-I$(TOP)/mtd-utils/include -I$(TOP)/mtd-utils/ubi-utils/include" \
-@@ -3261,45 +3543,6 @@
+@@ -3267,45 +3552,6 @@
  mtd-utils-clean:
  	$(MAKE) -C mtd-utils clean
  
@@ -13447,7 +13436,7 @@
  odhcp6c: odhcp6c/Makefile
  	@EXT_CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -fPIC" \
  	EXT_LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -3326,20 +3569,22 @@
+@@ -3332,20 +3578,22 @@
  6relayd-clean:
  	-@$(MAKE) -C 6relayd clean
  
@@ -13476,7 +13465,7 @@
  		--disable-backtrace --disable-debugfs \
  		--disable-imager --disable-resizer --disable-defrag \
  		--disable-e2initrd-helper --disable-uuidd \
-@@ -3347,21 +3592,13 @@
+@@ -3353,21 +3601,13 @@
  		ac_cv_lib_dl_dlopen=no \
  		ac_cv_have_decl_fgets_unlocked=yes
  
@@ -13498,49 +13487,7 @@
  		ln -sf libcom_err.so.2.1 libcom_err.so.2 && ln -sf libcom_err.so.2.1 libcom_err.so && \
  		ln -sf libe2p.so.2.3 libe2p.so.2 && ln -sf libe2p.so.2.3 libe2p.so && \
  		ln -sf libext2fs.so.2.4 libext2fs.so.2 && ln -sf libext2fs.so.2.4 libext2fs.so
-@@ -3601,8 +3838,7 @@
- 	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) \
- 	CFLAGS="$(CFLAGS) -Os -Wall -ffunction-sections -fdata-sections -fPIC" \
- 	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
--	$(CONFIGURE) --prefix=/usr --sysconfdir=/etc --enable-shared --disable-static \
--	--disable-ripngd --disable-ospfd --disable-doc --disable-ospfclient \
-+	$(CONFIGURE) --enable-shared=lib --disable-ripngd --disable-ospfd --disable-doc --disable-ospfclient \
- 	--disable-ospf6d --disable-bgpd --disable-bgp-announce --disable-babeld \
- 	--disable-silent-rules \
- 	--disable-isisd
-@@ -3617,20 +3853,22 @@
- 
- quagga-install:
- 	install -d $(INSTALLDIR)/quagga/usr/lib
--	libtool --mode=install install -c quagga/lib/libzebra.la $(INSTALLDIR)/quagga/usr/lib
--	libtool --finish $(INSTALLDIR)/quagga/usr/lib
-+	quagga/libtool --mode=install install -c quagga/lib/libzebra.la $(INSTALLDIR)/quagga/usr/lib
-+	quagga/libtool --finish $(INSTALLDIR)/quagga/usr/lib
-+ifneq ($(HND_ROUTER),y)
-+	rm -f $(INSTALLDIR)/quagga/usr/lib/libzebra.a
- 	rm -f $(INSTALLDIR)/quagga/usr/lib/libzebra.la
--	$(STRIP)  $(INSTALLDIR)/quagga/usr/lib/libzebra.so
-+endif
- 	install -d $(INSTALLDIR)/quagga/usr/sbin
--	libtool --mode=install install -c quagga/zebra/zebra $(INSTALLDIR)/quagga/usr/sbin
--	libtool --mode=install install -c quagga/ripd/ripd $(INSTALLDIR)/quagga/usr/sbin
--	libtool --mode=install install -c quagga/watchquagga/watchquagga $(INSTALLDIR)/quagga/usr/sbin
-+	install -d $(INSTALLDIR)/quagga/usr/local/etc
-+	quagga/libtool --mode=install install -c quagga/zebra/zebra $(INSTALLDIR)/quagga/usr/sbin
-+	install -c -m 777 quagga/zebra/zebra.conf.sample $(INSTALLDIR)/quagga/usr/local/etc/zebra.conf
-+	quagga/libtool --mode=install install -c quagga/ripd/ripd $(INSTALLDIR)/quagga/usr/sbin
-+	install -c -m 777 quagga/ripd/ripd.conf.sample $(INSTALLDIR)/quagga/usr/local/etc/ripd.conf
-+	quagga/libtool --mode=install install -c quagga/watchquagga/watchquagga $(INSTALLDIR)/quagga/usr/sbin
- 	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/zebra
- 	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/ripd
- 	$(STRIP) $(INSTALLDIR)/quagga/usr/sbin/watchquagga
--	install -d $(INSTALLDIR)/quagga/rom/etc
--	install -c -m 600 quagga/zebra/zebra.conf.sample $(INSTALLDIR)/quagga/rom/etc/zebra.conf
--	install -c -m 600 quagga/ripd/ripd.conf.sample $(INSTALLDIR)/quagga/rom/etc/ripd.conf
- ifneq ($(HND_ROUTER),y)
- 	install -D $(shell dirname $(shell which $(CXX)))/../lib/librt.so.0 $(TARGETDIR)/lib/librt.so.0
- else
-@@ -3960,25 +4198,3314 @@
+@@ -3966,25 +4206,3254 @@
  	[ ! -f libevent-2.0.21/Makefile ] || $(MAKE) -C libevent-2.0.21 clean
  	@rm -f libevent-2.0.21/Makefile
  
@@ -15878,10 +15825,10 @@
 +		--disable-opie --disable-ntlm --disable-debug --disable-nls --disable-rpath \
 +		$(if $(RTCONFIG_IPV6),,--disable-ipv6) --disable-iri --without-included-regex  \
 +		--disable-dependency-tracking \
-+		CFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include" \
-+		LDFLAGS="-Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)"
++		CFLAGS="-O3 -Wall $(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -I$(TOP)/$(OPENSSLDIR)/include -I$(STAGEDIR)/usr/include" \
++		LDFLAGS="-Wl,--gc-sections -L$(TOP)/$(OPENSSLDIR) -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)"
 +
-+wget: openssl$(if $(RTCONFIG_HND_ROUTER),-aarch64,) zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,) wget-unpack wget/Makefile
++wget: $(BLACKFUEL_OPENSSLDIR) zlib$(if $(RTCONFIG_HND_ROUTER),-aarch64,) wget-unpack wget/Makefile
 +	$(MAKE) -C $@
 +
 +wget-clean:
@@ -16093,64 +16040,7 @@
 +endif
 +
 +### strongswan-5.2.1
-+
-+##strongswan/IPSEC
-+strongswan-5.2.1/stamp-h1:
-+	cd strongswan-5.2.1 && \
-+	autoreconf -i -f && \
-+	$(BLACKFUEL_OPTIMIZED_TOOLCHAIN) \
-+	PKG_CONFIG_PATH="$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/pkgconfig" \
-+	CFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -fPIC -I$(STAGEDIR)/usr/include" \
-+	CPPFLAGS="$(BLACKFUEL_OPTIMIZED_COPTS) -ffunction-sections -fdata-sections -O3 -pipe -fPIC -I$(STAGEDIR)/usr/include" \
-+	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -L$(STAGEDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)" \
-+	LIBS="-lssl -lcrypto -lpthread -ldl -lm" \
-+	$(BLACKFUEL_OPTIMIZED_CONFIGURE) \
-+	--prefix=/usr/ \
-+	--sysconfdir=/etc/ \
-+	--localstatedir=/var/ \
-+	--bindir=/usr/sbin \
-+	--libdir=/usr/$(BLACKFUEL_OPTIMIZED_LIB) \
-+	--libexecdir=/usr/$(BLACKFUEL_OPTIMIZED_LIB) \
-+	--with-ipsecdir=/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec \
-+	--with-user=admin \
-+	--disable-gmp \
-+	--enable-openssl \
-+	--enable-agent \
-+	--enable-eap-peap \
-+	--enable-eap-md5 \
-+	--enable-eap-mschapv2 \
-+	--enable-eap-identity \
-+	--with-strongswan-conf=/etc/strongswan.conf \
-+	--enable-md4 \
-+	--enable-acert \
-+	--enable-cmd \
-+	--enable-eap-tls \
-+	--enable-libipsec
-+	touch $@
-+
-+strongswan-5.2.1: strongswan-5.2.1/stamp-h1
-+	$(MAKE) $(PARALLEL_BUILD) -C strongswan-5.2.1
-+
-+strongswan-5.2.1-install: strongswan-5.2.1
-+	@$(SEP)
-+	@$(MAKE) -C strongswan-5.2.1 install DESTDIR=$(INSTALLDIR)/strongswan-5.2.1/ ; chmod 755 $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)
-+	@rm -rf $(INSTALLDIR)/strongswan-5.2.1/usr/etc
-+	@rm -f $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/*.la
-+	@rm -f $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/plugins/*.la
-+	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/*.so
-+	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/starter
-+	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/stroke
-+	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/scepclient
-+	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/charon
-+	$(BLACKFUEL_OPTIMIZED_STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/$(BLACKFUEL_OPTIMIZED_LIB)/ipsec/plugins/*.so
-+	mv $(INSTALLDIR)/strongswan-5.2.1/etc $(INSTALLDIR)/strongswan-5.2.1/usr/
-+
-+strongswan-5.2.1-clean:
-+	-@$(MAKE) -C strongswan-5.2.1 clean
-+	@rm -f strongswan-5.2.1/stamp-h1
-+	@rm -rf $(INSTALLDIR)/strongswan-5.2.1/
-+	@rm -rf $(TARGETDIR)/usr/sbin/strongswan-5.2.1/*
-+	@rm -rf $(TARGETDIR)/usr/$(BLACKFUEL_OPTIMIZED_LIB)/strongswan-5.2.1/*
++# (deleted)
 +
 +### libargon2
 +
@@ -16537,20 +16427,17 @@
 +	-@$(MAKE) -C ncurses-6.0 distclean
 +	@rm -f ncurses-6.0/Makefile
 +
-+ncurses-6.0-install:
++ncurses-6.0-install: ncurses-6.0
 +ifeq ($(RTCONFIG_BCMARM),y)
 +	install -D ncurses-6.0/lib/libncursesw.so.6.0 $(INSTALLDIR)/ncurses-6.0/usr/lib/libncursesw.so.6.0
++	ln -sf libncursesw.so.6.0 $(INSTALLDIR)/ncurses-6.0/usr/lib/libncursesw.so.6
++	ln -sf libncursesw.so.6.0 $(INSTALLDIR)/ncurses-6.0/usr/lib/libncursesw.so
 +else
 +	install -D ncurses-6.0/lib/libncurses.so.6.0 $(INSTALLDIR)/ncurses-6.0/usr/lib/libncurses.so.6.0
++	ln -sf libncurses.so.6.0 $(INSTALLDIR)/ncurses-6.0/usr/lib/libncurses.so.6
++	ln -sf libncurses.so.6.0 $(INSTALLDIR)/ncurses-6.0/usr/lib/libncurses.so
 +endif
-+
 +	$(STRIP) $(INSTALLDIR)/ncurses-6.0/usr/lib/*.so.*
-+
-+ifeq ($(RTCONFIG_BCMARM),y)
-+	cd $(INSTALLDIR)/ncurses-6.0/usr/lib && ln -sf libncursesw.so.6.0 libncursesw.so.6
-+else
-+	cd $(INSTALLDIR)/ncurses-6.0/usr/lib && ln -sf libncurses.so.6.0 libncurses.so.6
-+endif
 +
 +### strace
 +
@@ -16703,7 +16590,7 @@
 +		elif [ "$$PACKAGE_DIR" = "setserial" ]; then \
 +			URL="https://downloads.sourceforge.net/project/setserial/setserial/2.17/setserial-2.17.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "ntp" ]; then \
-+			URL="https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p12.tar.gz"; \
++			URL="https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p13.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "argp-standalone" ]; then \
 +			URL="https://www.lysator.liu.se/~nisse/misc/argp-standalone-1.3.tar.gz"; \
 +		elif [ "$$PACKAGE_DIR" = "rng-tools" ]; then \
@@ -16864,7 +16751,7 @@
  iproute2:
  	@$(SEP)
  	@$(MAKE) -C $@ KERNEL_INCLUDE=$(LINUX_INC_DIR)/include EXTRACFLAGS="$(EXTRACFLAGS) $(if $(RTCONFIG_IPV6),-DUSE_IPV6,-DNO_IPV6)" $(PARALLEL_BUILD)
-@@ -4059,11 +7586,12 @@
+@@ -4065,11 +7534,12 @@
  
  dropbear/config.h: dropbear/config.h.in
  	cd dropbear && \
@@ -16881,7 +16768,7 @@
  		--enable-openpty --enable-syslog --enable-shadow --enable-bundled-libtom \
  		--disable-lastlog \
  		--disable-utmp --disable-utmpx \
-@@ -4073,11 +7601,15 @@
+@@ -4079,11 +7549,15 @@
  
  dropbear: dropbear/config.h
  	@$(SEP)
@@ -16899,82 +16786,7 @@
  	cd $(INSTALLDIR)/dropbear/usr/bin && \
  	ln -sf dropbearmulti dropbearkey && \
  	ln -sf dropbearmulti dbclient && \
-@@ -4154,7 +7686,7 @@
- 
- FFMPEG_FILTER_CONFIG= $(foreach c, $(2), --$(1)="$(c)")
- 
--FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpeg4aac mpegvideo png wmav1 wmav2
-+FFMPEG_DECODERS:=aac ac3 atrac3 h264 jpegls mp3 mpeg1video mpeg2video mpeg4 mpegvideo png wmav1 wmav2
- FFMPEG_CONFIGURE_DECODERS:=$(call FFMPEG_FILTER_CONFIG,enable-decoder,$(FFMPEG_DECODERS))
- 
- FFMPEG_PARSERS:=aac ac3 h264 mpeg4video mpegaudio mpegvideo
-@@ -4163,28 +7695,34 @@
- FFMPEG_PROTOCOLS:=file
- FFMPEG_CONFIGURE_PROTOCOLS:=$(call FFMPEG_FILTER_CONFIG,enable-protocol,$(FFMPEG_PROTOCOLS))
- 
--FFMPEG_DISABLED_DEMUXERS:=amr apc ape ass bethsoftvid bfi c93 daud dnxhd dsicin dxa ffm gsm gxf idcin iff image2 image2pipe ingenient ipmovie lmlm4 mm mmf msnwc_tcp mtv mxf nsv nut oma pva rawvideo rl2 roq rpl segafilm shorten siff smacker sol str thp tiertexseq tta txd vmd voc wc3 wsaud wsvqa xa yuv4mpegpipe
-+FFMPEG_DISABLED_DEMUXERS:=aa acm act adf adp ads adx afc aix amr amrnb amrwb apc ape apng aptx aptx_hd aqtitle asf_o ass ast avr bethsoftvid bfi bfstm bit bmv boa brstm c93 cdxl cine codec2 codec2raw concat data daud dcstr dfa dirac dnxhd dsf dsicin dss dtshd dvbsub dvbtxt dxa epaf ffmetadata fits frm fsb g722 g723_1 g726 g726le g729 gdv genh gif gsm gxf hevc hls hnm ico idcin idf iff ilbc image2 image2pipe image_bmp_pipe image_dds_pipe image_dpx_pipe image_exr_pipe image_j2k_pipe image_jpeg_pipe image_jpegls_pipe image_pam_pipe image_pbm_pipe image_pcx_pipe image_pgm_pipe image_pgmyuv_pipe image_pictor_pipe image_png_pipe image_ppm_pipe image_psd_pipe image_qdraw_pipe image_sgi_pipe image_sunrast_pipe image_svg_pipe image_tiff_pipe image_webp_pipe image_xpm_pipe ingenient ipmovie ircam ivf ivr jacosub jv live_flv lmlm4 loas lrc lvf lxf mgsts microdvd mjpeg_2000 mlv mm mmf mpjpeg mpl2 mpsub msf msnwc_tcp mtaf mtv musx mv mxf mxg nistsphere nsp nsv nut oma paf pjs pmp pva pvf rawvideo realtext redspark rl2 roq rpl rsd rso s337m sami sbc sbg scc sdr2 sds sdx segafilm shorten siff sln smacker smjpeg smush sol spdif srt stl str subviewer subviewer1 sup svag tak tedcaptions thp threedostr tiertexseq tta tty txd ty v210 v210x vag vivo vmd vobsub voc vpk vplayer wc3 webm_dash_manifest webvtt wsaud wsd wsvqa wtv wve xa xbin xmv xvag xwma yuv4mpegpipe
- FFMPEG_CONFIGURE_DEMUXERS:=$(call FFMPEG_FILTER_CONFIG,disable-demuxer,$(FFMPEG_DISABLED_DEMUXERS))
- 
--ffmpeg/stamp-h1: zlib
-+ffmpeg/stamp-h1: $(if $(FFMPEG_ZLIB_REQD),zlib,)
- 	cd ffmpeg && symver_asm_label=no symver_gnu_asm=no symver=no CC=$(CC) LDFLAGS="-ldl"\
- 		./configure --enable-cross-compile --arch=$(ARCH) --target_os=linux \
--		--cross-prefix=$(CROSS_COMPILE) --enable-shared --enable-gpl --disable-doc \
--		--enable-pthreads --enable-small --disable-encoders --disable-filters \
--		--disable-muxers --disable-devices --disable-ffmpeg --disable-ffplay \
--		--disable-ffserver --disable-ffprobe --disable-avdevice --disable-swscale \
--		--disable-hwaccels --disable-network --disable-bsfs --disable-mpegaudio-hp \
--		--enable-demuxers $(FFMPEG_CONFIGURE_DEMUXERS) \
-+		--cross-prefix=$(CROSS_COMPILE) --enable-gpl \
-+		$(if $(MEDIA_SERVER_STATIC),,--disable-static --enable-shared) --enable-small \
-+		--disable-runtime-cpudetect --disable-mipsfpu --disable-mipsdsp --disable-mipsdspr2 \
-+		--disable-programs --disable-doc \
-+		--disable-avdevice --disable-swresample --disable-swscale --disable-postproc \
-+		--disable-avfilter --enable-pthreads --disable-network \
-+		--disable-encoders \
- 		--disable-decoders $(FFMPEG_CONFIGURE_DECODERS) \
-+		--disable-hwaccels \
-+		--disable-muxers \
-+		--enable-demuxers $(FFMPEG_CONFIGURE_DEMUXERS) \
- 		--disable-parsers $(FFMPEG_CONFIGURE_PARSERS) \
-+		--disable-bsfs \
- 		--disable-protocols $(FFMPEG_CONFIGURE_PROTOCOLS) \
--		--extra-cflags="-Os $(EXTRACFLAGSx) -ffunction-sections -fdata-sections -fPIC -I$(TOP)/zlib" \
-+		--disable-devices --disable-filters \
-+		--extra-cflags="-Os $(EXTRACFLAGSx) -ffunction-sections -fdata-sections -fPIC $(if $(FFMPEG_ZLIB_REQD),-I$(TOP)/zlib,)" \
- 		--extra-ldflags="-ffunction-sections -fdata-sections -Wl,--gc-sections -fPIC" \
--		--extra-libs="-L$(TOP)/zlib -lz" \
--		--enable-zlib --disable-debug --prefix=''
-+		$(if $(FFMPEG_ZLIB_REQD),--extra-libs="-L$(TOP)/zlib -lz" --enable-zlib,--disable-zlib) \
-+		--disable-debug --prefix=''
- 	touch $@
- 
--ffmpeg: ffmpeg/stamp-h1 zlib
-+ffmpeg: ffmpeg/stamp-h1 $(if $(FFMPEG_ZLIB_REQD),zlib,)
- 	$(MAKE) -C ffmpeg all $(PARALLEL_BUILD)
- 
- ffmpeg-clean:
-@@ -4194,12 +7732,12 @@
- ffmpeg-install: ffmpeg
- 	@$(SEP)
- ifneq ($(MEDIA_SERVER_STATIC),y)
--	install -D ffmpeg/libavformat/libavformat.so.52 $(INSTALLDIR)/ffmpeg/usr/lib/libavformat.so.52
--	install -D ffmpeg/libavcodec/libavcodec.so.52 $(INSTALLDIR)/ffmpeg/usr/lib/libavcodec.so.52
--	install -D ffmpeg/libavutil/libavutil.so.50 $(INSTALLDIR)/ffmpeg/usr/lib/libavutil.so.50
--	$(STRIP) $(INSTALLDIR)/ffmpeg/usr/lib/libavformat.so.52
--	$(STRIP) $(INSTALLDIR)/ffmpeg/usr/lib/libavcodec.so.52
--	$(STRIP) $(INSTALLDIR)/ffmpeg/usr/lib/libavutil.so.50
-+	install -D ffmpeg/libavformat/libavformat.so.58 $(INSTALLDIR)/ffmpeg/usr/lib/libavformat.so.58
-+	install -D ffmpeg/libavcodec/libavcodec.so.58 $(INSTALLDIR)/ffmpeg/usr/lib/libavcodec.so.58
-+	install -D ffmpeg/libavutil/libavutil.so.56 $(INSTALLDIR)/ffmpeg/usr/lib/libavutil.so.56
-+	$(STRIP) $(INSTALLDIR)/ffmpeg/usr/lib/libavformat.so.58
-+	$(STRIP) $(INSTALLDIR)/ffmpeg/usr/lib/libavcodec.so.58
-+	$(STRIP) $(INSTALLDIR)/ffmpeg/usr/lib/libavutil.so.56
- endif
- 
- .PHONY: ffmpeg
-@@ -4250,25 +7788,6 @@
+@@ -4256,25 +7730,6 @@
  	$(STRIP) $(INSTALLDIR)/flac/usr/lib/libFLAC.so.8
  endif
  
@@ -17000,7 +16812,7 @@
  libexif/stamp-h1:
  	cd libexif && CFLAGS="-Os -Wall $(EXTRACFLAGS) -fPIC -ffunction-sections -fdata-sections" \
  	LDFLAGS="-fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-@@ -4290,33 +7809,6 @@
+@@ -4296,33 +7751,6 @@
  	$(STRIP) $(INSTALLDIR)/libexif/usr/lib/libexif.so.12
  endif
  
@@ -17034,7 +16846,7 @@
  libid3tag/stamp-h1: zlib
  	cd libid3tag && \
  	touch NEWS && touch AUTHORS && touch ChangeLog && autoreconf -i -f && \
-@@ -4391,7 +7883,7 @@
+@@ -4397,7 +7825,7 @@
  		-I$(TOP)/libvorbis/include -I$(TOP)/shared" \
  	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections \
  		-L$(TOP)/zlib -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections \
@@ -17043,7 +16855,7 @@
  		-L$(TOP)/libogg/src/.libs -L$(TOP)/libexif/libexif/.libs -L$(TOP)/flac/src/libFLAC/.libs \
  		-L$(TOP)/ffmpeg/libavutil -L$(TOP)/ffmpeg/libavcodec -L$(TOP)/ffmpeg/libavformat \
  		-L$(TOP)/libid3tag/.libs" \
-@@ -4838,26 +8330,6 @@
+@@ -4844,26 +8272,6 @@
  ebtables-clean:
  	-@make -C ebtables clean
  
@@ -17070,51 +16882,7 @@
  openpam: openpam/Makefile
  	$(MAKE) -C $@ $(PARALLEL_BUILD) && $(MAKE) $@-stage
  
-@@ -4882,16 +8354,36 @@
- 	$(MAKE) -C $@ $(PARALLEL_BUILD)
- 
- openvpn/Makefile:
--	( cd openvpn ; ./autogen.sh && OPENSSL_CFLAGS="-I$(TOP)/openssl/include" \
--		OPENSSL_LIBS="-L$(TOP)/openssl -lcrypto -lssl" \
--		CFLAGS="-O3 -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections $(if $(RTCONFIG_BCMARM),-I$(SRCBASE)/shared/bcmwifi/include)" \
--		LDFLAGS="$(EXTRALDFLAGS) -L$(TOP)/nvram$(BCMEX)${EX7} ${EXTRA_NV_LDFLAGS} -lnvram -L$(TOP)/shared -lshared $(if $(RTCONFIG_QTN),-L$(TOP)/libqcsapi_client -lqcsapi_client) -L$(TOP)/zlib -lz -lpthread -ldl -L$(TOP)/lzo/src/.libs -L$(TOP)/openpam/lib/libpam/.libs -ffunction-sections -fdata-sections -Wl,--gc-sections" \
--		CPPFLAGS="-I$(TOP)/lzo/include -I$(TOP)/openssl/include  -I$(TOP)/openpam/include -I$(TOP)/shared -I$(SRCBASE)/include" \
--		IPROUTE="$(if $(RTCONFIG_HND_ROUTER),/bin/ip,/usr/sbin/ip)" IFCONFIG="/sbin/ifconfig" ROUTE="/sbin/route" \
-+ifeq ($(HND_ROUTER),y)
-+	cd $(SRCBASE) && rm -f kernel
-+	( cd openvpn ; ./autogen.sh && export OPENSSL_CFLAGS="-I$(TOP)/openssl -I$(LINUX_INC_DIR)/include"; \
-+		export OPENSSL_LIBS="-L$(TOP)/openssl -lcrypto -lssl"; \
-+		CFLAGS="-O3 -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections $(if $(RTCONFIG_HTTPS),-I$(TOP)/openssl/include/openssl) $(if $(RTCONFIG_BCMARM),-I$(SRCBASE)/shared/bcmwifi/include) -I$(LINUX_INC_DIR)/include" \
-+		LDFLAGS="$(EXTRALDFLAGS) -L$(TOP)/nvram$(BCMEX)$(EX7) -lnvram $(shell if [[ "$(HND_ROUTER)" = "y" ]] ; then echo "-L$(TOP)/wlcsm -lwlcsm"; else echo ""; fi) -L$(TOP)/shared -lshared $(if $(RTCONFIG_QTN),-L$(TOP)/libqcsapi_client -lqcsapi_client) $(if $(RTCONFIG_HTTPS),-L$(TOP)/openssl -lcrypto -lssl) -L$(TOP)/zlib -lz -lpthread -ldl -L$(TOP)/lzo/src/.libs -L$(TOP)/openpam/lib/libpam/.libs -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-+		CPPFLAGS="-I$(TOP)/lzo/include -I$(TOP)/openssl/include -I$(TOP)/openpam/include -I$(TOP)/shared -I$(SRCBASE)/include -I$(LINUX_INC_DIR)/include" \
-+		IPROUTE="/bin/ip" IFCONFIG="/sbin/ifconfig" ROUTE="/sbin/route" \
-+		$(CONFIGURE) --enable-shared --bindir=/usr/sbin --libdir=/usr/lib \
-+			--disable-debug --enable-management --disable-small \
-+			--disable-selinux --disable-socks \
-+			--enable-plugin-auth-pam --enable-iproute2 \
-+			ac_cv_lib_resolv_gethostbyname=no \
-+	)
-+	#cd openvpn; sed -i 's/build_libtool_libs=no/build_libtool_libs=yes/g' libtool;
-+	cd $(SRCBASE) && ln -sf ../../../../../../../kernel kernel
-+else
-+	( cd openvpn ; ./autogen.sh && export OPENSSL_CFLAGS="-I$(TOP)/openssl"; \
-+		export OPENSSL_LIBS="-L$(TOP)/openssl -lcrypto -lssl"; \
-+		CFLAGS="-O3 -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections $(if $(RTCONFIG_BCMARM),-I$(SRCBASE)/shared/bcmwifi/include) $(if $(RTCONFIG_HTTPS),-I$(TOP)/openssl/include/openssl)" \
-+		LDFLAGS="$(EXTRALDFLAGS) -L$(TOP)/nvram$(BCMEX)${EX7} ${EXTRA_NV_LDFLAGS} -lnvram -L$(TOP)/shared -lshared $(if $(RTCONFIG_QTN),-L$(TOP)/libqcsapi_client -lqcsapi_client) $(if $(RTCONFIG_HTTPS),-L$(TOP)/openssl -lcrypto -lssl) -L$(TOP)/zlib -lz -lpthread -ldl -L$(TOP)/lzo/src/.libs -L$(TOP)/openpam/lib/libpam/.libs -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-+		CPPFLAGS="-I$(TOP)/lzo/include -I$(TOP)/openssl/include -I$(TOP)/openpam/include -I$(TOP)/shared -I$(SRCBASE)/include" \
-+		IPROUTE="/usr/sbin/ip" IFCONFIG="/sbin/ifconfig" ROUTE="/sbin/route" \
- 		$(CONFIGURE) --prefix=/usr --bindir=/usr/sbin --libdir=/usr/lib \
--			--disable-debug --enable-management --enable-plugin-auth-pam --enable-iproute2 \
-+			--disable-debug --enable-management --disable-small \
-+			--disable-selinux --disable-socks \
-+			--enable-plugin-auth-pam --enable-iproute2 \
- 			ac_cv_lib_resolv_gethostbyname=no \
- 	)
-+endif
- 
- openvpn-clean:
- 	[ ! -f openvpn/Makefile ] || $(MAKE) -C openvpn clean
-@@ -4932,27 +8424,6 @@
+@@ -4938,27 +8346,6 @@
  	[ ! -f sdparm-1.02/Makefile ] || $(MAKE) -C sdparm-1.02 distclean
  	@rm -f sdparm-1.02/Makefile
  
@@ -17142,7 +16910,7 @@
  .PHONY: termcap
  termcap: termcap/Makefile
  	$(MAKE) -C $@
-@@ -5041,6 +8512,12 @@
+@@ -5047,6 +8434,12 @@
  	@touch $@
  
  lighttpd-1.4.39: shared nvram$(BCMEX)$(EX7) libpasswd libdisk samba-3.5.8 pcre-8.31 libxml2 sqlite libexif openssl curl-7.21.7 $(if $(RTCONFIG_PERMISSION_MANAGEMENT),PMS_DBapis) lighttpd-1.4.39/stamp-h1
@@ -17155,66 +16923,7 @@
  	$(MAKE) -C lighttpd-1.4.39 $(PARALLEL_BUILD)
  
  lighttpd-1.4.39-install:
-@@ -5241,58 +8718,6 @@
- 	-@$(MAKE) -C usbclient clean
- 	rm -rf usbclient/stamp-h1
- 
--##strongswan/IPSEC
--strongswan-5.2.1/stamp-h1:
--	cd strongswan-5.2.1 && autoreconf -i -f && \
--	$(if $(RTCONFIG_HND_ROUTER),$(CONFIGURE_64) CC=$(CROSS_COMPILE_64)gcc RANLIB=$(CROSS_COMPILE_64)ranlib, $(CONFIGURE) CC=$(CC)) \
--	--prefix=/usr/ --sysconfdir=/etc/ --localstatedir=/var/ \
--	--bindir=/usr/sbin --libdir=/usr/lib \
--	--libexecdir=/usr/lib --with-ipsecdir=/usr/lib/ipsec --with-user=admin \
--	--disable-gmp --enable-openssl --enable-agent --enable-eap-peap \
--	--enable-eap-md5 --enable-eap-mschapv2 --enable-eap-identity \
--	--with-strongswan-conf=/etc/strongswan.conf --enable-md4 --enable-acert \
--	--enable-cmd --enable-eap-tls --enable-libipsec \
--	CFLAGS="-O3 -I$(STAGEDIR)/usr/include -I$(TOP)/openssl/include $(if $(RTCONFIG_HND_ROUTER),-DHND_ROUTER,)" \
--	LDFLAGS="$(if $(RTCONFIG_HND_ROUTER), -L$(TOP)/strongswan-5.2.1, -L$(STAGEDIR)/usr/lib -L$(TOP)/openssl)" \
--	LIBS="-lssl -lcrypto -lpthread -ldl -lm"
--	touch $@
--
--strongswan-5.2.1: strongswan-5.2.1/stamp-h1
--	$(MAKE) $(PARALLEL_BUILD) -C strongswan-5.2.1
--
--strongswan-5.2.1-install: strongswan-5.2.1
--	@$(SEP)
--	@$(MAKE) -C strongswan-5.2.1 install DESTDIR=$(INSTALLDIR)/strongswan-5.2.1/ ; chmod 755 $(INSTALLDIR)/strongswan-5.2.1/usr/lib
--	@rm -rf $(INSTALLDIR)/strongswan-5.2.1/usr/etc
--	@rm -f $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/*.la
--	@rm -f $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/plugins/*.la
--	@rm -f $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/*.a
--	@rm -f $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/plugins/*.a
--ifeq ($(HND_ROUTER),y)
--	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/*.so
--	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/starter
--	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/stroke
--	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/scepclient
--	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/charon
--	$(STRIP_64) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/plugins/*.so
--else
--	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/*.so
--	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/starter
--	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/stroke
--	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/scepclient
--	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/charon
--	$(STRIP) $(INSTALLDIR)/strongswan-5.2.1/usr/lib/ipsec/plugins/*.so
--endif
--
--	mv $(INSTALLDIR)/strongswan-5.2.1/etc $(INSTALLDIR)/strongswan-5.2.1/usr/
--
--strongswan-5.2.1-clean:
--	-@$(MAKE) -C strongswan-5.2.1 clean
--	@rm -f strongswan-5.2.1/stamp-h1
--	@rm -rf $(INSTALLDIR)/strongswan-5.2.1/
--	@rm -rf $(TARGETDIR)/usr/sbin/strongswan-5.2.1/*
--	@rm -rf $(TARGETDIR)/usr/lib/strongswan-5.2.1/*
--
- sw-hw-auth:
- 	cd sw-hw-auth && \
- 	CC=$(CC) AR=$(AR) RANLIB=$(RANLIB) LD=$(LD) CFLAGS="-Os -Wall $(EXTRACFLAGS)" \
-@@ -5373,38 +8798,6 @@
+@@ -5370,38 +8763,6 @@
  	-@$(MAKE) -C fb_wifi clean
  	rm -rf fb_wifi/stamp-h1
  
@@ -17253,7 +16962,7 @@
  #snmp
  net-snmp-5.7.2/stamp-h1:
  	cd $(TOP)/net-snmp-5.7.2 && $(CONFIGURE) --prefix=$(INSTALLDIR)/net-snmp-5.7.2/usr \
-@@ -5860,7 +9253,7 @@
+@@ -5857,7 +9218,7 @@
  	cd tftp && CC=$(CC) && $(MAKE)
  
  tftp-clean:
@@ -17262,7 +16971,7 @@
  
  tftp-install:
  	# TPTP server
-@@ -6240,53 +9633,6 @@
+@@ -6237,57 +9598,6 @@
  	-@[ ! -f GeoIP-1.6.2/Makefile ] || $(MAKE) -C GeoIP-1.6.2 distclean
  	@rm -f GeoIP-1.6.2/stamp-h1
  
@@ -17299,10 +17008,14 @@
 -		--disable-opie --disable-ntlm --disable-debug --disable-nls --disable-rpath \
 -		$(if $(RTCONFIG_IPV6),,--disable-ipv6) --disable-iri --without-included-regex  \
 -		--disable-dependency-tracking \
+-		OPENSSL_LIBS="-L$(TOP)/$(OPENSSLDIR) -lcrypto -lssl" \
+-		OPENSSL_CFLAGS="-I$(TOP)/$(OPENSSLDIR)/include" \
+-		ZLIB_CFLAGS="-I$(TOP)zlib" \
+-		ZLIB_LIBS="-L$(TOP)/zlib -lz "\
 -		CFLAGS="-Os -Wall $(EXTRACFLAGS) -ffunction-sections -fdata-sections -I$(STAGEDIR)/usr/include" \
--		LDFLAGS="$(EXTRALDFLAGS) -Wl,--gc-sections -L$(STAGEDIR)/usr/lib"
+-		LDFLAGS="$(EXTRALDFLAGS) -Wl,--gc-sections -pthread"
 -
--wget: openssl zlib wget/Makefile
+-wget: $(OPENSSLDIR) zlib wget/Makefile
 -	$(MAKE) -C $@
 -
 -wget-clean:
@@ -17316,16 +17029,7 @@
  libqcacommon:
  	$(MAKE) -C $@ && $(MAKE) $@-stage
  
-@@ -6895,7 +10241,7 @@
- 		OpenSSL_CFLAGS="-I$(TOP)/openssl" \
- 		OpenSSL_LIBS="-L$(TOP)/openssl -lcrypto" \
- 		CFLAGS="$(EXTRACFLAGS) -Os -I$(TOP)/shared -I$(SRCBASE)/include -I$(SRCBASE)/shared/bcmwifi/include -DTYPEDEF_FLOAT_T -I$(STAGEDIR)/usr/include -ffunction-sections -fdata-sections -fPIC -DASUSWRT $(if $(RTCONFIG_LETSENCRYPT),-DASUS_LE,)" \
--		LDFLAGS="$(LDFLAGS) $(EXTRA_NV_LDFLAGS) -L$(TOP)/nvram$(BCMEX)$(EX7) -lnvram -L$(TOP)/shared -lshared $(if $(RTCONFIG_QTN),-L$(TOP)/libqcsapi_client -lqcsapi_client) -ffunction-sections -fdata-sections -Wl,--gc-sections" \
-+		LDFLAGS="$(LDFLAGS) $(shell if [[ "$(HND_ROUTER)" = "y" ]] ; then echo "-L$(TOP)/wlcsm -lwlcsm"; else echo ""; fi) -L$(TOP)/nvram$(BCMEX)$(EX7) -lnvram -L$(TOP)/shared -lshared $(if $(RTCONFIG_QTN),-L$(TOP)/libqcsapi_client -lqcsapi_client) -ffunction-sections -fdata-sections -Wl,--gc-sections" \
- 		--prefix="" --enable-openssl
- 
- inadyn: shared nvram${BCMEX}$(EX7) libconfuse inadyn/Makefile
-@@ -6911,46 +10257,11 @@
+@@ -6912,46 +10222,11 @@
  	[ ! -f inadyn/Makefile ] || $(MAKE) -C inadyn distclean
  	@rm -f inadyn/Makefile
  
@@ -17373,7 +17077,7 @@
  		LDFLAGS="$(LDFLAGS) -L$(TOP)/ncurses-6.0/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
  		PKG_CONFIG_LIBDIR="$(TOP)/ncurses-6.0/misc" PKG_CONFIG_PATH="$(TOP)/ncurses-6.0/misc" \
  		$(if $(RTCONFIG_BCMARM),ac_cv_lib_ncursesw_get_wch=yes --enable-utf8,ac_cv_lib_ncursesw_get_wch=no --enable-tiny) \
-@@ -6969,24 +10280,6 @@
+@@ -6970,24 +10245,6 @@
  	@$(SEP)
  	$(MAKE) -C $@
  
@@ -17398,16 +17102,7 @@
  samba-3.6.x: libiconv-1.14
  	@$(MAKE) -C samba-3.6.x $(PARALLEL_BUILD)
  samba-3.5.8:
-@@ -7054,7 +10347,7 @@
- 	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections" \
- 	libmnl_CFLAGS="-I$(TOP)/libmnl/staged/usr/include" \
- 	libmnl_LIBS="-L$(TOP)/libmnl/staged/usr/lib -lmnl" \
--	$(CONFIGURE) --prefix=/usr --with-kmod=no --with-kbuild=$(LINUXDIR)
-+	$(CONFIGURE) --prefix=/usr --with-kmod=$(if $(RTCONFIG_HND_ROUTER),no,yes) --with-kbuild=$(LINUXDIR)
- 	touch ipset_arm/stamp-h1
- 
- ipset_arm: ipset_arm/stamp-h1
-@@ -7364,37 +10657,6 @@
+@@ -7400,37 +10657,6 @@
  	$(STRIP) -s $(INSTALLDIR)/amas-utils/usr/sbin/amas-utils-cli
  endif
  
@@ -18166,7 +17861,7 @@
 +
 --- a/release/src/router/httpd/web.c
 +++ b/release/src/router/httpd/web.c
-@@ -3818,6 +3818,7 @@
+@@ -3824,6 +3824,7 @@
  		}
  	}
  	else if(!strcmp(apiName, "qos")){
@@ -18174,7 +17869,7 @@
  		char *desc, *addr, *port, *prio, *transferred, *proto;
  
  		if(!strcmp(apiAction, "enable")){
-@@ -4012,6 +4013,7 @@
+@@ -4018,6 +4019,7 @@
  		else{
  				retStatus = 3;
  		}
@@ -18182,7 +17877,7 @@
  	}
  	else{
  		retStatus = 3;
-@@ -10433,10 +10435,12 @@
+@@ -10439,10 +10441,12 @@
  	}
  	else if (!strcmp(action_mode, " Restart ")||!strcmp(action_mode, "reboot"))
  	{
@@ -18195,7 +17890,7 @@
  	}
  	else if (!strcmp(action_mode, "Restore")||!strcmp(action_mode, "restore"))
  	{
-@@ -10847,6 +10851,7 @@
+@@ -10853,6 +10857,7 @@
  	}
  	else if (!strcmp(action_mode, "start_simdetect"))
  	{
@@ -18203,7 +17898,7 @@
  		char *simdetect;
  
  		simdetect = get_cgi_json("simdetect", root);
-@@ -10856,6 +10861,7 @@
+@@ -10862,6 +10867,7 @@
  		nvram_set("freeze_duck", "15");
  		shutdown(fileno(wp), SHUT_RDWR);
  		sys_reboot();
@@ -18211,7 +17906,7 @@
  	}
  	else if(!strcmp(action_mode, "update_lte_fw")){
  		notify_rc("start_gobi_update");
-@@ -11592,6 +11598,7 @@
+@@ -11598,6 +11604,7 @@
  static void
  do_upgrade_post(char *url, FILE *stream, int len, char *boundary)
  {
@@ -18219,7 +17914,7 @@
  	#define MAX_VERSION_LEN 64
  
  	do_html_get(url, len, boundary);
-@@ -11803,12 +11810,14 @@
+@@ -11809,12 +11816,14 @@
  	while (len-- > 0)
  		if((ch = fgetc(stream)) == EOF)
  			break;
@@ -18234,7 +17929,7 @@
  	/* Reboot if successful */
  	char *autoreboot = safe_get_cgi_json("autoreboot",NULL);
  	char *reset = safe_get_cgi_json("reset",NULL);
-@@ -11879,6 +11888,7 @@
+@@ -11885,6 +11894,7 @@
  #endif
  		}
  	}
@@ -18242,7 +17937,7 @@
  }
  
  #if defined(RTCONFIG_SAVEJFFS)
-@@ -12153,6 +12163,7 @@
+@@ -12159,6 +12169,7 @@
  static void
  do_upload_cgi(char *url, FILE *stream)
  {
@@ -18250,7 +17945,7 @@
  	int ret;
  #if defined(RTCONFIG_SAVEJFFS)
  	int r;
-@@ -12196,6 +12207,7 @@
+@@ -12202,6 +12213,7 @@
  		websApply(stream, "UploadError.asp");
  	   	//unlink("/tmp/settings_u.prf");
  	}
@@ -18258,7 +17953,7 @@
  }
  
  #ifdef RTCONFIG_OPENVPN
-@@ -23488,7 +23500,11 @@
+@@ -23492,7 +23504,11 @@
  	{ "get_wifi_probe_status", ej_get_wifi_probe_status},
  	{ "get_encrypt_wifi_result", ej_get_encrypt_wifi_result},
  	{ "get_lan_hwaddr", ej_get_lan_hwaddr},
@@ -18270,18 +17965,6 @@
  #ifdef RTCONFIG_PUSH_EMAIL
  	{ "generate_trans_id", ej_generate_trans_id},
  #endif
---- a/release/src/router/config/config.in
-+++ b/release/src/router/config/config.in
-@@ -1688,9 +1688,6 @@
- 	bool "enable advanced roaming assistant"
- 	default n
- 
--config RTCONFIG_CFGSYNC
--	bool "Sync config"
--
- config RTCONFIG_WLCSCAN_RSSI
- 	bool "Sitesurvey for specific SSID rssi"
- 	default n
 --- a/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile
 +++ b/release/src-rt-5.02hnd/hostTools/libcreduction/Makefile
 @@ -64,7 +64,7 @@
