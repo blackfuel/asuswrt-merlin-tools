@@ -104,7 +104,7 @@ make_clean_3() {
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.c release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src/router/httpd/httpd.h release/src/router/httpd/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/Makefile release/src-rt/
-	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/platform.mak release/src-rt/
+#	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt/platform.mak release/src-rt/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-6.x.4708/linux/linux-2.6.36/config_base.6a release/src-rt-6.x.4708/linux/linux-2.6.36/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-7.14.114.x/src/linux/linux-2.6.36/config_base.6a release/src-rt-7.14.114.x/src/linux/linux-2.6.36/
 #	cp -p $HOME/blackfuel/asuswrt-merlin.382-blackfuel/release/src-rt-7.x.main/src/linux/linux-2.6.36/config_base.6a release/src-rt-7.x.main/src/linux/linux-2.6.36/
@@ -628,7 +628,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.4.0.5, NTP 4.2.8p13, DNSCrypt 1.9.5, Curl 7.65.0, Wget 1.20.3, Cryptsetup 2.1.0, Wipe 2.3.1, Whois 5.4.2, Findutils 4.6.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
+echo "\`Tor 0.4.2.7, NTP 4.2.8p14, DNSCrypt 1.9.5, Curl 7.69.1, Wget 1.20.3, Cryptsetup 2.3.1, Wipe 2.3.1, Whois 5.5.6, Findutils 4.7.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 
