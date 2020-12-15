@@ -628,7 +628,7 @@ cat "$DST/sha256sums.txt" >>"$NOTES"
 echo "\`\`\`" >>"$NOTES"
 echo >>"$NOTES"
 echo "__Included in this release__" >>"$NOTES"
-echo "\`Tor 0.4.2.7, NTP 4.2.8p14, DNSCrypt 1.9.5, Curl 7.69.1, Wget 1.20.3, Cryptsetup 2.3.1, Wipe 2.3.1, Whois 5.5.6, Findutils 4.7.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
+echo "\`Tor 0.4.4.6, Transmission 3.00, NTP 4.2.8p15, DNSCrypt 1.9.5, Curl 7.74.0, Wget 1.20.3, Cryptsetup 2.3.1, Wipe 2.3.1, Whois 5.5.6, Findutils 4.7.0, Apcupsd 3.14.14, Powstatd 1.5.1, Haveged 1.9.1, Rngtools 5, Rtl-entropy, RTL-SDR, Dieharder 3.31.1, Xtables-Addons\`" >>"$NOTES"
 echo >>"$NOTES"
 fi
 
