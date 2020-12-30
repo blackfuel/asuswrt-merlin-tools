@@ -290,10 +290,3 @@ if [ -n "$BACKUP_NEEDED" ]; then
   rm -rf ${FOLDER_NAME}
 fi
 ```
-
-
-
-
-
-### Donations may be sent to my Bitcoin address: 1i5Tpno73gJdr1XdmoxT6CjVFGef5KkZM
-Any amount is appreciated.  This helps me share new material and pay the bills.  Thank you.
